@@ -1,7 +1,10 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
+import javax.persistence.ManyToMany;
 
 /**
  * Entity implementation class for Entity: Usuario
@@ -35,6 +38,17 @@ public abstract class Usuario implements Serializable {
 	@Column(length=30) 
 	private String APELLIDO;
 	
+	@ManyToMany()
+	private List<Em> estaciones;
+	
+	public List<Em> getEstaciones() {
+		return estaciones;
+	}
+
+	public void setEstaciones(List<Em> estaciones) {
+		this.estaciones = estaciones;
+	}
+
 	public Usuario() {
 		super();
 	}

@@ -2,11 +2,13 @@ package com.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 /**
  * Entity implementation class for Entity: Departamento
  *
  */
+@Entity
 public class Departamento implements Serializable {
 
 	

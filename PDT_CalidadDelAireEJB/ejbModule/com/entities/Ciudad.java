@@ -1,7 +1,10 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
+import javax.persistence.OneToMany;
 
 /**
  * Entity implementation class for Entity: Ciudad
@@ -23,6 +26,28 @@ public class Ciudad implements Serializable {
 	@Column(length=30, unique=true, nullable=false) 
 	private String NOMBRE;
 	
+	@OneToMany(mappedBy = "ciudad")
+	private List<Administrador> administradores;
+	
+	@OneToMany(mappedBy = "ciudad")
+	private List<Investigador> investigadores;
+	
+	public List<Investigador> getInvestigadores() {
+		return investigadores;
+	}
+
+	public void setInvestigadores(List<Investigador> investigadores) {
+		this.investigadores = investigadores;
+	}
+
+	public List<Administrador> getAdministradores() {
+		return administradores;
+	}
+
+	public void setAdministradores(List<Administrador> administradores) {
+		this.administradores = administradores;
+	}
+
 	public Ciudad() {
 		super();
 		// TODO Auto-generated constructor stub

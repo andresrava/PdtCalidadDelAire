@@ -1,6 +1,7 @@
 package com.entities;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 /**
  * Entity implementation class for Entity: Aficionado
@@ -9,13 +10,13 @@ import javax.persistence.*;
 //@MappedSuperclass
 //@Entity
 //@Inheritance( strategy = InheritanceType.JOINED )
+@Entity
 public class Aficionado extends Usuario {
 
 private static final long serialVersionUID = 1L;	
 	
 @Column(length=30, unique=true, nullable=false)
 private Long ID_AFICIONADO;
-
 
 
 public Aficionado() {

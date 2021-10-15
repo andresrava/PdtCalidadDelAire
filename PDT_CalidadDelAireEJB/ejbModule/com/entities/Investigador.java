@@ -1,8 +1,11 @@
 package com.entities;
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * Entity implementation class for Entity: Investigador
@@ -35,7 +38,20 @@ private static final long serialVersionUID = 1L;
 	@ManyToOne
 	private Ciudad ciudad;
 	
+	@OneToMany(mappedBy = "investigador")
+	private List<Em> estaciones;
 	
+	
+	public List<Em> getEstaciones() {
+		return estaciones;
+	}
+
+
+	public void setEstaciones(List<Em> estaciones) {
+		this.estaciones = estaciones;
+	}
+
+
 	public Ciudad getCiudad() {
 		return ciudad;
 	}

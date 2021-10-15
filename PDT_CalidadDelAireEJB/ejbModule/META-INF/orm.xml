@@ -29,4 +29,10 @@
 		<table name="ADMINISTRADOR">
 		</table>
 	</entity>
+	<entity class="com.entities.Formulario" access="FIELD">
+		<table name="FORMULARIO">
+		</table>
+	</entity>
+	<entity class="com.entities.Em" access="FIELD">
+	</entity>
 </entity-mappings>
