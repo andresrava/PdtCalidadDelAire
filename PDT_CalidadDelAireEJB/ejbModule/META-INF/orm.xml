@@ -17,4 +17,16 @@
 		<table name="CASILLA">
 		</table>
 	</entity>
+	<entity class="com.entities.Aficionado" access="FIELD">
+		<table name="AFICIONADO">
+		</table>
+	</entity>
+	<entity class="com.entities.Investigador" access="FIELD">
+		<table name="INVESTIGADOR">
+		</table>
+	</entity>
+	<entity class="com.entities.Administrador" access="FIELD">
+		<table name="ADMINISTRADOR">
+		</table>
+	</entity>
 </entity-mappings>

@@ -2,13 +2,14 @@ package com.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.persistence.Entity;
 
 /**
  * Entity implementation class for Entity: Usuario
  *
  */
+@MappedSuperclass
 @Entity
+@Inheritance( strategy = InheritanceType.JOINED )
 public class Usuario implements Serializable {
 
 	
