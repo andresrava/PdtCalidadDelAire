@@ -1,31 +1,23 @@
 package com.entities;
 
-import java.io.Serializable;
 import javax.persistence.*;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 /**
  * Entity implementation class for Entity: Administrador
  *
  */
-@MappedSuperclass
-@Entity
-@Inheritance( strategy = InheritanceType.JOINED )
+//@MappedSuperclass
+//@Entity
+//@Inheritance( strategy = InheritanceType.JOINED )
 public class Administrador extends Usuario {
 
 	
 	private static final long serialVersionUID = 1L;
-//	@Id
-//	@SequenceGenerator(name = "SEQ_ADM", sequenceName="SEQ_ADM_seq",initialValue = 1, allocationSize = 1)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ADM")
+
 	
 	@Column(length=38, unique=true, nullable=false)
 	private Long ID_ADMINISTRADOR;
 	
-//	@Column(length=38, unique=true, nullable=false) 
-//	private Long ID_USUARIO;
-//	
 	@Column(length=8, unique=true, nullable=false) 
 	private String DOCUMENTO;
 	

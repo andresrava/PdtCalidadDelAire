@@ -18,7 +18,7 @@ public abstract class Usuario implements Serializable {
 	@Id
 	@SequenceGenerator(name = "SEQ_USU", sequenceName="SEQ_USU_seq",initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USU")
-	private Long ID_USUARIO;
+	protected Long ID_USUARIO;
 	
 	@Column(length=30, unique=true, nullable=false) 
 	private String MAIL;

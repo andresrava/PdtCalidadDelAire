@@ -1,32 +1,22 @@
 package com.entities;
 
-import java.io.Serializable;
 import javax.persistence.*;
 
 /**
  * Entity implementation class for Entity: Investigador
  *
  */
-@MappedSuperclass
-@Entity
-@Inheritance( strategy = InheritanceType.JOINED )
+//@MappedSuperclass
+//@Entity
+//@Inheritance( strategy = InheritanceType.JOINED )
 public class Investigador extends Usuario {
 
 	
 private static final long serialVersionUID = 1L;	
 	
-//	@Id
-//	@SequenceGenerator(name = "SEQ_INV", sequenceName="SEQ_INV_seq",initialValue = 1, allocationSize = 1)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_INV")
-
 	@Column(length=30, unique=true, nullable=false)
 	private Long ID_INVESTIGADOR;
 	
-//	@Column(length=38, unique=true, nullable=false) 
-//	private Long ID_USUARIO;
-//	
-
-
 	@Column(length=8, unique=true, nullable=false) 
 	private String DOCUMENTO;	
 	
