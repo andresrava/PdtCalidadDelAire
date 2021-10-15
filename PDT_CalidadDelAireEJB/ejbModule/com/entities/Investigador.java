@@ -10,18 +10,35 @@ import javax.persistence.*;
 @MappedSuperclass
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
-public class Investigador implements Serializable {
+public class Investigador extends Usuario {
 
 	
 private static final long serialVersionUID = 1L;	
 	
-	@Id
-	@SequenceGenerator(name = "SEQ_INV", sequenceName="SEQ_INV_seq",initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_INV")
+//	@Id
+//	@SequenceGenerator(name = "SEQ_INV", sequenceName="SEQ_INV_seq",initialValue = 1, allocationSize = 1)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_INV")
+
+	@Column(length=30, unique=true, nullable=false)
 	private Long ID_INVESTIGADOR;
 	
-	@Column(length=38, unique=true, nullable=false) 
-	private Long ID_USUARIO;
+//	@Column(length=38, unique=true, nullable=false) 
+//	private Long ID_USUARIO;
+//	
+
+
+	@Column(length=8, unique=true, nullable=false) 
+	private String DOCUMENTO;	
+	
+	@Column(length=50, unique=false, nullable=true) 
+	private String DOMICILIO;	
+	
+	@Column(length=10, unique=false, nullable=true) 
+	private String TELEFONO;	
+	
+	@Column(length=38, unique=false, nullable=false) 
+	private Long ID_CIUDAD;	
+	
 	
 	public Long getID_INVESTIGADOR() {
 		return ID_INVESTIGADOR;
@@ -32,19 +49,6 @@ private static final long serialVersionUID = 1L;
 	public void setID_INVESTIGADOR(Long iD_INVESTIGADOR) {
 		ID_INVESTIGADOR = iD_INVESTIGADOR;
 	}
-
-
-
-	public Long getID_USUARIO() {
-		return ID_USUARIO;
-	}
-
-
-
-	public void setID_USUARIO(Long iD_USUARIO) {
-		ID_USUARIO = iD_USUARIO;
-	}
-
 
 
 	public String getDOCUMENTO() {
@@ -94,20 +98,6 @@ private static final long serialVersionUID = 1L;
 	}
 
 
-
-	@Column(length=8, unique=true, nullable=false) 
-	private String DOCUMENTO;	
-	
-	@Column(length=50, unique=false, nullable=true) 
-	private String DOMICILIO;	
-	
-	@Column(length=10, unique=false, nullable=true) 
-	private String TELEFONO;	
-	
-	@Column(length=38, unique=false, nullable=false) 
-	private Long ID_CIUDAD;	
-	
-	
 	
 	public Investigador() {
 		super();

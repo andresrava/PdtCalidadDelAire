@@ -10,17 +10,19 @@ import javax.persistence.*;
 @MappedSuperclass
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
-public class Aficionado implements Serializable {
+public class Aficionado extends Usuario {
 
 private static final long serialVersionUID = 1L;	
 	
-@Id
-@SequenceGenerator(name = "SEQ_AFI", sequenceName="SEQ_AFI_seq",initialValue = 1, allocationSize = 1)
-@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_AFI")
+//@Id
+//@SequenceGenerator(name = "SEQ_AFI", sequenceName="SEQ_AFI_seq",initialValue = 1, allocationSize = 1)
+//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_AFI")
+
+@Column(length=30, unique=true, nullable=false)
 private Long ID_AFICIONADO;
 
-@Column(length=30, unique=true, nullable=false) 
-private Long ID_USUARIO;	
+//@Column(length=30, unique=true, nullable=false) 
+//private Long ID_USUARIO;	
 
 public Aficionado() {
 	super();
