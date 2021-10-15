@@ -1,6 +1,8 @@
 package com.entities;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * Entity implementation class for Entity: Administrador
@@ -9,6 +11,7 @@ import javax.persistence.*;
 //@MappedSuperclass
 //@Entity
 //@Inheritance( strategy = InheritanceType.JOINED )
+@Entity
 public class Administrador extends Usuario {
 
 	
@@ -27,10 +30,20 @@ public class Administrador extends Usuario {
 	@Column(length=10, unique=true, nullable=true) 
 	private String TELEFONO;
 	
-	@Column(length=38, unique=false, nullable=false) 
-	private Long ID_CIUDAD;
+	@ManyToOne
+	private Ciudad ciudad;
 	
 	
+	public Ciudad getCiudad() {
+		return ciudad;
+	}
+
+
+	public void setCiudad(Ciudad ciudad) {
+		this.ciudad = ciudad;
+	}
+
+
 	public Administrador() {
 		super();
 	}
@@ -75,15 +88,4 @@ public class Administrador extends Usuario {
 		TELEFONO = tELEFONO;
 	}
 
-
-	public Long getID_CIUDAD() {
-		return ID_CIUDAD;
-	}
-
-
-	public void setID_CIUDAD(Long iD_CIUDAD) {
-		ID_CIUDAD = iD_CIUDAD;
-	} 
-	
-   
 }

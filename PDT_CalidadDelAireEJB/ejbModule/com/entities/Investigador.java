@@ -1,14 +1,15 @@
 package com.entities;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * Entity implementation class for Entity: Investigador
  *
  */
-//@MappedSuperclass
-//@Entity
-//@Inheritance( strategy = InheritanceType.JOINED )
+
+@Entity
 public class Investigador extends Usuario {
 
 	
@@ -25,15 +26,24 @@ private static final long serialVersionUID = 1L;
 	
 	@Column(length=10, unique=false, nullable=true) 
 	private String TELEFONO;	
-	
-	@Column(length=38, unique=false, nullable=false) 
-	private Long ID_CIUDAD;	
-	
+		
 	
 	public Long getID_INVESTIGADOR() {
 		return ID_INVESTIGADOR;
 	}
 
+	@ManyToOne
+	private Ciudad ciudad;
+	
+	
+	public Ciudad getCiudad() {
+		return ciudad;
+	}
+
+
+	public void setCiudad(Ciudad ciudad) {
+		this.ciudad = ciudad;
+	}
 
 
 	public void setID_INVESTIGADOR(Long iD_INVESTIGADOR) {
@@ -75,20 +85,6 @@ private static final long serialVersionUID = 1L;
 		TELEFONO = tELEFONO;
 	}
 
-
-
-	public Long getID_CIUDAD() {
-		return ID_CIUDAD;
-	}
-
-
-
-	public void setID_CIUDAD(Long iD_CIUDAD) {
-		ID_CIUDAD = iD_CIUDAD;
-	}
-
-
-	
 	public Investigador() {
 		super();
 	} 
