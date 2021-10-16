@@ -12,6 +12,7 @@ import com.entities.Casilla;
 import com.entities.Em;
 import com.entities.Formulario;
 import com.entities.Investigador;
+import com.entities.Usuario;
 import com.entities.Departamento;
 import com.entities.Ciudad;
 import com.exception.ServiciosException;
