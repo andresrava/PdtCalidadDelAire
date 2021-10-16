@@ -5,13 +5,13 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import com.entities.Usuario;
-import com.exceptions.ServiciosException;
+import com.exception.ServiciosException;
 
 @Remote
-public interface UsuarioBeanRemote {
+public interface UsuariosBeanRemote {
 	void crear(Usuario usuario) throws ServiciosException;
 	void actualizar(Usuario usuario) throws ServiciosException;
-	void borrar (Long id) throws ServiciosException;
+	void borrar(Long id) throws ServiciosException;
 	List<Usuario> obtenerTodos();
 	List<Usuario> obtenerTodos(String filtro);
 }
