@@ -13,11 +13,14 @@ import javax.persistence.ManyToMany;
 @MappedSuperclass
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
+
+
 public abstract class Usuario implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;	
 
+	
 	@Id
 	@SequenceGenerator(name = "SEQ_USU", sequenceName="SEQ_USU_seq",initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USU")

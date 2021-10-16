@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 //@Entity
 //@Inheritance( strategy = InheritanceType.JOINED )
 @Entity
+@NamedQuery(name="Usuario.obtenerTodos", query="SELECT u FROM Usuario u")
 public class Administrador extends Usuario {
 
 	
