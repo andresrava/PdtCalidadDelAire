@@ -77,8 +77,8 @@ public class Formulario implements Serializable {
 		return aficionado;
 	}
 
-	public void setAficionado(Aficionado aficionado) {
-		this.aficionado = aficionado;
+	public void setAficionado(Aficionado aficionado2) {
+		this.aficionado = aficionado2;
 	}
 
 	public Administrador getAdministrador() {
