@@ -9,7 +9,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.Aficionado;
-import com.entities.Usuario;
+import com.entities.Formulario;
 import com.exceptions.ServiciosException;
 
 /**
@@ -70,6 +70,27 @@ public class AficionadosBean implements AficionadosBeanRemote {
 		TypedQuery<Aficionado>query = em.createQuery("SELECT a FROM Aficionado a WHERE a.nombre LIKE :nombre", Aficionado.class)
 				.setParameter("nombre",filtro);
 		return query.getResultList();
+	}
+
+	@Override
+	public List<Aficionado> obtenerPorFormulario(Long idFormulario) {
+		Aficionado aficionado = em.find(Aficionado.class, idFormulario);
+			TypedQuery<Aficionado>query = em.createQuery("SELECT a FROM Aficionado a WHERE a.id LIKE :id", Aficionado.class)
+					.setParameter("id",aficionado.getId());
+			return query.getResultList();
+	}
+
+	@Override
+	public void asignarFormulario(Long idAficionado, Long idFormulario) throws ServiciosException {
+		try {
+			Aficionado aficionado = em.find(Aficionado.class, idFormulario);
+			Formulario formulario = em.find(Formulario.class, idFormulario);
+			aficionado.getFormularios().add(formulario);
+			em.flush();
+		} catch(PersistenceException e) {
+			throw new ServiciosException ("No se pudo asignar el formulario al aficionado");
+		}
+		
 	}
 
 }

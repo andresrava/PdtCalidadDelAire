@@ -14,4 +14,6 @@ public interface AficionadosBeanRemote {
 	void borrar(Long id) throws ServiciosException;
 	List<Aficionado> obtenerTodos();
 	List<Aficionado> obtenerTodos(String filtro);
+	List<Aficionado> obtenerPorFormulario(Long idFormulario);
+	void asignarFormulario(Long idAficionado, Long idFormulario) throws ServiciosException;
 }

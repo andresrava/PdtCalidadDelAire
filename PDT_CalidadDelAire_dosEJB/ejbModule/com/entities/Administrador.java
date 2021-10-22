@@ -7,6 +7,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="ADMINISTRADORES")
 @PrimaryKeyJoinColumn(referencedColumnName="id")
+@NamedQuery(name="Administradores.obtenerTodos", query="SELECT a FROM Administrador a")
+
 
 public class Administrador extends Usuario implements java.io.Serializable {
 

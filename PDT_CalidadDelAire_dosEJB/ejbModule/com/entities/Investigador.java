@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name="INVESTIGADORES")
 @PrimaryKeyJoinColumn(referencedColumnName="id")
+@NamedQuery(name="Investigador.obtenerTodos", query="SELECT i FROM Investigador i")
 
 public class Investigador extends Usuario implements Serializable {
 
