@@ -12,6 +12,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="AFICIONADOS")
 @PrimaryKeyJoinColumn(referencedColumnName="id")
+@NamedQuery(name="Aficionado.obtenerTodos", query="SELECT a FROM Aficionado a")
+
 
 public class Aficionado extends Usuario implements Serializable {
 

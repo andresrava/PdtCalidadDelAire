@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="USUARIOS")
 @Inheritance(strategy=InheritanceType.JOINED)
+@NamedQuery(name="Usuario.obtenerTodos", query="SELECT u FROM Usuario u")
 
 public class Usuario implements java.io.Serializable {
 
