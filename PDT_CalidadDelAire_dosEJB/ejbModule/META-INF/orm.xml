@@ -13,6 +13,10 @@
 		<table name="INVESTIGADORES">
 		</table>
 	</entity>
+	<entity class="com.entities.Aficionado" access="FIELD">
+		<table name="AFICIONADOS">
+		</table>
+	</entity>
 	<entity class="com.entities.Departamento" access="FIELD">
 		<table name="DEPARTAMENTOS">
 		</table>

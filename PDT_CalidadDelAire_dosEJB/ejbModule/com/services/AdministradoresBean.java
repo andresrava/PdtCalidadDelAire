@@ -9,7 +9,6 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.Administrador;
-import com.entities.Aficionado;
 import com.entities.Ciudad;
 import com.entities.Formulario;
 import com.exceptions.ServiciosException;

@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @MappedSuperclass
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
-
+@NamedQuery(name="EstacionDeMedicion.obtenerTodos", query="SELECT e FROM EstacionDeMedicion e")
 public class EstacionDeMedicion implements Serializable {
 
 	
