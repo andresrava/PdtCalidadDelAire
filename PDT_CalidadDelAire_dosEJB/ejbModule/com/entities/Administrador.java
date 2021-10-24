@@ -3,6 +3,8 @@ package com.entities;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 @Table(name="ADMINISTRADORES")

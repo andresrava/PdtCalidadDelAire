@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.persistence.ManyToMany;
 
 /**
  * Entity implementation class for Entity: Aficionado

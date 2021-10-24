@@ -1,6 +1,9 @@
 package com.entities;
 
+import java.util.List;
+
 import javax.persistence.*;
+import javax.persistence.OneToMany;
 
 @Entity
 @Table(name="USUARIOS")
@@ -29,11 +32,22 @@ public class Usuario implements java.io.Serializable {
 	@Column(length=40,nullable=false,unique=true)
 	private String mail;
 	
+	public List<Actividad> getActividades() {
+		return actividades;
+	}
+
+	public void setActividades(List<Actividad> actividades) {
+		this.actividades = actividades;
+	}
+
 	@Column(length=40,nullable=false)
 	private String nombre;
 	
 	@Column(length=40,nullable=false)
 	private String apellido;
+	
+	@OneToMany(mappedBy = "usuario")
+	private List<Actividad> actividades;
 	
 	public Usuario() {
 		super();

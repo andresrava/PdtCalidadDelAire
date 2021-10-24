@@ -1,11 +1,10 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.*;
-
+@NamedQuery(name="Formulario.obtenerTodos", query="SELECT f FROM Formulario f")
 @MappedSuperclass
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
@@ -24,29 +23,20 @@ public class Formulario implements Serializable {
 	@Column(length=30,nullable=false,unique=true)
 	private String nombre;
 	
-	@Column(nullable=false)
-	private Date fechaHora;
-	
 	@Column(length=40)
 	private String resumen;
-	
-	@Column
-	private float latitud;
-	
-	@Column
-	private float longitud;
-	
+
 	@ManyToMany
 	private List<Casilla> casillas;
-	
-	@ManyToMany
-	private List<Aficionado> aficionados;
 	
 	@ManyToOne
 	private Investigador investigador;
 	
 	@ManyToOne
 	private Administrador administrador;
+	
+	@OneToMany
+	private List<Actividad> actividades; 
 	
 	
 	public Long getId() {
@@ -69,15 +59,6 @@ public class Formulario implements Serializable {
 	}
 
 
-	public Date getFechaHora() {
-		return fechaHora;
-	}
-
-
-	public void setFechaHora(Date fechaHora) {
-		this.fechaHora = fechaHora;
-	}
-
 
 	public String getResumen() {
 		return resumen;
@@ -89,26 +70,6 @@ public class Formulario implements Serializable {
 	}
 
 
-	public float getLatitud() {
-		return latitud;
-	}
-
-
-	public void setLatitud(float latitud) {
-		this.latitud = latitud;
-	}
-
-
-	public float getLongitud() {
-		return longitud;
-	}
-
-
-	public void setLongitud(float longitud) {
-		this.longitud = longitud;
-	}
-
-
 	public List<Casilla> getCasillas() {
 		return casillas;
 	}
@@ -117,17 +78,6 @@ public class Formulario implements Serializable {
 	public void setCasillas(List<Casilla> casillas) {
 		this.casillas = casillas;
 	}
-
-
-	public List<Aficionado> getAficionados() {
-		return aficionados;
-	}
-
-
-	public void setAficionados(List<Aficionado> aficionados) {
-		this.aficionados = aficionados;
-	}
-
 
 	public Investigador getInvestigador() {
 		return investigador;

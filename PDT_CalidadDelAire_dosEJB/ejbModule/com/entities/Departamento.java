@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.Enumerated;
 
 
 @Entity
-
+@NamedQuery(name="Departmento.obtenerTodos", query="SELECT d FROM Departamento d")
 public class Departamento implements Serializable {
 	
 private static final long serialVersionUID = 1L;
@@ -20,6 +19,9 @@ private static final long serialVersionUID = 1L;
 private Long id_casilla;
 
 public enum NombresEnum {ARTIGAS, SALTO, PAYSANDU, RÍO_NEGRO, SORIANO, COLONIA, SAN_JOSÉ, CANELONES, MONTEVIDEO, MALDONADO, ROCHA, TREINTA_Y_TRES, CERRO_LARGO, RIVERA, TACUAREMBÓ, DURAZNO, FLORES, FLORIDA };
+
+
+
 
 
 
@@ -54,6 +56,26 @@ private String descripción;
 
 	public void setDescripción(String descripción) {
 		this.descripción = descripción;
+	}
+
+
+	public Long getId_casilla() {
+		return id_casilla;
+	}
+
+
+	public void setId_casilla(Long id_casilla) {
+		this.id_casilla = id_casilla;
+	}
+
+
+	public List<Ciudad> getCiudades() {
+		return ciudades;
+	}
+
+
+	public void setCiudades(List<Ciudad> ciudades) {
+		this.ciudades = ciudades;
 	} 
 	
    

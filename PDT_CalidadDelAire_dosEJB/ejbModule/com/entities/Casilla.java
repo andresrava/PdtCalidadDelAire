@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.Enumerated;
 
 @MappedSuperclass
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
+@NamedQuery(name="Casilla.obtenerTodos", query="SELECT c FROM Casilla c")
 
 public class Casilla implements Serializable {
 
@@ -46,7 +46,7 @@ public class Casilla implements Serializable {
 		this.estaciones = estaciones;
 	}
 
-	private enum TipoDatoEnum {STRING, BOOLEAN, INTEGER};
+	private enum TipoDatoEnum {STRING, BOOLEAN, INTEGER, FLOAT};
 	
 	@Enumerated
 	@Column(length=10)
@@ -58,14 +58,8 @@ public class Casilla implements Serializable {
 	@Column(length=40)
 	private String unidaDeMedida;
 	
-	@Column
-	private String dato;
-	
 	@Column(length=50)
 	private String descripcion;
-	
-	@Column(length=30)
-	private String metodoDeMuestreo;
 	
 	@ManyToMany
 	private List<Formulario> formularios;
@@ -123,14 +117,6 @@ public class Casilla implements Serializable {
 		this.unidaDeMedida = unidaDeMedida;
 	}
 
-	public String getDato() {
-		return dato;
-	}
-
-	public void setDato(String dato) {
-		this.dato = dato;
-	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -139,13 +125,5 @@ public class Casilla implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public String getMetodoDeMuestreo() {
-		return metodoDeMuestreo;
-	}
-
-	public void setMetodoDeMuestreo(String metodoDeMuestreo) {
-		this.metodoDeMuestreo = metodoDeMuestreo;
-	} 
-	
    
 }

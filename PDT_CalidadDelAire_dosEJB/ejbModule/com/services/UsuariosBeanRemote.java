@@ -14,5 +14,6 @@ public interface UsuariosBeanRemote {
 	void borrar(Long id) throws ServiciosException;
 	List<Usuario> obtenerTodos();
 	List<Usuario> obtenerTodos(String filtro);
+	void asignarActividad (Long idUsuario, Long idActividad) throws ServiciosException;
 	
 }

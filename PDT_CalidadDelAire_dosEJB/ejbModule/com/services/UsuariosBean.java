@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.entities.Actividad;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 
@@ -66,6 +67,19 @@ public class UsuariosBean implements UsuariosBeanRemote {
 		TypedQuery<Usuario>query = em.createQuery("SELECT u FROM Usuario u WHERE u.nombre LIKE :nombre", Usuario.class)
 				.setParameter("nombre",filtro);
 		return query.getResultList();
+	}
+
+	@Override
+	public void asignarActividad(Long idUsuario, Long idActividad) throws ServiciosException {
+		try {
+			Usuario usuario = em.find(Usuario.class, idUsuario);
+			Actividad actividad = em.find(Actividad.class, idActividad);
+			usuario.getActividades().add(actividad);
+			em.flush();
+		} catch(PersistenceException e) {
+			throw new ServiciosException ("No se pudo asignar la Actividad al Usuario");
+		}
+		
 	}
 
 }

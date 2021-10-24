@@ -37,5 +37,13 @@
 		<table name="FORMULARIOS">
 		</table>
 	</entity>
+	<entity class="com.entities.Actividad" access="FIELD">
+		<table name="ACTIVIDADES">
+		</table>
+	</entity>
+	<entity class="com.entities.Registro" access="FIELD">
+		<table name="REGISTROS">
+		</table>
+	</entity>
 
 </entity-mappings>

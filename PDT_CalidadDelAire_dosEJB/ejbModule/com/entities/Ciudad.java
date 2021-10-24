@@ -8,12 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
-/**
- * Entity implementation class for Entity: Ciudad
- *
- */
+@NamedQuery(name="Ciudad.obtenerTodos", query="SELECT c FROM Ciudad c")
 @Entity
 public class Ciudad implements Serializable {
 
@@ -34,6 +32,36 @@ public class Ciudad implements Serializable {
 	
 	public Ciudad() {
 		super();
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	} 
 	
    
