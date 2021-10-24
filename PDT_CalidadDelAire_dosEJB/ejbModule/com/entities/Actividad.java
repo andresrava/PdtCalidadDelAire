@@ -1,19 +1,25 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @MappedSuperclass
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
+@NamedQuery(name="Actividad.obtenerTodos", query="SELECT a FROM Actividad a")
 
 public class Actividad implements Serializable {
 
 	
+	@Override
+	public String toString() {
+		return "Actividad [id=" + id + ", formulario=" + formulario + ", usuario=" + usuario + ", fechaHora="
+				+ fechaHora + ", registros=" + registros + "]";
+	}
+
 	private static final long serialVersionUID = 1L;	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ACT" )
@@ -25,6 +31,9 @@ public class Actividad implements Serializable {
 	
 	@ManyToOne
 	private Usuario usuario;
+	
+	@Column(nullable=false)
+	private Date fechaHora;
 	
 	@OneToMany
 	private List<Registro> registros;
