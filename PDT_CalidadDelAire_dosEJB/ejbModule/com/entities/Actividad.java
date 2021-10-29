@@ -5,8 +5,10 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-@MappedSuperclass
+
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
 @NamedQuery(name="Actividad.obtenerTodos", query="SELECT a FROM Actividad a")

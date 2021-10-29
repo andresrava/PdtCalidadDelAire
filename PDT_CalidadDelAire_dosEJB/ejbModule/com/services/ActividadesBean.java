@@ -13,6 +13,7 @@ import com.entities.Registro;
 import com.exceptions.ServiciosException;
 
 
+
 @Stateless
 public class ActividadesBean implements ActividadesBeanRemote {
 

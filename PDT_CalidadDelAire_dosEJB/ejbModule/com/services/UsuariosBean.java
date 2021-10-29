@@ -26,6 +26,7 @@ public class UsuariosBean implements UsuariosBeanRemote {
 	@Override
 	public void crear(Usuario usuario) throws ServiciosException {
 		try {
+			System.out.println("Entro al try");
 			em.persist(usuario);
 			em.flush();
 		}catch (PersistenceException e) {
@@ -33,6 +34,14 @@ public class UsuariosBean implements UsuariosBeanRemote {
 		}
 		
 	}
+	
+	@Override
+	public List<Usuario> validarLogin(String mail, String password) {
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.clave = :password AND u.mail = :mail", Usuario.class)
+				.setParameter("password", password).setParameter("mail", mail);
+		return query.getResultList();
+	}
+
 
 	@Override
 	public void actualizar(Usuario usuario) throws ServiciosException {

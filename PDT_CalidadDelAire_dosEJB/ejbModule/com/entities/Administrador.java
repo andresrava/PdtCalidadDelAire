@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-@Table(name="ADMINISTRADORES")
+
 @PrimaryKeyJoinColumn(referencedColumnName="id")
 @NamedQuery(name="Administradores.obtenerTodos", query="SELECT a FROM Administrador a")
 

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToMany;
 
 @MappedSuperclass
 @Entity

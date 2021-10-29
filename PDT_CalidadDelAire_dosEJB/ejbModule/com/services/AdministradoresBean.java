@@ -16,6 +16,7 @@ import com.exceptions.ServiciosException;
 /**
  * Session Bean implementation class AdministradoresBean
  */
+
 @Stateless
 public class AdministradoresBean implements AdministradoresBeanRemote {
 

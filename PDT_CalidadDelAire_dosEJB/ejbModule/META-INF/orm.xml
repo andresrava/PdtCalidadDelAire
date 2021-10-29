@@ -45,5 +45,9 @@
 		<table name="REGISTROS">
 		</table>
 	</entity>
+	<entity class="com.entities.Funcionalidad" access="FIELD">
+		<table name="FUNCIONALIDAD">
+		</table>
+	</entity>
 
 </entity-mappings>

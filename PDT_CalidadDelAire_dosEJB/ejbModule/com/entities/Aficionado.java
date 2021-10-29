@@ -11,7 +11,7 @@ import javax.persistence.ManyToMany;
  *
  */
 @Entity
-@Table(name="AFICIONADOS")
+
 @PrimaryKeyJoinColumn(referencedColumnName="id")
 @NamedQuery(name="Aficionado.obtenerTodos", query="SELECT a FROM Aficionado a")
 

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 @NamedQuery(name="Formulario.obtenerTodos", query="SELECT f FROM Formulario f")
 @MappedSuperclass
 @Entity

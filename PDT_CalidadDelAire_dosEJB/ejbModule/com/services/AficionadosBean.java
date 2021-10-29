@@ -15,6 +15,7 @@ import com.exceptions.ServiciosException;
 /**
  * Session Bean implementation class AficionadosBean
  */
+
 @Stateless
 public class AficionadosBean implements AficionadosBeanRemote {
 

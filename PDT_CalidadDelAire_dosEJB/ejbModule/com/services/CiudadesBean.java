@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
@@ -17,14 +16,13 @@ import com.exceptions.ServiciosException;
 @Stateless
 public class CiudadesBean implements CiudadesBeanRemote {
 
- @PersistenceContext
+
  EntityManager em;
  
     public CiudadesBean() {
         // TODO Auto-generated constructor stub
     }
 
-	@Override
 	public void crear(Ciudad ciudad) throws ServiciosException {
 		try {
 			em.persist(ciudad);

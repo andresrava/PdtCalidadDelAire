@@ -13,6 +13,7 @@ import com.entities.Formulario;
 import com.exceptions.ServiciosException;
 
 
+
 @Stateless
 public class CasillasBean implements CasillasBeanRemote {
 @PersistenceContext
