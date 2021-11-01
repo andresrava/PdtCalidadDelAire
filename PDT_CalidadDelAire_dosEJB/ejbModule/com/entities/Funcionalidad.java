@@ -49,6 +49,11 @@ public enum Rol {ADMINISTRADOR, INVESTIGADOR, AFICIONADO};
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	public Funcionalidad(String descripcion, String nombre) {
+		super();
+		this.descripcion = descripcion;
+		this.nombre = nombre;
+	}
 	
    
 }

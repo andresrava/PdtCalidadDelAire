@@ -30,14 +30,14 @@ public class UsuariosBean implements UsuariosBeanRemote {
 			em.persist(usuario);
 			em.flush();
 		}catch (PersistenceException e) {
-			throw new ServiciosException ("No se pudo crear el usuario: " + usuario.getNombre());
+			throw new ServiciosException ("No se pudo crear el usuario");
 		}
 		
 	}
 	
 	@Override
 	public List<Usuario> validarLogin(String mail, String password) {
-		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.clave = :password AND u.mail = :mail", Usuario.class)
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.contraseña = :password AND u.mail = :mail", Usuario.class)
 				.setParameter("password", password).setParameter("mail", mail);
 		return query.getResultList();
 	}

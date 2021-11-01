@@ -35,7 +35,7 @@ public class AdministradoresBean implements AdministradoresBeanRemote {
 			em.persist(administrador);
 			em.flush();
 		}catch (PersistenceException e) {
-			throw new ServiciosException ("No se pudo crear el aficionado: " + administrador.getNombre());
+			throw new ServiciosException ("No se pudo crear el administrador: " + administrador.getNombre());
 		}
 		
 	}

@@ -18,7 +18,7 @@ private static final long serialVersionUID = 1L;
 @Id
 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DEP" )
 @SequenceGenerator(name = "SEQ_DEP", initialValue = 1, allocationSize = 1)
-private Long id_casilla;
+private Long id;
 
 public enum NombresEnum {ARTIGAS, SALTO, PAYSANDU, RÍO_NEGRO, SORIANO, COLONIA, SAN_JOSÉ, CANELONES, MONTEVIDEO, MALDONADO, ROCHA, TREINTA_Y_TRES, CERRO_LARGO, RIVERA, TACUAREMBÓ, DURAZNO, FLORES, FLORIDA };
 
@@ -64,12 +64,12 @@ private String descripción;
 
 
 	public Long getId_casilla() {
-		return id_casilla;
+		return id;
 	}
 
 
 	public void setId_casilla(Long id_casilla) {
-		this.id_casilla = id_casilla;
+		this.id = id_casilla;
 	}
 
 
@@ -80,7 +80,15 @@ private String descripción;
 
 	public void setCiudades(List<Ciudad> ciudades) {
 		this.ciudades = ciudades;
+	}
+
+
+	public Departamento(NombresEnum nombre, String descripción) {
+		super();
+		this.nombre = nombre;
+		this.descripción = descripción;
 	} 
+	
 	
    
 }

@@ -85,6 +85,12 @@ public class Administrador extends Usuario implements java.io.Serializable {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+
+	public Administrador(String apellido, String clave, String documento, String mail, String nombre) {
+		super(apellido, clave, documento, mail, nombre);
+		// TODO Auto-generated constructor stub
 	} 
 	
    
