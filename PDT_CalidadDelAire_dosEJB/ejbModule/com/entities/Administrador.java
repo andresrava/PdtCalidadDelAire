@@ -89,10 +89,18 @@ public class Administrador extends Usuario implements Serializable {
 	}
 
 
-	public Administrador(String apellido, String clave, String documento, String mail, String nombre) {
+
+
+
+	public Administrador(String apellido, String clave, String documento, String mail, String nombre, String telefono) {
 		super(apellido, clave, documento, mail, nombre);
-		// TODO Auto-generated constructor stub
-	} 
+		this.telefono = telefono;
+	}
+
+
+
+
+	
 	
    
 }

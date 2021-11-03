@@ -117,7 +117,7 @@ public class Login {
 		private static void cargaInicial(AdministradoresBeanRemote recurso) throws NamingException, ServiciosException {
 			
 
-			recurso.crear(new Administrador("Rava","miclave","3854","mimail","Andrés"));
+			recurso.crear(new Administrador("Rava","miclave","3854","mimail","Andrés" , "mitelefono"));
 		
 //			Usuario usuario = new Usuario(1, "Rava","miclave","midocumento","mimail","Andrés");
 //			String ruta="PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";

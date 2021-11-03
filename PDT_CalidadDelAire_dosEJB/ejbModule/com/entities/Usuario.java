@@ -3,6 +3,7 @@ package com.entities;
 
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import javax.persistence.OneToMany;
 @Inheritance(strategy=InheritanceType.JOINED)
 @NamedQuery(name="Usuario.obtenerTodos", query="SELECT u FROM Usuario u")
 
-public abstract class Usuario implements java.io.Serializable {
+public abstract class Usuario implements Serializable {
 
 	/**
 	 * 

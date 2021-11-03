@@ -16,7 +16,7 @@ public class PrueboAdminstrador {
 					InitialContext.doLookup(ruta);
 	
 		
-		Administrador administrador = new Administrador("Rava" , "miclave" , "midocumento" , "mimail" , "Andrés");
+		Administrador administrador = new Administrador("Rava" , "miclave" , "midocumento" , "mimail" , "Andrés" , "mitelefono");
 		
 		try {
 			administradorBean.crear(administrador);
