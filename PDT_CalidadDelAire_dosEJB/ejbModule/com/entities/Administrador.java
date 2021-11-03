@@ -92,11 +92,20 @@ public class Administrador extends Usuario implements Serializable {
 
 
 
+	
+
+
 	public Administrador(String apellido, String clave, String documento, String mail, String nombre, String telefono) {
 		super(apellido, clave, documento, mail, nombre);
 		this.telefono = telefono;
+		
 	}
-
+	
+@Override
+	public String toString() {
+		return "Administrador [documento=" + documento + ", domicilio=" + domicilio + ", telefono=" + telefono
+				+ ", ciudad=" + ciudad + ", formularios=" + formularios + "]";
+	}
 
 
 

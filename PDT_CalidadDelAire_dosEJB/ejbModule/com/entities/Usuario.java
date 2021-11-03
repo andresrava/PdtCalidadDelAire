@@ -11,12 +11,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @MappedSuperclass
-@Entity
+@Entity (name = "Usuario")
 @Table(name="USUARIOS")
 @Inheritance(strategy=InheritanceType.JOINED)
 @NamedQuery(name="Usuario.obtenerTodos", query="SELECT u FROM Usuario u")
 
-public abstract class Usuario implements Serializable {
+public class Usuario implements Serializable {
 
 	/**
 	 * 
@@ -28,8 +28,6 @@ public abstract class Usuario implements Serializable {
 	@SequenceGenerator(name = "SEQ_USU", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
-	@Column(length=255,nullable=false,unique=true)
-	private String nombreUsuario;
 	
 	@Column(length=255,nullable=false)
 	private String contraseña;
@@ -58,7 +56,7 @@ public abstract class Usuario implements Serializable {
 
 	//Constructor sin ID
 		public Usuario(String apellido, String clave, String documento, String mail, String nombre) {
-			super();
+			
 			this.apellido = apellido;
 			this.contraseña = clave;
 			this.documento = documento;
@@ -68,7 +66,7 @@ public abstract class Usuario implements Serializable {
 		
 		//Constructor agregando ID
 		public Usuario(long idUsuario, String apellido, String clave, String documento, String mail, String nombre) {
-			super();
+			
 			this.id = idUsuario;
 			this.apellido = apellido;
 			this.contraseña = clave;
@@ -85,14 +83,6 @@ public abstract class Usuario implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getNombreUsuario() {
-		return nombreUsuario;
-	}
-
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
 	}
 
 	public String getContraseña() {

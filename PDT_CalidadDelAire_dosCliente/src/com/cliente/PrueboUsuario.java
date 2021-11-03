@@ -1,16 +1,15 @@
 package com.cliente;
 
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import com.entities.Administrador;
 import com.exceptions.ServiciosException;
 import com.services.AdministradoresBeanRemote;
 
-public class PrueboAdminstrador {
+public class PrueboUsuario {
 
-	public static void main(String[] args) throws NamingException {
-		String ruta = "PDT_CalidadDelAire_dosEJB/AdministradoresBean!com.services.AdministradoresBeanRemote";
+	public static void main(String[] args) {
+	String ruta = "PDT_CalidadDelAire_dosEJB/AdministradoresBean!com.services.AdministradoresBeanRemote";
 		
 		AdministradoresBeanRemote administradorBean = (AdministradoresBeanRemote)
 					InitialContext.doLookup(ruta);
@@ -26,6 +25,5 @@ public class PrueboAdminstrador {
 			System.out.println(e.getMessage());
 		}
 	}
-	
 
 }
