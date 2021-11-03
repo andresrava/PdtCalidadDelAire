@@ -10,11 +10,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @MappedSuperclass
+@Entity
 @Table(name="USUARIOS")
 @Inheritance(strategy=InheritanceType.JOINED)
 @NamedQuery(name="Usuario.obtenerTodos", query="SELECT u FROM Usuario u")
 
-public class Usuario implements java.io.Serializable {
+public abstract class Usuario implements java.io.Serializable {
 
 	/**
 	 * 
