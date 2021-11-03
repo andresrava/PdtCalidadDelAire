@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="ejbModule"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PDT_CalidadDelAire_dosEJB"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-12">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/WildFly 20.0 Runtime 2">
-		<attributes>
-			<attribute name="owner.project.facets" value="jpt.jpa;jst.ejb"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/lenovo x250/WildFly/wildfly-20.0.1.Final/wildfly-20.0.1.Final/modules/system/layers/base/org/hibernate/main/hibernate-core-5.3.17.Final.jar"/>
-	<classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="lib" path="C:/Users/lenovo x250/WildFly/wildfly-20.0.1.Final/wildfly-20.0.1.Final/modules/system/layers/base/org/antlr/main/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lenovo x250/WildFly/wildfly-20.0.1.Final/wildfly-20.0.1.Final/bin/client/jboss-client.jar"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
