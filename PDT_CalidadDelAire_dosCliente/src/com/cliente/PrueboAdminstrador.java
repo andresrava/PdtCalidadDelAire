@@ -4,6 +4,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.entities.Administrador;
+import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 import com.services.AdministradoresBeanRemote;
 
@@ -15,8 +16,16 @@ public class PrueboAdminstrador {
 		AdministradoresBeanRemote administradorBean = (AdministradoresBeanRemote)
 					InitialContext.doLookup(ruta);
 	
+		Usuario usuario = new Usuario("Rava" , "miclave" , "midocumento" , "mimail" , "Andrés");
+		System.out.println(usuario.toString());
+		Administrador administrador = new Administrador();
+		administrador.setApellido("Rava");
+		administrador.setContraseña("miclave");
+		administrador.setDocumento("midocumento");
+		administrador.setMail("mimail");
+		administrador.setNombre("Andrés");
 		
-		Administrador administrador = new Administrador("Rava" , "miclave" , "midocumento" , "mimail" , "Andrés" , "mitelefono");
+		
 		System.out.println(administrador.toString());
 		try {
 			administradorBean.crear(administrador);

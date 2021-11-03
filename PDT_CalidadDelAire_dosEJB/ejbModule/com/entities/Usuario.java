@@ -141,6 +141,13 @@ public class Usuario implements Serializable {
 		this.funcionalidades = funcionalidades;
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", contraseña=" + contraseña + ", documento=" + documento + ", mail=" + mail
+				+ ", nombre=" + nombre + ", apellido=" + apellido + ", actividades=" + actividades
+				+ ", funcionalidades=" + funcionalidades + "]";
+	}
+
 
 	
 	

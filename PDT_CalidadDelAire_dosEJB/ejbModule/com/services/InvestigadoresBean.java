@@ -32,7 +32,7 @@ public class InvestigadoresBean implements InvestigadoresBeanRemote {
 			em.persist(investigador);
 			em.flush();
 		}catch (PersistenceException e) {
-			throw new ServiciosException ("No se pudo crear el investigador: " + investigador.getNombre());
+			throw new ServiciosException ("No se pudo crear el investigador: " + " " + investigador.getNombre() + " " + "e.printStackTrace()");
 		}
 		
 	}

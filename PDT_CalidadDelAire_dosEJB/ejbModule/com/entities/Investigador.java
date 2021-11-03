@@ -75,6 +75,16 @@ public class Investigador extends Usuario implements Serializable {
 
 	public void setTeléfono(String teléfono) {
 		this.teléfono = teléfono;
+	}
+
+	public Investigador(String apellido, String clave, String documento, String mail, String nombre , String domicilio, String teléfono) {
+		super(apellido, clave, documento, mail, nombre);
+		 
+		this.documento = documento;
+		this.domicilio = domicilio;
+		this.teléfono = teléfono;
+		
+		
 	} 
 	
    
