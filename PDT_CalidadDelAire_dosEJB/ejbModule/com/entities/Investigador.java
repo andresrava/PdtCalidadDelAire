@@ -24,7 +24,7 @@ public class Investigador extends Usuario implements Serializable {
 	private String domicilio;
 	
 	@Column(length=20)
-	private String teléfono;
+	private String telefono;
 	
 	@ManyToOne
 	private Ciudad ciudad;
@@ -70,22 +70,26 @@ public class Investigador extends Usuario implements Serializable {
 	}
 
 	public String getTeléfono() {
-		return teléfono;
+		return telefono;
 	}
 
 	public void setTeléfono(String teléfono) {
-		this.teléfono = teléfono;
+		this.telefono = teléfono;
 	}
 
-	public Investigador(String apellido, String clave, String documento, String mail, String nombre , String domicilio, String teléfono) {
-		super(apellido, clave, documento, mail, nombre);
+	public Investigador( String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono) {
+		super( nombre , apellido , mail , clave);
 		 
 		this.documento = documento;
 		this.domicilio = domicilio;
-		this.teléfono = teléfono;
-		
-		
+		this.telefono = telefono;
+	}
+
+	@Override
+	public String toString() {
+		return "Investigador [documento=" + documento + ", domicilio=" + domicilio + ", telefono=" + telefono + "]";
 	} 
+	
 	
    
 }

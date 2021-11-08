@@ -32,9 +32,6 @@ public class Usuario implements Serializable {
 	@Column(length=255,nullable=false)
 	private String contraseña;
 	
-	@Column(length=255, unique=true, nullable=false)
-	private String documento;
-
 	@Column(length=255,nullable=false,unique=true)
 	private String mail;
 	
@@ -55,22 +52,20 @@ public class Usuario implements Serializable {
 	}
 
 	//Constructor sin ID
-		public Usuario(String apellido, String clave, String documento, String mail, String nombre) {
+		public Usuario( String nombre , String apellido, String mail, String clave ) {
 			
 			this.apellido = apellido;
 			this.contraseña = clave;
-			this.documento = documento;
 			this.mail = mail;
 			this.nombre = nombre;
 		}
 		
 		//Constructor agregando ID
-		public Usuario(long idUsuario, String apellido, String clave, String documento, String mail, String nombre) {
+		public Usuario(long idUsuario,  String nombre , String apellido, String mail, String clave) {
 			
 			this.id = idUsuario;
 			this.apellido = apellido;
 			this.contraseña = clave;
-			this.documento = documento;
 			this.mail = mail;
 			this.nombre = nombre;
 		}
@@ -125,14 +120,6 @@ public class Usuario implements Serializable {
 		this.actividades = actividades;
 	}
 
-	public String getDocumento() {
-		return documento;
-	}
-
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
-
 	public List<Funcionalidad> getFuncionalidades() {
 		return funcionalidades;
 	}
@@ -141,12 +128,7 @@ public class Usuario implements Serializable {
 		this.funcionalidades = funcionalidades;
 	}
 
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", contraseña=" + contraseña + ", documento=" + documento + ", mail=" + mail
-				+ ", nombre=" + nombre + ", apellido=" + apellido + ", actividades=" + actividades
-				+ ", funcionalidades=" + funcionalidades + "]";
-	}
+	
 
 
 	

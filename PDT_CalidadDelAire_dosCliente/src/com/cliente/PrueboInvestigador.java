@@ -16,11 +16,11 @@ InvestigadoresBeanRemote investigadorBean = (InvestigadoresBeanRemote)
 					InitialContext.doLookup(ruta);
 	
 
-		Investigador investigador = new Investigador("Einstein" , "einteinClave" , "EDocumento" , "EMail" , "Albert" , "EDomicilio" , "Eteléfono" );
+		Investigador investigador = new Investigador( "Albert" ,"Einstein" , "EMail", "einteinClave" , "EDocu"  , "EDomicilio" , "Eteléfono" );
 		System.out.println(investigador.toString());
 		try {
 			investigadorBean.crear(investigador);
-			System.out.println("Se creó el Administrador");
+			System.out.println("Se creó el Investigador");
 			
 		} catch (ServiciosException e) {
 			System.out.println(e.getMessage());

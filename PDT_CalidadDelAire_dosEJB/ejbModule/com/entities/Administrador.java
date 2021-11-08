@@ -90,10 +90,17 @@ public class Administrador extends Usuario implements Serializable {
 
 
 
-public Administrador(String apellido, String clave, String documento, String mail, String nombre , String telefono) {
-		super(apellido, clave, documento, mail, nombre);
+
+public Administrador( String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono) 
+	{
+		super(nombre , apellido , mail , clave);
+		this.documento = documento;
+		this.domicilio = domicilio;
 		this.telefono = telefono;
+		
+		;
 	}
+
 
 
 @Override

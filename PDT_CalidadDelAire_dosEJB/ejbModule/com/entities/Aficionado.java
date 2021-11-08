@@ -38,5 +38,23 @@ public class Aficionado extends Usuario implements Serializable {
 	public Aficionado() {
 		super();
 	}
-   
+
+
+	public Aficionado(String nombre, String apellido, String mail, String clave) {
+		super(nombre, apellido, mail, clave);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	@Override
+	public String toString() {
+		String nombre = this.getNombre();
+		String apellido = this.getApellido();
+		String mail = this.getMail();
+		return "Aficionado  [nombre: " + nombre + "apellido: " + apellido + "mail: " + mail +"]";
+	}
+
+
+	
+	
 }
