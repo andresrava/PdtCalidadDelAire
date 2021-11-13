@@ -127,5 +127,15 @@ public class Casilla implements Serializable {
 		this.descripcion = descripcion;
 	}
 
+
+
+	public Casilla(String nombre, String parametro, String unidaDeMedida) {
+		super();
+		this.nombre = nombre;
+		this.parametro = parametro;
+		this.unidaDeMedida = unidaDeMedida;
+	}
+
+	
    
 }

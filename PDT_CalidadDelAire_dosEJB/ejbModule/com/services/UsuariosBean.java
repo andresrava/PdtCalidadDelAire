@@ -24,7 +24,7 @@ public class UsuariosBean implements UsuariosBeanRemote {
     }
 
 	@Override
-	public void crear(Usuario usuario) throws ServiciosException {
+	public Usuario crear(Usuario usuario) throws ServiciosException {
 		try {
 			System.out.println("Entro al try");
 			em.persist(usuario);
@@ -32,6 +32,7 @@ public class UsuariosBean implements UsuariosBeanRemote {
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo crear el usuario");
 		}
+		return usuario;
 		
 	}
 	

@@ -20,7 +20,7 @@ public class ValidaLogin {
 			usuario = usuarios.get(0);
 			return usuario;
 		}else {
-        	JOptionPane.showMessageDialog(null, "Error - credenciales incorrectas.");
+        	
         	return null;
         }
 		

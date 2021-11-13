@@ -5,10 +5,13 @@ import javax.naming.NamingException;
 
 import com.entities.Administrador;
 import com.entities.Aficionado;
+import com.entities.Casilla;
 import com.entities.Investigador;
 import com.exceptions.ServiciosException;
 import com.services.AdministradoresBeanRemote;
 import com.services.AficionadosBeanRemote;
+import com.services.CasillasBean;
+import com.services.CasillasBeanRemote;
 import com.services.InvestigadoresBeanRemote;
 
 public class CargaInicial {
@@ -16,9 +19,10 @@ public class CargaInicial {
 	public void cargaInicial() throws NamingException {
 		
 		//Comienza carga 2 Administradores 
-		Administrador administrador1 = new Administrador("AdminApellido1" , "Adminnombre1" , "AdminMail1" , "AdminClave1" , "AdmDocu1" ,"AdminDomic1" , "AdminTel1");
-		Administrador administrador2 = new Administrador("AdminApellido2" , "Adminnombre2" , "AdminMail2" , "AdminClave2" , "AdmDocu2" ,"AdminDomic2" , "AdminTel2");
-		
+		Administrador administrador1 = new Administrador("Adminnombre1" , "AdminApellido1" ,  "AdminMail1" , "AdminClave1" , "AdmDocu1" ,"AdminDomic1" , "AdminTel1");
+		Administrador administrador2 = new Administrador("Adminnombre2" , "AdminApellido2" ,  "AdminMail2" , "AdminClave2" , "AdmDocu2" ,"AdminDomic2" , "AdminTel2");
+		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mail_valido" , "clave_valida" , "AdmDocu3" ,"AdminDomic3" , "AdminTel3");
+		System.out.println("Creó los administradores");
 		
 		String ruta1 = "PDT_CalidadDelAire_dosEJB/AdministradoresBean!com.services.AdministradoresBeanRemote";
 		
@@ -31,6 +35,8 @@ public class CargaInicial {
 			System.out.println("Se creó el Administrador1");
 			administradorBean.crear(administrador2);
 			System.out.println("Se creó el Administrador2");
+			administradorBean.crear(administrador3);
+			System.out.println("Se creó el Administrador3");
 			
 			
 		} catch (ServiciosException e) {
@@ -94,6 +100,20 @@ public class CargaInicial {
 			System.out.println(e.getMessage());
 		}
 		System.out.println(administrador1.toString());
+		
+		//Comienza la carga de 2 Casillas
+		
+//		Casilla casilla1 = new Casilla("Primer Casilla" , "humedad" , "%");
+//		Casilla casilla2 = new Casilla("Segunda Casilla" , "temperatura" , "ºC");
+//		String ruta4 = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
+//		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
+//				InitialContext.doLookup(ruta4);
+//		try {
+//			casillaBean.crear(casilla1);
+//			casillaBean.crear(casilla2);
+//		} catch (ServiciosException e) {
+//			System.out.println(e.getMessage());
+//		}
 		
 	}
 }

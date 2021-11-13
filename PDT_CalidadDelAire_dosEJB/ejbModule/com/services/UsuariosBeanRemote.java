@@ -9,7 +9,7 @@ import com.exceptions.ServiciosException;
 
 @Remote
 public interface UsuariosBeanRemote {
-	void crear(Usuario usuario) throws ServiciosException;
+	Usuario crear(Usuario usuario) throws ServiciosException;
 	void actualizar(Usuario usuario) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Usuario> obtenerTodos();
