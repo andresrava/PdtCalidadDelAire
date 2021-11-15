@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import com.entities.Administrador;
 import com.entities.Usuario;
 import javax.swing.JLabel;
+import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
@@ -51,7 +52,7 @@ public class VentanaAdministrador extends JFrame {
 	public VentanaAdministrador(Administrador ObjectToPassRef) {
 		VentanaAdministrador.administradorLoged = ObjectToPassRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 510, 314);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -98,7 +99,13 @@ public class VentanaAdministrador extends JFrame {
 		btnCasillas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				VentanaCasillas ventanaCasillas = new VentanaCasillas((Usuario) administradorLoged);
+				VentanaCasillas ventanaCasillas = null;
+				try {
+					ventanaCasillas = new VentanaCasillas((Usuario) administradorLoged);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				ventanaCasillas.ventanaCasillas();
 			}
 		});

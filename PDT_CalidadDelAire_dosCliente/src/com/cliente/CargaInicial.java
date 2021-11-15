@@ -103,17 +103,21 @@ public class CargaInicial {
 		
 		//Comienza la carga de 2 Casillas
 		
-//		Casilla casilla1 = new Casilla("Primer Casilla" , "humedad" , "%");
-//		Casilla casilla2 = new Casilla("Segunda Casilla" , "temperatura" , "ºC");
-//		String ruta4 = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
-//		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
-//				InitialContext.doLookup(ruta4);
-//		try {
-//			casillaBean.crear(casilla1);
-//			casillaBean.crear(casilla2);
-//		} catch (ServiciosException e) {
-//			System.out.println(e.getMessage());
-//		}
+		Casilla casilla1 = new Casilla("Primer Casilla" , "humedad" , "%");
+		Casilla casilla2 = new Casilla("Segunda Casilla" , "temperatura" , "ºC");
+		Casilla casilla3 = new Casilla("Tercera Casilla" , "viento" , "km/h");
+		Casilla casilla4 = new Casilla("Cuarta Casilla" , "presión atm." , "HPa");
+		String ruta4 = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
+		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
+				InitialContext.doLookup(ruta4);
+		try {
+			casillaBean.crear(casilla1);
+			casillaBean.crear(casilla2);
+			casillaBean.crear(casilla3);
+			casillaBean.crear(casilla4);
+		} catch (ServiciosException e) {
+			System.out.println(e.getMessage());
+		}
 		
 	}
 }

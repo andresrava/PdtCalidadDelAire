@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
+import javax.swing.ComboBoxModel;
 
 @MappedSuperclass
 @Entity
@@ -48,7 +49,7 @@ public class Casilla implements Serializable {
 		this.estaciones = estaciones;
 	}
 
-	private enum TipoDatoEnum {STRING, BOOLEAN, INTEGER, FLOAT};
+	public enum TipoDatoEnum {STRING, BOOLEAN, INTEGER, FLOAT};
 	
 	@Enumerated
 	@Column(length=10)
@@ -62,6 +63,9 @@ public class Casilla implements Serializable {
 	
 	@Column(length=50)
 	private String descripcion;
+	
+	@ManyToOne 
+	private Usuario usuario;
 	
 	@ManyToMany
 	private List<Formulario> formularios;
@@ -95,13 +99,18 @@ public class Casilla implements Serializable {
 		this.id = id;
 	}
 
-	public TipoDatoEnum getTipoDeDato() {
-		return tipoDeDato;
+	
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setTipoDeDato(TipoDatoEnum tipoDeDato) {
-		this.tipoDeDato = tipoDeDato;
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
+
+
 
 	public String getParametro() {
 		return parametro;
@@ -127,13 +136,34 @@ public class Casilla implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-
+	
 
 	public Casilla(String nombre, String parametro, String unidaDeMedida) {
 		super();
 		this.nombre = nombre;
 		this.parametro = parametro;
 		this.unidaDeMedida = unidaDeMedida;
+	}
+	
+	
+
+
+
+	public Casilla(String nombre, TipoDatoEnum comboBoxModel, String parametro, String unidaDeMedida, String descripcion,
+			Usuario usuario) {
+		super();
+		this.nombre = nombre;
+		this.tipoDeDato = comboBoxModel;
+		this.parametro = parametro;
+		this.unidaDeMedida = unidaDeMedida;
+		this.descripcion = descripcion;
+		this.usuario = usuario;
+	}
+
+
+
+	public String toStringCorto() {
+		return "Casilla [nombre=" + nombre + ", parametro=" + parametro + ", unidaDeMedida=" + unidaDeMedida + "]";
 	}
 
 	

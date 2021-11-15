@@ -7,8 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.controlador.ListaCasillas;
 import com.entities.Administrador;
+import com.entities.Casilla;
 import com.entities.Usuario;
+
+import javax.naming.NamingException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -17,8 +22,12 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class VentanaCasillas extends JFrame {
 
@@ -43,8 +52,9 @@ public class VentanaCasillas extends JFrame {
 	private static Usuario usuarioLoged;
 	/**
 	 * Create the frame.
+	 * @throws NamingException 
 	 */
-	public VentanaCasillas(Usuario usuarioLogedRef) {
+	public VentanaCasillas(Usuario usuarioLogedRef) throws NamingException {
 		setTitle("Gesti\u00F3n de Casillas");
 		VentanaCasillas.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,12 +66,11 @@ public class VentanaCasillas extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
 		
 		JButton btnCreaCasilla = new JButton("Crear");
-		
-		JButton btnListaCasillas = new JButton("Lista");
-		btnListaCasillas.addMouseListener(new MouseAdapter() {
+		btnCreaCasilla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				VentanaCreaCasilla ventanaCreaCasilla = new VentanaCreaCasilla(usuarioLoged);
+				ventanaCreaCasilla.ventanaCreaCasilla();
 			}
 		});
 		
@@ -70,6 +79,7 @@ public class VentanaCasillas extends JFrame {
 		JButton btnListaCasillas_1_1 = new JButton("Borra");
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBorder(new LineBorder(new Color(130, 135, 144), 2));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -81,9 +91,6 @@ public class VentanaCasillas extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(btnCreaCasilla, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnListaCasillas, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(btnEdita, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
@@ -105,16 +112,20 @@ public class VentanaCasillas extends JFrame {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnCreaCasilla, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnListaCasillas, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEdita, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnListaCasillas_1_1, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnListaCasillas_1_1, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+							.addGap(54)))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
-		JComboBox comboBoxCasillas = new JComboBox();
-		scrollPane.setViewportView(comboBoxCasillas);
+		ListaCasillas listaCasillas = new ListaCasillas();
+		ArrayList<Casilla> casillas = (ArrayList<Casilla>) listaCasillas.listaCasillas();
+		JComboBox<String> comboBoxCasillas = new JComboBox<String>();
+		for (Casilla c: casillas) {
+			comboBoxCasillas.addItem(c.toStringCorto());
+		}
+		scrollPane.setColumnHeaderView(comboBoxCasillas);
 		contentPane.setLayout(gl_contentPane);
 	}
 }
