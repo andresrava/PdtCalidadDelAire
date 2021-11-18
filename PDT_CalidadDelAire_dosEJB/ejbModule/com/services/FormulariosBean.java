@@ -81,5 +81,10 @@ public class FormulariosBean implements FormulariosBeanRemote {
 		}
 		
 	}
+	@Override
+	public List<Formulario> obtenerPorCasilla(Long idCasilla) {
+		TypedQuery<Formulario>query = em.createQuery("SELECT f FROM Formulario f WHERE f.casillas", null);
+		return null;
+	}
 
 }

@@ -13,6 +13,7 @@ public interface FormulariosBeanRemote {
 	void actualizar(Formulario formulario) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Formulario> obtenerTodos();
+	List<Formulario> obtenerPorCasilla(Long idCasilla);
 	List<Formulario> obtenerTodos(String filtro);
 	void asignarCasilla (Long idFormulario, Long idCasilla) throws ServiciosException;
 }

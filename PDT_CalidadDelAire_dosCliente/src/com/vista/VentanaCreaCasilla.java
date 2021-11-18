@@ -65,7 +65,7 @@ public class VentanaCreaCasilla extends JFrame {
 		setContentPane(contentPane);
 		
 		String nombreDelUsuario = usuarioLogedRef.getNombre();
-		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
+		JLabel lblNewLabel = new JLabel("Usuario: <dynamic>");
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre(*):");
 		

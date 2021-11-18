@@ -64,6 +64,18 @@ public class VentanaAdministrador extends JFrame {
 		btnGestionUsuarios.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
 		JButton btnGestionFormularios = new JButton("Gesti\u00F3n de Formularios");
+		btnGestionFormularios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaFormularios ventanaFormularios = new VentanaFormularios((Usuario) administradorLoged);
+			}
+		});
+		btnGestionFormularios.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				VentanaFormularios ventanaFormularios = new VentanaFormularios((Usuario) administradorLoged);
+				ventanaFormularios.ventanaFormularios();
+			}
+		});
 		btnGestionFormularios.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnGestionFormularios.setBackground(Color.WHITE);
 		
