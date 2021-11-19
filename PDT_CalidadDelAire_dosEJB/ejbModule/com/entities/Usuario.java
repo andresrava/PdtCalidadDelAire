@@ -44,6 +44,9 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario")
 	private List<Actividad> actividades;
 	
+	@OneToMany (mappedBy = "usuario" , cascade = CascadeType.PERSIST)
+	private List<EstacionDeMedicion> estaciones;
+	
 	@ManyToMany
 	private List<Funcionalidad> funcionalidades;
 	

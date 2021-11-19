@@ -9,7 +9,6 @@ import javax.persistence.OneToMany;
 
 @MappedSuperclass
 @Entity
-@Inheritance( strategy = InheritanceType.JOINED )
 @NamedQuery(name="EstacionDeMedicion.obtenerTodos", query="SELECT e FROM EstacionDeMedicion e")
 public class EstacionDeMedicion implements Serializable {
 
@@ -31,15 +30,39 @@ public class EstacionDeMedicion implements Serializable {
 	@OneToMany
 	private List<Casilla> casillas;
 	
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.PERSIST)
 	private Ciudad ciudad;
 	
-	@ManyToOne
-	private Investigador investigador;
+	@ManyToOne (cascade = CascadeType.PERSIST)
+	private Usuario usuario;
+	
+	
 	
 	public EstacionDeMedicion() {
 		super();
 	}
+
+	
+	public EstacionDeMedicion(String nombre, Ciudad ciudad, Usuario usuario) {
+		
+		this.nombre = nombre;
+		this.ciudad = ciudad;
+		this.usuario = usuario;
+	}
+
+	public EstacionDeMedicion(String nombre, Ciudad ciudad, Administrador administrador) {
+		
+		this.nombre = nombre;
+		this.ciudad = ciudad;
+		this.usuario = (Usuario) administrador;
+	}
+	
+	
+	public EstacionDeMedicion(String nombre) {
+		super();
+		this.nombre = nombre;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -81,12 +104,18 @@ public class EstacionDeMedicion implements Serializable {
 		this.ciudad = ciudad;
 	}
 
-	public Investigador getInvestigador() {
-		return investigador;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setInvestigador(Investigador investigador) {
-		this.investigador = investigador;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
+	@Override
+	public String toString() {
+		return "EstacionDeMedicion [nombre=" + nombre + ", ciudad=" + ciudad + ", usuario=" + usuario + "]";
 	} 
 	
 	

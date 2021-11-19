@@ -26,25 +26,27 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
     }
 
 	@Override
-	public void crear(EstacionDeMedicion estacion) throws ServiciosException {
+	public EstacionDeMedicion crear(EstacionDeMedicion estacion) throws ServiciosException {
 		try {
 			em.persist(estacion);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo crear la estacion: " + estacion.getNombre());
 		}
+		return estacion;
 		
 	}
 	
 
 	@Override
-	public void actualizar(EstacionDeMedicion estacion) throws ServiciosException {
+	public EstacionDeMedicion actualizar(EstacionDeMedicion estacion) throws ServiciosException {
 		try {
 			em.merge(estacion);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo actualizar la estacion: " + estacion.getNombre());
 		}
+		return estacion;
 	}
 
 	@Override

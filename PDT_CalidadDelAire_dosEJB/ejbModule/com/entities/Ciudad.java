@@ -1,7 +1,9 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @NamedQuery(name="Ciudad.obtenerTodos", query="SELECT c FROM Ciudad c")
@@ -28,6 +31,9 @@ public class Ciudad implements Serializable {
 	
 	@ManyToOne
 	private Departamento departamento;
+	
+	@OneToMany ( cascade = CascadeType.ALL)
+	private List<EstacionDeMedicion> em;
 	
 	
 	public Ciudad() {
@@ -62,6 +68,12 @@ public class Ciudad implements Serializable {
 
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
+	}
+
+
+	public Ciudad(String nombre) {
+		super();
+		this.nombre = nombre;
 	} 
 	
    

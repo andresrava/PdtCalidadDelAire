@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
@@ -16,8 +17,8 @@ import com.exceptions.ServiciosException;
 @Stateless
 public class CiudadesBean implements CiudadesBeanRemote {
 
-
- EntityManager em;
+@PersistenceContext
+ private EntityManager em;
  
     public CiudadesBean() {
         // TODO Auto-generated constructor stub

@@ -9,8 +9,8 @@ import com.exceptions.ServiciosException;
 
 @Remote
 public interface EstacionesDeMedicionBeanRemote {
-	void crear(EstacionDeMedicion estacion) throws ServiciosException;
-	void actualizar(EstacionDeMedicion estacion) throws ServiciosException;
+	EstacionDeMedicion crear(EstacionDeMedicion estacion) throws ServiciosException;
+	EstacionDeMedicion actualizar(EstacionDeMedicion estacion) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<EstacionDeMedicion> obtenerTodos();
 	List<EstacionDeMedicion> obtenerTodos(String filtro);
