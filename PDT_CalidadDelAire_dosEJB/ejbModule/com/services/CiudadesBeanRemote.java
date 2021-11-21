@@ -9,7 +9,7 @@ import com.exceptions.ServiciosException;
 
 @Remote
 public interface CiudadesBeanRemote {
-	void crear(Ciudad ciudad) throws ServiciosException;
+	Ciudad crear(Ciudad ciudad) throws ServiciosException;
 	void actualizar(Ciudad ciudad) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Ciudad> obtenerTodos();

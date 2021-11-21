@@ -119,10 +119,10 @@ public class CargaInicial {
 		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
 				InitialContext.doLookup(ruta4);
 		try {
-			casillaBean.crear(casilla1);
-			casillaBean.crear(casilla2);
-			casillaBean.crear(casilla3);
-			casillaBean.crear(casilla4);
+			casilla1 = casillaBean.crear(casilla1);
+			casilla2 = casillaBean.crear(casilla2);
+			casilla3 = casillaBean.crear(casilla3);
+			casilla4 = casillaBean.crear(casilla4);
 		} catch (ServiciosException e) {
 			System.out.println(e.getMessage());
 		}
@@ -138,8 +138,8 @@ public class CargaInicial {
 				InitialContext.doLookup(ruta5);
 		
 		try {
-			ciudadBean.crear(primera);
-			ciudadBean.crear(segunda);
+			primera = ciudadBean.crear(primera);
+			segunda = ciudadBean.crear(segunda);
 			
 		} catch (ServiciosException e) {
 			System.out.println(e.getMessage());
@@ -168,11 +168,11 @@ public class CargaInicial {
 		} catch (ServiciosException e) {
 			System.out.println(e.getMessage());
 		}
-		Long idUsuario = usuario.getId();
-		try {
-			estacionesDeMedicionBean.agregarUsuario(em1.getId(), idUsuario);
-		} catch (ServiciosException e) {
-			System.out.println(e.getMessage());
-		}
+//		Long idUsuario = usuario.getId();
+//		try {
+//			estacionesDeMedicionBean.agregarUsuario(em1.getId(), idUsuario);
+//		} catch (ServiciosException e) {
+//			System.out.println(e.getMessage());
+//		}
 	}
 }

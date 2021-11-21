@@ -24,13 +24,14 @@ public class CiudadesBean implements CiudadesBeanRemote {
         // TODO Auto-generated constructor stub
     }
 
-	public void crear(Ciudad ciudad) throws ServiciosException {
+	public Ciudad crear(Ciudad ciudad) throws ServiciosException {
 		try {
 			em.persist(ciudad);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo crear la Ciudad: " + ciudad.getNombre());
 		}
+		return ciudad;
 	}
 
 	@Override

@@ -9,10 +9,11 @@ import com.services.CasillasBeanRemote;
 
 public class CrearCasilla {
 
-		public void crearCasilla(Casilla casilla) throws NamingException, ServiciosException {
+		public Casilla crearCasilla(Casilla casilla) throws NamingException, ServiciosException {
 			String ruta = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
 			CasillasBeanRemote casillaBean = (CasillasBeanRemote)
 					InitialContext.doLookup(ruta);
 			casillaBean.crear(casilla);
+			return casilla;
 		}
 }

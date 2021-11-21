@@ -9,7 +9,7 @@ import com.exceptions.ServiciosException;
 
 @Remote
 public interface CasillasBeanRemote {
-	void crear(Casilla casilla) throws ServiciosException;
+	Casilla crear(Casilla casilla) throws ServiciosException;
 	void actualizar(Casilla casilla) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Casilla> obtenerTodos();
