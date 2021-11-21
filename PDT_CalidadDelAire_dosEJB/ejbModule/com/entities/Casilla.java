@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
-import javax.swing.ComboBoxModel;
+import javax.persistence.ManyToOne;
 
 @MappedSuperclass
 @Entity

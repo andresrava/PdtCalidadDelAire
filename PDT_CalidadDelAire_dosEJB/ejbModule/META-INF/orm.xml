@@ -17,10 +17,6 @@
 		<table name="AFICIONADOS">
 		</table>
 	</entity>
-	<entity class="com.entities.Departamento" access="FIELD">
-		<table name="DEPARTAMENTOS">
-		</table>
-	</entity>
 	<entity class="com.entities.Ciudad" access="FIELD">
 		<table name="CIUDADES">
 		</table>

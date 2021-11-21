@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 import com.entities.Casilla;
 import com.entities.EstacionDeMedicion;
+import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 
 /**
@@ -31,12 +32,20 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 			em.persist(estacion);
 			em.flush();
 		}catch (PersistenceException e) {
-			throw new ServiciosException ("No se pudo crear la estacion: " + estacion.getNombre());
+			throw new ServiciosException ("No se pudo crear la estacion: " + estacion.getNombre() + e.getMessage());
 		}
 		return estacion;
 		
 	}
 	
+	public void agregarUsuario(Long idEM , Long idUsuario) {
+		EstacionDeMedicion estacion = em.find(EstacionDeMedicion.class, idEM);
+		Usuario usuario = em.find(Usuario.class, idUsuario);
+		estacion.setUsuario(usuario);
+		em.flush();
+		
+		
+	}
 
 	@Override
 	public EstacionDeMedicion actualizar(EstacionDeMedicion estacion) throws ServiciosException {

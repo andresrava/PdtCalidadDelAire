@@ -18,5 +18,6 @@ public interface EstacionesDeMedicionBeanRemote {
 	List<EstacionDeMedicion> obtenerPorCiudad(Long idCiudad);
 	List<EstacionDeMedicion> obtenerPorInvestigador(Long idInvestigador);
 	void asignarCasilla(Long idEstacion, Long idCasilla) throws ServiciosException;
+	void agregarUsuario(Long idEM , Long idUsuario) throws ServiciosException;
 }
 

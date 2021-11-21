@@ -33,7 +33,7 @@ public class EstacionDeMedicion implements Serializable {
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	private Ciudad ciudad;
 	
-	@ManyToOne (cascade = CascadeType.PERSIST)
+	@ManyToOne (cascade = CascadeType.ALL)
 	private Usuario usuario;
 	
 	
@@ -50,19 +50,18 @@ public class EstacionDeMedicion implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public EstacionDeMedicion(String nombre, Ciudad ciudad, Administrador administrador) {
 		
+	public EstacionDeMedicion(String nombre, Ciudad ciudad) {
+		super();
 		this.nombre = nombre;
 		this.ciudad = ciudad;
-		this.usuario = (Usuario) administrador;
 	}
-	
-	
+
+
 	public EstacionDeMedicion(String nombre) {
 		super();
 		this.nombre = nombre;
 	}
-
 
 	public Long getId() {
 		return id;

@@ -6,10 +6,11 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -29,8 +30,10 @@ public class Ciudad implements Serializable {
 	@Column(length=30,nullable=false)
 	private String nombre;
 	
-	@ManyToOne
-	private Departamento departamento;
+	public enum NombresEnum {ARTIGAS, SALTO, PAYSANDU, RÍO_NEGRO, SORIANO, COLONIA, SAN_JOSÉ, CANELONES, MONTEVIDEO, MALDONADO, ROCHA, TREINTA_Y_TRES, CERRO_LARGO, RIVERA, TACUAREMBÓ, DURAZNO, FLORES, FLORIDA };
+
+	@Enumerated(EnumType.STRING)
+	private NombresEnum departamento;
 	
 	@OneToMany ( cascade = CascadeType.ALL)
 	private List<EstacionDeMedicion> em;
@@ -61,12 +64,12 @@ public class Ciudad implements Serializable {
 	}
 
 
-	public Departamento getDepartamento() {
+	public NombresEnum getDepartamento() {
 		return departamento;
 	}
 
 
-	public void setDepartamento(Departamento departamento) {
+	public void setDepartamento(NombresEnum departamento) {
 		this.departamento = departamento;
 	}
 
@@ -74,7 +77,21 @@ public class Ciudad implements Serializable {
 	public Ciudad(String nombre) {
 		super();
 		this.nombre = nombre;
+	}
+
+
+	public Ciudad(String nombre, NombresEnum departamento) {
+		super();
+		this.nombre = nombre;
+		this.departamento = departamento;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Ciudad [nombre=" + nombre + ", departamento=" + departamento + "]";
 	} 
+	
 	
    
 }

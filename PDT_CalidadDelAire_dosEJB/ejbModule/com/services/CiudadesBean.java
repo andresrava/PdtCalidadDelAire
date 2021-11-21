@@ -67,4 +67,5 @@ public class CiudadesBean implements CiudadesBeanRemote {
 		return query.getResultList();
 	}
 
+	
 }

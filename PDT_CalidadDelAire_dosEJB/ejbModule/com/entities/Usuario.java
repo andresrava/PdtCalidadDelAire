@@ -131,10 +131,11 @@ public class Usuario implements Serializable {
 		this.funcionalidades = funcionalidades;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Usuario [contraseña=" + contraseña + ", mail=" + mail + ", nombre=" + nombre + ", apellido=" + apellido
+				+ "]";
+	}
 
 
-	
-	
-   
 }
