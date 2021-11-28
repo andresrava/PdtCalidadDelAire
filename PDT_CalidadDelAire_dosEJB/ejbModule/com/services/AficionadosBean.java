@@ -28,13 +28,14 @@ public class AficionadosBean implements AficionadosBeanRemote {
     }
 
 	@Override
-	public void crear(Aficionado aficionado) throws ServiciosException {
+	public Aficionado crear(Aficionado aficionado) throws ServiciosException {
 		try {
 			em.persist(aficionado);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo crear el aficionado: " + aficionado.getNombre());
 		}
+		return aficionado;
 		
 	}
 

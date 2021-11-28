@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.persistence.*;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-@MappedSuperclass
+
 @Entity
+@Table (name = "EM")
 @NamedQuery(name="EstacionDeMedicion.obtenerTodos", query="SELECT e FROM EstacionDeMedicion e")
 public class EstacionDeMedicion implements Serializable {
 
@@ -27,13 +27,19 @@ public class EstacionDeMedicion implements Serializable {
 	@Column(length=40)
 	private String descripcion;
 	
-	@OneToMany
+	@JoinTable (
+			name = "EM_CASILLAS",
+			joinColumns = @JoinColumn(name = "FK_EM" , nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "FK_CASILLA" , nullable = false)
+			)
+	
+	@ManyToMany (cascade = CascadeType.ALL)
 	private List<Casilla> casillas;
 	
 	@ManyToOne (cascade = CascadeType.PERSIST)
 	private Ciudad ciudad;
 	
-	@ManyToOne (cascade = CascadeType.ALL)
+	@ManyToOne (cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	private Usuario usuario;
 	
 	

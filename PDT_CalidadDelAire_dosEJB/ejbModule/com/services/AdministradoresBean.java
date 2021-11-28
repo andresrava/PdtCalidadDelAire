@@ -30,7 +30,7 @@ public class AdministradoresBean implements AdministradoresBeanRemote {
     }
 
 	@Override
-	public void crear(Administrador administrador) throws ServiciosException {
+	public Administrador crear(Administrador administrador) throws ServiciosException {
 		try {
 			em.persist(administrador);
 			em.flush();
@@ -38,6 +38,7 @@ public class AdministradoresBean implements AdministradoresBeanRemote {
 			throw new ServiciosException ("No se pudo crear el administrador: " + administrador.getNombre() +" "+ e.getMessage());
 			
 		}
+		return administrador;
 		
 	}
 

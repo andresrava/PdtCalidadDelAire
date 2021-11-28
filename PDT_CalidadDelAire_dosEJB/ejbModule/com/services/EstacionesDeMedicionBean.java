@@ -28,11 +28,13 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 
 	@Override
 	public EstacionDeMedicion crear(EstacionDeMedicion estacion) throws ServiciosException {
+		String nombre = estacion.getNombre();
+		
 		try {
 			em.persist(estacion);
 			em.flush();
 		}catch (PersistenceException e) {
-			throw new ServiciosException ("No se pudo crear la estacion: " + estacion.getNombre() + e.getMessage());
+			throw new ServiciosException ("No se pudo crear la estacion: " + nombre + e.getMessage());
 		}
 		return estacion;
 		
@@ -104,7 +106,7 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 	}
 
 	@Override
-	public void asignarCasilla(Long idEstacion, Long idCasilla) throws ServiciosException {
+	public void asignarCasillaAEM(Long idEstacion, Long idCasilla) throws ServiciosException {
 		try {
 			EstacionDeMedicion estacion = em.find(EstacionDeMedicion.class, idEstacion);
 			Casilla casilla = em.find(Casilla.class, idCasilla);

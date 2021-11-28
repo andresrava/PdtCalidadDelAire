@@ -6,7 +6,7 @@ import java.sql.Date;
 import javax.persistence.*;
 import javax.persistence.ManyToOne;
 
-@MappedSuperclass
+
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
 

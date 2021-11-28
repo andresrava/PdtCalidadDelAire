@@ -1,27 +1,29 @@
 package com.vista;
 
 import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import com.cliente.CargaInicial;
-import com.controlador.ValidaLogin;
-import com.entities.Administrador;
-import com.entities.Investigador;
-import com.entities.Usuario;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.border.EmptyBorder;
+
+import com.cliente.CargaInicial;
+import com.controlador.GestionUsuarios;
+import com.entities.Administrador;
+import com.entities.Investigador;
+import com.entities.Usuario;
+import com.exceptions.ServiciosException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Ingreso extends JFrame {
 
@@ -51,7 +53,7 @@ public class Ingreso extends JFrame {
 	 */
 	public Ingreso() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 314, 275);
+		setBounds(100, 100, 351, 275);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -67,13 +69,18 @@ public class Ingreso extends JFrame {
 		textClave.setColumns(10);
 		
 		JButton btnIngresar = new JButton("Ingresar");
+		btnIngresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnIngresar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ValidaLogin validaLogin = new ValidaLogin();
+				GestionUsuarios gestionUsuarios = new GestionUsuarios();
 				Usuario usuario = new Usuario();
 				try {
-					usuario = validaLogin.validarLogin(textMail.getText(), textClave.getText());
+					// Verificalas credenciales y devuelve un usuario si hay match
+					usuario = gestionUsuarios.validarLogin(textMail.getText(), textClave.getText());
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -85,7 +92,8 @@ public class Ingreso extends JFrame {
 					}
 					else if (usuario instanceof Investigador) {
 						System.out.println("Es una instancia de Investigador!!!");
-						JOptionPane.showMessageDialog(null, "No se ha implementado ventana Investigador");
+						VentanaInvestigador ventanaInvestigador = new VentanaInvestigador((Investigador) usuario);
+						ventanaInvestigador.ventanaInvestigador();
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Error - credenciales incorrectas.");
@@ -103,7 +111,7 @@ public class Ingreso extends JFrame {
 				CargaInicial cargaInicial = new CargaInicial();
 				try {
 					cargaInicial.cargaInicial();
-				} catch (NamingException e1) {
+				} catch (NamingException | ServiciosException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

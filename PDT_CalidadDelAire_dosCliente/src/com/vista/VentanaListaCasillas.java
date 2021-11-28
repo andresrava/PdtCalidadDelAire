@@ -1,6 +1,5 @@
 package com.vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
 
@@ -11,13 +10,10 @@ import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
-import javax.swing.border.LineBorder;
-
-import com.controlador.ListaCasillas;
+import com.controlador.GestionCasillas;
 import com.entities.Casilla;
 import com.entities.Usuario;
 
-import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
@@ -130,10 +126,11 @@ public class VentanaListaCasillas extends JFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		scrollPane.setColumnHeaderView(comboBox);
-		ListaCasillas listaCasillas = new ListaCasillas();
+		GestionCasillas gestionCasillas = new GestionCasillas();
+		
 		ArrayList<Casilla> casillas;
 		try {
-			casillas = (ArrayList<Casilla>) listaCasillas.listaCasillas();
+			casillas = (ArrayList<Casilla>) gestionCasillas.listaCasillas();
 			for (Casilla c: casillas) {
 				comboBox.addItem(c.toStringCorto());
 			}

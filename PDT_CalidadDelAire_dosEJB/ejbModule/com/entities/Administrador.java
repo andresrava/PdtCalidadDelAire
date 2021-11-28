@@ -105,8 +105,7 @@ public Administrador( String nombre , String apellido, String mail, String clave
 
 @Override
 	public String toString() {
-		return "Administrador [documento=" + documento + ", domicilio=" + domicilio + ", telefono=" + telefono
-				+ ", ciudad=" + ciudad + ", formularios=" + formularios + "]";
+		return "Administrador [ documento=" + documento + ", domicilio=" + domicilio + ", telefono=" + telefono	 + "]";
 	}
 
 

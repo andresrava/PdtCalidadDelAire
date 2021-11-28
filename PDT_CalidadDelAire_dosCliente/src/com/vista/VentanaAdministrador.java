@@ -88,6 +88,24 @@ public class VentanaAdministrador extends JFrame {
 		btnGestinDeRegistros.setBackground(Color.WHITE);
 		
 		JButton btnGestinDeEst = new JButton("Estaciones de Medici\u00F3n");
+		btnGestinDeEst.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				VentanaEMedicion ventanaEMedicion;
+				try {
+					ventanaEMedicion = new VentanaEMedicion((Usuario) administradorLoged);
+					ventanaEMedicion.ventanaEMedicion();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				}
+		});
+		btnGestinDeEst.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnGestinDeEst.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnGestinDeEst.setBackground(Color.WHITE);
 		
@@ -124,6 +142,14 @@ public class VentanaAdministrador extends JFrame {
 		btnCasillas.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnCasillas.setBackground(Color.WHITE);
 		
+		JButton btnNewButton = new JButton("Salir");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			Ingreso ingreso = new Ingreso();
+			}
+		});
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -138,7 +164,9 @@ public class VentanaAdministrador extends JFrame {
 								.addComponent(btnCasillas, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
 							.addComponent(btnActividadCampo, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
 						.addComponent(btnCargaMasiva, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
-					.addGap(134)
+					.addGap(27)
+					.addComponent(btnNewButton)
+					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnGestionFormularios, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnGestinDeRegistros, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
@@ -150,27 +178,31 @@ public class VentanaAdministrador extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnNewButton)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnGestionFormularios, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnGestinDeEst, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnDescargaMasiva, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnGestionUsuarios, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-							.addGap(11)
-							.addComponent(btnCasillas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnCargaMasiva, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
-					.addGap(13)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnActividadCampo, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnGestinDeRegistros, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(46, Short.MAX_VALUE))
+							.addComponent(lblNewLabel)
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(btnGestionFormularios, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(btnGestinDeEst, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(btnDescargaMasiva, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(btnGestionUsuarios, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+									.addGap(11)
+									.addComponent(btnCasillas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(btnCargaMasiva, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
+							.addGap(13)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnActividadCampo, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnGestinDeRegistros, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap(27, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
 }

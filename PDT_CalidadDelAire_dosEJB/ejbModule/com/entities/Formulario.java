@@ -8,7 +8,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 @NamedQuery(name="Formulario.obtenerTodos", query="SELECT f FROM Formulario f")
-@MappedSuperclass
+
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
 
@@ -29,7 +29,13 @@ public class Formulario implements Serializable {
 	@Column(length=40)
 	private String resumen;
 
-	@ManyToMany
+	@JoinTable (
+			name = "FORMULARIO_CASILLAS",
+			joinColumns = @JoinColumn(name = "FK_FORMULARIO" , nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "FK_CASILLA" , nullable = false)
+			)
+	
+	@ManyToMany (cascade = CascadeType.ALL)
 	private List<Casilla> casillas;
 	
 	@ManyToOne

@@ -1,8 +1,11 @@
 package com.cliente;
 
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.controlador.GestionCasillas;
+import com.controlador.GestionCiudades;
+import com.controlador.GestionEstaciones;
+import com.controlador.GestionUsuarios;
 import com.entities.Administrador;
 import com.entities.Aficionado;
 import com.entities.Casilla;
@@ -12,102 +15,52 @@ import com.entities.EstacionDeMedicion;
 import com.entities.Investigador;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
-import com.services.AdministradoresBeanRemote;
-import com.services.AficionadosBeanRemote;
-import com.services.CasillasBeanRemote;
-import com.services.CiudadesBeanRemote;
-import com.services.EstacionesDeMedicionBeanRemote;
-import com.services.InvestigadoresBeanRemote;
-import com.services.UsuariosBeanRemote;
 
 public class CargaInicial {
 
-	public void cargaInicial() throws NamingException {
+	public void cargaInicial() throws NamingException, ServiciosException {
+		
+		GestionUsuarios gestionUsuarios = new GestionUsuarios();
 		
 		//Comienza la carga de un Usuario
 		Usuario usuario = new Usuario("Andrés" , "Rava" , "mimail" , "miclave");
-		
-		String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
-		UsuariosBeanRemote usuariosBean = (UsuariosBeanRemote)
-				InitialContext.doLookup(ruta);
-		try {
-			usuario = usuariosBean.crear(usuario);
-			System.out.println("Se creó el usuario: " + usuario.getNombre() + " " + usuario.getApellido());
-		} catch (ServiciosException e) {
-			System.out.println(e.getMessage());
-		}
+	
+		gestionUsuarios.creaUsuario(usuario);
 		
 		//Comienza carga 2 Administradores 
 		Administrador administrador1 = new Administrador("Adminnombre1" , "AdminApellido1" ,  "AdminMail1" , "AdminClave1" , "AdmDocu1" ,"AdminDomic1" , "AdminTel1");
 		Administrador administrador2 = new Administrador("Adminnombre2" , "AdminApellido2" ,  "AdminMail2" , "AdminClave2" , "AdmDocu2" ,"AdminDomic2" , "AdminTel2");
-		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mail_valido" , "clave_valida" , "AdmDocu3" ,"AdminDomic3" , "AdminTel3");
+		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mailAdmin" , "claveAdmin" , "AdmDocu3" ,"AdminDomic3" , "AdminTel3");
 		
-		String ruta1 = "PDT_CalidadDelAire_dosEJB/AdministradoresBean!com.services.AdministradoresBeanRemote";
-		
-		AdministradoresBeanRemote administradorBean = (AdministradoresBeanRemote)
-					InitialContext.doLookup(ruta1);
-		
-		try {
-			administradorBean.crear(administrador1);
-			administradorBean.crear(administrador2);
-			administradorBean.crear(administrador3);
-			
-		} catch (ServiciosException e) {
-			System.out.println(e.getMessage());
-		}
-		System.out.println(administrador1.toString());
+		gestionUsuarios.crearAdministrador(administrador1);
+		gestionUsuarios.crearAdministrador(administrador2);
+		gestionUsuarios.crearAdministrador(administrador3);
 		
 		//Comienza carga 4 Investigadores 
 		
-		Investigador investigador1 = new Investigador("InvestApellido1" , "Investnombre1" , "InvestMail1" , "InvestClave1" , "InvDocu1" ,"InvestDomic1" , "InvestTel1");
-		Investigador investigador2 = new Investigador("InvestApellido2" , "Investnombre2" , "InvestMail2" , "InvestClave2" , "InvDocu2" ,"InvestDomic2" , "InvestTel2");
-		Investigador investigador3 = new Investigador("InvestApellido3" , "Investnombre3" , "InvestMail3" , "InvestClave3" , "InvDocu3" ,"InvestDomic3" , "InvestTel3");
-		Investigador investigador4 = new Investigador("InvestApellido4" , "Investnombre4" , "InvestMail4" , "InvestClave4" , "InvDocu4" ,"InvestDomic4" , "InvestTel4");
+		Investigador investigador1 = new Investigador( "Investnombre1" ,"InvestApellido1" , "InvestMail1" , "InvestClave1" , "InvDocu1" ,"InvestDomic1" , "InvestTel1");
+		Investigador investigador2 = new Investigador( "Investnombre2" ,"InvestApellido2" , "InvestMail2" , "InvestClave2" , "InvDocu2" ,"InvestDomic2" , "InvestTel2");
+		Investigador investigador3 = new Investigador( "Investnombre3" ,"InvestApellido3" , "InvestMail3" , "InvestClave3" , "InvDocu3" ,"InvestDomic3" , "InvestTel3");
+		Investigador investigador4 = new Investigador( "Investnombre4" ,"InvestApellido4" , "mailInvest" , "claveInvest" , "InvDocu4" ,"InvestDomic4" , "InvestTel4");
 		
 			
-		String ruta2 = "PDT_CalidadDelAire_dosEJB/InvestigadoresBean!com.services.InvestigadoresBeanRemote";
-		
-		InvestigadoresBeanRemote investigadorBean = (InvestigadoresBeanRemote)
-					InitialContext.doLookup(ruta2);
-		
-		
-		try {
-			investigadorBean.crear(investigador1);
-			investigadorBean.crear(investigador2);
-			investigadorBean.crear(investigador3);
-			investigadorBean.crear(investigador4);
+		investigador1 = gestionUsuarios.crearInvestigador(investigador1);
+		investigador2 = gestionUsuarios.crearInvestigador(investigador2);
+		investigador3 = gestionUsuarios.crearInvestigador(investigador3);
+		investigador4 = gestionUsuarios.crearInvestigador(investigador4);
 			
-			
-			
-		} catch (ServiciosException e) {
-			System.out.println(e.getMessage());
-		}
-		
-		
+				
 		//Comienza la carga de 4 Aficionados
 		Aficionado aficionado1 = new Aficionado("AficApellido1" , "Aficnombre1" , "AficMail1" , "AficClave1");
 		Aficionado aficionado2 = new Aficionado("AficApellido2" , "Aficnombre2" , "AficMail2" , "AficClave2");
 		Aficionado aficionado3 = new Aficionado("AficApellido3" , "Aficnombre3" , "AficMail3" , "AficClave3");
 		Aficionado aficionado4 = new Aficionado("AficApellido4" , "Aficnombre4" , "AficMail4" , "AficClave4");
 		
-		String ruta3 = "PDT_CalidadDelAire_dosEJB/AficionadosBean!com.services.AficionadosBeanRemote";
-		
-		AficionadosBeanRemote aficionadoBean = (AficionadosBeanRemote)
-					InitialContext.doLookup(ruta3);
-		
-		try {
-			aficionadoBean.crear(aficionado1);
-			aficionadoBean.crear(aficionado2);
-			aficionadoBean.crear(aficionado3);
-			aficionadoBean.crear(aficionado4);
-			
-			System.out.println("Se crearon los 4 Aficionados");
-			
-			
-		} catch (ServiciosException e) {
-			System.out.println(e.getMessage());
-		}
-		System.out.println(administrador1.toString());
+		aficionado1 = gestionUsuarios.crearAficionado(aficionado1);
+		aficionado2 = gestionUsuarios.crearAficionado(aficionado2);
+		aficionado3 = gestionUsuarios.crearAficionado(aficionado3);
+		aficionado4 = gestionUsuarios.crearAficionado(aficionado4);
+		System.out.println("Aficionado1: " + aficionado1);
 		
 		//Comienza la carga de 2 Casillas
 		
@@ -115,64 +68,39 @@ public class CargaInicial {
 		Casilla casilla2 = new Casilla("Segunda Casilla" , "temperatura" , "ºC");
 		Casilla casilla3 = new Casilla("Tercera Casilla" , "viento" , "km/h");
 		Casilla casilla4 = new Casilla("Cuarta Casilla" , "presión atm." , "HPa");
-		String ruta4 = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
-		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
-				InitialContext.doLookup(ruta4);
-		try {
-			casilla1 = casillaBean.crear(casilla1);
-			casilla2 = casillaBean.crear(casilla2);
-			casilla3 = casillaBean.crear(casilla3);
-			casilla4 = casillaBean.crear(casilla4);
-		} catch (ServiciosException e) {
-			System.out.println(e.getMessage());
-		}
+		
+		
+		
+		GestionCasillas gestionCasilla = new GestionCasillas();
+		casilla1 = gestionCasilla.crearCasilla(casilla1);
+		System.out.println("Id de la Casilla1: " + casilla1);
+		System.out.println(casilla1.getId());
+		casilla2 = gestionCasilla.crearCasilla(casilla2);
+		casilla3 = gestionCasilla.crearCasilla(casilla3);
+		casilla4 = gestionCasilla.crearCasilla(casilla4);
+		
 		 //Comienza la carga de dos Ciudades
 		
 		Ciudad primera = new Ciudad("Santa Marta" , NombresEnum.TREINTA_Y_TRES);
 		Ciudad segunda = new Ciudad("Mamboretá" , NombresEnum.COLONIA);
-		System.out.println(primera.toString());
-		System.out.println(segunda.toString());
 		
-		String ruta5 = "PDT_CalidadDelAire_dosEJB/CiudadesBean!com.services.CiudadesBeanRemote";
-		CiudadesBeanRemote ciudadBean = (CiudadesBeanRemote)
-				InitialContext.doLookup(ruta5);
+		GestionCiudades gestionCiudades = new GestionCiudades();
+		primera = gestionCiudades.creaCiudad(primera);
+		segunda = gestionCiudades.creaCiudad(segunda);
 		
-		try {
-			primera = ciudadBean.crear(primera);
-			segunda = ciudadBean.crear(segunda);
-			
-		} catch (ServiciosException e) {
-			System.out.println(e.getMessage());
-		}
-		//Comienza la carga de 4 Estaciones de Medición
+		//Comienza la carga de 1 Estaciones de Medición
 		
+		EstacionDeMedicion em1 = new EstacionDeMedicion("Primera EM");
+					
+		GestionEstaciones gestionEstaciones = new GestionEstaciones();
+		em1 = gestionEstaciones.crearEstacion(em1);
+		Long idEstacion = em1.getId();
+		Long idCasilla = casilla1.getId();
+		System.out.println(idEstacion);			
+		System.out.println(idCasilla);			
+		//gestionEstaciones.asignarCasillaAEM(em1, casilla1);
 		
+		System.out.println(idCasilla);
 		
-		EstacionDeMedicion em1 = new EstacionDeMedicion("Primera EM" , primera );
-		System.out.println(em1.toString());
-		
-		EstacionDeMedicion em2 = new EstacionDeMedicion("Segunda EM" , segunda );
-		System.out.println(em2.toString());
-		
-		EstacionDeMedicion em3 = new EstacionDeMedicion("Tercera EM" , primera );
-		System.out.println(em3.toString());
-		
-		String ruta6 = "PDT_CalidadDelAire_dosEJB/EstacionesDeMedicionBean!com.services.EstacionesDeMedicionBeanRemote";
-		EstacionesDeMedicionBeanRemote estacionesDeMedicionBean = (EstacionesDeMedicionBeanRemote)
-				InitialContext.doLookup(ruta6);
-		
-		try {
-			em1 = estacionesDeMedicionBean.crear(em1);
-			em2 = estacionesDeMedicionBean.crear(em2);
-			em3 = estacionesDeMedicionBean.crear(em3);
-		} catch (ServiciosException e) {
-			System.out.println(e.getMessage());
-		}
-//		Long idUsuario = usuario.getId();
-//		try {
-//			estacionesDeMedicionBean.agregarUsuario(em1.getId(), idUsuario);
-//		} catch (ServiciosException e) {
-//			System.out.println(e.getMessage());
-//		}
 	}
 }

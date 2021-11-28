@@ -1,33 +1,22 @@
 package com.vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.controlador.ListaCasillas;
 import com.entities.Administrador;
-import com.entities.Casilla;
 import com.entities.Usuario;
 
 import javax.naming.NamingException;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
-import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 public class VentanaCasillas extends JFrame {
 

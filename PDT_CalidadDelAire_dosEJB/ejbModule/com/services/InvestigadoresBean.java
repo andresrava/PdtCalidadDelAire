@@ -27,13 +27,14 @@ public class InvestigadoresBean implements InvestigadoresBeanRemote {
     }
 
 	@Override
-	public void crear(Investigador investigador) throws ServiciosException {
+	public Investigador crear(Investigador investigador) throws ServiciosException {
 		try {
 			em.persist(investigador);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo crear el investigador: " + " " + investigador.getNombre() + " " + "e.printStackTrace()");
 		}
+		return investigador;
 		
 	}
 

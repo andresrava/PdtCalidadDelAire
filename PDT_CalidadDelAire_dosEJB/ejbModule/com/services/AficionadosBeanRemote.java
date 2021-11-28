@@ -9,7 +9,7 @@ import com.exceptions.ServiciosException;
 
 @Remote
 public interface AficionadosBeanRemote {
-	void crear(Aficionado aficionado) throws ServiciosException;
+	Aficionado crear(Aficionado aficionado) throws ServiciosException;
 	void actualizar(Aficionado aficionado) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Aficionado> obtenerTodos();

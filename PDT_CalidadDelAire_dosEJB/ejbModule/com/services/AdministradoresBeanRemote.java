@@ -9,7 +9,7 @@ import com.exceptions.ServiciosException;
 
 @Remote
 public interface AdministradoresBeanRemote {
-	void crear(Administrador administrador) throws ServiciosException;
+	Administrador crear(Administrador administrador) throws ServiciosException;
 	void actualizar(Administrador administrador) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Administrador> obtenerTodos();

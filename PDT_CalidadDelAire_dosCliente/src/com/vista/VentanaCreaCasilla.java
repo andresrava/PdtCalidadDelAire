@@ -1,13 +1,12 @@
 package com.vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.controlador.CrearCasilla;
+import com.controlador.GestionCasillas;
 import com.entities.Casilla;
 import com.entities.Casilla.TipoDatoEnum;
 import com.entities.Usuario;
@@ -65,7 +64,7 @@ public class VentanaCreaCasilla extends JFrame {
 		setContentPane(contentPane);
 		
 		String nombreDelUsuario = usuarioLogedRef.getNombre();
-		JLabel lblNewLabel = new JLabel("Usuario: <dynamic>");
+		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre(*):");
 		
@@ -93,10 +92,6 @@ public class VentanaCreaCasilla extends JFrame {
 		
 		
 		JComboBox<Casilla.TipoDatoEnum> comboBoxTipos = new JComboBox(Casilla.TipoDatoEnum.values());
-		comboBoxTipos.addItem(TipoDatoEnum.FLOAT);
-		comboBoxTipos.addItem(TipoDatoEnum.INTEGER);
-		comboBoxTipos.addItem(TipoDatoEnum.STRING);
-		comboBoxTipos.addItem(TipoDatoEnum.BOOLEAN);
 		
 		JButton btnCrear = new JButton("Crear");
 		btnCrear.addMouseListener(new MouseAdapter() {
@@ -106,9 +101,9 @@ public class VentanaCreaCasilla extends JFrame {
 					JOptionPane.showMessageDialog(null, "Hay campos obligatorios incompletos","Error", JOptionPane.WARNING_MESSAGE);
 					
 				Casilla casilla = new Casilla(textNombre.getText(), (TipoDatoEnum) comboBoxTipos.getSelectedItem() , textParametro.getText(), textUnidad.getText(), textComentarios.getText() , usuarioLoged );
-				CrearCasilla crearCasilla = new CrearCasilla();
+				GestionCasillas gestionCasillas = new GestionCasillas();
 				try {
-					crearCasilla.crearCasilla(casilla);
+					gestionCasillas.crearCasilla(casilla);
 					JOptionPane.showMessageDialog(null, "Se creó la Casilla","Crear Casilla", JOptionPane.OK_OPTION);
 				} catch (NamingException | ServiciosException e1) {
 					// TODO Auto-generated catch block

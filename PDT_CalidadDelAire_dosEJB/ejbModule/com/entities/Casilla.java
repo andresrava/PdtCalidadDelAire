@@ -4,13 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
-@MappedSuperclass
+
 @Entity
-@Inheritance( strategy = InheritanceType.JOINED )
+@Table (name = "CASILLAS")
 @NamedQuery(name="Casilla.obtenerTodos", query="SELECT c FROM Casilla c")
 
 public class Casilla implements Serializable {
@@ -27,27 +24,6 @@ public class Casilla implements Serializable {
 	@Column(length=30,unique=true)
 	private String nombre;
 	
-	public List<Formulario> getFormularios() {
-		return formularios;
-	}
-
-
-
-	public void setFormularios(List<Formulario> formularios) {
-		this.formularios = formularios;
-	}
-
-
-
-	public List<EstacionDeMedicion> getEstaciones() {
-		return estaciones;
-	}
-
-
-
-	public void setEstaciones(List<EstacionDeMedicion> estaciones) {
-		this.estaciones = estaciones;
-	}
 
 	public enum TipoDatoEnum {STRING, BOOLEAN, INTEGER, FLOAT};
 	
@@ -67,10 +43,10 @@ public class Casilla implements Serializable {
 	@ManyToOne 
 	private Usuario usuario;
 	
-	@ManyToMany
+	@ManyToMany (mappedBy = "casillas")
 	private List<Formulario> formularios;
 	
-	@ManyToMany
+	@ManyToMany ( mappedBy = "casillas")
 	private List<EstacionDeMedicion> estaciones;
 	
 	public Casilla() {
@@ -136,7 +112,27 @@ public class Casilla implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	
+	public List<Formulario> getFormularios() {
+		return formularios;
+	}
+
+
+
+	public void setFormularios(List<Formulario> formularios) {
+		this.formularios = formularios;
+	}
+
+
+
+	public List<EstacionDeMedicion> getEstaciones() {
+		return estaciones;
+	}
+
+
+
+	public void setEstaciones(List<EstacionDeMedicion> estaciones) {
+		this.estaciones = estaciones;
+	}
 
 	public Casilla(String nombre, String parametro, String unidaDeMedida) {
 		super();
@@ -149,11 +145,11 @@ public class Casilla implements Serializable {
 
 
 
-	public Casilla(String nombre, TipoDatoEnum comboBoxModel, String parametro, String unidaDeMedida, String descripcion,
+	public Casilla(String nombre, TipoDatoEnum tipoDeDato, String parametro, String unidaDeMedida, String descripcion,
 			Usuario usuario) {
 		super();
 		this.nombre = nombre;
-		this.tipoDeDato = comboBoxModel;
+		this.tipoDeDato = tipoDeDato;
 		this.parametro = parametro;
 		this.unidaDeMedida = unidaDeMedida;
 		this.descripcion = descripcion;
@@ -164,6 +160,14 @@ public class Casilla implements Serializable {
 
 	public String toStringCorto() {
 		return "Casilla [nombre=" + nombre + ", parametro=" + parametro + ", unidaDeMedida=" + unidaDeMedida + "]";
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Casilla [id=" + id + ", nombre=" + nombre + ", parametro=" + parametro + ", unidaDeMedida="
+				+ unidaDeMedida + "]";
 	}
 
 	

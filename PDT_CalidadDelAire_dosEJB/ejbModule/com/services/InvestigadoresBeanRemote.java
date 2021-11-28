@@ -9,7 +9,7 @@ import com.exceptions.ServiciosException;
 
 @Remote
 public interface InvestigadoresBeanRemote {
-	void crear(Investigador investigador) throws ServiciosException;
+	Investigador crear(Investigador investigador) throws ServiciosException;
 	void actualizar(Investigador investigador) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Investigador> obtenerTodos();
