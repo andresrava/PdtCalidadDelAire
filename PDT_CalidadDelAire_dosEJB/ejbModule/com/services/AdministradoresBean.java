@@ -9,7 +9,6 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.Administrador;
-import com.entities.Ciudad;
 import com.entities.Formulario;
 import com.exceptions.ServiciosException;
 
@@ -96,17 +95,6 @@ public class AdministradoresBean implements AdministradoresBeanRemote {
 			throw new ServiciosException ("No se pudo asignar el formulario al administrador");
 		}
 	}
-	@Override
-	public void asignarCiudad(Long idAdministrador, Long idCiudad) throws ServiciosException {
-		try {
-			Administrador administrador = em.find(Administrador.class, idCiudad);
-			Ciudad ciudad = em.find(Ciudad.class, idCiudad);
-			administrador.setCiudad(ciudad);
-			em.flush();
-		} catch(PersistenceException e) {
-			throw new ServiciosException ("No se pudo asignar la ciudad al administrador");
-		}
-		
-	}
+	
 
 }

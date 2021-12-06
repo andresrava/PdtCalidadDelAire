@@ -1,8 +1,8 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
-
 import javax.persistence.*;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 @NamedQuery(name="Formulario.obtenerTodos", query="SELECT f FROM Formulario f")
 
 @Entity
+@Table (name = "FORMULARIOS")
 @Inheritance( strategy = InheritanceType.JOINED )
 
 public class Formulario implements Serializable {
@@ -29,23 +30,24 @@ public class Formulario implements Serializable {
 	@Column(length=40)
 	private String resumen;
 
-	@JoinTable (
-			name = "FORMULARIO_CASILLAS",
-			joinColumns = @JoinColumn(name = "FK_FORMULARIO" , nullable = false),
-			inverseJoinColumns = @JoinColumn(name = "FK_CASILLA" , nullable = false)
-			)
 	
-	@ManyToMany (cascade = CascadeType.ALL)
-	private List<Casilla> casillas;
+	@ManyToMany ( mappedBy = "formularios")
+	private List<Casilla> casillas = new LinkedList<Casilla>();
 	
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	private Investigador investigador;
 	
-	@ManyToOne
+	@ManyToMany (mappedBy = "formularios")
+	private List<Usuario> usuarios = new LinkedList<Usuario>();
+	
+	@ManyToOne ( fetch = FetchType.LAZY)
 	private Administrador administrador;
 	
-	@OneToMany
-	private List<Actividad> actividades; 
+	@OneToMany (
+			mappedBy = "formulario" ,
+			cascade = CascadeType.ALL ,
+			orphanRemoval = true)
+	private List<Actividad> actividades = new LinkedList<Actividad>(); 
 	
 	
 	public Long getId() {

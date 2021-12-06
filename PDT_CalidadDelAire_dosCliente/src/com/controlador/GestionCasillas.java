@@ -15,7 +15,7 @@ public class GestionCasillas {
 		String ruta = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
 		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
 				InitialContext.doLookup(ruta);
-		casillaBean.crear(casilla);
+		casilla = casillaBean.crear(casilla);
 		return casilla;
 	}
 	

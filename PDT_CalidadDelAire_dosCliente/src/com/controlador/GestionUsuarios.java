@@ -64,5 +64,13 @@ public class GestionUsuarios {
 		aficionado = aficionadoBean.crear(aficionado);
 		return aficionado;
 	}
+	
+	public Usuario obtienePorId (Long idUsuario) throws NamingException, ServiciosException {
+	String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
+	UsuariosBeanRemote usuariosBean = (UsuariosBeanRemote)
+			InitialContext.doLookup(ruta);
+	Usuario usuario = usuariosBean.obtenerPorId(idUsuario);
+	return usuario;
 
+	}
 }

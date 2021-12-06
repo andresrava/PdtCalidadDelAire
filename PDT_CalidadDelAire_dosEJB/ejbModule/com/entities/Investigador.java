@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 @Table(name="INVESTIGADORES")
@@ -29,9 +27,18 @@ public class Investigador extends Usuario implements Serializable {
 	@ManyToOne
 	private Ciudad ciudad;
 	
-	@OneToMany
+	@OneToMany (
+			mappedBy = "investigador" ,
+			cascade = CascadeType.ALL ,
+			orphanRemoval = true
+			)
 	private List<Formulario> formularios;
 	
+	@OneToMany (
+			mappedBy = "investigador" ,
+			cascade = CascadeType.ALL ,
+			orphanRemoval = true)
+	private List<Actividad> actividades;
 	
 	public Ciudad getCiudad() {
 		return ciudad;

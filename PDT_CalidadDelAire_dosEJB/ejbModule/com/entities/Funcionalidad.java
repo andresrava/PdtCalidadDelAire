@@ -21,13 +21,6 @@ public enum Rol {ADMINISTRADOR, INVESTIGADOR, AFICIONADO};
 	@Column(length=255, unique=true, nullable=false)
 	private String nombre;
 
-	
-//	private String listaRoles;
-//	
-//	for (Rol r , )
-//	@Column
-//	private 
-//	
 	public Funcionalidad() {
 		super();
 	}

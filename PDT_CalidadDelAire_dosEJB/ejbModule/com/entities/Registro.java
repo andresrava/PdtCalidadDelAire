@@ -32,10 +32,11 @@ public class Registro implements Serializable {
 	@Column(length=20)
 	private String metodoMuestreo;
 	
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	private Casilla casilla;
 	
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn (name = "ACTIVIDADES_REGISTROS" , nullable = false)
 	private Actividad actividad;
 	
 	public Registro() {

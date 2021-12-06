@@ -1,6 +1,7 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,9 +16,12 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @NamedQuery(name="Ciudad.obtenerTodos", query="SELECT c FROM Ciudad c")
-@Entity
+@Entity (name = "Ciudad")
+@Table (name = "ciudad")
+
 public class Ciudad implements Serializable {
 
 	
@@ -36,8 +40,9 @@ public class Ciudad implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private NombresEnum departamento;
 	
-	@OneToMany ( fetch = FetchType.LAZY , cascade = CascadeType.ALL)
-	private List<EstacionDeMedicion> em;
+	@OneToMany ( fetch = FetchType.LAZY , 
+			cascade = CascadeType.ALL  , orphanRemoval = true , mappedBy = "ciudad")
+	private List<EstacionDeMedicion> em = new LinkedList<EstacionDeMedicion>();
 	
 	
 	public Ciudad() {

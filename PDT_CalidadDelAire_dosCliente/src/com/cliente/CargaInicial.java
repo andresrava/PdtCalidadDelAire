@@ -25,7 +25,7 @@ public class CargaInicial {
 		//Comienza la carga de un Usuario
 		Usuario usuario = new Usuario("Andrés" , "Rava" , "mimail" , "miclave");
 	
-		gestionUsuarios.creaUsuario(usuario);
+		usuario = gestionUsuarios.creaUsuario(usuario);
 		
 		//Comienza carga 2 Administradores 
 		Administrador administrador1 = new Administrador("Adminnombre1" , "AdminApellido1" ,  "AdminMail1" , "AdminClave1" , "AdmDocu1" ,"AdminDomic1" , "AdminTel1");
@@ -62,7 +62,7 @@ public class CargaInicial {
 		aficionado4 = gestionUsuarios.crearAficionado(aficionado4);
 		System.out.println("Aficionado1: " + aficionado1);
 		
-		//Comienza la carga de 2 Casillas
+		//Comienza la carga de 4 Casillas
 		
 		Casilla casilla1 = new Casilla("Primer Casilla" , "humedad" , "%");
 		Casilla casilla2 = new Casilla("Segunda Casilla" , "temperatura" , "ºC");
@@ -73,8 +73,8 @@ public class CargaInicial {
 		
 		GestionCasillas gestionCasilla = new GestionCasillas();
 		casilla1 = gestionCasilla.crearCasilla(casilla1);
-		System.out.println("Id de la Casilla1: " + casilla1);
-		System.out.println(casilla1.getId());
+		Long idCasilla1 = casilla1.getId();
+		System.out.println("Id de la Casilla1: " + idCasilla1);
 		casilla2 = gestionCasilla.crearCasilla(casilla2);
 		casilla3 = gestionCasilla.crearCasilla(casilla3);
 		casilla4 = gestionCasilla.crearCasilla(casilla4);
@@ -90,7 +90,7 @@ public class CargaInicial {
 		
 		//Comienza la carga de 1 Estaciones de Medición
 		
-		EstacionDeMedicion em1 = new EstacionDeMedicion("Primera EM");
+		EstacionDeMedicion em1 = new EstacionDeMedicion("Primera_EM ",primera,usuario);
 					
 		GestionEstaciones gestionEstaciones = new GestionEstaciones();
 		em1 = gestionEstaciones.crearEstacion(em1);
@@ -98,8 +98,6 @@ public class CargaInicial {
 		Long idCasilla = casilla1.getId();
 		System.out.println(idEstacion);			
 		System.out.println(idCasilla);			
-		//gestionEstaciones.asignarCasillaAEM(em1, casilla1);
-		
 		System.out.println(idCasilla);
 		
 	}

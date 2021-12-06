@@ -1,7 +1,8 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.persistence.ManyToOne;
@@ -34,14 +35,14 @@ public class EstacionDeMedicion implements Serializable {
 			)
 	
 	@ManyToMany (cascade = CascadeType.ALL)
-	private List<Casilla> casillas;
+	private Set<Casilla> casillas = new HashSet<Casilla>();
 	
-	@ManyToOne (cascade = CascadeType.PERSIST)
+	
+	@ManyToOne (cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
 	private Ciudad ciudad;
 	
-	@ManyToOne (cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	@ManyToOne  (cascade = CascadeType.PERSIST , fetch = FetchType.LAZY )
 	private Usuario usuario;
-	
 	
 	
 	public EstacionDeMedicion() {
@@ -69,6 +70,19 @@ public class EstacionDeMedicion implements Serializable {
 		this.nombre = nombre;
 	}
 
+	
+	
+	public EstacionDeMedicion(String nombre, String descripcion, Set<Casilla> casillas, Ciudad ciudad,
+			Usuario usuario) {
+		super();
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.casillas = casillas;
+		this.ciudad = ciudad;
+		this.usuario = usuario;
+	}
+
+
 	public Long getId() {
 		return id;
 	}
@@ -93,11 +107,11 @@ public class EstacionDeMedicion implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public List<Casilla> getCasillas() {
+	public Set<Casilla> getCasillas() {
 		return casillas;
 	}
 
-	public void setCasillas(List<Casilla> casillas) {
+	public void setCasillas(Set<Casilla> casillas) {
 		this.casillas = casillas;
 	}
 

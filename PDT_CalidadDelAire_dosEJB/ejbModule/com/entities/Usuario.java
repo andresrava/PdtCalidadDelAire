@@ -4,6 +4,8 @@ package com.entities;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -41,14 +43,25 @@ public class Usuario implements Serializable {
 	@Column(length=255,nullable=false)
 	private String apellido;
 	
-	@OneToMany(mappedBy = "usuario")
-	private List<Actividad> actividades;
+	@OneToMany (
+			mappedBy = "usuario" ,
+			cascade = CascadeType.ALL ,
+			orphanRemoval = true)
+	private List<Casilla> casillas = new ArrayList<Casilla>();
 	
-	@OneToMany (mappedBy = "usuario" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-	private List<EstacionDeMedicion> estaciones;
+	@OneToMany (mappedBy = "usuario" , 
+			cascade = CascadeType.ALL , 
+			orphanRemoval = true)
+	private List<EstacionDeMedicion> estaciones = new ArrayList<EstacionDeMedicion>();
 	
-	@ManyToMany
-	private List<Funcionalidad> funcionalidades;
+	
+	@JoinTable(
+			name = "USUARIOS_FORMULARIOS" ,
+			joinColumns = @JoinColumn(name = "FK_USUARIO" , nullable = false),
+			inverseJoinColumns = @JoinColumn (name = "FK_FORMULARIO" , nullable = false)
+		)	
+	@ManyToMany (cascade = CascadeType.ALL)
+	private List<Formulario> formularios = new LinkedList<Formulario>();
 	
 	public Usuario() {
 		super();
@@ -114,22 +127,6 @@ public class Usuario implements Serializable {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	} 
-	
-	public List<Actividad> getActividades() {
-		return actividades;
-	}
-
-	public void setActividades(List<Actividad> actividades) {
-		this.actividades = actividades;
-	}
-
-	public List<Funcionalidad> getFuncionalidades() {
-		return funcionalidades;
-	}
-
-	public void setFuncionalidades(List<Funcionalidad> funcionalidades) {
-		this.funcionalidades = funcionalidades;
-	}
 
 	@Override
 	public String toString() {

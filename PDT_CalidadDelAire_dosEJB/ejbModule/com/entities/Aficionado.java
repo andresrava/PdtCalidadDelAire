@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.ManyToMany;
 
 /**
  * Entity implementation class for Entity: Aficionado
@@ -23,6 +22,12 @@ public class Aficionado extends Usuario implements Serializable {
 	
 	@ManyToMany
 	private List<Formulario> formularios;
+	
+	@OneToMany (
+			mappedBy = "aficionado" ,
+			cascade = CascadeType.ALL ,
+			orphanRemoval = true)
+	private List<Actividad> actividades;
 	
 
 	public List<Formulario> getFormularios() {

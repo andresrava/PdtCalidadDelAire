@@ -18,7 +18,7 @@ public class Actividad implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Actividad [id=" + id + ", formulario=" + formulario + ", usuario=" + usuario + ", fechaHora="
+		return "Actividad [id=" + id + ", formulario=" + formulario + ", Investigador= " + investigador + ", administrador=" + administrador + ", fechaHora="
 				+ fechaHora + ", registros=" + registros + "]";
 	}
 
@@ -28,16 +28,26 @@ public class Actividad implements Serializable {
 	@SequenceGenerator(name = "SEQ_ACT", initialValue = 1, allocationSize = 1)
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	private Formulario formulario;
 	
-	@ManyToOne
-	private Usuario usuario;
+	@ManyToOne (fetch = FetchType.LAZY)
+	private Administrador administrador;
+	
+	@ManyToOne (fetch = FetchType.LAZY)
+	private Investigador investigador;
+	
+	@ManyToOne (fetch = FetchType.LAZY)
+	private Aficionado aficionado;
+	
 	
 	@Column(nullable=false)
 	private Date fechaHora;
 	
-	@OneToMany
+	@OneToMany (
+			mappedBy = "actividad" ,
+			cascade = CascadeType.ALL ,
+			orphanRemoval = true)
 	private List<Registro> registros;
 	
 	public List<Registro> getRegistros() {
@@ -62,14 +72,6 @@ public class Actividad implements Serializable {
 
 	public void setFormulario(Formulario formulario) {
 		this.formulario = formulario;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	public Actividad() {

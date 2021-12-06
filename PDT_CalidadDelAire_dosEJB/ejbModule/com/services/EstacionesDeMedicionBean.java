@@ -1,6 +1,8 @@
 package com.services;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,6 +11,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.Casilla;
+import com.entities.Ciudad;
 import com.entities.EstacionDeMedicion;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
@@ -30,7 +33,28 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 	public EstacionDeMedicion crear(EstacionDeMedicion estacion) throws ServiciosException {
 		String nombre = estacion.getNombre();
 		
+		
 		try {
+			Ciudad ciudad = estacion.getCiudad();
+			Long idCiudad = ciudad.getId();
+			ciudad = em.find(Ciudad.class, idCiudad);
+			estacion.setCiudad(ciudad);
+			Usuario usuario = estacion.getUsuario();
+			Long idUsuario = usuario.getId();
+			usuario = em.find(Usuario.class, idUsuario);
+			estacion.setUsuario(usuario);
+			Set<Casilla> casillas = new HashSet<Casilla>();
+			casillas = estacion.getCasillas();
+			if (!casillas.isEmpty())
+			{
+				HashSet<Casilla> casillasPlus = new HashSet<Casilla>();
+				for (Casilla c : casillas) {
+					Long idCasilla = c.getId();
+					c = em.find(Casilla.class, idCasilla);
+					casillasPlus.add(c);
+				}
+				estacion.setCasillas(casillasPlus);
+			}
 			em.persist(estacion);
 			em.flush();
 		}catch (PersistenceException e) {

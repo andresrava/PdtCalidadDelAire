@@ -14,5 +14,5 @@ public interface CiudadesBeanRemote {
 	void borrar(Long id) throws ServiciosException;
 	List<Ciudad> obtenerTodos();
 	List<Ciudad> obtenerTodos(String filtro);
-	
+	Ciudad obtenerPorId(Long idCiudad);
 }

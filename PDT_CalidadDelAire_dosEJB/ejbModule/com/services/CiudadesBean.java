@@ -68,5 +68,11 @@ public class CiudadesBean implements CiudadesBeanRemote {
 		return query.getResultList();
 	}
 
+	@Override
+	public Ciudad obtenerPorId(Long idCiudad) {
+		Ciudad ciudad = em.find(Ciudad.class, idCiudad);
+		return ciudad;
+	}
+
 	
 }

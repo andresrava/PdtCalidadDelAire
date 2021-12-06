@@ -1,13 +1,17 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
 
 @Entity
-@Table (name = "CASILLAS")
+@Table (name = "casillas")
 @NamedQuery(name="Casilla.obtenerTodos", query="SELECT c FROM Casilla c")
 
 public class Casilla implements Serializable {
@@ -40,14 +44,26 @@ public class Casilla implements Serializable {
 	@Column(length=50)
 	private String descripcion;
 	
-	@ManyToOne 
+	@ManyToOne (fetch = FetchType.LAZY)
 	private Usuario usuario;
 	
-	@ManyToMany (mappedBy = "casillas")
-	private List<Formulario> formularios;
+	@JoinTable (
+			name = "CASILLAS_FORMULARIOS" , 
+			joinColumns = @JoinColumn (name = "FK_CASILLA" , nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "FK_FORMULARIO" , nullable = false)
+			)
+	@ManyToMany (cascade = CascadeType.ALL)
+	private Set<Formulario> formularios = new HashSet<Formulario>();
 	
 	@ManyToMany ( mappedBy = "casillas")
-	private List<EstacionDeMedicion> estaciones;
+	private List<EstacionDeMedicion> estaciones = new LinkedList<EstacionDeMedicion>();
+	
+	@OneToMany (
+			mappedBy = "casilla" ,
+			cascade = CascadeType.ALL ,
+			orphanRemoval = true
+			)
+	private List<Registro> registros = new ArrayList<Registro>();
 	
 	public Casilla() {
 		super();
@@ -112,13 +128,13 @@ public class Casilla implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public List<Formulario> getFormularios() {
+	public Set<Formulario> getFormularios() {
 		return formularios;
 	}
 
 
 
-	public void setFormularios(List<Formulario> formularios) {
+	public void setFormularios(Set<Formulario> formularios) {
 		this.formularios = formularios;
 	}
 
