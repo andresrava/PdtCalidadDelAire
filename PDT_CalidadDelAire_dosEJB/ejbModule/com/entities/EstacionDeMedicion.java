@@ -1,9 +1,8 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.*;
 import javax.persistence.ManyToOne;
 
@@ -35,7 +34,7 @@ public class EstacionDeMedicion implements Serializable {
 			)
 	
 	@ManyToMany (cascade = CascadeType.ALL)
-	private Set<Casilla> casillas = new HashSet<Casilla>();
+	private List<Casilla> casillas = new LinkedList<Casilla>();
 	
 	
 	@ManyToOne (cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
@@ -72,7 +71,7 @@ public class EstacionDeMedicion implements Serializable {
 
 	
 	
-	public EstacionDeMedicion(String nombre, String descripcion, Set<Casilla> casillas, Ciudad ciudad,
+	public EstacionDeMedicion(String nombre, String descripcion, List<Casilla> casillas, Ciudad ciudad,
 			Usuario usuario) {
 		super();
 		this.nombre = nombre;
@@ -107,11 +106,11 @@ public class EstacionDeMedicion implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Set<Casilla> getCasillas() {
+	public List<Casilla> getCasillas() {
 		return casillas;
 	}
 
-	public void setCasillas(Set<Casilla> casillas) {
+	public void setCasillas (List<Casilla> casillas) {
 		this.casillas = casillas;
 	}
 
@@ -134,7 +133,7 @@ public class EstacionDeMedicion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EstacionDeMedicion [nombre=" + nombre + ", ciudad=" + ciudad + ", usuario=" + usuario + "]";
+		return "EstacionDeMedicion [nombre= " + nombre + ", ciudad= " + ciudad + ", usuario= " + usuario + " ]";
 	} 
 	
 	

@@ -1,7 +1,6 @@
 package com.services;
 
 import java.util.List;
-
 import javax.ejb.Remote;
 
 import com.entities.Casilla;
@@ -16,4 +15,5 @@ public interface CasillasBeanRemote {
 	List<Casilla> obtenerTodos(String filtro);
 	List<Casilla> obtenerPorParametro(Long parametro);
 	List<Casilla> obtenerPorFormulario(Long idFormulario);
+	List<Casilla> obtenerPorEM(Long idEM);
 }

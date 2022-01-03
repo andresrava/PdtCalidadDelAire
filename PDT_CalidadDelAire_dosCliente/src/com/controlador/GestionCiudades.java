@@ -32,4 +32,6 @@ public class GestionCiudades {
 		Ciudad ciudad = ciudadBean.obtenerPorId(idCiudad);
 		return ciudad;
 	}
+	
+	
 }

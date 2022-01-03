@@ -67,8 +67,15 @@ public class VentanaCasillas extends JFrame {
 		btnListaCasillas_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				VentanaListaCasillas ventanaListaCasillas = new VentanaListaCasillas(usuarioLoged);
-				ventanaListaCasillas.ventanaListaCasillas();
+				VentanaListarCasillas ventanaListarCasillas;
+				try {
+					ventanaListarCasillas = new VentanaListarCasillas(usuarioLoged);
+					ventanaListarCasillas.ventanaListarCasillas();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		

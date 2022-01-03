@@ -1,9 +1,8 @@
 package com.services;
 
-import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -43,15 +42,19 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 			Long idUsuario = usuario.getId();
 			usuario = em.find(Usuario.class, idUsuario);
 			estacion.setUsuario(usuario);
-			Set<Casilla> casillas = new HashSet<Casilla>();
+			List<Casilla> casillas = new LinkedList<Casilla>();
+			List<Casilla> casillasPlus = new LinkedList<Casilla>();
 			casillas = estacion.getCasillas();
 			if (!casillas.isEmpty())
 			{
-				HashSet<Casilla> casillasPlus = new HashSet<Casilla>();
-				for (Casilla c : casillas) {
-					Long idCasilla = c.getId();
-					c = em.find(Casilla.class, idCasilla);
-					casillasPlus.add(c);
+				Iterator<Casilla> it = casillas.iterator();
+				Long idCasilla;
+				Casilla casilla = new Casilla();
+				while (it.hasNext()) {
+					idCasilla = it.next().getId();
+					casilla = em.find(Casilla.class, idCasilla);
+					casillasPlus.add(casilla);
+
 				}
 				estacion.setCasillas(casillasPlus);
 			}
@@ -95,10 +98,24 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 		}
 	}
 
+	
+	@Override
+	public EstacionDeMedicion obtenerPorId(Long id) throws ServiciosException {
+		EstacionDeMedicion estacion = new EstacionDeMedicion();
+		try {
+			estacion = em.find(EstacionDeMedicion.class, id);
+			
+		}catch (PersistenceException e) {
+			throw new ServiciosException ("No se pudo borrar la estacion");
+		}
+		return estacion;
+	}
+	
+	
 	@Override
 	public List<EstacionDeMedicion> obtenerTodos() {
 		TypedQuery<EstacionDeMedicion>query = em.createNamedQuery("EstacionDeMedicion.obtenerTodos", EstacionDeMedicion.class);
-		return query.getResultList();
+		return  query.getResultList();
 	}
 
 	@Override

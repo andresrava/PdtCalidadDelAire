@@ -1,8 +1,6 @@
 package com.services;
 
 import java.util.List;
-import java.util.Set;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +8,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.Casilla;
+import com.entities.EstacionDeMedicion;
 import com.entities.Formulario;
 import com.exceptions.ServiciosException;
 
@@ -87,6 +86,13 @@ public CasillasBean() {
 	public List<Casilla> obtenerPorFormulario(Long idFormulario) {
 		Formulario formulario = em.find(Formulario.class, idFormulario);
 		List<Casilla> lista = formulario.getCasillas();
+		return lista;
+	}
+	
+	@Override
+	public List<Casilla> obtenerPorEM(Long idEM) {
+		EstacionDeMedicion estacion = em.find(EstacionDeMedicion.class, idEM);
+		List<Casilla> lista = estacion.getCasillas();
 		return lista;
 	}
 

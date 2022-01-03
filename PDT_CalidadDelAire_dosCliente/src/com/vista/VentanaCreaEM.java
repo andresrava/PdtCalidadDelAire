@@ -1,13 +1,8 @@
 package com.vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -59,7 +54,7 @@ public class VentanaCreaEM extends JFrame {
 	private JTextField textNombre;
 	private JTextField textCiudad;
 	private JTextField textComentarios;
-	private Set<Casilla> lista = new HashSet<Casilla>();
+	private List<Casilla> lista = new LinkedList<Casilla>();
 	/**
 	 * Create the frame.
 	 * @throws NamingException 
@@ -238,7 +233,7 @@ public class VentanaCreaEM extends JFrame {
 
 			
 		JComboBox comboBoxCasillasDisponibles = new JComboBox();
-		List<Casilla> casillasDisponibles = new ArrayList<Casilla>();
+		List<Casilla> casillasDisponibles = new LinkedList<Casilla>();
 		GestionCasillas gestionCasillas = new GestionCasillas();
 		casillasDisponibles = gestionCasillas.listaCasillas();
 		for (Casilla c : casillasDisponibles) {

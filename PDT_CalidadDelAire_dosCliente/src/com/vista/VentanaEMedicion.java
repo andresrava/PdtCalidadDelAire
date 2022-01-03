@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class VentanaEMedicion extends JFrame {
 
@@ -70,11 +71,11 @@ public class VentanaEMedicion extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel)
-						.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(lblNewLabel, Alignment.LEADING)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addGap(10)
-							.addComponent(btnCrear, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnCrear, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
 					.addContainerGap(300, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
