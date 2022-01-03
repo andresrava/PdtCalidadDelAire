@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.entities.Administrador;
+import com.entities.Aficionado;
+import com.entities.Investigador;
 import com.entities.Usuario;
 
 import javax.naming.NamingException;
@@ -17,6 +19,8 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaCasillas extends JFrame {
 
@@ -67,10 +71,10 @@ public class VentanaCasillas extends JFrame {
 		btnListaCasillas_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				VentanaListarCasillas ventanaListarCasillas;
+				VentanaListaCasillas ventanaListaCasillas;
 				try {
-					ventanaListarCasillas = new VentanaListarCasillas(usuarioLoged);
-					ventanaListarCasillas.ventanaListarCasillas();
+					ventanaListaCasillas = new VentanaListaCasillas(usuarioLoged);
+					ventanaListaCasillas.ventanaListaCasillas();
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -79,12 +83,29 @@ public class VentanaCasillas extends JFrame {
 			}
 		});
 		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addMouseListener(new MouseAdapter() {
+		JButton btnVolver = new JButton("Volver");					// El botón volver abre una ventana acorde al usuario que está trabajando
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnVolver.addMouseListener(new MouseAdapter() {				// Me falta lograr que se cierre la ventana que está en uso		
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if (usuarioLoged instanceof Administrador) {
 				VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuarioLoged);
 				ventanaAdministrador.ventanaAdministrador();
+				
+				}
+				if (usuarioLoged instanceof Investigador) {
+				VentanaInvestigador ventanaInvestigador = new VentanaInvestigador((Investigador) usuarioLoged);
+				ventanaInvestigador.ventanaInvestigador();
+				}
+				if (usuarioLoged instanceof Aficionado) {
+					VentanaAficionado ventanaAficionado = new VentanaAficionado((Aficionado) usuarioLoged);
+					ventanaAficionado.ventanaAficionado();
+				}
+				
+
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

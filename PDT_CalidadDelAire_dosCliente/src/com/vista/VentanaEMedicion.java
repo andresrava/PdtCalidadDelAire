@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.entities.Administrador;
+import com.entities.Aficionado;
+import com.entities.Investigador;
 import com.entities.Usuario;
 
 import javax.naming.NamingException;
@@ -17,6 +20,8 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaEMedicion extends JFrame {
 
@@ -67,15 +72,64 @@ public class VentanaEMedicion extends JFrame {
 				}
 				}
 		});
+		
+		JButton btnListaEM = new JButton("Lista");
+		btnListaEM.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				VentanaListaEM ventanaListaEM;
+				ventanaListaEM = new VentanaListaEM(usuarioLoged);
+				ventanaListaEM.ventanaListaEM();
+			}
+		});
+		btnListaEM.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				if (usuarioLoged instanceof Administrador) {
+				VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuarioLoged);
+				ventanaAdministrador.ventanaAdministrador();
+				
+				}
+				if (usuarioLoged instanceof Investigador) {
+				VentanaInvestigador ventanaInvestigador = new VentanaInvestigador((Investigador) usuarioLoged);
+				ventanaInvestigador.ventanaInvestigador();
+				}
+				if (usuarioLoged instanceof Aficionado) {
+					VentanaAficionado ventanaAficionado = new VentanaAficionado((Aficionado) usuarioLoged);
+					ventanaAficionado.ventanaAficionado();
+				}
+				
+
+			}
+		});
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addComponent(lblNewLabel, Alignment.LEADING)
 						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addGap(10)
-							.addComponent(btnCrear, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
+							.addComponent(btnCrear, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addGap(10)
+							.addComponent(btnListaEM, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
 					.addContainerGap(300, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -84,7 +138,11 @@ public class VentanaEMedicion extends JFrame {
 					.addComponent(lblNewLabel)
 					.addGap(18)
 					.addComponent(btnCrear, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(169, Short.MAX_VALUE))
+					.addGap(11)
+					.addComponent(btnListaEM, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(40, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

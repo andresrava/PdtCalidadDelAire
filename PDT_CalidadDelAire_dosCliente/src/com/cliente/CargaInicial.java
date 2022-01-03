@@ -54,7 +54,7 @@ public class CargaInicial {
 		Aficionado aficionado1 = new Aficionado("AficApellido1" , "Aficnombre1" , "AficMail1" , "AficClave1");
 		Aficionado aficionado2 = new Aficionado("AficApellido2" , "Aficnombre2" , "AficMail2" , "AficClave2");
 		Aficionado aficionado3 = new Aficionado("AficApellido3" , "Aficnombre3" , "AficMail3" , "AficClave3");
-		Aficionado aficionado4 = new Aficionado("AficApellido4" , "Aficnombre4" , "AficMail4" , "AficClave4");
+		Aficionado aficionado4 = new Aficionado("AficApellido4" , "Aficnombre4" , "mailAfic" , "claveAfic");
 		
 		aficionado1 = gestionUsuarios.crearAficionado(aficionado1);
 		aficionado2 = gestionUsuarios.crearAficionado(aficionado2);

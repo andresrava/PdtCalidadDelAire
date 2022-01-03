@@ -1,31 +1,5 @@
 package com.vista;
 
-//import java.awt.EventQueue;
-//import java.util.LinkedList;
-//import java.util.List;
-//import javax.swing.JFrame;
-//import javax.swing.JPanel;
-//import javax.swing.border.EmptyBorder;
-//import javax.naming.NamingException;
-//import javax.swing.GroupLayout;
-//import javax.swing.GroupLayout.Alignment;
-//import javax.swing.JScrollPane;
-//import com.controlador.GestionCasillas;
-//import com.controlador.GestionEstaciones;
-//import com.entities.Casilla;
-//import com.entities.EstacionDeMedicion;
-//import com.entities.Usuario;
-//
-//import javax.swing.JComboBox;
-//import javax.swing.LayoutStyle.ComponentPlacement;
-//import javax.swing.border.BevelBorder;
-//import javax.swing.JLabel;
-//import javax.swing.JTextField;
-//import javax.swing.JButton;
-//import java.awt.event.MouseAdapter;
-//import java.awt.event.MouseEvent;
-//import java.io.Serializable;
-
 import java.awt.EventQueue;
 import java.util.LinkedList;
 import java.util.List;
@@ -104,19 +78,12 @@ public class VentanaListaCasillas extends JFrame {
 		textNombreCasilla.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Est. de Medici\u00F3n");
-		
-		
-		
+				
 		JComboBox comboBoxCasillas = new JComboBox();
 		scrollPane.setColumnHeaderView(comboBoxCasillas);
-		
-		
-		
-		
-		
-		
+				
 		GestionCasillas gestionCasillas = new GestionCasillas();
-		List<Casilla> casillas = new LinkedList<Casilla>();;
+		List<Casilla> casillas = new LinkedList<Casilla>();
 		try {
 			casillas = gestionCasillas.listaCasillas();
 			for (Casilla c: casillas) {

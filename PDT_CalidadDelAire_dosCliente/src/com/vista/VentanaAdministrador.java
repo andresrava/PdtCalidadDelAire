@@ -146,7 +146,13 @@ public class VentanaAdministrador extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			Ingreso ingreso = new Ingreso();
+				Ingreso ingreso = new Ingreso();
+				try {
+					ingreso.main(null);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

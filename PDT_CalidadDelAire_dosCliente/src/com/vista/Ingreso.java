@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import com.cliente.CargaInicial;
 import com.controlador.GestionUsuarios;
 import com.entities.Administrador;
+import com.entities.Aficionado;
 import com.entities.Investigador;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
@@ -94,6 +95,11 @@ public class Ingreso extends JFrame {
 						System.out.println("Es una instancia de Investigador!!!");
 						VentanaInvestigador ventanaInvestigador = new VentanaInvestigador((Investigador) usuario);
 						ventanaInvestigador.ventanaInvestigador();
+					}
+					else if (usuario instanceof Aficionado) {
+						System.out.println("Es una instancia de Aficionado!!!");
+						VentanaAficionado ventanaAficionado = new VentanaAficionado((Aficionado) usuario);
+						ventanaAficionado.ventanaAficionado();
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Error - credenciales incorrectas.");

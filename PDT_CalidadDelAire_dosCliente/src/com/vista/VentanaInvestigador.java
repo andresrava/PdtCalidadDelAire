@@ -89,6 +89,19 @@ public class VentanaInvestigador extends JFrame {
 		btnGestionFormularios.setBackground(Color.WHITE);
 		
 		JButton btnGestinDeEst = new JButton("Estaciones de Medici\u00F3n");
+		btnGestinDeEst.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				VentanaEMedicion ventanaEMedicion;
+				try {
+					ventanaEMedicion = new VentanaEMedicion((Usuario) investigadorLoged);
+					ventanaEMedicion.ventanaEMedicion();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnGestinDeEst.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnGestinDeEst.setBackground(Color.WHITE);
 		
