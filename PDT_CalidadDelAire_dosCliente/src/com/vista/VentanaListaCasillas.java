@@ -129,6 +129,7 @@ public class VentanaListaCasillas extends JFrame {
 				GestionCasillas gestionCasillas = new GestionCasillas();
 				try {
 					casillasFiltradasNombre = gestionCasillas.listaCasillas(textNombreCasilla.getText());
+					comboBoxCasillas.removeAllItems();
 					for (Casilla c: casillasFiltradasNombre) {
 						comboBoxCasillas.addItem(c.toStringCorto());
 					}
@@ -155,9 +156,7 @@ public class VentanaListaCasillas extends JFrame {
 		List<EstacionDeMedicion> estacionesDeMedicion = new LinkedList<EstacionDeMedicion>();
 		GestionEstaciones gestionEstaciones = new GestionEstaciones();
 		estacionesDeMedicion = gestionEstaciones.obtieneTodas();
-		for (EstacionDeMedicion e : estacionesDeMedicion) {
-			comboEM.addItem(e);
-		}
+		
 		
 		
 		GroupLayout gl_panel = new GroupLayout(panel);

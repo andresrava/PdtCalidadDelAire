@@ -43,7 +43,7 @@ public class GestionEstaciones {
 		String ruta = "PDT_CalidadDelAire_dosEJB/EstacionesDeMedicionBean!com.services.EstacionesDeMedicionBeanRemote";
 		EstacionesDeMedicionBeanRemote estacionBean = (EstacionesDeMedicionBeanRemote)
 				InitialContext.doLookup(ruta);
-		List<EstacionDeMedicion> estaciones = estacionBean.obtenerTodos();
+		List<EstacionDeMedicion> estaciones = estacionBean.obtenerTodos("*");
 		
 		return estaciones;
 		

@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.entities.Usuario;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
 
 public class VentanaListaEM extends JFrame {
 
@@ -34,13 +37,29 @@ public class VentanaListaEM extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaListaEM(Usuario usuarioLogedRef) {
+		setTitle("Lista Estaciones de Medici\u00F3n");
 		VentanaListaEM.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		String nombreUsuario = usuarioLoged.getNombre();
+		JLabel lblNewLabel = new JLabel("Usuario: " + nombreUsuario);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(lblNewLabel)
+					.addContainerGap(376, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(lblNewLabel)
+					.addContainerGap(237, Short.MAX_VALUE))
+		);
+		contentPane.setLayout(gl_contentPane);
 	}
-
 }
