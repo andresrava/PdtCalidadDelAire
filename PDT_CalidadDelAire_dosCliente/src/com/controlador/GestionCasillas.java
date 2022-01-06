@@ -34,10 +34,7 @@ public class GestionCasillas {
 		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
 				InitialContext.doLookup(ruta);
 		List<Casilla> casillas = casillaBean.obtenerTodos("%" + nombre + "%");
-//		Set<Casilla> casillas = new HashSet<Casilla>();
-//		for(Casilla c : casillasPre) {
-//			casillas.add(c);
-//		}
+
 		return casillas;
 	}
 	

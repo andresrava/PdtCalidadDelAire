@@ -48,6 +48,15 @@ public class GestionEstaciones {
 		return estaciones;
 		
 	}
+	public List<EstacionDeMedicion> obtieneTodas(String nombre) throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/EstacionesDeMedicionBean!com.services.EstacionesDeMedicionBeanRemote";
+		EstacionesDeMedicionBeanRemote estacionBean = (EstacionesDeMedicionBeanRemote)
+				InitialContext.doLookup(ruta);
+		List<EstacionDeMedicion> estaciones = estacionBean.obtenerTodos("%" + nombre + "%");
+		
+		return estaciones;
+		
+	}
 
 	
 }

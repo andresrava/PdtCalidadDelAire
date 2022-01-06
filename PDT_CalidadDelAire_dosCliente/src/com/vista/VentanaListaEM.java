@@ -104,7 +104,7 @@ public class VentanaListaEM extends JFrame {
 		
 		JLabel lblNewLabel_4 = new JLabel("Localidad:");
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox comboLocalidad = new JComboBox();
 		
 		JButton btnAplicar = new JButton("Aplicar");
 		GroupLayout gl_panel = new GroupLayout(panel);
@@ -124,7 +124,7 @@ public class VentanaListaEM extends JFrame {
 									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 										.addComponent(comboDepartamentos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(textNombreEM, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+										.addComponent(comboLocalidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
 						.addComponent(lblNewLabel_3)
 						.addComponent(lblNewLabel_4))
 					.addContainerGap(37, Short.MAX_VALUE))
@@ -145,26 +145,31 @@ public class VentanaListaEM extends JFrame {
 					.addGap(24)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel_4)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboLocalidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
 					.addComponent(btnAplicar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
-		panel.setLayout(gl_panel);
+		
 		
 		JComboBox comboEM = new JComboBox();
 		scrollPane.setColumnHeaderView(comboEM);
-		contentPane.setLayout(gl_contentPane);
+		
 		GestionEstaciones gestionEstaciones = new GestionEstaciones();
 		List<EstacionDeMedicion> estaciones = new LinkedList<EstacionDeMedicion>();
-		System.out.println(estaciones);
+		System.out.println(estaciones.size());
+		System.out.println(estaciones.toString());
 		try {
-			estaciones = gestionEstaciones.obtieneTodas();
+			estaciones = gestionEstaciones.obtieneTodas(); 
+			System.out.println("size: " + estaciones.size());
+			System.out.println(estaciones.toString());
 			for (EstacionDeMedicion em : estaciones) {
-				comboEM.addItem(em);
+				comboEM.addItem(em.toString());
 			}
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
+		panel.setLayout(gl_panel);
+		contentPane.setLayout(gl_contentPane);
 	}
 }

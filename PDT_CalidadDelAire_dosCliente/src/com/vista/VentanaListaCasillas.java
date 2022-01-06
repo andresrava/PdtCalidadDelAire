@@ -84,8 +84,11 @@ public class VentanaListaCasillas extends JFrame {
 				
 		GestionCasillas gestionCasillas = new GestionCasillas();
 		List<Casilla> casillas = new LinkedList<Casilla>();
+		System.out.println(casillas);
 		try {
-			casillas = gestionCasillas.listaCasillas();
+			casillas = gestionCasillas.listaCasillas();  
+			System.out.println("size: " + casillas.size());
+			System.out.println(casillas.toString());
 			for (Casilla c: casillas) {
 				comboBoxCasillas.addItem(c.toStringCorto());
 			}
@@ -154,8 +157,8 @@ public class VentanaListaCasillas extends JFrame {
 		
 		JComboBox comboEM = new JComboBox();
 		List<EstacionDeMedicion> estacionesDeMedicion = new LinkedList<EstacionDeMedicion>();
-		GestionEstaciones gestionEstaciones = new GestionEstaciones();
-		estacionesDeMedicion = gestionEstaciones.obtieneTodas();
+//		GestionEstaciones gestionEstaciones = new GestionEstaciones();
+//		estacionesDeMedicion = gestionEstaciones.obtieneTodas();
 		
 		
 		

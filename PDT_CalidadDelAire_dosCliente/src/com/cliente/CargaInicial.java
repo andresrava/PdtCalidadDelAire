@@ -32,9 +32,9 @@ public class CargaInicial {
 		Administrador administrador2 = new Administrador("Adminnombre2" , "AdminApellido2" ,  "AdminMail2" , "AdminClave2" , "AdmDocu2" ,"AdminDomic2" , "AdminTel2");
 		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mailAdmin" , "claveAdmin" , "AdmDocu3" ,"AdminDomic3" , "AdminTel3");
 		
-		gestionUsuarios.crearAdministrador(administrador1);
-		gestionUsuarios.crearAdministrador(administrador2);
-		gestionUsuarios.crearAdministrador(administrador3);
+		administrador1 = gestionUsuarios.crearAdministrador(administrador1);
+		administrador2 = gestionUsuarios.crearAdministrador(administrador2);
+		administrador3 = gestionUsuarios.crearAdministrador(administrador3);
 		
 		//Comienza carga 4 Investigadores 
 		
@@ -91,9 +91,12 @@ public class CargaInicial {
 		//Comienza la carga de 1 Estaciones de Medición
 		
 		EstacionDeMedicion em1 = new EstacionDeMedicion("Primera_EM ",primera,usuario);
+		EstacionDeMedicion em2 = new EstacionDeMedicion("Segunda_EM ",segunda,administrador1);
 					
 		GestionEstaciones gestionEstaciones = new GestionEstaciones();
+		GestionEstaciones gestionEstaciones2 = new GestionEstaciones();
 		em1 = gestionEstaciones.crearEstacion(em1);
+		em2 = gestionEstaciones2.crearEstacion(em2);
 		Long idEstacion = em1.getId();
 		Long idCasilla = casilla1.getId();
 		System.out.println(idEstacion);			
