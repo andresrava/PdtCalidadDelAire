@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Table (name = "EM")
-@NamedQuery(name="EstacionDeMedicion.obtenerTodos", query="SELECT e FROM EstacionDeMedicion e")
+@NamedQuery(name="EstacionDeMedicion.obtenerTodos", query = "SELECT e FROM EstacionDeMedicion e")
 public class EstacionDeMedicion implements Serializable {
 
 	
