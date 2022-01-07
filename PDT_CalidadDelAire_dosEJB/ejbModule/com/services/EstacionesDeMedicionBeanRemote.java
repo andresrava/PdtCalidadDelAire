@@ -12,8 +12,8 @@ public interface EstacionesDeMedicionBeanRemote {
 	EstacionDeMedicion crear(EstacionDeMedicion estacion) throws ServiciosException;
 	EstacionDeMedicion actualizar(EstacionDeMedicion estacion) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
-	List<EstacionDeMedicion> obtenerTodos();
-	List<EstacionDeMedicion> obtenerTodos(String filtro);
+	List<EstacionDeMedicion> obtenerTodasEM();
+	List<EstacionDeMedicion> obtenerTodasEM(String filtro);
 	List<EstacionDeMedicion> obtenerPorDepartamento(Long idDepartamento);
 	List<EstacionDeMedicion> obtenerPorCiudad(Long idCiudad);
 	List<EstacionDeMedicion> obtenerPorInvestigador(Long idInvestigador);

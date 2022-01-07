@@ -160,7 +160,7 @@ public class VentanaListaEM extends JFrame {
 		System.out.println(estaciones.size());
 		System.out.println(estaciones.toString());
 		try {
-			estaciones = gestionEstaciones.obtieneTodas(); 
+			estaciones = gestionEstaciones.obtieneEM(); 
 			System.out.println("size: " + estaciones.size());
 			System.out.println(estaciones.toString());
 			for (EstacionDeMedicion em : estaciones) {
