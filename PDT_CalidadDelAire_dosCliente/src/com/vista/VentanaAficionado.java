@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import com.entities.Aficionado;
+import com.entities.Usuario;
 
 import javax.naming.NamingException;
 import javax.swing.GroupLayout;
@@ -56,6 +57,15 @@ public class VentanaAficionado extends JFrame {
 		JLabel lblNewLabel = new JLabel("Aficionado: " + nombreDelAficionado);
 		
 		JButton btnActividadCampo = new JButton("Actividad de Campo");
+		btnActividadCampo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				VentanaActividadDeCampo ventanaActividadDeCampo = null;
+				ventanaActividadDeCampo = new VentanaActividadDeCampo((Usuario) aficionadoLoged);
+				ventanaActividadDeCampo.ventanaActividadDeCampo();
+				
+			}
+		});
 		btnActividadCampo.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnActividadCampo.setBackground(Color.WHITE);
 		
