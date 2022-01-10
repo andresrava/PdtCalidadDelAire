@@ -62,7 +62,7 @@ public class VentanaActividadDeCampo extends JFrame {
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				dispose();
 				if (usuarioLoged instanceof Administrador) {
 				VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuarioLoged);
 				ventanaAdministrador.ventanaAdministrador();

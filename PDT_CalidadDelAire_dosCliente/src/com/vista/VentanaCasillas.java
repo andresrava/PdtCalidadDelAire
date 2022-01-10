@@ -62,6 +62,7 @@ public class VentanaCasillas extends JFrame {
 		btnCreaCasilla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				VentanaCreaCasilla ventanaCreaCasilla = new VentanaCreaCasilla(usuarioLoged);
 				ventanaCreaCasilla.ventanaCreaCasilla();
 			}
@@ -79,6 +80,7 @@ public class VentanaCasillas extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				dispose();
 				
 			}
 		});
@@ -94,7 +96,7 @@ public class VentanaCasillas extends JFrame {
 				if (usuarioLoged instanceof Administrador) {
 				VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuarioLoged);
 				ventanaAdministrador.ventanaAdministrador();
-				
+				dispose();
 				}
 				if (usuarioLoged instanceof Investigador) {
 				VentanaInvestigador ventanaInvestigador = new VentanaInvestigador((Investigador) usuarioLoged);

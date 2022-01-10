@@ -23,6 +23,8 @@ import javax.swing.JComboBox;
 import javax.swing.border.BevelBorder;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VentanaListaEM extends JFrame {
 
@@ -53,7 +55,7 @@ public class VentanaListaEM extends JFrame {
 		setTitle("Lista Estaciones de Medici\u00F3n");
 		VentanaListaEM.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 604, 340);
+		setBounds(100, 100, 675, 340);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -65,6 +67,26 @@ public class VentanaListaEM extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				try {
+					VentanaEMedicion ventanaEMedicion = new VentanaEMedicion(usuarioLoged);
+					ventanaEMedicion.ventanaEMedicion();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
+		JButton btnEditar = new JButton("Editar");
+		
+		JButton btnEliminar = new JButton("Eliminar");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -74,8 +96,18 @@ public class VentanaListaEM extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(25)
 							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 287, GroupLayout.PREFERRED_SIZE)))
-					.addGap(46)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(46)
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnEliminar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addGap(25))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -89,6 +121,14 @@ public class VentanaListaEM extends JFrame {
 							.addGap(11)
 							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(31, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(241, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnEliminar, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(btnEditar, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnVolver, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)))
+					.addContainerGap())
 		);
 		
 		JLabel lblNewLabel_1 = new JLabel("Filtros:");

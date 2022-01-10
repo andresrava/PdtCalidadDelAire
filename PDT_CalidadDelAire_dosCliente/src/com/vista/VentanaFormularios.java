@@ -62,6 +62,7 @@ public class VentanaFormularios extends JFrame {
 		btnCrear.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				VentanaCreaFormulario ventanaCreaFormulario = new VentanaCreaFormulario(usuarioLoged);
 				ventanaCreaFormulario.VentanaCreaFormulario();
 			}
@@ -73,6 +74,7 @@ public class VentanaFormularios extends JFrame {
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				if (usuarioLoged instanceof Administrador) {
 					VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuarioLoged);
 					ventanaAdministrador.ventanaAdministrador();
