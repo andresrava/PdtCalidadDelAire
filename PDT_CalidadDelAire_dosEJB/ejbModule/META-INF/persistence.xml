@@ -7,6 +7,7 @@
 				
                 
 				<mapping-file>META-INF/orm.xml</mapping-file>
+				<class>com.entities.Usuario</class>
 				
 				
                 <properties>

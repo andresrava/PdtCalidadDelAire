@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
@@ -66,8 +67,11 @@ public class Ingreso extends JFrame {
 		textMail = new JTextField();
 		textMail.setColumns(10);
 		
-		textClave = new JTextField();
+		textClave = new JPasswordField();
 		textClave.setColumns(10);
+		textClave.setBounds(123, 110, 133, 20);
+		contentPane.add(textClave);
+		
 		
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
@@ -87,16 +91,19 @@ public class Ingreso extends JFrame {
 					e1.printStackTrace();
 				}
 					if (usuario instanceof Administrador) {
+						dispose();
 						System.out.println("Es una instancia de Administrador!!!");
 						VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuario);
 						ventanaAdministrador.ventanaAdministrador();
 					}
 					else if (usuario instanceof Investigador) {
+						dispose();
 						System.out.println("Es una instancia de Investigador!!!");
 						VentanaInvestigador ventanaInvestigador = new VentanaInvestigador((Investigador) usuario);
 						ventanaInvestigador.ventanaInvestigador();
 					}
 					else if (usuario instanceof Aficionado) {
+						dispose();
 						System.out.println("Es una instancia de Aficionado!!!");
 						VentanaAficionado ventanaAficionado = new VentanaAficionado((Aficionado) usuario);
 						ventanaAficionado.ventanaAficionado();
