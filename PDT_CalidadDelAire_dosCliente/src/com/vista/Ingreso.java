@@ -104,6 +104,7 @@ public class Ingreso extends JFrame {
 					}
 					else if (usuario instanceof Aficionado) {
 						dispose();
+						//mensaje de prueba
 						System.out.println("Es una instancia de Aficionado!!!");
 						VentanaAficionado ventanaAficionado = new VentanaAficionado((Aficionado) usuario);
 						ventanaAficionado.ventanaAficionado();
