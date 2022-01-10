@@ -73,15 +73,14 @@ public class VentanaCasillas extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				VentanaListaCasillas ventanaListaCasillas;
+				dispose();
 				try {
 					ventanaListaCasillas = new VentanaListaCasillas(usuarioLoged);
 					ventanaListaCasillas.ventanaListaCasillas();
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-				dispose();
-				
+				}					
 			}
 		});
 		
@@ -93,10 +92,10 @@ public class VentanaCasillas extends JFrame {
 		btnVolver.addMouseListener(new MouseAdapter() {				// Me falta lograr que se cierre la ventana que está en uso		
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				if (usuarioLoged instanceof Administrador) {
 				VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuarioLoged);
 				ventanaAdministrador.ventanaAdministrador();
-				dispose();
 				}
 				if (usuarioLoged instanceof Investigador) {
 				VentanaInvestigador ventanaInvestigador = new VentanaInvestigador((Investigador) usuarioLoged);
