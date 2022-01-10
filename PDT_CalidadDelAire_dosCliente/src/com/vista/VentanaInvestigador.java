@@ -81,6 +81,16 @@ public class VentanaInvestigador extends JFrame {
 		btnCargaMasiva.setBackground(Color.WHITE);
 		
 		JButton btnActividadCampo = new JButton("Actividad de Campo");
+		btnActividadCampo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				VentanaActividadDeCampo ventanaActividadDeCampo = null;
+				ventanaActividadDeCampo = new VentanaActividadDeCampo((Usuario) investigadorLoged);
+				ventanaActividadDeCampo.ventanaActividadDeCampo();
+				
+			}
+		});
 		btnActividadCampo.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnActividadCampo.setBackground(Color.WHITE);
 		

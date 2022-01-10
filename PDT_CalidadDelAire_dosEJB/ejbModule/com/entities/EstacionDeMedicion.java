@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
-import javax.persistence.ManyToOne;
+
 
 
 @Entity

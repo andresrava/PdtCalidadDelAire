@@ -4,10 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 
 import com.entities.Casilla;
 import com.entities.Ciudad;
@@ -113,15 +110,15 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 	
 	
 	@Override
-	public List<EstacionDeMedicion> obtenerTodos() {
+	public List<EstacionDeMedicion> obtenerTodasEM() {
 		TypedQuery<EstacionDeMedicion>query = em.createNamedQuery("EstacionDeMedicion.obtenerTodos", EstacionDeMedicion.class);
 		return  query.getResultList();
 	}
 
 	@Override
-	public List<EstacionDeMedicion> obtenerTodos(String filtro) {
+	public List<EstacionDeMedicion> obtenerTodasEM(String filtro) {
 		TypedQuery<EstacionDeMedicion>query = em.createQuery("SELECT e FROM EstacionDeMedicion e WHERE e.nombre LIKE :nombre", EstacionDeMedicion.class)
-				.setParameter("nombre",filtro);
+				.setParameter("nombre",filtro);		
 		return query.getResultList();
 	}
 

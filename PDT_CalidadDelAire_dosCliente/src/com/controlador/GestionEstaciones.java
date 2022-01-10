@@ -39,11 +39,23 @@ public class GestionEstaciones {
 		return estacion;
 	}
 	
-	public List<EstacionDeMedicion> obtieneTodas() throws NamingException {
+	public List<EstacionDeMedicion> obtieneEM() throws NamingException {		
 		String ruta = "PDT_CalidadDelAire_dosEJB/EstacionesDeMedicionBean!com.services.EstacionesDeMedicionBeanRemote";
 		EstacionesDeMedicionBeanRemote estacionBean = (EstacionesDeMedicionBeanRemote)
 				InitialContext.doLookup(ruta);
-		List<EstacionDeMedicion> estaciones = estacionBean.obtenerTodos();
+		estacionBean.toString();
+		Class<?> clase = estacionBean.getClass();
+		System.out.println(clase);
+		List<EstacionDeMedicion> estaciones = estacionBean.obtenerTodasEM();
+		
+		return estaciones;
+		
+	}
+	public List<EstacionDeMedicion> obtieneEmPorNombre(String nombre) throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/EstacionesDeMedicionBean!com.services.EstacionesDeMedicionBeanRemote";
+		EstacionesDeMedicionBeanRemote estacionBean = (EstacionesDeMedicionBeanRemote)
+				InitialContext.doLookup(ruta);
+		List<EstacionDeMedicion> estaciones = estacionBean.obtenerTodasEM("%" + nombre + "%");
 		
 		return estaciones;
 		

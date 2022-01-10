@@ -23,6 +23,8 @@ public class GestionCasillas {
 		String ruta = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
 		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
 				InitialContext.doLookup(ruta);
+//		Class<?> clase = casillaBean.getClass();
+//		System.out.println(clase);
 		List<Casilla> casillas = casillaBean.obtenerTodos();
 
 		return casillas;	
@@ -34,10 +36,7 @@ public class GestionCasillas {
 		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
 				InitialContext.doLookup(ruta);
 		List<Casilla> casillas = casillaBean.obtenerTodos("%" + nombre + "%");
-//		Set<Casilla> casillas = new HashSet<Casilla>();
-//		for(Casilla c : casillasPre) {
-//			casillas.add(c);
-//		}
+
 		return casillas;
 	}
 	

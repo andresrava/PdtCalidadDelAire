@@ -8,6 +8,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.Casilla;
+import com.entities.Casilla.TipoDatoEnum;
 import com.entities.EstacionDeMedicion;
 import com.entities.Formulario;
 import com.exceptions.ServiciosException;
