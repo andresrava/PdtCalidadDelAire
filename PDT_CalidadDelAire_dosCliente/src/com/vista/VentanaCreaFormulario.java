@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.entities.Administrador;
+import com.entities.Investigador;
 import com.entities.Usuario;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -16,6 +18,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VentanaCreaFormulario extends JFrame {
 
@@ -111,35 +115,50 @@ public class VentanaCreaFormulario extends JFrame {
 		JComboBox comboCasillasEnFormulario = new JComboBox();
 		
 		JButton btnQuitarCasilla = new JButton("Quitar Casilla");
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				VentanaFormularios ventanaFormularios;
+				if (usuarioLoged instanceof Administrador) {
+					ventanaFormularios = new VentanaFormularios((Administrador) usuarioLoged);
+					ventanaFormularios.ventanaFormularios();;
+				}
+				if (usuarioLoged instanceof Investigador) {
+					ventanaFormularios = new VentanaFormularios((Investigador) usuarioLoged);
+					ventanaFormularios.ventanaFormularios();;
+				}
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addComponent(lblNewLabel)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+					.addGap(10)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNombre)
+						.addComponent(lblResumen)
+						.addComponent(lblCasillasEnFormulario))
+					.addGap(98)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textResumen, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(10)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNombre)
-								.addComponent(lblResumen)
-								.addComponent(lblCasillasEnFormulario))
-							.addPreferredGap(ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(btnCrearFormulario, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
-										.addGroup(Alignment.LEADING, gl_contentPane.createParallelGroup(Alignment.TRAILING)
-											.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
-											.addComponent(textResumen, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)))
-									.addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-									.addComponent(comboCasillasEnFormulario, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-									.addGap(123))))
+							.addGap(100)
+							.addComponent(btnQuitarCasilla))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnQuitarCasilla)
-							.addGap(18)))
+							.addGap(72)
+							.addComponent(comboCasillasEnFormulario, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)))
+					.addGap(6)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(169)
+					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+					.addGap(83)
+					.addComponent(btnCrearFormulario, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -147,27 +166,26 @@ public class VentanaCreaFormulario extends JFrame {
 					.addComponent(lblNewLabel)
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(3)
-									.addComponent(lblNombre)
-									.addGap(40)
-									.addComponent(lblResumen))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addGap(31)
-									.addComponent(textResumen, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)))
+							.addGap(3)
+							.addComponent(lblNombre)
+							.addGap(40)
+							.addComponent(lblResumen)
+							.addGap(48)
+							.addComponent(lblCasillasEnFormulario))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(31)
+							.addComponent(textResumen, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
 							.addGap(22)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblCasillasEnFormulario)
-								.addComponent(comboCasillasEnFormulario, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+							.addComponent(comboCasillasEnFormulario, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 							.addGap(4)
-							.addComponent(btnQuitarCasilla)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnCrearFormulario, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-					.addGap(6))
+							.addComponent(btnQuitarCasilla))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE))
+					.addGap(11)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnCrearFormulario, GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
