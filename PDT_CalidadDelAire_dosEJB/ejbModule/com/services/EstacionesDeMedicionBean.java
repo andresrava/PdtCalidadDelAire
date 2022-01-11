@@ -111,8 +111,7 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 	
 	@Override
 	public List<EstacionDeMedicion> obtenerTodasEM() {
-		TypedQuery<EstacionDeMedicion>query = em.createQuery("SELECT e FROM EstacionDeMedicion e", EstacionDeMedicion.class);
-		//TypedQuery<EstacionDeMedicion>query = em.createNamedQuery("EstacionDeMedicion.obtenerTodos", EstacionDeMedicion.class);
+		TypedQuery<EstacionDeMedicion>query = em.createNamedQuery("EstacionDeMedicion.obtenerTodos", EstacionDeMedicion.class);
 		return  query.getResultList();
 	}
 

@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
 
-
-
 @Entity
 @Table (name = "EM")
 @NamedQuery(name="EstacionDeMedicion.obtenerTodos", query="SELECT e FROM EstacionDeMedicion e")

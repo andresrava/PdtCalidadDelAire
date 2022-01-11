@@ -114,6 +114,8 @@ public class VentanaCreaEM extends JFrame {
 					if (!(id == null))
 					System.out.println("Se creó la Estación de Medición!");
 					dispose();
+					VentanaEMedicion ventanaEMedicion = new VentanaEMedicion(usuarioLoged);
+					ventanaEMedicion.ventanaEMedicion();
 				} catch (NamingException e1) {
 					System.out.println("No se pudo crear la Estación por NamingException");
 					e1.printStackTrace();

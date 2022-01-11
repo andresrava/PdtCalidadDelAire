@@ -25,7 +25,7 @@ public class GestionCasillas {
 				InitialContext.doLookup(ruta);
 //		Class<?> clase = casillaBean.getClass();
 //		System.out.println(clase);
-		List<Casilla> casillas = casillaBean.obtenerTodos();
+		List<Casilla> casillas = casillaBean.obtenerTodasCasillas();
 
 		return casillas;	
 	}
