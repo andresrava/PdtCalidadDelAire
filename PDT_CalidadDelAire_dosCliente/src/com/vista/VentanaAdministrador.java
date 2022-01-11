@@ -66,8 +66,7 @@ public class VentanaAdministrador extends JFrame {
 		JButton btnGestionFormularios = new JButton("Gesti\u00F3n de Formularios");
 		btnGestionFormularios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				VentanaFormularios ventanaFormularios = new VentanaFormularios((Usuario) administradorLoged);
+				
 			}
 		});
 		btnGestionFormularios.addMouseListener(new MouseAdapter() {

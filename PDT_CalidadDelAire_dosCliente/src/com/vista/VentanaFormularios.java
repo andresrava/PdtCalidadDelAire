@@ -11,6 +11,8 @@ import com.entities.Administrador;
 import com.entities.Aficionado;
 import com.entities.Investigador;
 import com.entities.Usuario;
+
+import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -63,8 +65,15 @@ public class VentanaFormularios extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				VentanaCreaFormulario ventanaCreaFormulario = new VentanaCreaFormulario(usuarioLoged);
-				ventanaCreaFormulario.VentanaCreaFormulario();
+				VentanaCreaFormulario ventanaCreaFormulario;
+				try {
+					ventanaCreaFormulario = new VentanaCreaFormulario(usuarioLoged);
+					ventanaCreaFormulario.VentanaCreaFormulario();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		
