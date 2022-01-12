@@ -5,6 +5,7 @@ import javax.naming.NamingException;
 import com.controlador.GestionCasillas;
 import com.controlador.GestionCiudades;
 import com.controlador.GestionEstaciones;
+import com.controlador.GestionFormularios;
 import com.controlador.GestionUsuarios;
 import com.entities.Administrador;
 import com.entities.Aficionado;
@@ -12,6 +13,7 @@ import com.entities.Casilla;
 import com.entities.Ciudad;
 import com.entities.Ciudad.NombresEnum;
 import com.entities.EstacionDeMedicion;
+import com.entities.Formulario;
 import com.entities.Investigador;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
@@ -88,20 +90,25 @@ public class CargaInicial {
 		primera = gestionCiudades.creaCiudad(primera);
 		segunda = gestionCiudades.creaCiudad(segunda);
 		
-		//Comienza la carga de 1 Estaciones de Medición
+		//Comienza la carga de 2 Estaciones de Medición
 		
 		EstacionDeMedicion em1 = new EstacionDeMedicion("Primera_EM ",primera,usuario);
 		EstacionDeMedicion em2 = new EstacionDeMedicion("Segunda_EM ",segunda,administrador1);
 					
 		GestionEstaciones gestionEstaciones = new GestionEstaciones();
-		GestionEstaciones gestionEstaciones2 = new GestionEstaciones();
+		//GestionEstaciones gestionEstaciones2 = new GestionEstaciones();
 		em1 = gestionEstaciones.crearEstacion(em1);
-		em2 = gestionEstaciones2.crearEstacion(em2);
-		Long idEstacion = em1.getId();
-		Long idCasilla = casilla1.getId();
-		System.out.println(idEstacion);			
-		System.out.println(idCasilla);			
-		System.out.println(idCasilla);
+		em2 = gestionEstaciones.crearEstacion(em2);
+				
+		//Comienza la carga de 2 formularios vacíos
+		Formulario form1 = new Formulario("PrimerFormulario" , investigador1);
+		Formulario form2 = new Formulario("SegundoFormulario" , investigador2);
+		
+		GestionFormularios gestionFormularios = new GestionFormularios();
+		form1 = gestionFormularios.crearFormulario(form1);
+		form2 = gestionFormularios.crearFormulario(form2);
+		
+		System.out.println("Se completó la carga inicial");
 		
 	}
 }
