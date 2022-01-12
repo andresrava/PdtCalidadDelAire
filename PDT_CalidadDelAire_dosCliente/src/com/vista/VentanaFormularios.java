@@ -11,6 +11,8 @@ import com.entities.Administrador;
 import com.entities.Aficionado;
 import com.entities.Investigador;
 import com.entities.Usuario;
+
+import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -62,17 +64,34 @@ public class VentanaFormularios extends JFrame {
 		btnCrear.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				VentanaCreaFormulario ventanaCreaFormulario = new VentanaCreaFormulario(usuarioLoged);
-				ventanaCreaFormulario.VentanaCreaFormulario();
+				dispose();
+				VentanaCreaFormulario ventanaCreaFormulario;
+				try {
+					ventanaCreaFormulario = new VentanaCreaFormulario(usuarioLoged);
+					ventanaCreaFormulario.VentanaCreaFormulario();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		
 		JButton btnListar = new JButton("Listar");
+		btnListar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				VentanaListaFormularios ventanaListaFormularios = new VentanaListaFormularios(usuarioLoged);
+				ventanaListaFormularios.ventanaListaFormularios();
+			}
+		});
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				if (usuarioLoged instanceof Administrador) {
 					VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuarioLoged);
 					ventanaAdministrador.ventanaAdministrador();

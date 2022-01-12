@@ -62,6 +62,7 @@ public class VentanaEMedicion extends JFrame {
 		btnCrear.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e)  {
+				dispose();
 				VentanaCreaEM ventanaCreaEM;
 				try {
 					ventanaCreaEM = new VentanaCreaEM(usuarioLoged);
@@ -77,7 +78,7 @@ public class VentanaEMedicion extends JFrame {
 		btnListaEM.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				dispose();
 				VentanaListaEM ventanaListaEM;
 				ventanaListaEM = new VentanaListaEM(usuarioLoged);
 				ventanaListaEM.ventanaListaEM();
@@ -93,7 +94,7 @@ public class VentanaEMedicion extends JFrame {
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				dispose();
 				if (usuarioLoged instanceof Administrador) {
 				VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuarioLoged);
 				ventanaAdministrador.ventanaAdministrador();

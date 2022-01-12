@@ -109,7 +109,7 @@ public class VentanaCreaCasilla extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+				dispose();
 				try {
 					VentanaCasillas ventanaCasillas = new VentanaCasillas(usuarioLoged);
 					ventanaCasillas.ventanaCasillas();
@@ -128,6 +128,7 @@ public class VentanaCreaCasilla extends JFrame {
 				try {
 					VentanaCasillas ventanaCasillas = new VentanaCasillas(usuarioLoged);
 					ventanaCasillas.ventanaCasillas();
+					dispose();
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

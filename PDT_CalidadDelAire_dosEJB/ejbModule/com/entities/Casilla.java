@@ -9,7 +9,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table (name = "casillas")
 @NamedQuery(name="Casilla.obtenerTodos", query="SELECT c FROM Casilla c")

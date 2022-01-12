@@ -59,6 +59,7 @@ public class VentanaInvestigador extends JFrame {
 		btnCasillas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				VentanaCasillas ventanaCasillas = null;
 				try {
 					ventanaCasillas = new VentanaCasillas((Usuario) investigadorLoged);
@@ -84,7 +85,7 @@ public class VentanaInvestigador extends JFrame {
 		btnActividadCampo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				dispose();
 				VentanaActividadDeCampo ventanaActividadDeCampo = null;
 				ventanaActividadDeCampo = new VentanaActividadDeCampo((Usuario) investigadorLoged);
 				ventanaActividadDeCampo.ventanaActividadDeCampo();
@@ -95,6 +96,14 @@ public class VentanaInvestigador extends JFrame {
 		btnActividadCampo.setBackground(Color.WHITE);
 		
 		JButton btnGestionFormularios = new JButton("Gesti\u00F3n de Formularios");
+		btnGestionFormularios.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				VentanaFormularios ventanaFormularios = new VentanaFormularios((Usuario) investigadorLoged);
+				ventanaFormularios.ventanaFormularios();
+			}
+		});
 		btnGestionFormularios.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnGestionFormularios.setBackground(Color.WHITE);
 		
@@ -102,6 +111,7 @@ public class VentanaInvestigador extends JFrame {
 		btnGestinDeEst.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				VentanaEMedicion ventanaEMedicion;
 				try {
 					ventanaEMedicion = new VentanaEMedicion((Usuario) investigadorLoged);
@@ -130,6 +140,7 @@ public class VentanaInvestigador extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				Ingreso ingreso = new Ingreso();
 				try {
 					ingreso.main(null);

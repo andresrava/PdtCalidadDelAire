@@ -66,7 +66,7 @@ public class VentanaAdministrador extends JFrame {
 		JButton btnGestionFormularios = new JButton("Gesti\u00F3n de Formularios");
 		btnGestionFormularios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaFormularios ventanaFormularios = new VentanaFormularios((Usuario) administradorLoged);
+				
 			}
 		});
 		btnGestionFormularios.addMouseListener(new MouseAdapter() {
@@ -91,6 +91,7 @@ public class VentanaAdministrador extends JFrame {
 		btnGestinDeEst.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				VentanaEMedicion ventanaEMedicion;
 				try {
 					ventanaEMedicion = new VentanaEMedicion((Usuario) administradorLoged);
@@ -125,6 +126,7 @@ public class VentanaAdministrador extends JFrame {
 		btnActividadCampo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				VentanaActividadDeCampo ventanaActividadDeCampo = null;
 				ventanaActividadDeCampo = new VentanaActividadDeCampo((Usuario) administradorLoged);
 				ventanaActividadDeCampo.ventanaActividadDeCampo();
@@ -138,6 +140,7 @@ public class VentanaAdministrador extends JFrame {
 		btnCasillas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				VentanaCasillas ventanaCasillas = null;
 				try {
 					ventanaCasillas = new VentanaCasillas((Usuario) administradorLoged);
@@ -155,6 +158,7 @@ public class VentanaAdministrador extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				Ingreso ingreso = new Ingreso();
 				try {
 					ingreso.main(null);
