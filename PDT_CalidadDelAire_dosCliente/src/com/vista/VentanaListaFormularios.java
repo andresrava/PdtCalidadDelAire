@@ -7,7 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.controlador.GestionCasillas;
+import com.entities.Casilla;
 import com.entities.Usuario;
+
+import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -19,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.LinkedList;
+import java.util.List;
 
 public class VentanaListaFormularios extends JFrame {
 
@@ -117,7 +123,21 @@ public class VentanaListaFormularios extends JFrame {
 		
 		JLabel lblNewLabel_3 = new JLabel("Casilla:");
 		
+		//Creo y lleno el combo con casillas disponibles
 		JComboBox comboCasillasDisponibles = new JComboBox();
+		GestionCasillas gestionCasillas = new GestionCasillas();
+		List<Casilla> casillas = new LinkedList<Casilla>();
+		System.out.println(casillas);
+		try {
+			casillas = gestionCasillas.listaCasillas();  
+			for (Casilla c: casillas) {
+				comboCasillasDisponibles.addItem(c.toStringCorto());
+			}
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		JButton btnAplicarFiltro = new JButton("Aplicar");
 		GroupLayout gl_panel = new GroupLayout(panel);
