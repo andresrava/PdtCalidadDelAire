@@ -8,7 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.controlador.GestionCasillas;
+import com.controlador.GestionFormularios;
 import com.entities.Casilla;
+import com.entities.Formulario;
 import com.entities.Usuario;
 
 import javax.naming.NamingException;
@@ -50,8 +52,9 @@ public class VentanaListaFormularios extends JFrame {
 	private JTextField textNombre;
 	/**
 	 * Create the frame.
+	 * @throws NamingException 
 	 */
-	public VentanaListaFormularios(Usuario usuarioLogedRef) {
+	public VentanaListaFormularios(Usuario usuarioLogedRef) throws NamingException {
 		setTitle("Lista Formularios");
 		VentanaListaFormularios.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -184,6 +187,13 @@ public class VentanaListaFormularios extends JFrame {
 		
 		JComboBox comboFormularios = new JComboBox();
 		scrollPane.setColumnHeaderView(comboFormularios);
+		GestionFormularios gestionFormularios = new GestionFormularios();
+		List<Formulario> formularios = gestionFormularios.listaFormularios();
+		for (Formulario f : formularios) {
+			comboFormularios.addItem(f);
+			
+		}
+		comboFormularios.updateUI();
 		contentPane.setLayout(gl_contentPane);
 	}
 }
