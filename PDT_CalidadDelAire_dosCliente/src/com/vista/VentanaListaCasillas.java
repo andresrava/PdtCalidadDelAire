@@ -81,7 +81,20 @@ public class VentanaListaCasillas extends JFrame {
 				
 		JComboBox comboBoxCasillas = new JComboBox();
 		scrollPane.setColumnHeaderView(comboBoxCasillas);
-				
+		
+		JComboBox comboEM = new JComboBox();
+		List<EstacionDeMedicion> estacionesDeMedicion = new LinkedList<EstacionDeMedicion>();
+		GestionEstaciones gestionEstaciones = new GestionEstaciones();
+
+		try { 
+			estacionesDeMedicion = gestionEstaciones.obtieneEM();
+			for (EstacionDeMedicion EM: estacionesDeMedicion) {
+				comboEM.addItem(EM.getNombre()); 
+			} 
+		} catch (NamingException e) { // TODO Auto-generated catch block 
+			e.printStackTrace();
+		}
+		  
 		GestionCasillas gestionCasillas = new GestionCasillas();
 		List<Casilla> casillas = new LinkedList<Casilla>();
 		System.out.println(casillas);
@@ -132,11 +145,8 @@ public class VentanaListaCasillas extends JFrame {
 		
 		
 		
-		JComboBox comboEM = new JComboBox();
-		List<EstacionDeMedicion> estacionesDeMedicion = new LinkedList<EstacionDeMedicion>();
-//		GestionEstaciones gestionEstaciones = new GestionEstaciones();
-//		estacionesDeMedicion = gestionEstaciones.obtieneTodas();
 		
+		 
 		
 		
 		GroupLayout gl_panel = new GroupLayout(panel);

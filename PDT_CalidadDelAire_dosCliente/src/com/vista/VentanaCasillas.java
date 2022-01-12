@@ -69,6 +69,10 @@ public class VentanaCasillas extends JFrame {
 		});
 		
 		JButton btnListaCasillas_1_1 = new JButton("Lista");
+		btnListaCasillas_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnListaCasillas_1_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
