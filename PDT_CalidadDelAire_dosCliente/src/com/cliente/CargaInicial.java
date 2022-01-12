@@ -31,10 +31,12 @@ public class CargaInicial {
 		Administrador administrador1 = new Administrador("Adminnombre1" , "AdminApellido1" ,  "AdminMail1" , "AdminClave1" , "AdmDocu1" ,"AdminDomic1" , "AdminTel1");
 		Administrador administrador2 = new Administrador("Adminnombre2" , "AdminApellido2" ,  "AdminMail2" , "AdminClave2" , "AdmDocu2" ,"AdminDomic2" , "AdminTel2");
 		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mailAdmin" , "claveAdmin" , "AdmDocu3" ,"AdminDomic3" , "AdminTel3");
-		
+		Administrador administrador4 = new Administrador("Adminnombre4" , "AdminApellido4" ,  "123" , "123" , "AdmDocu4" ,"AdminDomic4" , "AdminTel4");
+
 		administrador1 = gestionUsuarios.crearAdministrador(administrador1);
 		administrador2 = gestionUsuarios.crearAdministrador(administrador2);
 		administrador3 = gestionUsuarios.crearAdministrador(administrador3);
+		administrador4 = gestionUsuarios.crearAdministrador(administrador4);
 		
 		//Comienza carga 4 Investigadores 
 		
