@@ -78,6 +78,14 @@ public class VentanaFormularios extends JFrame {
 		});
 		
 		JButton btnListar = new JButton("Listar");
+		btnListar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				VentanaListaFormularios ventanaListaFormularios = new VentanaListaFormularios(usuarioLoged);
+				ventanaListaFormularios.ventanaListaFormularios();
+			}
+		});
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addMouseListener(new MouseAdapter() {
