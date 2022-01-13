@@ -12,9 +12,7 @@ import com.entities.Casilla;
 import com.entities.Formulario;
 import com.exceptions.ServiciosException;
 
-/**
- * Session Bean implementation class FormulariosBean
- */
+
 @Stateless
 public class FormulariosBean implements FormulariosBeanRemote {
 

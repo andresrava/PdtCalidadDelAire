@@ -26,7 +26,7 @@
 		<table name="CIUDADES">
 		</table>
 	</entity>
-	<entity class="com.entities.Casilla">
+	<entity class="com.entities.Casilla" access="FIELD">
 		<table name = "CASILLAS">
 		</table>
 	</entity>
