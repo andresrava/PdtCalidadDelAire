@@ -38,12 +38,13 @@ public class VentanaUsuarios {
 	private JButton btnEliminar;
 	private JButton btnBuscar;
 	private JButton btnModificar;
-	private JButton btnListarFuncionalidades;
 	private JLabel lblUsuario;
 	private JLabel lblID;
 	private JLabel lblRol;
 	private JTextField textID;
 	private JTextField textRol;
+	private JTextField textDomicilio;
+	private JTextField textTelefono;
 	
 	/**
 	 * Launch the application.
@@ -84,41 +85,41 @@ public class VentanaUsuarios {
 		FuncionalidadBeanRemote funcionalidadBean = (FuncionalidadBeanRemote) InitialContext.doLookup(ruta3);
 		
 		frame = new JFrame();
-		frame.setBounds(600, 100, 418, 384);
+		frame.setBounds(600, 100, 419, 410);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		textDocumento = new JTextField();
-		textDocumento.setBounds(104, 58, 186, 20);
+		textDocumento.setBounds(104, 216, 186, 20);
 		frame.getContentPane().add(textDocumento);
 		textDocumento.setColumns(10);
 			
 		textNombre = new JTextField();
-		textNombre.setBounds(104, 91, 186, 20);
+		textNombre.setBounds(104, 62, 186, 20);
 		frame.getContentPane().add(textNombre);
 		textNombre.setColumns(10);
 		
 		textApellido = new JTextField();
-		textApellido.setBounds(104, 122, 186, 20);
+		textApellido.setBounds(104, 93, 186, 20);
 		frame.getContentPane().add(textApellido);
 		textApellido.setColumns(10);
 		
 		textClave = new JPasswordField();
-		textClave.setBounds(104, 153, 186, 20);
+		textClave.setBounds(104, 124, 186, 20);
 		frame.getContentPane().add(textClave);
 		textClave.setColumns(10);
 		
 		textMail = new JTextField();
-		textMail.setBounds(104, 186, 186, 20);
+		textMail.setBounds(104, 157, 186, 20);
 		frame.getContentPane().add(textMail);
 		textMail.setColumns(10);
 		
 		lblRol = new JLabel("Rol");
-		lblRol.setBounds(28, 220, 47, 14);
+		lblRol.setBounds(28, 191, 47, 14);
 		frame.getContentPane().add(lblRol);
 		
 		textRol = new JTextField();
-		textRol.setBounds(104, 217, 186, 20);
+		textRol.setBounds(104, 188, 186, 20);
 		frame.getContentPane().add(textRol);
 		textRol.setColumns(10);
 		
@@ -173,26 +174,26 @@ public class VentanaUsuarios {
 		btnAlta.setBounds(300, 58, 89, 23);
 		frame.getContentPane().add(btnAlta);
 				
-		JLabel lblDocumento = new JLabel("cedula");
-		lblDocumento.setBounds(28, 62, 100, 14);
+		JLabel lblDocumento = new JLabel("Documento");
+		lblDocumento.setBounds(28, 220, 100, 14);
 		frame.getContentPane().add(lblDocumento);
 		
-		JLabel lblNombre1 = new JLabel("nombre");
-		lblNombre1.setBounds(28, 95, 100, 14);
+		JLabel lblNombre1 = new JLabel("Nombre");
+		lblNombre1.setBounds(28, 66, 100, 14);
 		frame.getContentPane().add(lblNombre1);
 		
-		JLabel lblApellido1 = new JLabel("apellido");
-		lblApellido1.setBounds(28, 126, 100, 14);
+		JLabel lblApellido1 = new JLabel("Apellido");
+		lblApellido1.setBounds(28, 97, 100, 14);
 		frame.getContentPane().add(lblApellido1);
 		
 		
-		JLabel lblClave = new JLabel("clave");
-		lblClave.setBounds(28, 157, 100, 14);
+		JLabel lblClave = new JLabel("Clave");
+		lblClave.setBounds(28, 128, 100, 14);
 		frame.getContentPane().add(lblClave);
 		
 		
-		JLabel lblMail = new JLabel("mail");
-		lblMail.setBounds(28, 190, 100, 14);
+		JLabel lblMail = new JLabel("Mail");
+		lblMail.setBounds(28, 161, 100, 14);
 		frame.getContentPane().add(lblMail);
 		
 		btnEliminar = new JButton("Eliminar");
@@ -271,38 +272,13 @@ public class VentanaUsuarios {
 		});
 		btnModificar.setBounds(300, 156, 89, 23);
 		frame.getContentPane().add(btnModificar);
-		
-		btnListarFuncionalidades = new JButton("Listar funcionalidades");
-		btnListarFuncionalidades.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Rol rolAux = (Rol) rolBean.buscarRol(usuario.getRol().getNombre());
-				for (Funcionalidad fun: rolAux.getFuncionalidades()) {
-					System.out.println(fun);
-				}
-			}
-		});
-		btnListarFuncionalidades.setBounds(219, 278, 175, 23);
-		frame.getContentPane().add(btnListarFuncionalidades);
-		
-		JComboBox<String> cmbFuncionalidades = new JComboBox();
-		cmbFuncionalidades.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				
-			}
-		});
-		cmbFuncionalidades.setBounds(28, 278, 160, 22);
 		List<Funcionalidad> funcionalidades = funcionalidadBean.obtenerTodos();
 		for (Funcionalidad fun: funcionalidades) {
 			cmbFuncionalidades.addItem(fun.getNombre());
 		}
-		frame.getContentPane().add(cmbFuncionalidades);
 		
-		JLabel lblFuncionalidades = new JLabel("Funcionalidades");
-		lblFuncionalidades.setBounds(28, 263, 100, 14);
-		frame.getContentPane().add(lblFuncionalidades);
-		
-		JButton btnLogout = new JButton("Logout");
-		btnLogout.addActionListener(new ActionListener() {
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					logout();
@@ -312,8 +288,34 @@ public class VentanaUsuarios {
 				}
 			}
 		});
-		btnLogout.setBounds(300, 313, 89, 23);
-		frame.getContentPane().add(btnLogout);
+		btnVolver.setBounds(300, 340, 89, 23);
+		frame.getContentPane().add(btnVolver);
+		
+		JLabel lblDomicilio = new JLabel("Domicilio");
+		lblDomicilio.setBounds(28, 251, 100, 14);
+		frame.getContentPane().add(lblDomicilio);
+		
+		textDomicilio = new JTextField();
+		textDomicilio.setColumns(10);
+		textDomicilio.setBounds(104, 247, 186, 20);
+		frame.getContentPane().add(textDomicilio);
+		
+		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
+		lblTelefono.setBounds(28, 280, 100, 14);
+		frame.getContentPane().add(lblTelefono);
+		
+		textTelefono = new JTextField();
+		textTelefono.setColumns(10);
+		textTelefono.setBounds(104, 276, 186, 20);
+		frame.getContentPane().add(textTelefono);
+		
+		JLabel lblCiudad = new JLabel("Ciudad");
+		lblCiudad.setBounds(28, 309, 100, 14);
+		frame.getContentPane().add(lblCiudad);
+		
+		JComboBox cmbCiudad = new JComboBox();
+		cmbCiudad.setBounds(104, 305, 186, 22);
+		frame.getContentPane().add(cmbCiudad);
 		
 		
 		
@@ -337,7 +339,5 @@ public class VentanaUsuarios {
 		Login.main(null);
 		
 	}
-
-	
 }
 
