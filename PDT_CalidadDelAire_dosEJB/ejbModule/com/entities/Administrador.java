@@ -113,7 +113,7 @@ public Administrador( String nombre , String apellido, String mail, String clave
 
 @Override
 	public String toString() {
-		return "Administrador [ documento=" + documento + ", domicilio=" + domicilio + ", telefono=" + telefono	 + "]";
+		return "Administrador [ id=" + this.getId() + ", documento=" + documento + ", domicilio=" + domicilio + ", telefono=" + telefono	 + "]";
 	}
 
 

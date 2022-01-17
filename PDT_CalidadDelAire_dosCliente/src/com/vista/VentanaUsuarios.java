@@ -205,8 +205,8 @@ public class VentanaUsuarios {
 					String domicilio = textDomicilio.getText();
 					String telefono = textTelefono.getText();
 					if (cmbRol.getSelectedItem() == "Administrador") {
-						Usuario usuario2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono));
-						administradorBean.asignarCiudad(usuario2.getId(), ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0).getId());
+						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono));
+						administradorBean.asignarCiudad(administrador2.getId(), ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0).getId());
 					}else if(cmbRol.getSelectedItem() == "Investigador"){
 						
 					}else {
