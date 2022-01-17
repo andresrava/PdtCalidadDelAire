@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -20,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import com.entities.Administrador;
+import com.entities.Ciudad;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 import com.services.AdministradoresBeanRemote;
@@ -178,6 +181,10 @@ public class VentanaUsuarios {
 		cmbCiudad.setBounds(104, 305, 186, 22);
 		frame.getContentPane().add(cmbCiudad);
 		
+		List<Ciudad> ciudades = ciudadBean.obtenerTodos();
+		for (Ciudad ciudad: ciudades) {
+			cmbCiudad.addItem(ciudad.getNombre()); }
+		
 		JComboBox cmbRol = new JComboBox();
 		cmbRol.setBounds(104, 188, 186, 22);
 		cmbRol.addItem("Administrador");
@@ -199,7 +206,7 @@ public class VentanaUsuarios {
 					String telefono = textTelefono.getText();
 					if (cmbRol.getSelectedItem() == "Administrador") {
 						Usuario usuario2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono));
-
+						administradorBean.asignarCiudad(usuario2.getId(), ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0).getId());
 					}else if(cmbRol.getSelectedItem() == "Investigador"){
 						
 					}else {
@@ -207,15 +214,15 @@ public class VentanaUsuarios {
 					}
 					JOptionPane.showMessageDialog(null, "Exito", "Usuario ingresado con éxito",
 							JOptionPane.INFORMATION_MESSAGE);
-
 					
 					/*
-					 * List<Rol> roles = rolBean.buscarRol(textRol.getText());
+					 * List<Ciudad> ciudades = ciudadBean.buscarCiudad(textRol.getText());
 					 * 
 					 * if (roles.size() == 1) { usuarioBean.asignarRol(usuario2.getIdUsuario(),
 					 * roles.get(0).getIdRol()); } else { JOptionPane.showMessageDialog(null,
 					 * "Error, no se encontró rol indicado.", "Error", JOptionPane.ERROR_MESSAGE); }
 					 */
+					 
 
 				} catch (ServiciosException e) { // TODO Auto-generated catch block
 					e.printStackTrace();

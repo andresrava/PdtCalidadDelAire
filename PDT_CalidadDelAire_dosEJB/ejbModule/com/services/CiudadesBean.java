@@ -74,5 +74,7 @@ public class CiudadesBean implements CiudadesBeanRemote {
 		return ciudad;
 	}
 
+
+
 	
 }

@@ -26,6 +26,20 @@ public class Administrador extends Usuario implements Serializable {
 	@Column(length=20)
 	private String telefono;
 	
+	@ManyToOne
+	private Ciudad ciudad;
+	
+	public Ciudad getCiudad() {
+		return ciudad;
+	}
+
+
+	public void setCiudad(Ciudad ciudad) {
+		this.ciudad = ciudad;
+	}
+
+
+
 	@OneToMany (mappedBy = "administrador" ,
 			cascade = CascadeType.ALL ,
 			orphanRemoval = true
