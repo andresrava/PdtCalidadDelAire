@@ -9,7 +9,7 @@ import com.exceptions.ServiciosException;
 
 @Remote
 public interface FormulariosBeanRemote {
-	void crear(Formulario formulario) throws ServiciosException;
+	Formulario crear(Formulario formulario) throws ServiciosException;
 	void actualizar(Formulario formulario) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Formulario> obtenerTodos();

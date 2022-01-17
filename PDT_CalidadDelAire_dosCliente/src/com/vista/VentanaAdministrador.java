@@ -60,6 +60,18 @@ public class VentanaAdministrador extends JFrame {
 		JLabel lblNewLabel = new JLabel("Administrador: " + nombreDelAdministrador);
 		
 		JButton btnGestionUsuarios = new JButton("Gesti\u00F3n de Usuarios");
+		btnGestionUsuarios.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				try {
+					VentanaUsuarios ventanaUsuarios = new VentanaUsuarios ((Usuario) administradorLoged);
+					ventanaUsuarios.VentanaUsuarios((Usuario) administradorLoged);
+					dispose();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnGestionUsuarios.setBackground(Color.WHITE);
 		btnGestionUsuarios.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		
@@ -96,6 +108,7 @@ public class VentanaAdministrador extends JFrame {
 				try {
 					ventanaEMedicion = new VentanaEMedicion((Usuario) administradorLoged);
 					ventanaEMedicion.ventanaEMedicion();
+					dispose();
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

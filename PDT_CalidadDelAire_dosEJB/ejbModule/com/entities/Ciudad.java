@@ -32,7 +32,7 @@ public class Ciudad implements Serializable {
 	@SequenceGenerator(name = "SEQ_CIU", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
-	@Column(length=30,nullable=false)
+	@Column(length=30,nullable=false,unique=true)
 	private String nombre;
 	
 	public enum NombresEnum {ARTIGAS, SALTO, PAYSANDU, RÍO_NEGRO, SORIANO, COLONIA, SAN_JOSÉ, CANELONES, MONTEVIDEO, MALDONADO, ROCHA, TREINTA_Y_TRES, CERRO_LARGO, RIVERA, TACUAREMBÓ, DURAZNO, FLORES, FLORIDA };

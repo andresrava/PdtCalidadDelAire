@@ -82,9 +82,15 @@ public class VentanaFormularios extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				VentanaListaFormularios ventanaListaFormularios = new VentanaListaFormularios(usuarioLoged);
-				ventanaListaFormularios.ventanaListaFormularios();
-			}
+				VentanaListaFormularios ventanaListaFormularios;
+				try {
+					ventanaListaFormularios = new VentanaListaFormularios(usuarioLoged);
+					ventanaListaFormularios.ventanaListaFormularios();					
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				}
 		});
 		
 		JButton btnVolver = new JButton("Volver");

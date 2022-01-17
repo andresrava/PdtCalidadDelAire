@@ -19,7 +19,14 @@ import javax.swing.JTextField;
 
 import javax.swing.SwingConstants;
 
+import com.entities.Administrador;
 import com.entities.Usuario;
+import com.exceptions.ServiciosException;
+import com.services.AdministradoresBeanRemote;
+import com.services.AficionadosBeanRemote;
+import com.services.CiudadesBeanRemote;
+import com.services.InvestigadoresBeanRemote;
+import com.services.UsuariosBeanRemote;
 
 import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
@@ -42,18 +49,17 @@ public class VentanaUsuarios {
 	private JLabel lblID;
 	private JLabel lblRol;
 	private JTextField textID;
-	private JTextField textRol;
 	private JTextField textDomicilio;
 	private JTextField textTelefono;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void VentanaUsuarios(Usuario usuario) {
+	public static void VentanaUsuarios(Usuario usuarioLoged) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaUsuarios window = new VentanaUsuarios(usuario);
+					VentanaUsuarios window = new VentanaUsuarios(usuarioLoged);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -62,27 +68,26 @@ public class VentanaUsuarios {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 * @throws NamingException 
-	 */
-	public VentanaUsuarios(Usuario usuario) throws NamingException {
-		initialize(usuario);
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 * @throws NamingException 
-	 */
-	private void initialize(Usuario usuario) throws NamingException {
-		String ruta="GestionUsuarios/UsuarioBean!com.servicios.UsuarioBeanRemote";
-		UsuarioBeanRemote usuarioBean = (UsuarioBeanRemote) InitialContext.doLookup(ruta);
+	private static Usuario usuarioLoged;
+	
+	public VentanaUsuarios(Usuario usuarioLogedRef) throws NamingException {
+		VentanaUsuarios.usuarioLoged = usuarioLogedRef;
 		
-		String ruta2="GestionUsuarios/RoleBean!com.servicios.RoleBeanRemote";
-		RoleBeanRemote rolBean = (RoleBeanRemote) InitialContext.doLookup(ruta2);
+		String ruta="PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
+		UsuariosBeanRemote usuarioBean = (UsuariosBeanRemote) InitialContext.doLookup(ruta);
 		
-		String ruta3="GestionUsuarios/FuncionalidadBean!com.servicios.FuncionalidadBeanRemote";
-		FuncionalidadBeanRemote funcionalidadBean = (FuncionalidadBeanRemote) InitialContext.doLookup(ruta3);
+		String ruta2="PDT_CalidadDelAire_dosEJB/AdministradoresBean!com.services.AdministradoresBeanRemote";
+		AdministradoresBeanRemote administradorBean = (AdministradoresBeanRemote) InitialContext.doLookup(ruta2);
+		
+		String ruta3="PDT_CalidadDelAire_dosEJB/InvestigadoresBean!com.services.InvestigadoresBeanRemote";
+		InvestigadoresBeanRemote investigadorBean = (InvestigadoresBeanRemote) InitialContext.doLookup(ruta3);
+		
+		String ruta4="PDT_CalidadDelAire_dosEJB/AficionadosBean!com.services.AficionadosBeanRemote";
+		AficionadosBeanRemote aficionadosBean = (AficionadosBeanRemote) InitialContext.doLookup(ruta4);
+		
+		String ruta5="PDT_CalidadDelAire_dosEJB/CiudadesBean!com.services.CiudadesBeanRemote";
+		CiudadesBeanRemote ciudadBean = (CiudadesBeanRemote) InitialContext.doLookup(ruta5);
+		
 		
 		frame = new JFrame();
 		frame.setBounds(600, 100, 419, 410);
@@ -118,14 +123,9 @@ public class VentanaUsuarios {
 		lblRol.setBounds(28, 191, 47, 14);
 		frame.getContentPane().add(lblRol);
 		
-		textRol = new JTextField();
-		textRol.setBounds(104, 188, 186, 20);
-		frame.getContentPane().add(textRol);
-		textRol.setColumns(10);
-		
 		lblUsuario = new JLabel("New label");
 		lblUsuario.setBounds(28, 11, 361, 14);
-		lblUsuario.setText("Usuario logueado en el sistema: " + usuario.getNombre() + " " + usuario.getApellido());
+		lblUsuario.setText("Usuario logueado en el sistema: " + usuarioLoged.getNombre() + " " + usuarioLoged.getApellido());
 		frame.getContentPane().add(lblUsuario);
 		
 		lblID = new JLabel("ID");
@@ -138,158 +138,19 @@ public class VentanaUsuarios {
 		frame.getContentPane().add(textID);
 		textID.setColumns(10);
 		
-		btnAlta = new JButton("Alta");
-		btnAlta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					String documento=textDocumento.getText();
-					String nombre=textNombre.getText();
-					String apellido=textApellido.getText();
-					String clave=textClave.getText();
-					String mail=textMail.getText();				 
-					
-					Usuario usuario2 = usuarioBean.crear(new Usuario(apellido, clave, documento, mail, nombre));
-					
-					JOptionPane.showMessageDialog(null, "Exito","Usuario ingresado con éxito", JOptionPane.INFORMATION_MESSAGE);
-
-					List<Rol> roles = rolBean.buscarRol(textRol.getText());
-					
-					if (roles.size() == 1) {
-						usuarioBean.asignarRol(usuario2.getIdUsuario(), roles.get(0).getIdRol());
-					} else {
-						JOptionPane.showMessageDialog(null, "Error, no se encontró rol indicado.","Error", JOptionPane.ERROR_MESSAGE);
-					}
-					
-					
-
-				} catch (ServiciosException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Error","Error, el usuario no pudo ingresarse", JOptionPane.ERROR_MESSAGE);
-				}
-				limpiarFormulario();
-
-			}
-		});
-		btnAlta.setBounds(300, 58, 89, 23);
-		frame.getContentPane().add(btnAlta);
-				
-		JLabel lblDocumento = new JLabel("Documento");
-		lblDocumento.setBounds(28, 220, 100, 14);
-		frame.getContentPane().add(lblDocumento);
-		
-		JLabel lblNombre1 = new JLabel("Nombre");
-		lblNombre1.setBounds(28, 66, 100, 14);
-		frame.getContentPane().add(lblNombre1);
-		
-		JLabel lblApellido1 = new JLabel("Apellido");
-		lblApellido1.setBounds(28, 97, 100, 14);
-		frame.getContentPane().add(lblApellido1);
-		
-		
-		JLabel lblClave = new JLabel("Clave");
-		lblClave.setBounds(28, 128, 100, 14);
-		frame.getContentPane().add(lblClave);
-		
-		
-		JLabel lblMail = new JLabel("Mail");
-		lblMail.setBounds(28, 161, 100, 14);
-		frame.getContentPane().add(lblMail);
-		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (textID.getText() != "") {
-					try {
-						usuarioBean.borrar(Long.parseLong(textID.getText()));
-						JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE);
-						limpiarFormulario();
-					} catch (NumberFormatException | ServiciosException e1) {
-						JOptionPane.showMessageDialog(null, "Error, no se pudo eliminar el usuario.","Error", JOptionPane.ERROR_MESSAGE);
-						e1.printStackTrace();
-					}
-				}else {
-					JOptionPane.showMessageDialog(null, "Error, el campo ID no puede estar vacío. Debe buscar la persona a eliminar primero.","Error", JOptionPane.ERROR_MESSAGE);
-
-				}
-			}
-		});
-		btnEliminar.setBounds(300, 94, 89, 23);
-		frame.getContentPane().add(btnEliminar);
-		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					List<Usuario> usuarios = usuarioBean.buscarPorDocumento(textDocumento.getText());
-					if (usuarios.size() == 1) {
-						textID.setText(Long.toString(usuarios.get(0).getIDUsuario()));
-						textNombre.setText(usuarios.get(0).getNombre());
-						textApellido.setText(usuarios.get(0).getApellido());
-						textClave.setText(usuarios.get(0).getClave());
-						textMail.setText(usuarios.get(0).getMail());
-						if (usuarios.get(0).getRol() !=null) {
-							textRol.setText(usuarios.get(0).getRol().getNombre());
-						}else {
-							textRol.setText("");
-						}
-						
-							JOptionPane.showMessageDialog(null, "Usuario encontrado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE);
-						
-					} else {
-						JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.","Error", JOptionPane.ERROR_MESSAGE);
-						limpiarFormulario();
-					}
-				} catch (HeadlessException e1) {
-					JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.","Error", JOptionPane.ERROR_MESSAGE);
-					e1.printStackTrace();
-					limpiarFormulario();
-
-				}
-			}
-		});
-		btnBuscar.setBounds(300, 125, 89, 23);
-		frame.getContentPane().add(btnBuscar);
-		
-		btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				List<Rol> roles = rolBean.buscarRol(textRol.getText());
-				if (roles.size() == 1) {
-					try {
-						usuarioBean.actualizar(new Usuario(Long.parseLong(textID.getText()),textApellido.getText(), textClave.getText(), textDocumento.getText(),
-								textMail.getText(), textNombre.getText(), roles.get(0)));
-						JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE);
-						limpiarFormulario();
-					} catch (NumberFormatException | ServiciosException e1) {
-						JOptionPane.showMessageDialog(null, "Error, no se pudo actualizar al usuario.","Error", JOptionPane.ERROR_MESSAGE);
-						e1.printStackTrace();
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Error, no se encontró rol indicado.","Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		btnModificar.setBounds(300, 156, 89, 23);
-		frame.getContentPane().add(btnModificar);
-		List<Funcionalidad> funcionalidades = funcionalidadBean.obtenerTodos();
-		for (Funcionalidad fun: funcionalidades) {
-			cmbFuncionalidades.addItem(fun.getNombre());
-		}
-		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBounds(300, 340, 89, 23);
+		frame.getContentPane().add(btnVolver);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					logout();
+					volver(usuarioLoged);
 				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
-		btnVolver.setBounds(300, 340, 89, 23);
-		frame.getContentPane().add(btnVolver);
+
 		
 		JLabel lblDomicilio = new JLabel("Domicilio");
 		lblDomicilio.setBounds(28, 251, 100, 14);
@@ -317,6 +178,156 @@ public class VentanaUsuarios {
 		cmbCiudad.setBounds(104, 305, 186, 22);
 		frame.getContentPane().add(cmbCiudad);
 		
+		JComboBox cmbRol = new JComboBox();
+		cmbRol.setBounds(104, 188, 186, 22);
+		cmbRol.addItem("Administrador");
+		cmbRol.addItem("Investigador");
+		cmbRol.addItem("Aficionado");
+		frame.getContentPane().add(cmbRol);
+		
+		btnAlta = new JButton("Alta");
+		
+		btnAlta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String documento = textDocumento.getText();
+					String nombre = textNombre.getText();
+					String apellido = textApellido.getText();
+					String clave = textClave.getText();
+					String mail = textMail.getText();
+					String domicilio = textDomicilio.getText();
+					String telefono = textTelefono.getText();
+					if (cmbRol.getSelectedItem() == "Administrador") {
+						Usuario usuario2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono));
+
+					}else if(cmbRol.getSelectedItem() == "Investigador"){
+						
+					}else {
+						
+					}
+					JOptionPane.showMessageDialog(null, "Exito", "Usuario ingresado con éxito",
+							JOptionPane.INFORMATION_MESSAGE);
+
+					
+					/*
+					 * List<Rol> roles = rolBean.buscarRol(textRol.getText());
+					 * 
+					 * if (roles.size() == 1) { usuarioBean.asignarRol(usuario2.getIdUsuario(),
+					 * roles.get(0).getIdRol()); } else { JOptionPane.showMessageDialog(null,
+					 * "Error, no se encontró rol indicado.", "Error", JOptionPane.ERROR_MESSAGE); }
+					 */
+
+				} catch (ServiciosException e) { // TODO Auto-generated catch block
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Error", "Error, el usuario no pudo ingresarse",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				limpiarFormulario();
+
+			}
+		});
+
+		btnAlta.setBounds(300, 58, 89, 23);
+		frame.getContentPane().add(btnAlta);
+				
+		JLabel lblDocumento = new JLabel("Documento");
+		lblDocumento.setBounds(28, 220, 100, 14);
+		frame.getContentPane().add(lblDocumento);
+		
+		JLabel lblNombre1 = new JLabel("Nombre");
+		lblNombre1.setBounds(28, 66, 100, 14);
+		frame.getContentPane().add(lblNombre1);
+		
+		JLabel lblApellido1 = new JLabel("Apellido");
+		lblApellido1.setBounds(28, 97, 100, 14);
+		frame.getContentPane().add(lblApellido1);
+		
+		
+		JLabel lblClave = new JLabel("Clave");
+		lblClave.setBounds(28, 128, 100, 14);
+		frame.getContentPane().add(lblClave);
+		
+		
+		JLabel lblMail = new JLabel("Mail");
+		lblMail.setBounds(28, 161, 100, 14);
+		frame.getContentPane().add(lblMail);
+		
+		btnEliminar = new JButton("Eliminar");
+		/*
+		 * btnEliminar.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { if (textID.getText() != "") { try {
+		 * usuarioBean.borrar(Long.parseLong(textID.getText()));
+		 * JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Exito",
+		 * JOptionPane.INFORMATION_MESSAGE); limpiarFormulario(); } catch
+		 * (NumberFormatException | ServiciosException e1) {
+		 * JOptionPane.showMessageDialog(null,
+		 * "Error, no se pudo eliminar el usuario.","Error", JOptionPane.ERROR_MESSAGE);
+		 * e1.printStackTrace(); } }else { JOptionPane.showMessageDialog(null,
+		 * "Error, el campo ID no puede estar vacío. Debe buscar la persona a eliminar primero."
+		 * ,"Error", JOptionPane.ERROR_MESSAGE);
+		 * 
+		 * } } });
+		 */
+		btnEliminar.setBounds(300, 94, 89, 23);
+		frame.getContentPane().add(btnEliminar);
+		
+		btnBuscar = new JButton("Buscar");
+		/*
+		 * btnBuscar.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { try { List<Usuario> usuarios =
+		 * usuarioBean.buscarPorDocumento(textDocumento.getText()); if (usuarios.size()
+		 * == 1) { textID.setText(Long.toString(usuarios.get(0).getIDUsuario()));
+		 * textNombre.setText(usuarios.get(0).getNombre());
+		 * textApellido.setText(usuarios.get(0).getApellido());
+		 * textClave.setText(usuarios.get(0).getClave());
+		 * textMail.setText(usuarios.get(0).getMail()); if (usuarios.get(0).getRol()
+		 * !=null) { textRol.setText(usuarios.get(0).getRol().getNombre()); }else {
+		 * textRol.setText(""); }
+		 * 
+		 * JOptionPane.showMessageDialog(null, "Usuario encontrado con éxito.", "Exito",
+		 * JOptionPane.INFORMATION_MESSAGE);
+		 * 
+		 * } else { JOptionPane.showMessageDialog(null,
+		 * "Error, no se encontró el usuario.","Error", JOptionPane.ERROR_MESSAGE);
+		 * limpiarFormulario(); } } catch (HeadlessException e1) {
+		 * JOptionPane.showMessageDialog(null,
+		 * "Error, no se encontró el usuario.","Error", JOptionPane.ERROR_MESSAGE);
+		 * e1.printStackTrace(); limpiarFormulario();
+		 * 
+		 * } } });
+		 */
+		btnBuscar.setBounds(300, 125, 89, 23);
+		frame.getContentPane().add(btnBuscar);
+		
+		btnModificar = new JButton("Modificar");
+		/*
+		 * btnModificar.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { List<Rol> roles =
+		 * rolBean.buscarRol(textRol.getText()); if (roles.size() == 1) { try {
+		 * usuarioBean.actualizar(new
+		 * Usuario(Long.parseLong(textID.getText()),textApellido.getText(),
+		 * textClave.getText(), textDocumento.getText(), textMail.getText(),
+		 * textNombre.getText(), roles.get(0))); JOptionPane.showMessageDialog(null,
+		 * "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE);
+		 * limpiarFormulario(); } catch (NumberFormatException | ServiciosException e1)
+		 * { JOptionPane.showMessageDialog(null,
+		 * "Error, no se pudo actualizar al usuario.","Error",
+		 * JOptionPane.ERROR_MESSAGE); e1.printStackTrace(); } } else {
+		 * JOptionPane.showMessageDialog(null,
+		 * "Error, no se encontró rol indicado.","Error", JOptionPane.ERROR_MESSAGE); }
+		 * } });
+		 */
+		btnModificar.setBounds(300, 156, 89, 23);
+		frame.getContentPane().add(btnModificar);
+		
+		/*
+		 * List<Funcionalidad> funcionalidades = funcionalidadBean.obtenerTodos(); for
+		 * (Funcionalidad fun: funcionalidades) {
+		 * cmbFuncionalidades.addItem(fun.getNombre()); }
+		 */
+		
+				
+		
 		
 		
 		
@@ -330,13 +341,14 @@ public class VentanaUsuarios {
 		textClave.setText(null);
 		textMail.setText(null);
 		textID.setText(null);
-		textRol.setText(null);
+		textDomicilio.setText(null);
+		textTelefono.setText(null);
 	}
 	
-	public void logout() throws NamingException {
+	public void volver(Usuario usuarioLoged) throws NamingException {
 		this.frame.dispose();
-		Login login= new Login();
-		Login.main(null);
+		VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador)usuarioLoged);
+		ventanaAdministrador.ventanaAdministrador();
 		
 	}
 }

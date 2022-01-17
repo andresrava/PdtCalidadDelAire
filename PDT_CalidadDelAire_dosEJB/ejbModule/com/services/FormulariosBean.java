@@ -12,9 +12,7 @@ import com.entities.Casilla;
 import com.entities.Formulario;
 import com.exceptions.ServiciosException;
 
-/**
- * Session Bean implementation class FormulariosBean
- */
+
 @Stateless
 public class FormulariosBean implements FormulariosBeanRemote {
 
@@ -24,13 +22,14 @@ public class FormulariosBean implements FormulariosBeanRemote {
         // TODO Auto-generated constructor stub
     }
     @Override
-	public void crear(Formulario formulario) throws ServiciosException {
+	public Formulario crear(Formulario formulario) throws ServiciosException {
 		try {
 			em.persist(formulario);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo crear el formulario: " + formulario.getNombre());
 		}
+		return formulario;
 		
 	}
 

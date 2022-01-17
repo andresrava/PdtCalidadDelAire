@@ -112,7 +112,15 @@ public class Formulario implements Serializable {
 
 	public Formulario() {
 		super();
+	}
+
+
+	public Formulario(String nombre, Investigador investigador) {
+		super();
+		this.nombre = nombre;
+		this.investigador = investigador;
 	} 
+	
 	
    
 }
