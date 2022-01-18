@@ -348,10 +348,17 @@ public class VentanaUsuarios {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					if (administradorBean.obte)
-					usuarioBean.actualizar(
-							new Usuario(Long.parseLong(textID.getText()), textApellido.getText(), textClave.getText(),
-									textDocumento.getText(), textMail.getText(), textNombre.getText(), roles.get(0)));
+					if (administradorBean.obtenerPorID(textID.getText()) != null) {
+						administradorBean.actualizar(new Administrador (
+								Long.parseLong(textID.getText()), textNombre.getText(), textApellido.getText(), textMail.getText(), 
+								textClave.getText(), textDocumento.getText(), textDomicilio.getText(),textTelefono.getText()));
+						
+					}else if (investigadorBean.obtenerPorID(textID.getText()) != null) {
+						
+					}else if (aficionadoBean.obtenerPorID(textID.getText()) != null) {
+						
+					}
+
 					JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito",
 							JOptionPane.INFORMATION_MESSAGE);
 					limpiarFormulario();

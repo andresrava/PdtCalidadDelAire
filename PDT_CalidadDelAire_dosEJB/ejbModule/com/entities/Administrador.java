@@ -118,6 +118,17 @@ public Administrador( Long id, String nombre , String apellido, String mail, Str
 
 }
 
+public Administrador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, Ciudad ciudad) 
+{
+	super(id, nombre , apellido , mail , clave);
+	this.documento = documento;
+	this.domicilio = domicilio;
+	this.telefono = telefono;
+	this.ciudad = ciudad;
+
+
+}
+
 @Override
 	public String toString() {
 		return "Administrador [ id=" + this.getId() + ", documento=" + documento + ", domicilio=" + domicilio + ", telefono=" + telefono	 + "]";

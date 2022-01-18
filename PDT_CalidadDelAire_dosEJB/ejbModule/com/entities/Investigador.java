@@ -108,6 +108,16 @@ public class Investigador extends Usuario implements Serializable {
 		this.telefono = telefono;
 	}
 	
+	public Investigador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, Ciudad ciudad) {
+		super( id, nombre , apellido , mail , clave);
+		 
+		this.documento = documento;
+		this.domicilio = domicilio;
+		this.telefono = telefono;
+		this.ciudad = ciudad;
+	}
+	
+	
 	public List<Actividad> getActividades() {
 		return actividades;
 	}
