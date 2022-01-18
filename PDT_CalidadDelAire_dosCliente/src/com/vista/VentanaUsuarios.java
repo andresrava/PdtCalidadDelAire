@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 
 import com.entities.Administrador;
 import com.entities.Ciudad;
+import com.entities.Investigador;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 import com.services.AdministradoresBeanRemote;
@@ -208,8 +209,9 @@ public class VentanaUsuarios {
 						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono));
 						administradorBean.asignarCiudad(administrador2.getId(), ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0).getId());
 					}else if(cmbRol.getSelectedItem() == "Investigador"){
-						
-					}else {
+						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, documento, domicilio, telefono));
+						investigadorBean.asignarCiudad(investigador.getId(), ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0).getId());						
+					}else { //sino crea un usuario aficionado
 						
 					}
 					JOptionPane.showMessageDialog(null, "Exito", "Usuario ingresado con éxito",

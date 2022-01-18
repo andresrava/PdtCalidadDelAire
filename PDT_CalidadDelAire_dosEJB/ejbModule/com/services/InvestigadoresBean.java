@@ -95,7 +95,7 @@ public class InvestigadoresBean implements InvestigadoresBeanRemote {
 	@Override
 	public void asignarCiudad(Long idInvestigador, Long idCiudad) throws ServiciosException {
 		try {
-			Investigador investigador = em.find(Investigador.class, idCiudad);
+			Investigador investigador = em.find(Investigador.class, idInvestigador);
 			Ciudad ciudad = em.find(Ciudad.class, idCiudad);
 			investigador.setCiudad(ciudad);
 			em.flush();
