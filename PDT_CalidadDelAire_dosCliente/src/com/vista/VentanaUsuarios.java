@@ -343,34 +343,33 @@ public class VentanaUsuarios {
 		frame.getContentPane().add(btnBuscar);
 		
 		btnModificar = new JButton("Modificar");
-		/*
-		 * btnModificar.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent e) { List<Rol> roles =
-		 * rolBean.buscarRol(textRol.getText()); if (roles.size() == 1) { try {
-		 * usuarioBean.actualizar(new
-		 * Usuario(Long.parseLong(textID.getText()),textApellido.getText(),
-		 * textClave.getText(), textDocumento.getText(), textMail.getText(),
-		 * textNombre.getText(), roles.get(0))); JOptionPane.showMessageDialog(null,
-		 * "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE);
-		 * limpiarFormulario(); } catch (NumberFormatException | ServiciosException e1)
-		 * { JOptionPane.showMessageDialog(null,
-		 * "Error, no se pudo actualizar al usuario.","Error",
-		 * JOptionPane.ERROR_MESSAGE); e1.printStackTrace(); } } else {
-		 * JOptionPane.showMessageDialog(null,
-		 * "Error, no se encontró rol indicado.","Error", JOptionPane.ERROR_MESSAGE); }
-		 * } });
-		 */
+		
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					if (administradorBean.obte)
+					usuarioBean.actualizar(
+							new Usuario(Long.parseLong(textID.getText()), textApellido.getText(), textClave.getText(),
+									textDocumento.getText(), textMail.getText(), textNombre.getText(), roles.get(0)));
+					JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito",
+							JOptionPane.INFORMATION_MESSAGE);
+					limpiarFormulario();
+				} catch (NumberFormatException | ServiciosException e1) {
+					JOptionPane.showMessageDialog(null, "Error, no se pudo actualizar al usuario.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				}
+				 
+			}
+		});
+		 
 		btnModificar.setBounds(300, 156, 89, 23);
 		frame.getContentPane().add(btnModificar);
 		
-		/*
-		 * List<Funcionalidad> funcionalidades = funcionalidadBean.obtenerTodos(); for
-		 * (Funcionalidad fun: funcionalidades) {
-		 * cmbFuncionalidades.addItem(fun.getNombre()); }
-		 */
 		
 				
-		//Se selecciona rola Aficionado deshabilita los datos que son solo de administrador e investigador
+		//Se selecciona rol Aficionado deshabilita los datos que son solo de administrador e investigador
 		cmbRol.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (cmbRol.getSelectedItem().toString() == "Aficionado") {

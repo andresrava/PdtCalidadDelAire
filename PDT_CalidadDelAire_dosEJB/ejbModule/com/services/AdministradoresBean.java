@@ -109,6 +109,13 @@ public class AdministradoresBean implements AdministradoresBeanRemote {
 			throw new ServiciosException ("No se pudo asignar la ciudad al administrador");
 		}
 	}
+
+	@Override
+	public List<Administrador> obtenerPorID(String id) {
+		TypedQuery<Administrador>query = em.createQuery("SELECT a FROM Administrador a WHERE a.id LIKE :id", Administrador.class)
+				.setParameter("id",id);
+		return query.getResultList();
+	}
 	
 
 }

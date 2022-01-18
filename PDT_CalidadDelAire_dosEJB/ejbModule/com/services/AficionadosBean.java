@@ -95,4 +95,11 @@ public class AficionadosBean implements AficionadosBeanRemote {
 		
 	}
 
+	@Override
+	public List<Aficionado> obtenerPorID(String id) {
+		TypedQuery<Aficionado>query = em.createQuery("SELECT a FROM Aficionado a WHERE a.id LIKE :id", Aficionado.class)
+				.setParameter("id",id);
+		return query.getResultList();
+	}
+
 }

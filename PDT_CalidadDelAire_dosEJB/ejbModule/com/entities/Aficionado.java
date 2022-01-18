@@ -49,6 +49,11 @@ public class Aficionado extends Usuario implements Serializable {
 		super(nombre, apellido, mail, clave);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Aficionado(Long id, String nombre, String apellido, String mail, String clave) {
+		super(id, nombre, apellido, mail, clave);
+		// TODO Auto-generated constructor stub
+	}
 
 
 	public List<Actividad> getActividades() {

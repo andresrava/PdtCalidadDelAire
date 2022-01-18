@@ -99,7 +99,14 @@ public class Investigador extends Usuario implements Serializable {
 		this.domicilio = domicilio;
 		this.telefono = telefono;
 	}
-
+	
+	public Investigador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono) {
+		super( id, nombre , apellido , mail , clave);
+		 
+		this.documento = documento;
+		this.domicilio = domicilio;
+		this.telefono = telefono;
+	}
 	
 	public List<Actividad> getActividades() {
 		return actividades;

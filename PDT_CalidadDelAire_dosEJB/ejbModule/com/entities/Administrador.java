@@ -109,7 +109,14 @@ public Administrador( String nombre , String apellido, String mail, String clave
 		;
 	}
 
+public Administrador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono) 
+{
+	super(id, nombre , apellido , mail , clave);
+	this.documento = documento;
+	this.domicilio = domicilio;
+	this.telefono = telefono;
 
+}
 
 @Override
 	public String toString() {
