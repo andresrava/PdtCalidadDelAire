@@ -18,6 +18,14 @@ public class Investigador extends Usuario implements Serializable {
 	@Column(length=8,nullable=false,unique=true)
 	private String documento;
 	
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
 	@Column(length=40)
 	private String domicilio;
 	

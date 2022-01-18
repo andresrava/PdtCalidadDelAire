@@ -274,30 +274,60 @@ public class VentanaUsuarios {
 		frame.getContentPane().add(btnEliminar);
 		
 		btnBuscar = new JButton("Buscar");
-		/*
-		 * btnBuscar.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent e) { try { List<Usuario> usuarios =
-		 * usuarioBean.buscarPorDocumento(textDocumento.getText()); if (usuarios.size()
-		 * == 1) { textID.setText(Long.toString(usuarios.get(0).getIDUsuario()));
-		 * textNombre.setText(usuarios.get(0).getNombre());
-		 * textApellido.setText(usuarios.get(0).getApellido());
-		 * textClave.setText(usuarios.get(0).getClave());
-		 * textMail.setText(usuarios.get(0).getMail()); if (usuarios.get(0).getRol()
-		 * !=null) { textRol.setText(usuarios.get(0).getRol().getNombre()); }else {
-		 * textRol.setText(""); }
-		 * 
-		 * JOptionPane.showMessageDialog(null, "Usuario encontrado con éxito.", "Exito",
-		 * JOptionPane.INFORMATION_MESSAGE);
-		 * 
-		 * } else { JOptionPane.showMessageDialog(null,
-		 * "Error, no se encontró el usuario.","Error", JOptionPane.ERROR_MESSAGE);
-		 * limpiarFormulario(); } } catch (HeadlessException e1) {
-		 * JOptionPane.showMessageDialog(null,
-		 * "Error, no se encontró el usuario.","Error", JOptionPane.ERROR_MESSAGE);
-		 * e1.printStackTrace(); limpiarFormulario();
-		 * 
-		 * } } });
-		 */
+		
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					List<Usuario> usuarios = usuarioBean.obtenerPorMail(textMail.getText());
+					if (usuarios.size() == 1) {
+						Usuario usuario = usuarios.get(0);
+						if (usuarios.get(0) instanceof Administrador) {
+							Administrador administrador = (Administrador) usuarios.get(0);
+							cmbCiudad.setSelectedItem(administrador.getCiudad().getNombre());
+							cmbRol.setSelectedItem("Administrador");
+							textDocumento.setText(administrador.getDocumento());
+							textDomicilio.setText(administrador.getDomicilio());
+							textTelefono.setText(administrador.getTelefono());
+						} else if (usuarios.get(0) instanceof Investigador) {
+							Investigador investigador = (Investigador) usuarios.get(0);
+							cmbCiudad.setSelectedItem(investigador.getCiudad().getNombre());
+							cmbRol.setSelectedItem("Investigador");
+							textDocumento.setText(investigador.getDocumento());
+							textDomicilio.setText(investigador.getDomicilio());
+							textTelefono.setText(investigador.getTelefono());
+						} else {
+							Aficionado aficionado = (Aficionado) usuarios.get(0);
+						}
+						textID.setText(Long.toString(usuario.getId()));
+						textNombre.setText(usuario.getNombre());
+						textApellido.setText(usuario.getApellido());
+						textClave.setText(usuario.getContraseña());
+						textMail.setText(usuario.getMail());
+						
+						JOptionPane.showMessageDialog(null, "Usuario encontrado con éxito.", "Exito",
+								JOptionPane.INFORMATION_MESSAGE);
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						limpiarFormulario();
+					}
+				} catch (HeadlessException e1) {
+					JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+					limpiarFormulario();
+
+				} catch (ServiciosException e1) {
+					JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+					limpiarFormulario();
+
+				}
+			}
+		});
+		 
 		btnBuscar.setBounds(300, 125, 89, 23);
 		frame.getContentPane().add(btnBuscar);
 		
