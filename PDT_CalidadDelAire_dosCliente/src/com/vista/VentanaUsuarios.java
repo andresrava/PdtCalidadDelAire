@@ -283,20 +283,23 @@ public class VentanaUsuarios {
 						Usuario usuario = usuarios.get(0);
 						if (usuarios.get(0) instanceof Administrador) {
 							Administrador administrador = (Administrador) usuarios.get(0);
-							cmbCiudad.setSelectedItem(administrador.getCiudad().getNombre());
+							if (administrador.getCiudad() != null) 
+								cmbCiudad.setSelectedItem(administrador.getCiudad().getNombre());
 							cmbRol.setSelectedItem("Administrador");
 							textDocumento.setText(administrador.getDocumento());
 							textDomicilio.setText(administrador.getDomicilio());
 							textTelefono.setText(administrador.getTelefono());
 						} else if (usuarios.get(0) instanceof Investigador) {
 							Investigador investigador = (Investigador) usuarios.get(0);
-							cmbCiudad.setSelectedItem(investigador.getCiudad().getNombre());
+							if (investigador.getCiudad() != null)
+								cmbCiudad.setSelectedItem(investigador.getCiudad().getNombre());
 							cmbRol.setSelectedItem("Investigador");
 							textDocumento.setText(investigador.getDocumento());
 							textDomicilio.setText(investigador.getDomicilio());
 							textTelefono.setText(investigador.getTelefono());
 						} else {
 							Aficionado aficionado = (Aficionado) usuarios.get(0);
+							cmbRol.setSelectedItem("Aficionado");
 						}
 						textID.setText(Long.toString(usuario.getId()));
 						textNombre.setText(usuario.getNombre());
@@ -364,8 +367,11 @@ public class VentanaUsuarios {
 			public void itemStateChanged(ItemEvent e) {
 				if (cmbRol.getSelectedItem().toString() == "Aficionado") {
 					textDocumento.setEnabled(false);
+					textDocumento.setText("");
 					textDomicilio.setEnabled(false);
+					textDomicilio.setText("");
 					textTelefono.setEnabled(false);
+					textTelefono.setText("");
 					cmbCiudad.setEnabled(false);
 				}else {
 					textDocumento.setEnabled(true);
