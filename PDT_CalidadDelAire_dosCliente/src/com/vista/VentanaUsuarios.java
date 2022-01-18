@@ -217,16 +217,7 @@ public class VentanaUsuarios {
 						Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave));
 					}
 					JOptionPane.showMessageDialog(null, "Exito", "Usuario ingresado con éxito",
-							JOptionPane.INFORMATION_MESSAGE);
-					
-					/*
-					 * List<Ciudad> ciudades = ciudadBean.buscarCiudad(textRol.getText());
-					 * 
-					 * if (roles.size() == 1) { usuarioBean.asignarRol(usuario2.getIdUsuario(),
-					 * roles.get(0).getIdRol()); } else { JOptionPane.showMessageDialog(null,
-					 * "Error, no se encontró rol indicado.", "Error", JOptionPane.ERROR_MESSAGE); }
-					 */
-					 
+							JOptionPane.INFORMATION_MESSAGE);		 
 
 				} catch (ServiciosException e) { // TODO Auto-generated catch block
 					e.printStackTrace();

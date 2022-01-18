@@ -16,6 +16,7 @@ public interface UsuariosBeanRemote {
 	List<Usuario> obtenerTodos();
 	List<Usuario> obtenerTodos(String filtro);
 	List<Usuario> validarLogin(String mail, String password);
+	List<Usuario> obtenerPorMail(String mail) throws ServiciosException;
 	//void asignarActividad (Long idUsuario, Long idActividad) throws ServiciosException;
 	
 }

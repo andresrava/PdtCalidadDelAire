@@ -102,4 +102,11 @@ public class UsuariosBean implements UsuariosBeanRemote {
 		return usuario;
 	}
 
+	@Override
+	public List<Usuario> obtenerPorMail(String mail) throws ServiciosException {
+		TypedQuery<Usuario>query = em.createQuery("SELECT u FROM Usuario u WHERE u.mail LIKE :mail", Usuario.class)
+				.setParameter("mail",mail);
+		return query.getResultList();
+	}
+
 }
