@@ -117,6 +117,16 @@ public Administrador( String nombre , String apellido, String mail, String clave
 	}
 
 
+public List<Actividad> getActividades() {
+	return actividades;
+}
+
+
+public void setActividades(List<Actividad> actividades) {
+	this.actividades = actividades;
+}
+
+
 
 	
 	

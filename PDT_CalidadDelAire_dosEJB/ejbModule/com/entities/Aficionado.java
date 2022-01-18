@@ -51,6 +51,16 @@ public class Aficionado extends Usuario implements Serializable {
 	}
 
 
+	public List<Actividad> getActividades() {
+		return actividades;
+	}
+
+
+	public void setActividades(List<Actividad> actividades) {
+		this.actividades = actividades;
+	}
+
+
 	@Override
 	public String toString() {
 		String nombre = this.getNombre();

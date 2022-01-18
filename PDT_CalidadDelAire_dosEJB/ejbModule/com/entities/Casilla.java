@@ -15,7 +15,7 @@ import javax.persistence.*;
 
 public class Casilla implements Serializable {
 
-	
+
 	private static final long serialVersionUID = 1L;	
 	
 	@Id
@@ -171,7 +171,27 @@ public class Casilla implements Serializable {
 		this.usuario = usuario;
 	}
 
+	public TipoDatoEnum getTipoDeDato() {
+		return tipoDeDato;
+	}
 
+
+
+	public void setTipoDeDato(TipoDatoEnum tipoDeDato) {
+		this.tipoDeDato = tipoDeDato;
+	}
+
+
+
+	public List<Registro> getRegistros() {
+		return registros;
+	}
+
+
+
+	public void setRegistros(List<Registro> registros) {
+		this.registros = registros;
+	}
 
 	public String toStringCorto() {
 		return "Casilla [nombre=" + nombre + ", parametro=" + parametro + ", unidaDeMedida=" + unidaDeMedida + "]";

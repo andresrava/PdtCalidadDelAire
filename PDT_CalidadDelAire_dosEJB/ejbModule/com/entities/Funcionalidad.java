@@ -9,6 +9,7 @@ public class Funcionalidad implements Serializable {
 
 public enum Rol {ADMINISTRADOR, INVESTIGADOR, AFICIONADO};
 	
+	
 	private static final long serialVersionUID = 1L;	
 	@Id
 	@SequenceGenerator(name = "SEQ_FUN", sequenceName="SEQ_FUN_seq",initialValue = 1, allocationSize = 1)
@@ -46,6 +47,12 @@ public enum Rol {ADMINISTRADOR, INVESTIGADOR, AFICIONADO};
 		super();
 		this.descripcion = descripcion;
 		this.nombre = nombre;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 	
    

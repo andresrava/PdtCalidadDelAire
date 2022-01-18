@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 public class Formulario implements Serializable {
 
 	
+	
 	private static final long serialVersionUID = 1L;	
 	
 	@Id
@@ -120,6 +121,25 @@ public class Formulario implements Serializable {
 		this.nombre = nombre;
 		this.investigador = investigador;
 	} 
+	
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+
+	public List<Actividad> getActividades() {
+		return actividades;
+	}
+
+
+	public void setActividades(List<Actividad> actividades) {
+		this.actividades = actividades;
+	}
 	
 	
    

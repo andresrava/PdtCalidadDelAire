@@ -15,12 +15,6 @@ import javax.persistence.OneToMany;
 
 public class Actividad implements Serializable {
 
-	
-	@Override
-	public String toString() {
-		return "Actividad [id=" + id + ", formulario=" + formulario + ", Investigador= " + investigador + ", administrador=" + administrador + ", fechaHora="
-				+ fechaHora + ", registros=" + registros + "]";
-	}
 
 	private static final long serialVersionUID = 1L;	
 	@Id
@@ -37,6 +31,38 @@ public class Actividad implements Serializable {
 	@ManyToOne (fetch = FetchType.LAZY)
 	private Investigador investigador;
 	
+	public Administrador getAdministrador() {
+		return administrador;
+	}
+
+	public void setAdministrador(Administrador administrador) {
+		this.administrador = administrador;
+	}
+
+	public Investigador getInvestigador() {
+		return investigador;
+	}
+
+	public void setInvestigador(Investigador investigador) {
+		this.investigador = investigador;
+	}
+
+	public Aficionado getAficionado() {
+		return aficionado;
+	}
+
+	public void setAficionado(Aficionado aficionado) {
+		this.aficionado = aficionado;
+	}
+
+	public Date getFechaHora() {
+		return fechaHora;
+	}
+
+	public void setFechaHora(Date fechaHora) {
+		this.fechaHora = fechaHora;
+	}
+
 	@ManyToOne (fetch = FetchType.LAZY)
 	private Aficionado aficionado;
 	
@@ -78,5 +104,10 @@ public class Actividad implements Serializable {
 		super();
 	} 
 	
+	@Override
+	public String toString() {
+		return "Actividad [id=" + id + ", formulario=" + formulario + ", Investigador= " + investigador + ", administrador=" + administrador + ", fechaHora="
+				+ fechaHora + ", registros=" + registros + "]";
+	}
    
 }

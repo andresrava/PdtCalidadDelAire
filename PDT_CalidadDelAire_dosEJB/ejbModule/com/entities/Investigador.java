@@ -100,6 +100,15 @@ public class Investigador extends Usuario implements Serializable {
 		this.telefono = telefono;
 	}
 
+	
+	public List<Actividad> getActividades() {
+		return actividades;
+	}
+
+	public void setActividades(List<Actividad> actividades) {
+		this.actividades = actividades;
+	}
+
 	@Override
 	public String toString() {
 		return "Investigador [documento=" + documento + ", domicilio=" + domicilio + ", telefono=" + telefono + "]";

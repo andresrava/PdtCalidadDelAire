@@ -57,6 +57,54 @@ public class Registro implements Serializable {
 
 	public void setActividad(Actividad actividad) {
 		this.actividad = actividad;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getValor() {
+		return valor;
+	}
+
+	public void setValor(String valor) {
+		this.valor = valor;
+	}
+
+	public float getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(float latitud) {
+		this.latitud = latitud;
+	}
+
+	public float getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(float longitud) {
+		this.longitud = longitud;
+	}
+
+	public Date getFechaHora() {
+		return fechaHora;
+	}
+
+	public void setFechaHora(Date fechaHora) {
+		this.fechaHora = fechaHora;
+	}
+
+	public String getMetodoMuestreo() {
+		return metodoMuestreo;
+	}
+
+	public void setMetodoMuestreo(String metodoMuestreo) {
+		this.metodoMuestreo = metodoMuestreo;
 	} 
 	
    

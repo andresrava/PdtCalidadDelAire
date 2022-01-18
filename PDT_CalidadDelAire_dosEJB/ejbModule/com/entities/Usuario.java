@@ -128,6 +128,31 @@ public class Usuario implements Serializable {
 		this.apellido = apellido;
 	} 
 
+	
+	public List<Casilla> getCasillas() {
+		return casillas;
+	}
+
+	public void setCasillas(List<Casilla> casillas) {
+		this.casillas = casillas;
+	}
+
+	public List<EstacionDeMedicion> getEstaciones() {
+		return estaciones;
+	}
+
+	public void setEstaciones(List<EstacionDeMedicion> estaciones) {
+		this.estaciones = estaciones;
+	}
+
+	public List<Formulario> getFormularios() {
+		return formularios;
+	}
+
+	public void setFormularios(List<Formulario> formularios) {
+		this.formularios = formularios;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [contraseña=" + contraseña + ", mail=" + mail + ", nombre=" + nombre + ", apellido=" + apellido
