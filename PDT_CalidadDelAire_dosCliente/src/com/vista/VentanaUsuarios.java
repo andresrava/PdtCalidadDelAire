@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import com.entities.Administrador;
+import com.entities.Aficionado;
 import com.entities.Ciudad;
 import com.entities.Investigador;
 import com.entities.Usuario;
@@ -87,7 +88,7 @@ public class VentanaUsuarios {
 		InvestigadoresBeanRemote investigadorBean = (InvestigadoresBeanRemote) InitialContext.doLookup(ruta3);
 		
 		String ruta4="PDT_CalidadDelAire_dosEJB/AficionadosBean!com.services.AficionadosBeanRemote";
-		AficionadosBeanRemote aficionadosBean = (AficionadosBeanRemote) InitialContext.doLookup(ruta4);
+		AficionadosBeanRemote aficionadoBean = (AficionadosBeanRemote) InitialContext.doLookup(ruta4);
 		
 		String ruta5="PDT_CalidadDelAire_dosEJB/CiudadesBean!com.services.CiudadesBeanRemote";
 		CiudadesBeanRemote ciudadBean = (CiudadesBeanRemote) InitialContext.doLookup(ruta5);
@@ -187,6 +188,7 @@ public class VentanaUsuarios {
 			cmbCiudad.addItem(ciudad.getNombre()); }
 		
 		JComboBox cmbRol = new JComboBox();
+		
 		cmbRol.setBounds(104, 188, 186, 22);
 		cmbRol.addItem("Administrador");
 		cmbRol.addItem("Investigador");
@@ -212,7 +214,7 @@ public class VentanaUsuarios {
 						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, documento, domicilio, telefono));
 						investigadorBean.asignarCiudad(investigador.getId(), ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0).getId());						
 					}else { //sino crea un usuario aficionado
-						
+						Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave));
 					}
 					JOptionPane.showMessageDialog(null, "Exito", "Usuario ingresado con éxito",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -336,8 +338,22 @@ public class VentanaUsuarios {
 		 */
 		
 				
-		
-		
+		//Se selecciona rola Aficionado deshabilita los datos que son solo de administrador e investigador
+		cmbRol.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (cmbRol.getSelectedItem().toString() == "Aficionado") {
+					textDocumento.setEnabled(false);
+					textDomicilio.setEnabled(false);
+					textTelefono.setEnabled(false);
+					cmbCiudad.setEnabled(false);
+				}else {
+					textDocumento.setEnabled(true);
+					textDomicilio.setEnabled(true);
+					textTelefono.setEnabled(true);
+					cmbCiudad.setEnabled(true);
+				}
+			}
+		});
 		
 		
 		
