@@ -255,21 +255,29 @@ public class VentanaUsuarios {
 		frame.getContentPane().add(lblMail);
 		
 		btnEliminar = new JButton("Eliminar");
-		/*
-		 * btnEliminar.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent e) { if (textID.getText() != "") { try {
-		 * usuarioBean.borrar(Long.parseLong(textID.getText()));
-		 * JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Exito",
-		 * JOptionPane.INFORMATION_MESSAGE); limpiarFormulario(); } catch
-		 * (NumberFormatException | ServiciosException e1) {
-		 * JOptionPane.showMessageDialog(null,
-		 * "Error, no se pudo eliminar el usuario.","Error", JOptionPane.ERROR_MESSAGE);
-		 * e1.printStackTrace(); } }else { JOptionPane.showMessageDialog(null,
-		 * "Error, el campo ID no puede estar vacío. Debe buscar la persona a eliminar primero."
-		 * ,"Error", JOptionPane.ERROR_MESSAGE);
-		 * 
-		 * } } });
-		 */
+		
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (textID.getText() != "") {
+					try {
+						usuarioBean.borrar(Long.parseLong(textID.getText()));
+						JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Exito",
+								JOptionPane.INFORMATION_MESSAGE);
+						limpiarFormulario();
+					} catch (NumberFormatException | ServiciosException e1) {
+						JOptionPane.showMessageDialog(null, "Error, no se pudo eliminar el usuario.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Error, el campo ID no puede estar vacío. Debe buscar la persona a eliminar primero.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+
+				}
+			}
+		});
+		 
 		btnEliminar.setBounds(300, 94, 89, 23);
 		frame.getContentPane().add(btnEliminar);
 		
