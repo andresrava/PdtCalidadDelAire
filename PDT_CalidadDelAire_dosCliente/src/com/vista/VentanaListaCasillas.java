@@ -35,9 +35,7 @@ import javax.swing.JCheckBox;
 public class VentanaListaCasillas extends JFrame {
 
 	private JPanel contentPane;
-	private Object makeObj(final String item)  {
-	     return new Object() { public String toString() { return item; } };
-	   }
+
 	/**
 	 * Launch the application.
 	 */
