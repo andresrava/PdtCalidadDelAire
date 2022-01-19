@@ -156,10 +156,10 @@ public class CargaInicial {
 		gestionChoto.saludo();
 		
 		//Se muestran los departamentos
-		GestionLocalidades gestionLocalidades = new GestionLocalidades();
-		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
-		System.out.println("Los departamentos disponibles son:");
-		System.out.println(departamentos);
+//		GestionLocalidades gestionLocalidades = new GestionLocalidades();
+//		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
+//		System.out.println("Los departamentos disponibles son:");
+//		System.out.println(departamentos);
 		
 	}
 }
