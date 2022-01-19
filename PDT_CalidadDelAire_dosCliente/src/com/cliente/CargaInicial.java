@@ -1,16 +1,12 @@
 package com.cliente;
 
 import java.util.List;
-import java.util.Set;
-
 import javax.naming.NamingException;
 
 import com.controlador.GestionCasillas;
-import com.controlador.GestionChoto;
 import com.controlador.GestionCiudades;
 import com.controlador.GestionEstaciones;
 import com.controlador.GestionFormularios;
-import com.controlador.GestionLocalidades;
 import com.controlador.GestionUsuarios;
 import com.entities.Administrador;
 import com.entities.Aficionado;
@@ -151,9 +147,9 @@ public class CargaInicial {
 		System.out.println("los formularios creados son: ");
 		System.out.println(formularios);
 		
-		System.out.println("Se completó la carga inicial");
-		GestionChoto gestionChoto = new GestionChoto();
-		gestionChoto.saludo();
+//		System.out.println("Se completó la carga inicial");
+//		GestionChoto gestionChoto = new GestionChoto();
+//		gestionChoto.saludo();
 		
 		//Se muestran los departamentos
 //		GestionLocalidades gestionLocalidades = new GestionLocalidades();
