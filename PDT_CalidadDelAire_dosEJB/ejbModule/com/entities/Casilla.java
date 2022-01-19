@@ -201,7 +201,7 @@ public class Casilla implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Casilla [id=" + id + ", nombre=" + nombre + ", parametro=" + parametro + ", unidaDeMedida="
+		return "Casilla [ parametro=" + parametro + ", unidaDeMedida="
 				+ unidaDeMedida + "]";
 	}
 
