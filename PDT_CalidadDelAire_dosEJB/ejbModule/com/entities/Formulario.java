@@ -7,11 +7,10 @@ import javax.persistence.*;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-@NamedQuery(name="Formulario.obtenerTodos", query="SELECT f FROM Formulario f")
 
 @Entity
 @Table (name = "FORMULARIOS")
-@Inheritance( strategy = InheritanceType.JOINED )
+@NamedQuery(name="Formulario.obtenerTodos", query="SELECT f FROM Formulario f")
 
 public class Formulario implements Serializable {
 
@@ -140,6 +139,15 @@ public class Formulario implements Serializable {
 	public void setActividades(List<Actividad> actividades) {
 		this.actividades = actividades;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Formulario [nombre=" + nombre + ", resumen=" + resumen + ", casillas=" + casillas + ", investigador="
+				+ investigador + ", usuarios=" + usuarios + ", administrador=" + administrador + ", actividades="
+				+ actividades + "]";
+	}
+	
 	
 	
    

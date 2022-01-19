@@ -47,12 +47,28 @@ public class GestionUsuarios {
 		return administrador;
 	}
 	
+	public List<Administrador> obtieneAdministradores() throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/AdministradoresBean!com.services.AdministradoresBeanRemote";
+		AdministradoresBeanRemote administradorBean = (AdministradoresBeanRemote)
+					InitialContext.doLookup(ruta);
+		List<Administrador> administradores = administradorBean.obtenerTodos();
+		return administradores;
+	}
+	
 	public Investigador crearInvestigador (Investigador investigador) throws NamingException , ServiciosException {
 		String ruta = "PDT_CalidadDelAire_dosEJB/InvestigadoresBean!com.services.InvestigadoresBeanRemote";
 		
 		InvestigadoresBeanRemote investigadorBean = (InvestigadoresBeanRemote)
 					InitialContext.doLookup(ruta);
 		investigador = investigadorBean.crear(investigador);
+		return investigador;
+	}
+	
+	public List<Investigador> obtieneInvestigadores() throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/InvestigadoresBean!com.services.InvestigadoresBeanRemote";
+		InvestigadoresBeanRemote investigadorBean = (InvestigadoresBeanRemote)
+					InitialContext.doLookup(ruta);
+		List<Investigador> investigador = investigadorBean.obtenerTodos();
 		return investigador;
 	}
 	
@@ -64,6 +80,15 @@ public class GestionUsuarios {
 		aficionado = aficionadoBean.crear(aficionado);
 		return aficionado;
 	}
+	
+	public List<Aficionado> obtieneAficionados() throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/AficionadosBean!com.services.AficionadosBeanRemote";
+		AficionadosBeanRemote aficionadoBean = (AficionadosBeanRemote)
+					InitialContext.doLookup(ruta);
+		List<Aficionado> aficionado = aficionadoBean.obtenerTodos();
+		return aficionado;
+	}
+	
 	
 	public Usuario obtienePorId (Long idUsuario) throws NamingException, ServiciosException {
 	String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";

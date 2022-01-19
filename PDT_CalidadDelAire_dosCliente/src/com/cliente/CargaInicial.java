@@ -1,11 +1,16 @@
 package com.cliente;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.naming.NamingException;
 
 import com.controlador.GestionCasillas;
+import com.controlador.GestionChoto;
 import com.controlador.GestionCiudades;
 import com.controlador.GestionEstaciones;
 import com.controlador.GestionFormularios;
+import com.controlador.GestionLocalidades;
 import com.controlador.GestionUsuarios;
 import com.entities.Administrador;
 import com.entities.Aficionado;
@@ -40,6 +45,16 @@ public class CargaInicial {
 		administrador3 = gestionUsuarios.crearAdministrador(administrador3);
 		administrador4 = gestionUsuarios.crearAdministrador(administrador4);
 		
+		List<Administrador> listaAdministrador = gestionUsuarios.obtieneAdministradores();
+		System.out.println("Administradores creados:");
+		System.out.println(listaAdministrador);
+		Long idAdmin4 = administrador4.getId();
+		System.out.println("Id Admin4 creado: " + idAdmin4);
+		Administrador adminEncontrado = (Administrador) gestionUsuarios.obtienePorId(idAdmin4);
+		System.out.println("Administrador encontrado por id:");
+		System.out.println(adminEncontrado);
+		
+		
 		//Comienza carga 4 Investigadores 
 		
 		Investigador investigador1 = new Investigador( "Investnombre1" ,"InvestApellido1" , "InvestMail1" , "InvestClave1" , "InvDocu1" ,"InvestDomic1" , "InvestTel1");
@@ -53,20 +68,37 @@ public class CargaInicial {
 		investigador3 = gestionUsuarios.crearInvestigador(investigador3);
 		investigador4 = gestionUsuarios.crearInvestigador(investigador4);
 			
+		List<Investigador> listaInvestigador = gestionUsuarios.obtieneInvestigadores();
+		System.out.println("Investigadores creados:");
+		System.out.println(listaInvestigador);
+		Long idInvest4 = investigador4.getId();
+		System.out.println("Id Invest4 creado: " + idInvest4);
+		Investigador investEncontrado = (Investigador) gestionUsuarios.obtienePorId(idInvest4);
+		System.out.println("Investigador encontrado por id:");
+		System.out.println(investEncontrado);
 				
 		//Comienza la carga de 4 Aficionados
-		Aficionado aficionado1 = new Aficionado("AficApellido1" , "Aficnombre1" , "AficMail1" , "AficClave1");
-		Aficionado aficionado2 = new Aficionado("AficApellido2" , "Aficnombre2" , "AficMail2" , "AficClave2");
-		Aficionado aficionado3 = new Aficionado("AficApellido3" , "Aficnombre3" , "AficMail3" , "AficClave3");
-		Aficionado aficionado4 = new Aficionado("AficApellido4" , "Aficnombre4" , "mailAfic" , "claveAfic");
+		Aficionado aficionado1 = new Aficionado( "Aficnombre1" , "AficApellido1" , "AficMail1" , "AficClave1");
+		Aficionado aficionado2 = new Aficionado( "Aficnombre2" , "AficApellido2" ,"AficMail2" , "AficClave2");
+		Aficionado aficionado3 = new Aficionado( "Aficnombre3" , "AficApellido3" ,"AficMail3" , "AficClave3");
+		Aficionado aficionado4 = new Aficionado( "Aficnombre4" , "AficApellido4" , "mailAfic" , "claveAfic");
 		
 		aficionado1 = gestionUsuarios.crearAficionado(aficionado1);
 		aficionado2 = gestionUsuarios.crearAficionado(aficionado2);
 		aficionado3 = gestionUsuarios.crearAficionado(aficionado3);
 		aficionado4 = gestionUsuarios.crearAficionado(aficionado4);
-		System.out.println("Aficionado1: " + aficionado1);
 		
-		//Comienza la carga de 4 Casillas
+		List<Aficionado> listaAficionado = gestionUsuarios.obtieneAficionados();
+		System.out.println("Aficionados creados:");
+		System.out.println(listaAficionado);
+		Long idAficionado4 = aficionado4.getId();
+		System.out.println("Id Afic4 creado: " + idAficionado4);
+		Aficionado aficionadoEncontrado = (Aficionado) gestionUsuarios.obtienePorId(idAficionado4);
+		System.out.println("Aficionado encontrado por id:");
+		System.out.println(aficionadoEncontrado);
+		
+		
+		//Comienza la carga de 3 Casillas
 		
 		Casilla casilla1 = new Casilla("Primer Casilla" , "humedad" , "%");
 		Casilla casilla2 = new Casilla("Segunda Casilla" , "temperatura" , "ºC");
@@ -77,12 +109,13 @@ public class CargaInicial {
 		
 		GestionCasillas gestionCasilla = new GestionCasillas();
 		casilla1 = gestionCasilla.crearCasilla(casilla1);
-		Long idCasilla1 = casilla1.getId();
-		System.out.println("Id de la Casilla1: " + idCasilla1);
 		casilla2 = gestionCasilla.crearCasilla(casilla2);
 		casilla3 = gestionCasilla.crearCasilla(casilla3);
 		casilla4 = gestionCasilla.crearCasilla(casilla4);
-		
+		List<Casilla> listaCasillas = gestionCasilla.listaCasillas();
+		System.out.println("Casillas creadas:");
+		System.out.println(listaCasillas);
+				
 		 //Comienza la carga de dos Ciudades
 		
 		Ciudad primera = new Ciudad("Santa Marta" , NombresEnum.TREINTA_Y_TRES);
@@ -92,15 +125,20 @@ public class CargaInicial {
 		primera = gestionCiudades.creaCiudad(primera);
 		segunda = gestionCiudades.creaCiudad(segunda);
 		
+		
 		//Comienza la carga de 2 Estaciones de Medición
 		
 		EstacionDeMedicion em1 = new EstacionDeMedicion("Primera_EM ",primera,usuario);
 		EstacionDeMedicion em2 = new EstacionDeMedicion("Segunda_EM ",segunda,administrador1);
 					
 		GestionEstaciones gestionEstaciones = new GestionEstaciones();
-		//GestionEstaciones gestionEstaciones2 = new GestionEstaciones();
+		
 		em1 = gestionEstaciones.crearEstacion(em1);
 		em2 = gestionEstaciones.crearEstacion(em2);
+		List<EstacionDeMedicion> listaEM = gestionEstaciones.obtieneEM();
+		System.out.println("EM creadas:");
+		System.out.println(listaEM);
+		
 				
 		//Comienza la carga de 2 formularios vacíos
 		Formulario form1 = new Formulario("PrimerFormulario" , investigador1);
@@ -109,8 +147,19 @@ public class CargaInicial {
 		GestionFormularios gestionFormularios = new GestionFormularios();
 		form1 = gestionFormularios.crearFormulario(form1);
 		form2 = gestionFormularios.crearFormulario(form2);
+		List<Formulario> formularios = gestionFormularios.listaFormularios();
+		System.out.println("los formularios creados son: ");
+		System.out.println(formularios);
 		
 		System.out.println("Se completó la carga inicial");
+		GestionChoto gestionChoto = new GestionChoto();
+		gestionChoto.saludo();
+		
+		//Se muestran los departamentos
+		GestionLocalidades gestionLocalidades = new GestionLocalidades();
+		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
+		System.out.println("Los departamentos disponibles son:");
+		System.out.println(departamentos);
 		
 	}
 }

@@ -57,8 +57,9 @@ public class FormulariosBean implements FormulariosBeanRemote {
 
 	@Override
 	public List<Formulario> obtenerTodos() {
-		TypedQuery<Formulario>query = em.createNamedQuery("Formulario.obtenerTodos", Formulario.class);
-		return query.getResultList();
+		List<Formulario> a = (List<Formulario>) em.createNamedQuery("Formulario.obtenerTodos").getResultList();
+		System.out.println("Esta es la lista de formularios" + a);
+		return a;
 	}
 
 	@Override

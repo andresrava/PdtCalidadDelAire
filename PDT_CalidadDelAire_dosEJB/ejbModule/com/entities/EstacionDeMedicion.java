@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "EM")
+@Table (name = "ESTACIONESDEMEDICION")
 @NamedQuery(name="EstacionDeMedicion.obtenerTodos", query="SELECT e FROM EstacionDeMedicion e")
 public class EstacionDeMedicion implements Serializable {
 
@@ -48,7 +48,7 @@ public class EstacionDeMedicion implements Serializable {
 
 	
 	public EstacionDeMedicion(String nombre, Ciudad ciudad, Usuario usuario) {
-		
+		super();
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.usuario = usuario;
@@ -131,8 +131,12 @@ public class EstacionDeMedicion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EstacionDeMedicion [nombre= " + nombre + ", ciudad= " + ciudad + ", usuario= " + usuario + " ]";
-	} 
+		return "EstacionDeMedicion [nombre=" + nombre + ", descripcion=" + descripcion + ", casillas=" + casillas
+				+ ", ciudad=" + ciudad + ", usuario=" + usuario + "]";
+	}
+
+
+	
 	
 	
    
