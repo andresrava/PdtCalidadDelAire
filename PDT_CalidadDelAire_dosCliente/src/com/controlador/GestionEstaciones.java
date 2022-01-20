@@ -1,5 +1,6 @@
 package com.controlador;
 
+import java.util.LinkedList;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -43,10 +44,8 @@ public class GestionEstaciones {
 		String ruta = "PDT_CalidadDelAire_dosEJB/EstacionesDeMedicionBean!com.services.EstacionesDeMedicionBeanRemote";
 		EstacionesDeMedicionBeanRemote estacionBean = (EstacionesDeMedicionBeanRemote)
 				InitialContext.doLookup(ruta);
-		estacionBean.toString();
-		Class<?> clase = estacionBean.getClass();
-		System.out.println(clase);
-		List<EstacionDeMedicion> estaciones = estacionBean.obtenerTodasEM();
+		List<EstacionDeMedicion> estaciones = new LinkedList<EstacionDeMedicion>();
+		estaciones = estacionBean.obtenerTodasEM();
 		
 		return estaciones;
 		

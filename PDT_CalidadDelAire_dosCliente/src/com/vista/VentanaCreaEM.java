@@ -3,6 +3,8 @@ package com.vista;
 import java.awt.EventQueue;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,13 +12,17 @@ import javax.swing.border.EmptyBorder;
 import com.controlador.GestionCasillas;
 import com.controlador.GestionCiudades;
 import com.controlador.GestionEstaciones;
+import com.controlador.GestionLocalidades;
 import com.entities.Casilla;
 import com.entities.Ciudad;
 import com.entities.Ciudad.NombresEnum;
 import com.entities.EstacionDeMedicion;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
+import com.services.LocalidadesBeanRemote;
+import com.services.UsuariosBeanRemote;
 
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -62,6 +68,10 @@ public class VentanaCreaEM extends JFrame {
 	public VentanaCreaEM(Usuario usuarioLogedRef) throws NamingException {
 		setTitle("Crea Estaci\u00F3n de Medici\u00F3n");
 		VentanaCreaEM.usuarioLoged = usuarioLogedRef;
+		
+		String ruta="PDT_CalidadDelAire_dosEJB/LocalidadesBean!com.services.LocalidadesBeanRemote";
+		LocalidadesBeanRemote localidadBean = (LocalidadesBeanRemote) InitialContext.doLookup(ruta);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 702, 355);
 		contentPane = new JPanel();
@@ -79,7 +89,15 @@ public class VentanaCreaEM extends JFrame {
 		
 		JLabel lblNewLabel_4 = new JLabel("Casillas:");
 		
-		JComboBox <Ciudad.NombresEnum>comboBoxDepartamento = new JComboBox(Ciudad.NombresEnum.values());
+		//JComboBox <Ciudad.NombresEnum>comboBoxDepartamento = new JComboBox(Ciudad.NombresEnum.values());
+		JComboBox <String> comboBoxDepartamento = new JComboBox();
+		//GestionLocalidades gestionLocalidades = new GestionLocalidades();
+		
+		Set<String> departamentos = localidadBean.obtenerDepartamentos();
+		System.out.println(departamentos);
+		for (String nombre : departamentos) {
+			comboBoxDepartamento.addItem(nombre);
+		}
 		
 		
 		
@@ -165,7 +183,7 @@ public class VentanaCreaEM extends JFrame {
 		
 
 			
-		JComboBox comboBoxCasillasDisponibles = new JComboBox();
+		JComboBox<Casilla> comboBoxCasillasDisponibles = new JComboBox();
 		List<Casilla> casillasDisponibles = new LinkedList<Casilla>();
 		GestionCasillas gestionCasillas = new GestionCasillas();
 		casillasDisponibles = gestionCasillas.listaCasillas();

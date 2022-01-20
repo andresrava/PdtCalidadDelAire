@@ -4,7 +4,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
 
 import com.entities.Casilla;
 import com.entities.Ciudad;
@@ -12,9 +15,7 @@ import com.entities.EstacionDeMedicion;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 
-/**
- * Session Bean implementation class EstacionesDeMedicionBean
- */
+
 @Stateless
 public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote {
 
@@ -61,7 +62,13 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 			throw new ServiciosException ("No se pudo crear la estacion: " + nombre + e.getMessage());
 		}
 		return estacion;
-		
+//		try {
+//			em.persist(estacion);
+//			em.flush();
+//		}catch (PersistenceException e) {
+//			throw new ServiciosException ("No se pudo crear la Estación");
+//		}
+//		return estacion; 
 	}
 	
 	public void agregarUsuario(Long idEM , Long idUsuario) {
@@ -111,8 +118,9 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 	
 	@Override
 	public List<EstacionDeMedicion> obtenerTodasEM() {
-		TypedQuery<EstacionDeMedicion>query = em.createNamedQuery("EstacionDeMedicion.obtenerTodos", EstacionDeMedicion.class);
-		return  query.getResultList();
+		List<EstacionDeMedicion> a = em.createNamedQuery("EstacionDeMedicion.obtenerTodos").getResultList();
+		System.out.println("Las Estaciones son: " + a);
+		return a;
 	}
 
 	@Override

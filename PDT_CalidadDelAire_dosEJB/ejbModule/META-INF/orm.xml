@@ -30,9 +30,8 @@
 		<table name = "CASILLAS">
 		</table>
 	</entity>
-
 	<entity class="com.entities.EstacionDeMedicion" access="FIELD">
-		<table name="EM">
+		<table name="ESTACIONESDEMEDICION">
 		</table>
 	</entity>
 	<entity class="com.entities.Formulario" access="FIELD">
