@@ -26,7 +26,7 @@ public CasillasBean() {
 	@Override
 	public Casilla crear(Casilla casilla) throws ServiciosException {
 		try {
-			em.persist(casilla);
+			em.merge(casilla);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo crear la Casilla: " + casilla.getNombre());

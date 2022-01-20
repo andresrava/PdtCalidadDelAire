@@ -7,9 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 
 import com.controlador.GestionCasillas;
-import com.controlador.GestionCiudades;
 import com.controlador.GestionEstaciones;
 import com.entities.Casilla;
 import com.entities.Ciudad;
@@ -153,15 +153,6 @@ public class VentanaListaCasillas extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-//				List<Casilla> casillasEnEM = new LinkedList<Casilla>();
-//				EstacionDeMedicion estacion = new EstacionDeMedicion();
-//				
-//				casillasEnEM = estacion.getCasillas();
-//				Set<Casilla> casillas = new HashSet<Casilla>();
-//				comboBoxCasillas.removeAllItems();
-//				for (Casilla c : casillas) {
-//					comboBoxCasillas.addItem(c.toStringCorto());
-//				}
 				
 			}
 		});
@@ -217,6 +208,29 @@ public class VentanaListaCasillas extends JFrame {
 		JButton btnEditar = new JButton("Editar");
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Casilla casillaAEliminar = (Casilla)comboBoxCasillas.getSelectedItem();
+				GestionCasillas gestionCasillas = new GestionCasillas();
+				String nombreCasillaAEliminar = casillaAEliminar.getNombre();	
+				int confirmacion =  JOptionPane.showConfirmDialog(null,"Realmente desea Eliminar la casilla: " + nombreCasillaAEliminar + "?", "Confirmar la eliminación", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (confirmacion == 0)
+					{
+						try {
+							gestionCasillas.borrarCasilla(casillaAEliminar);
+							comboBoxCasillas.removeItem(casillaAEliminar);
+					        comboBoxCasillas.updateUI();
+					        JFrame jFrame = new JFrame();
+					        JOptionPane.showMessageDialog(jFrame, "Se eliminó la casilla: " + nombreCasillaAEliminar);
+					        
+						} catch (NamingException | ServiciosException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+			}
+		});
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addMouseListener(new MouseAdapter() {

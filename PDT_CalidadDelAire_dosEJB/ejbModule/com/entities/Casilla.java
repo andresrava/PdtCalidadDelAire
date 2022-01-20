@@ -28,11 +28,26 @@ public class Casilla implements Serializable {
 	private String nombre;
 	
 
-	public enum TipoDatoEnum {STRING, BOOLEAN, INTEGER, FLOAT};
+	public enum TipoDatoEnum 
+	{
+		STRING("String",0), BOOLEAN("Boolean",1), INTEGER("Integer",2), FLOAT("Float",3);
+		private String nombreTipoDato;
+		private int numero;
+		private TipoDatoEnum (String nombre, int numero) {
+			this.numero = numero;
+			this.nombreTipoDato = nombre;
+		}
+		public String getTipoDato() 
+		{return nombreTipoDato;
+		}
+		public int getNumero()
+		{return numero;
+		}
+}
+		
 	
-	@Enumerated
 	@Column(length=10)
-	private TipoDatoEnum tipoDeDato;
+	private String tipoDeDato;
 	
 	@Column(length=40,nullable=false,unique=true)
 	private String parametro;
@@ -43,7 +58,7 @@ public class Casilla implements Serializable {
 	@Column(length=50)
 	private String descripcion;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne (fetch = FetchType.EAGER)
 	private Usuario usuario;
 	
 	@JoinTable (
@@ -160,7 +175,7 @@ public class Casilla implements Serializable {
 
 
 
-	public Casilla(String nombre, TipoDatoEnum tipoDeDato, String parametro, String unidaDeMedida, String descripcion,
+	public Casilla(String nombre, String tipoDeDato, String parametro, String unidaDeMedida, String descripcion,
 			Usuario usuario) {
 		super();
 		this.nombre = nombre;
@@ -170,14 +185,22 @@ public class Casilla implements Serializable {
 		this.descripcion = descripcion;
 		this.usuario = usuario;
 	}
+	public Casilla(String nombre, String tipoDeDato, String parametro, String unidaDeMedida, String descripcion) {
+		super();
+		this.nombre = nombre;
+		this.tipoDeDato = tipoDeDato;
+		this.parametro = parametro;
+		this.unidaDeMedida = unidaDeMedida;
+		this.descripcion = descripcion;
+	}
 
-	public TipoDatoEnum getTipoDeDato() {
+	public String getTipoDeDato() {
 		return tipoDeDato;
 	}
 
 
 
-	public void setTipoDeDato(TipoDatoEnum tipoDeDato) {
+	public void setTipoDeDato(String tipoDeDato) {
 		this.tipoDeDato = tipoDeDato;
 	}
 
@@ -197,11 +220,9 @@ public class Casilla implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Casilla [nombre=" + nombre + ", tipoDeDato=" + tipoDeDato + ", parametro=" + parametro
-				+ ", unidaDeMedida=" + unidaDeMedida + ", descripcion=" + descripcion + "]";
+		return "Casilla [nombre=" + nombre + ", parametro=" + parametro + ", unidaDeMedida=" + unidaDeMedida + "]";
 	}
 
 	
-	
-   
+	   
 }
