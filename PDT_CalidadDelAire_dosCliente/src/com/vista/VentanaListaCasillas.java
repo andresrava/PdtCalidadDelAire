@@ -80,7 +80,7 @@ public class VentanaListaCasillas extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Est. de Medici\u00F3n");
 				
-		JComboBox comboBoxCasillas = new JComboBox();
+		JComboBox<Casilla> comboBoxCasillas = new JComboBox();
 		scrollPane.setColumnHeaderView(comboBoxCasillas);
 		
 		JComboBox<EstacionDeMedicion> comboEM = new JComboBox();
@@ -106,7 +106,7 @@ public class VentanaListaCasillas extends JFrame {
 			System.out.println("size: " + casillas.size());
 			System.out.println(casillas.toString());
 			for (Casilla c: casillas) {
-				comboBoxCasillas.addItem(c.toStringCorto());
+				comboBoxCasillas.addItem(c);
 			}
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
@@ -128,7 +128,7 @@ public class VentanaListaCasillas extends JFrame {
 					casillasFiltradasNombre = gestionCasillas.listaCasillas(textNombreCasilla.getText());
 					comboBoxCasillas.removeAllItems();
 					for (Casilla c: casillasFiltradasNombre) {
-						comboBoxCasillas.addItem(c.toStringCorto());
+						comboBoxCasillas.addItem(c);
 					}
 					//boolean habilitaFiltroEM = chckbxHabilitaFiltroEM
 					if (comboEM.getSelectedIndex() != -1  )

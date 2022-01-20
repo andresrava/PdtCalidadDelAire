@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Localidades xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<departamento name="MONTEVIDEO">
+		<nombre>Montevideo</nombre>
+		<nombre>Abayubá</nombre>
+		<nombre>Santiago Vázquez</nombre>
+		<nombre>Pajas Blancas</nombre>
+		<nombre>Rural</nombre>
+	</departamento>
+	<departamento name="ARTIGAS">
+		<nombre>Artigas</nombre>
+		<nombre>Bella Unión</nombre>
+		<nombre>Tomás Gomensoro</nombre>
+		<nombre>Baltasar Brum</nombre>
+		<nombre>Arrocera San Pedro</nombre>
+		<nombre>Cainsa Campo 3</nombre>
+		<nombre>Bernabé Rivera</nombre>
+		<nombre>Calpica Itacumbú</nombre>
+		<nombre>Colonia Rivera</nombre>
+		<nombre>Franquia</nombre>
+		<nombre>Sequeira</nombre>
+		<nombre>Cainsa 2 Itacumbú</nombre>
+		<nombre>Coronado</nombre>
+	</departamento>
+	<departamento name="CANELONES">
+		<nombre>Las Piedras</nombre>
+		<nombre>Canelones</nombre>
+		<nombre>La Paz</nombre>
+		<nombre>Pando</nombre>
+		<nombre>Santa Lucía</nombre>
+		<nombre>Piedras de Afilar</nombre>
+		<nombre>Cumbres de Carrasco</nombre>
+		<nombre>Haras del Lago</nombre>
+		<nombre>Quinta Los Horneros</nombre>
+		<nombre>Las Higueritas</nombre>
+		<nombre>Progreso</nombre>
+		<nombre>San Ramón</nombre>
+		<nombre>Barros Blancos</nombre>
+		<nombre>Colonia Nicolich</nombre>
+		<nombre>Joaquín Suárez</nombre>
+		<nombre>Paso Carrasco</nombre>
+		<nombre>Santa Rosa</nombre>
+		<nombre>Sauce</nombre>
+		<nombre>Tala</nombre>
+		<nombre>Atlántida</nombre>
+		<nombre>Migues</nombre>
+		<nombre>Parque del Plata</nombre>
+		<nombre>Toledo</nombre>
+	</departamento>
+	<departamento name="CERRO LARGO">
+		<nombre>Melo</nombre>
+		<nombre>Fraile Muerto</nombre>
+		<nombre>Río Branco</nombre>
+		<nombre>Tupambaé</nombre>
+		<nombre>Isidoro Noblía</nombre>
+		<nombre>Aceguá</nombre>
+		<nombre>Bañado de Medina</nombre>
+		<nombre>Centurión</nombre>
+		<nombre>Cerro de las Cuentas</nombre>
+		<nombre>Hipódromo</nombre>
+	</departamento>
+	<departamento name="COLONIA">
+		<nombre>Colonia del Sacramento</nombre>
+		<nombre>Carmelo</nombre>
+		<nombre>Juan Lacaze</nombre>
+		<nombre>Nueva Helvecia</nombre>
+		<nombre>Rosario</nombre>
+		<nombre>Nueva Palmira</nombre>
+		<nombre>Paso Antolín</nombre>
+		<nombre>Ombúes de Lavalle</nombre>
+		<nombre>Tarariras</nombre>
+		<nombre>Colonia Valdense</nombre>
+	</departamento>
+	<departamento name="DURAZNO">
+		<nombre>Durazno</nombre>
+		<nombre>Sarandí del Yí</nombre>
+		<nombre>Carmen</nombre>
+		<nombre>Blanquillo</nombre>
+		<nombre>La Paloma</nombre>
+		<nombre>Carlos Reyles</nombre>
+		<nombre>Centenario</nombre>
+	</departamento>
+	<departamento name="FLORES">
+		<nombre>Trinidad</nombre>
+		<nombre>Ismael Cortinas</nombre>
+		<nombre>Rural</nombre>
+		<nombre>Andresito</nombre>
+		<nombre>Arenal Chico</nombre>
+		<nombre>Colonia Alemana</nombre>
+		<nombre>El Totoral</nombre>
+		<nombre>Juan José Castro</nombre>
+		<nombre>Pueblito Piedra</nombre>
+		<nombre>Pueblo Pintos</nombre>
+	</departamento>
+	<departamento name="FLORIDA">
+		<nombre>Florida</nombre>
+		<nombre>Sarandí Grande</nombre>
+		<nombre>Casupá</nombre>
+		<nombre>Cardal</nombre>
+		<nombre>Fray Marcos</nombre>
+		<nombre>Veinticinco de Agosto</nombre>
+		<nombre>Veinticinco de Mayo</nombre>
+		<nombre>Alejandro Gallinal</nombre>
+		<nombre>Capilla del Sauce</nombre>
+		<nombre>La Cruz</nombre>
+		<nombre>Nico Pérez</nombre>
+		<nombre>Cerro Chato</nombre>
+		<nombre>Chamizo</nombre>
+		<nombre>Goñi</nombre>
+		<nombre>Mendoza</nombre>
+		<nombre>Mendoza Chico</nombre>
+		<nombre>Reboledo</nombre>
+	</departamento>
+	<departamento name="LAVALLEJA">
+		<nombre>Minas</nombre>
+		<nombre>José Batlle y Ordóñez</nombre>
+		<nombre>José Pedro Varela</nombre>
+		<nombre>Mariscala</nombre>
+		<nombre>Solís de Mataojo</nombre>
+		<nombre>Pirarajá</nombre>
+		<nombre>Zapicán</nombre>
+		<nombre>Colón</nombre>
+		<nombre>Costas del Soldado</nombre>
+		<nombre>Poblado Aramendía</nombre>
+	</departamento>
+	<departamento name="MALDONADO">
+		<nombre>Maldonado</nombre>
+		<nombre>San Carlos</nombre>
+		<nombre>Aiguá</nombre>
+		<nombre>Pan de Azúcar</nombre>
+		<nombre>Piriápolis</nombre>
+		<nombre>Punta del Este</nombre>
+		<nombre>Cerro Pelado</nombre>
+		<nombre>Garzón</nombre>
+		<nombre>Gerona</nombre>
+		<nombre>La Sierra</nombre>
+		<nombre>Las Flores - Estación</nombre>
+		<nombre>José Ignacio</nombre>
+	</departamento>
+	<departamento name="PAYSANDU">
+		<nombre>Paysandú</nombre>
+		<nombre>Guichón</nombre>
+		<nombre>Nuevo Paysandú</nombre>
+		<nombre>Quebracho</nombre>
+		<nombre>Tambores</nombre>
+		<nombre>Lorenzo Geyres</nombre>
+		<nombre>Merinos</nombre>
+		<nombre>Casablanca</nombre>
+		<nombre>Cerro Chato</nombre>
+	</departamento>
+	<departamento name="RIO NEGRO">
+		<nombre>Fray Bentos</nombre>
+		<nombre>Young</nombre>
+		<nombre>Nuevo Berlín</nombre>
+		<nombre>San Javier</nombre>
+		<nombre>Barrio Anglo</nombre>
+		<nombre>Grecco</nombre>
+		<nombre>Merinos</nombre>
+		<nombre>Algorta</nombre>
+		<nombre>El Ombú</nombre>
+		<nombre>Los Ranchos</nombre>
+		<nombre>Paso de los Mellizos</nombre>
+		<nombre>Sarandí de Navarro</nombre>
+		<nombre>Sauce</nombre>
+		<nombre>Villa General Borges</nombre>
+		<nombre>Villa María</nombre>
+		<nombre>Las Cañas</nombre>
+		<nombre>Rural</nombre>
+	</departamento>
+	<departamento name="RIVERA">
+		<nombre>Rivera</nombre>
+		<nombre>Minas de Corrales</nombre>
+		<nombre>Tranqueras</nombre>
+		<nombre>Vichadero</nombre>
+		<nombre>Santa Teresa</nombre>
+		<nombre>Abrojal</nombre>
+		<nombre>Arroyo Blanco</nombre>
+		<nombre>Paso Ataques</nombre>
+		<nombre>Cerro Pelado</nombre>
+		<nombre>Cerro Caqueiro</nombre>
+		<nombre>Chilca de Caraguatá</nombre>
+	</departamento>
+	<departamento name="ROCHA">
+		<nombre>Rocha</nombre>
+		<nombre>Castillos</nombre>
+		<nombre>Lascano</nombre>
+		<nombre>Chuy</nombre>
+		<nombre>Cebollatí</nombre>
+		<nombre>Velázquez</nombre>
+		<nombre>18 de Julio</nombre>
+		<nombre>La Paloma</nombre>
+		<nombre>San Luis al Medio</nombre>
+		<nombre>La Aguada y Costa Azul</nombre>
+		<nombre>Diecinueve de Abril</nombre>
+		<nombre>La Coronilla</nombre>
+		<nombre>Paso Barrancas</nombre>
+		<nombre>Aguas Dulces</nombre>
+		<nombre>Barra del Chuy</nombre>
+		<nombre>Cabo Polonio</nombre>
+		<nombre>Cuchilla de Garzón</nombre>
+		<nombre>Cuchilla de India Muerta</nombre>
+		<nombre>El Caracol</nombre>
+		<nombre>Barra de Valizas</nombre>
+		<nombre>La Esmeralda</nombre>
+		<nombre>La Pedrera</nombre>
+		<nombre>Parallé</nombre>
+		<nombre>Parque Nac. de Santa Teresa</nombre>
+		<nombre>Paso del Bañado</nombre>
+		<nombre>Puerto de los Botes</nombre>
+		<nombre>Arachania</nombre>
+		<nombre>Pta. Rubia y Sta. Isabel de la Pedrera</nombre>
+		<nombre>Punta del Diablo</nombre>
+		<nombre>Palmares de la Coronilla</nombre>
+		<nombre>Puente Valizas</nombre>
+	</departamento>
+	<departamento name="SALTO">
+		<nombre>Salto</nombre>
+		<nombre>Belén</nombre>
+		<nombre>Constitución</nombre>
+		<nombre>Fernández</nombre>
+		<nombre>San Antonio</nombre>
+		<nombre>Chacras de Belén</nombre>
+		<nombre>Itapebí</nombre>
+		<nombre>Albisu</nombre>
+		<nombre>Biassini</nombre>
+		<nombre>Campo de Todos</nombre>
+		<nombre>Cayetano</nombre>
+		<nombre>Cuchilla de Guaviyú</nombre>
+		<nombre>Hipódromo</nombre>
+		<nombre>Termas del Daymán</nombre>
+	</departamento>
+	<departamento name="SAN JOSE">
+		<nombre>San José de Mayo</nombre>
+		<nombre>Libertad</nombre>
+		<nombre>Delta del Tigre y Villas</nombre>
+		<nombre>Rodríguez</nombre>
+		<nombre>Ituzaingó</nombre>
+		<nombre>Santa Mónica</nombre>
+		<nombre>Ismael Cortinas</nombre>
+		<nombre>Puntas de Valdez</nombre>
+		<nombre>González</nombre>
+		<nombre>Mal Abrigo</nombre>
+		<nombre>Playa Pascual</nombre>
+		<nombre>Raigón</nombre>
+	</departamento>
+	<departamento name="SORIANO">
+		<nombre>Mercedes</nombre>
+		<nombre>Dolores</nombre>
+		<nombre>Cardona</nombre>
+		<nombre>José Enrique Rodó</nombre>
+		<nombre>Palmitas</nombre>
+		<nombre>Villa Soriano</nombre>
+		<nombre>Palmar</nombre>
+		<nombre>Egaña</nombre>
+		<nombre>Santa Catalina</nombre>
+		<nombre>Ismael Cortinas</nombre>
+		<nombre>Agraciada</nombre>
+		<nombre>Cañada Paraguaya</nombre>
+		<nombre>Castillos</nombre>
+	</departamento>
+	<departamento name="TACUAREMBO">
+		<nombre>Tacuarembó</nombre>
+		<nombre>Paso de los Toros</nombre>
+		<nombre>San Gregorio de Polanco</nombre>
+		<nombre>Tambores</nombre>
+		<nombre>Achar</nombre>
+		<nombre>Ansina</nombre>
+	</departamento>
+	<departamento name="TREINTA Y TRES">
+		<nombre>Treinta y Tres</nombre>
+		<nombre>Santa Clara de Olimar</nombre>
+		<nombre>Vergara</nombre>
+		<nombre>Arrozal Treinta y Tres</nombre>
+		<nombre>Gral. Enrique Martínez</nombre>
+		<nombre>Villa Sara</nombre>
+		<nombre>Cerro Chato</nombre>
+		<nombre>Estación Rincón</nombre>
+		<nombre>Isla Patrulla (María Isabel)</nombre>
+		<nombre>Picada Techera</nombre>
+		<nombre>Valentines</nombre>
+		<nombre>Poblado Alonzo</nombre>
+	</departamento>
+</Localidades>

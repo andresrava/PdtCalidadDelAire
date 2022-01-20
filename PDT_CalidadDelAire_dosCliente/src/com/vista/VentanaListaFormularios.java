@@ -134,7 +134,7 @@ public class VentanaListaFormularios extends JFrame {
 		try {
 			casillas = gestionCasillas.listaCasillas();  
 			for (Casilla c: casillas) {
-				comboCasillasDisponibles.addItem(c.toStringCorto());
+				comboCasillasDisponibles.addItem(c);
 			}
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block

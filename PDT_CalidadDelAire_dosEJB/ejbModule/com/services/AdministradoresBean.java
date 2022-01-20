@@ -11,7 +11,6 @@ import javax.persistence.TypedQuery;
 import com.entities.Administrador;
 import com.entities.Ciudad;
 import com.entities.Formulario;
-import com.entities.Investigador;
 import com.exceptions.ServiciosException;
 
 /**

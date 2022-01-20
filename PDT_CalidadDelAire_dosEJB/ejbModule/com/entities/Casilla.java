@@ -193,18 +193,15 @@ public class Casilla implements Serializable {
 		this.registros = registros;
 	}
 
-	public String toStringCorto() {
-		return "Casilla [nombre=" + nombre + ", parametro=" + parametro + ", unidaDeMedida=" + unidaDeMedida + "]";
-	}
-
 
 
 	@Override
 	public String toString() {
-		return "Casilla [ parametro=" + parametro + ", unidaDeMedida="
-				+ unidaDeMedida + "]";
+		return "Casilla [nombre=" + nombre + ", tipoDeDato=" + tipoDeDato + ", parametro=" + parametro
+				+ ", unidaDeMedida=" + unidaDeMedida + ", descripcion=" + descripcion + "]";
 	}
 
+	
 	
    
 }
