@@ -351,7 +351,8 @@ public class VentanaUsuarios {
 					if (administradorBean.obtenerPorID(textID.getText()) != null) {
 						administradorBean.actualizar(new Administrador (
 								Long.parseLong(textID.getText()), textNombre.getText(), textApellido.getText(), textMail.getText(), 
-								textClave.getText(), textDocumento.getText(), textDomicilio.getText(),textTelefono.getText()));
+								textClave.getText(), textDocumento.getText(), textDomicilio.getText(),textTelefono.getText(), 
+								ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0)));
 						
 					}else if (investigadorBean.obtenerPorID(textID.getText()) != null) {
 						
