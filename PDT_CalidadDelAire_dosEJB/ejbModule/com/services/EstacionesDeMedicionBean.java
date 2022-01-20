@@ -118,7 +118,7 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 	
 	@Override
 	public List<EstacionDeMedicion> obtenerTodasEM() {
-		List<EstacionDeMedicion> a = em.createNamedQuery("EstacionDeMedicion.obtenerTodos").getResultList();
+		List<EstacionDeMedicion> a = em.createNamedQuery("EstacionDeMedicion.obtenerTodos" , EstacionDeMedicion.class).getResultList();
 		System.out.println("Las Estaciones son: " + a);
 		return a;
 	}

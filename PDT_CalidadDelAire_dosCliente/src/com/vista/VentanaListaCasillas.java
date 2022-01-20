@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JCheckBox;
 
 public class VentanaListaCasillas extends JFrame {
 
@@ -79,18 +80,20 @@ public class VentanaListaCasillas extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Est. de Medici\u00F3n");
 				
-		JComboBox comboBoxCasillas = new JComboBox();
+		JComboBox<Casilla> comboBoxCasillas = new JComboBox();
 		scrollPane.setColumnHeaderView(comboBoxCasillas);
 		
-		JComboBox comboEM = new JComboBox();
+		JComboBox<EstacionDeMedicion> comboEM = new JComboBox();
+		comboEM.setSize( 350, 22 );
 		List<EstacionDeMedicion> estacionesDeMedicion = new LinkedList<EstacionDeMedicion>();
 		GestionEstaciones gestionEstaciones = new GestionEstaciones();
 
 		try { 
 			estacionesDeMedicion = gestionEstaciones.obtieneEM();
 			for (EstacionDeMedicion EM: estacionesDeMedicion) {
-				comboEM.addItem(EM.getNombre()); 
+				comboEM.addItem(EM); 
 			} 
+			comboEM.setSelectedIndex(-1);
 		} catch (NamingException e) { // TODO Auto-generated catch block 
 			e.printStackTrace();
 		}
@@ -103,7 +106,7 @@ public class VentanaListaCasillas extends JFrame {
 			System.out.println("size: " + casillas.size());
 			System.out.println(casillas.toString());
 			for (Casilla c: casillas) {
-				comboBoxCasillas.addItem(c.toStringCorto());
+				comboBoxCasillas.addItem(c);
 			}
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
@@ -119,12 +122,32 @@ public class VentanaListaCasillas extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				List<Casilla> casillasFiltradasNombre = new LinkedList<Casilla>();
+				List<Casilla> casillasFiltradas = new LinkedList<Casilla>();
 				GestionCasillas gestionCasillas = new GestionCasillas();
 				try {
 					casillasFiltradasNombre = gestionCasillas.listaCasillas(textNombreCasilla.getText());
 					comboBoxCasillas.removeAllItems();
 					for (Casilla c: casillasFiltradasNombre) {
-						comboBoxCasillas.addItem(c.toStringCorto());
+						comboBoxCasillas.addItem(c);
+					}
+					//boolean habilitaFiltroEM = chckbxHabilitaFiltroEM
+					if (comboEM.getSelectedIndex() != -1  )
+					{
+						EstacionDeMedicion estacionSeleccionada = (EstacionDeMedicion) comboEM.getSelectedItem();
+						List<Casilla> casillasEnEM = estacionSeleccionada.getCasillas();
+						for (Casilla c : casillasFiltradasNombre)
+						{
+							if (casillasEnEM.contains(c))
+							{
+								casillasFiltradas.add(c);
+							}
+						}
+						comboBoxCasillas.removeAllItems();
+						for (Casilla c : casillasFiltradas)
+						{
+							comboBoxCasillas.addItem(c);
+						}
+						comboBoxCasillas.updateUI();
 					}
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
@@ -157,20 +180,20 @@ public class VentanaListaCasillas extends JFrame {
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblNewLabel_2)
-							.addPreferredGap(ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-							.addComponent(comboEM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(65)
+							.addComponent(comboEM, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblNewLabel_1)
-							.addPreferredGap(ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
 							.addComponent(textNombreCasilla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
+					.addGap(29))
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(89)
 					.addComponent(lblNewLabel))
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(btnAplicaFiltro, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(171, Short.MAX_VALUE))
+					.addContainerGap(262, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -216,8 +239,8 @@ public class VentanaListaCasillas extends JFrame {
 				.addComponent(lblNewLabel_3)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(22)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(33)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 391, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 264, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(143)
@@ -233,12 +256,12 @@ public class VentanaListaCasillas extends JFrame {
 					.addComponent(lblNewLabel_3)
 					.addGap(11)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE))
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))
 					.addGap(10)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(2)
 							.addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
 						.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
