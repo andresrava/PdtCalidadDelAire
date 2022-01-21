@@ -60,5 +60,14 @@ public class GestionEstaciones {
 		
 	}
 
+	public void borraEM(EstacionDeMedicion estacionAEliminar) throws NamingException, ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/EstacionesDeMedicionBean!com.services.EstacionesDeMedicionBeanRemote";
+		EstacionesDeMedicionBeanRemote estacionBean = (EstacionesDeMedicionBeanRemote)
+				InitialContext.doLookup(ruta);
+		Long estacionABorrarId = estacionAEliminar.getId();
+		System.out.println("El id de la estacion a eliminar es: " + estacionABorrarId);
+		estacionBean.borrar(estacionABorrarId);
+	}
+
 	
 }

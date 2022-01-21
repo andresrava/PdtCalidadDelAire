@@ -12,11 +12,13 @@ import javax.swing.border.EmptyBorder;
 import com.controlador.GestionEstaciones;
 import com.entities.EstacionDeMedicion;
 import com.entities.Usuario;
+import com.exceptions.ServiciosException;
 
 import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
@@ -90,9 +92,42 @@ public class VentanaListaEM extends JFrame {
 			}
 		});
 		
+
+		JComboBox<EstacionDeMedicion> comboEM = new JComboBox();
+		scrollPane.setColumnHeaderView(comboEM);
+		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				EstacionDeMedicion estacionAEliminar = new EstacionDeMedicion();
+				estacionAEliminar = (EstacionDeMedicion) comboEM.getSelectedItem();
+				GestionEstaciones gestionEstaciones = new GestionEstaciones();
+				String nombreEstacionAEliminar = estacionAEliminar.getNombre();	
+				int confirmacion =  JOptionPane.showConfirmDialog(null,"Realmente desea Eliminar la Estacion De Medicion: " + nombreEstacionAEliminar + "?", "Confirmar la eliminación", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (confirmacion == 0)
+					{
+						try {
+							gestionEstaciones.borraEM(estacionAEliminar);
+							comboEM.removeItem(estacionAEliminar);
+					        comboEM.updateUI();
+					        JFrame jFrame = new JFrame();
+					        JOptionPane.showMessageDialog(jFrame, "Se eliminó la Estacion de Medicion: " + nombreEstacionAEliminar);					        
+						} catch (NamingException | ServiciosException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}			
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -198,19 +233,12 @@ public class VentanaListaEM extends JFrame {
 		);
 		
 		
-		JComboBox comboEM = new JComboBox();
-		scrollPane.setColumnHeaderView(comboEM);
-		
 		GestionEstaciones gestionEstaciones = new GestionEstaciones();
 		List<EstacionDeMedicion> estaciones = new LinkedList<EstacionDeMedicion>();
-		System.out.println(estaciones.size());
-		System.out.println(estaciones.toString());
 		try {
 			estaciones = gestionEstaciones.obtieneEM(); 
-			System.out.println("size: " + estaciones.size());
-			System.out.println(estaciones.toString());
 			for (EstacionDeMedicion em : estaciones) {
-				comboEM.addItem(em.toString());
+				comboEM.addItem(em);
 			}
 		} catch (NamingException e) {
 			e.printStackTrace();

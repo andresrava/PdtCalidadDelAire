@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.entities.EstacionDeMedicion;
 import com.entities.Usuario;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -19,7 +20,7 @@ public class VentanaEditaEM extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void ventanaEditaEM() {
+	public static void ventanaEditaEM(EstacionDeMedicion estacion) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

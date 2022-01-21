@@ -130,7 +130,6 @@ public class VentanaListaCasillas extends JFrame {
 					for (Casilla c: casillasFiltradasNombre) {
 						comboBoxCasillas.addItem(c);
 					}
-					//boolean habilitaFiltroEM = chckbxHabilitaFiltroEM
 					if (comboEM.getSelectedIndex() != -1  )
 					{
 						EstacionDeMedicion estacionSeleccionada = (EstacionDeMedicion) comboEM.getSelectedItem();
