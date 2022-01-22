@@ -3,7 +3,6 @@ package com.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -66,11 +65,16 @@ public class Casilla implements Serializable {
 			joinColumns = @JoinColumn (name = "FK_CASILLA" , nullable = false),
 			inverseJoinColumns = @JoinColumn(name = "FK_FORMULARIO" , nullable = false)
 			)
-	@ManyToMany (cascade = CascadeType.ALL)
+	@ManyToMany (cascade = CascadeType.ALL )
 	private Set<Formulario> formularios = new HashSet<Formulario>();
 	
-	@ManyToMany ( mappedBy = "casillas")
-	private List<EstacionDeMedicion> estaciones = new LinkedList<EstacionDeMedicion>();
+	@JoinTable (
+			name = "CASILLAS_EM" ,
+			joinColumns = @JoinColumn(name = "FK_CASILLA" , nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "FK_EM" , nullable = false)
+			)
+	@ManyToMany (cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+	private List<EstacionDeMedicion> estaciones;
 	
 	@OneToMany (
 			mappedBy = "casilla" ,

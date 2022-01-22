@@ -18,7 +18,16 @@ public class GestionEstaciones {
 		estacion = estacionBean.crear(estacion);
 		
 		return estacion;
-		
+	}
+	
+		public EstacionDeMedicion actualizarEstacion(EstacionDeMedicion estacion) throws NamingException, ServiciosException {
+			String ruta = "PDT_CalidadDelAire_dosEJB/EstacionesDeMedicionBean!com.services.EstacionesDeMedicionBeanRemote";
+			EstacionesDeMedicionBeanRemote estacionBean = (EstacionesDeMedicionBeanRemote)
+					InitialContext.doLookup(ruta);
+			estacion = estacionBean.actualizar(estacion);
+			
+			return estacion;
+			
 	}
 	
 	public void asignarCasillaAEM ( EstacionDeMedicion estacion , Casilla casilla) throws NamingException, ServiciosException {

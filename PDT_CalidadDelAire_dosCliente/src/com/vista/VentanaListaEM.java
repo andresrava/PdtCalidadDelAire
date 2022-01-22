@@ -100,6 +100,17 @@ public class VentanaListaEM extends JFrame {
 		btnEditar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				dispose();
+				EstacionDeMedicion estacionAEditar = (EstacionDeMedicion) comboEM.getSelectedItem();
+				System.out.println(estacionAEditar);
+				VentanaEditaEM ventanaEditaEM;
+				try {
+					ventanaEditaEM = new VentanaEditaEM(usuarioLoged, estacionAEditar);
+					ventanaEditaEM.ventanaEditaEM();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
@@ -108,8 +119,7 @@ public class VentanaListaEM extends JFrame {
 		btnEliminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				EstacionDeMedicion estacionAEliminar = new EstacionDeMedicion();
-				estacionAEliminar = (EstacionDeMedicion) comboEM.getSelectedItem();
+				EstacionDeMedicion estacionAEliminar = (EstacionDeMedicion) comboEM.getSelectedItem();
 				GestionEstaciones gestionEstaciones = new GestionEstaciones();
 				String nombreEstacionAEliminar = estacionAEliminar.getNombre();	
 				int confirmacion =  JOptionPane.showConfirmDialog(null,"Realmente desea Eliminar la Estacion De Medicion: " + nombreEstacionAEliminar + "?", "Confirmar la eliminación", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);

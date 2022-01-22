@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-        
-    <wb-module deploy-name="PDT_CalidadDelAire_dosEJB">
                 
-        <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/" source-path="/ejbModule/com/archivos"/>
-                
-        <property name="java-output-path" value="/PDT_CalidadDelAire_dosEJB/build/classes"/>
-            
-    </wb-module>
     
+    
+    <wb-module deploy-name="PDT_CalidadDelAire_dosEJB">
+                                
+        
+        
+        <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
+                        
+        
+        <wb-resource deploy-path="/" source-path="/ejbModule/com/archivos"/>
+                                
+        
+        
+        <property name="java-output-path" value="/PDT_CalidadDelAire_dosEJB/build/classes"/>
+                            
+    
+    
+    </wb-module>
+            
+
+
 </project-modules>

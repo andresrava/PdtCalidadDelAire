@@ -35,14 +35,14 @@ public class Ciudad implements Serializable {
 	@Column(length=30,nullable=false,unique=true)
 	private String nombre;
 	
-	public List<EstacionDeMedicion> getEm() {
-		return em;
-	}
+//	public List<EstacionDeMedicion> getEm() {
+//		return em;
+//	}
 
 
-	public void setEm(List<EstacionDeMedicion> em) {
-		this.em = em;
-	}
+//	public void setEm(List<EstacionDeMedicion> em) {
+//		this.em = em;
+//	}
 
 
 	public enum NombresEnum {ARTIGAS, SALTO, PAYSANDU, RÍO_NEGRO, SORIANO, COLONIA, SAN_JOSÉ, CANELONES, MONTEVIDEO, MALDONADO, ROCHA, TREINTA_Y_TRES, CERRO_LARGO, RIVERA, TACUAREMBÓ, DURAZNO, FLORES, FLORIDA };
@@ -50,9 +50,9 @@ public class Ciudad implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private NombresEnum departamento;
 	
-	@OneToMany ( fetch = FetchType.LAZY , 
-			cascade = CascadeType.ALL  , orphanRemoval = true , mappedBy = "ciudad")
-	private List<EstacionDeMedicion> em = new LinkedList<EstacionDeMedicion>();
+//	@OneToMany ( fetch = FetchType.LAZY , 
+//			cascade = CascadeType.ALL  , orphanRemoval = true , mappedBy = "ciudad")
+//	private List<EstacionDeMedicion> em = new LinkedList<EstacionDeMedicion>();
 	
 	
 	public Ciudad() {

@@ -1,7 +1,7 @@
 package com.services;
 
+
 import java.io.File;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,34 +30,42 @@ public class LocalidadesBean implements LocalidadesBeanRemote {
     @Override
     public Set<String> obtenerDepartamentos() {
     	Set<String> listaDepartamentos = new HashSet<>();
+    	System.out.println("Entra a obtener Departamentos");
     	try   
-    	{
-//    	URL url = getClass().getResource("ejbModule/com/archivos/DeptoLocalidad.xml");
-//    	File file = new File(url.getPath());
-    	File file = new File(getClass().getResource("ejbModule/com/archivos/DeptoLocalidad.xml").getPath());  
-    	
-    	//File file = new File("/PDT_CalidadDelAire_dosEJB/ejbModule/com/archivos/DeptoLocalidad.xml");  
-    	DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();  
-    	Document document = documentBuilder.parse(file);  
-    	document.getDocumentElement().normalize();
-    	XPath xPath = XPathFactory.newInstance().newXPath();
-    	String caminoDepartamento = "/Localidades/departamento";
-    	NodeList nodeListDepartamentos = (NodeList) xPath.compile(caminoDepartamento).evaluate(document, XPathConstants.NODESET);
-    	
-    	for (int i=0 ; i<nodeListDepartamentos.getLength() ; i++) 
-    		{
-    		
-    		Node nodo = nodeListDepartamentos.item(i);
-    		NamedNodeMap nodeMapNombre = nodo.getAttributes();
-    		String nombreDelItem = nodeMapNombre.item(0).getTextContent();
-    		listaDepartamentos.add(nombreDelItem);
-    		}
-    	
-    	}   
-    catch (Exception e)  
-    	{  
-    		System.out.println(e.getMessage());  
-    	} 
+	    	{
+    		System.out.println("Hasta acá");
+//    		File file = new File(this.getClass().getClassLoader().getResource("resources/DeptoLocalidad.xml").toURI());
+//    		File file = new File(this.getClass().getResource("resources/DeptoLocalidad.xml").toURI()); 
+//    		File file = new File(this.getClass().getResource("PDT_CalidadDelAire_dosEJB/resources/DeptoLocalidad.xml").toURI()); 
+    		File file = new File(this.getClass().getClassLoader().getResource("Resources/DeptoLocalidad.xml").toURI());
+//    		File file = request().getServletContext().getRealPath("resources/DeptoLocalidad.xml");
+    		System.out.println("Llegó acá");
+    		File absolute = file.getAbsoluteFile();   		
+    		System.out.println("Acá también");
+    		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();  
+	    	Document document = documentBuilder.parse(absolute);  
+	    	document.getDocumentElement().normalize();
+	    	XPath xPath = XPathFactory.newInstance().newXPath();
+	    	String caminoDepartamento = "/Localidades/departamento";
+	    	NodeList nodeListDepartamentos = (NodeList) xPath.compile(caminoDepartamento).evaluate(document, XPathConstants.NODESET);
+	    	
+	    	for (int i=0 ; i<nodeListDepartamentos.getLength() ; i++) 
+	    		{
+	    		System.out.println("Entró al for");
+	    		Node nodo = nodeListDepartamentos.item(i);
+	    		NamedNodeMap nodeMapNombre = nodo.getAttributes();
+	    		String nombreDelItem = nodeMapNombre.item(0).getTextContent();
+	    		listaDepartamentos.add(nombreDelItem);
+	    		listaDepartamentos.add("Pepito");
+	    		}
+	    	
+	    	}   
+    	catch (Exception e)  
+	    	{  
+    			System.out.println("Entra al primer catch");
+	    		System.out.println(e.getMessage());  
+	    	} 
+    	System.out.println("Los departamentos son: ");
     	System.out.println(listaDepartamentos);
     	return listaDepartamentos;  
     	}
@@ -68,10 +76,7 @@ public class LocalidadesBean implements LocalidadesBeanRemote {
 	
 	try   
 	{
-//	URL url = getClass().getResource("/resources/DeptoLocalidad.xml");
-//	File file = new File(url.getPath());
-	File file = new File(getClass().getResource("DeptoLocalidad.xml").getPath());  
-//  File file = new File("PDT_CalidadDelAire_dosEJB/ejbModule/com/archivos/DeptoLocalidad.xml");  
+	File file = new File(this.getClass().getResource("Resources/DeptoLocalidad.xml").toURI());
 	DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();  
 	Document document = documentBuilder.parse(file);  
 	document.getDocumentElement().normalize();

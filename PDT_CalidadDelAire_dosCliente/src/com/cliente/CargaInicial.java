@@ -1,12 +1,15 @@
 package com.cliente;
 
 import java.util.List;
+import java.util.Set;
+
 import javax.naming.NamingException;
 
 import com.controlador.GestionCasillas;
 import com.controlador.GestionCiudades;
 import com.controlador.GestionEstaciones;
 import com.controlador.GestionFormularios;
+import com.controlador.GestionLocalidades;
 import com.controlador.GestionUsuarios;
 import com.entities.Administrador;
 import com.entities.Aficionado;
@@ -124,8 +127,8 @@ public class CargaInicial {
 		
 		//Comienza la carga de 2 Estaciones de Medición
 		
-		EstacionDeMedicion em1 = new EstacionDeMedicion("Primera_EM ",primera,usuario);
-		EstacionDeMedicion em2 = new EstacionDeMedicion("Segunda_EM ",segunda,administrador1);
+		EstacionDeMedicion em1 = new EstacionDeMedicion("Primera_EM ", "TREINTA Y TRES", "Vergara" , usuario);
+		EstacionDeMedicion em2 = new EstacionDeMedicion("Segunda_EM ", "LAVALLEJA" , "Piraraja" , administrador1);
 					
 		GestionEstaciones gestionEstaciones = new GestionEstaciones();
 		
@@ -150,10 +153,13 @@ public class CargaInicial {
 		System.out.println("Se completó la carga inicial");
 		
 		//Se muestran los departamentos
-//		GestionLocalidades gestionLocalidades = new GestionLocalidades();
-//		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
-//		System.out.println("Los departamentos disponibles son:");
-//		System.out.println(departamentos);
+		GestionLocalidades gestionLocalidades = new GestionLocalidades();
+		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
+		System.out.println("Los departamentos disponibles son:");
+		System.out.println(departamentos);
+		Set <String> deptosDeLavalleja = gestionLocalidades.obtieneLocalidades("LAVALLEJA");
+		System.out.println("Las localidades de Lavalleja son: ");
+		System.out.println(deptosDeLavalleja);
 		
 	}
 }

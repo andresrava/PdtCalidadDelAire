@@ -33,6 +33,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -58,7 +61,6 @@ public class VentanaCreaEM extends JFrame {
 
 	private static Usuario usuarioLoged;
 	private JTextField textNombre;
-	private JTextField textCiudad;
 	private JTextField textComentarios;
 	private List<Casilla> lista = new LinkedList<Casilla>();
 	/**
@@ -83,49 +85,60 @@ public class VentanaCreaEM extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre(*):");
 		
-		JLabel lblNewLabel_2 = new JLabel("Ciudad (*):");
+		JLabel lblNewLabel_2 = new JLabel("Localidad (*):");
 		
 		JLabel lblNewLabel_3 = new JLabel("Departamento (*):");
 		
 		JLabel lblNewLabel_4 = new JLabel("Casillas:");
 		
-		//JComboBox <Ciudad.NombresEnum>comboBoxDepartamento = new JComboBox(Ciudad.NombresEnum.values());
-		JComboBox <String> comboBoxDepartamento = new JComboBox();
-		//GestionLocalidades gestionLocalidades = new GestionLocalidades();
 		
-		Set<String> departamentos = localidadBean.obtenerDepartamentos();
+		//Creo el combo con departamentos y lo lleno de elementos
+		JComboBox <String> comboBoxDepartamento = new JComboBox();
+		GestionLocalidades gestionLocalidades = new GestionLocalidades();
+		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
 		System.out.println(departamentos);
 		for (String nombre : departamentos) {
 			comboBoxDepartamento.addItem(nombre);
 		}
 		
+
+		//Creo el Combo con Casillas disponibles y lo lleno de elementos	
+		JComboBox<Casilla> comboBoxCasillasDisponibles = new JComboBox();
+		List<Casilla> casillasDisponibles = new LinkedList<Casilla>();
+		GestionCasillas gestionCasillas = new GestionCasillas();
+		casillasDisponibles = gestionCasillas.listaCasillas();
+		for (Casilla c : casillasDisponibles) {
+			comboBoxCasillasDisponibles.addItem(c);
+		}
 		
+		//Creo el Combo con las localidades y lo lleno usando el depto seleccionado
+		JComboBox<String> comboBoxLocalidades = new JComboBox();
+		String deptoSelec = (String) comboBoxDepartamento.getSelectedItem();					// Ojo aca, no sé si hay seleccionado un depto
+		Set<String> localidadesEnDepto = gestionLocalidades.obtieneLocalidades(deptoSelec);
+		for (String d : localidadesEnDepto)
+		{
+			comboBoxLocalidades.addItem(d);
+		}
 		
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JButton btnCrear = new JButton("Crear");
+		btnCrear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnCrear.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String nombre = textNombre.getText();
-				String nombreCiudad = textCiudad.getText();
-				NombresEnum depto = (NombresEnum) comboBoxDepartamento.getSelectedItem();
+				String nombreLocalidad = (String) comboBoxLocalidades.getSelectedItem();
+				String depto = (String) comboBoxDepartamento.getSelectedItem();
 				String coment = textComentarios.getText();
 				GestionEstaciones gestionEstaciones = new GestionEstaciones();
-				GestionCiudades gestionCiudades = new GestionCiudades();
-				Ciudad ciudad = new Ciudad();
-				try {
-					ciudad = gestionCiudades.creaCiudad(nombreCiudad , depto);
-				}catch (NamingException e2) {
-					System.out.println("No se pudo crear la Ciudad por NamingException");
-					e2.printStackTrace();
-				} catch (ServiciosException e1) {
-					System.out.println("No se pudo crear la Ciudad por ServiciosException");
-					e1.printStackTrace();
-				}
-				EstacionDeMedicion estacion = new EstacionDeMedicion(nombre, coment , lista , ciudad , usuarioLoged);
+				
+				EstacionDeMedicion estacion = new EstacionDeMedicion(nombre, coment , lista , depto , nombreLocalidad , usuarioLoged);
 				try {
 					estacion = gestionEstaciones.crearEstacion(estacion);
 					Long id = estacion.getId();
@@ -168,10 +181,7 @@ public class VentanaCreaEM extends JFrame {
 		textNombre = new JTextField();
 		textNombre.setColumns(10);
 		
-		textCiudad = new JTextField();
-		textCiudad.setColumns(10);
-		
-		JComboBox comboBoxCasillasEnEM = new JComboBox();
+		JComboBox<Casilla> comboBoxCasillasEnEM = new JComboBox();
 		
 		
 		JLabel lblNewLabel_6 = new JLabel("Comentarios:");
@@ -179,18 +189,9 @@ public class VentanaCreaEM extends JFrame {
 		textComentarios = new JTextField();
 		textComentarios.setColumns(10);
 		
-		JLabel lblNewLabel_5 = new JLabel("Casillas en la E. de Medici\u00F3n");
+		JLabel lblNewLabel_5 = new JLabel("Casillas disponibles");
 		
 
-			
-		JComboBox<Casilla> comboBoxCasillasDisponibles = new JComboBox();
-		List<Casilla> casillasDisponibles = new LinkedList<Casilla>();
-		GestionCasillas gestionCasillas = new GestionCasillas();
-		casillasDisponibles = gestionCasillas.listaCasillas();
-		for (Casilla c : casillasDisponibles) {
-			comboBoxCasillasDisponibles.addItem(c);
-		}
-		
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addMouseListener(new MouseAdapter() {
@@ -260,29 +261,21 @@ public class VentanaCreaEM extends JFrame {
 				comboBoxCasillasEnEM.updateUI();
 			}
 		});
+		
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(10)
-									.addComponent(lblNewLabel_1)
-									.addGap(48)
-									.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(10)
+									.addContainerGap()
 									.addComponent(lblNewLabel_2)
-									.addGap(49)
-									.addComponent(textCiudad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(10)
-									.addComponent(lblNewLabel_3)
-									.addGap(77)
-									.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(comboBoxLocalidades, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblNewLabel)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGap(10)
 									.addComponent(lblNewLabel_4)
@@ -292,7 +285,17 @@ public class VentanaCreaEM extends JFrame {
 									.addGap(10)
 									.addComponent(lblNewLabel_6)
 									.addGap(18)
-									.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)))
+									.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(10)
+									.addComponent(lblNewLabel_1)
+									.addGap(48)
+									.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(lblNewLabel_3)
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnQuitar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -316,19 +319,15 @@ public class VentanaCreaEM extends JFrame {
 									.addGap(3)
 									.addComponent(lblNewLabel_1))
 								.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(3)
-									.addComponent(lblNewLabel_2))
-								.addComponent(textCiudad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(3)
-									.addComponent(lblNewLabel_3))
+							.addGap(21)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNewLabel_3)
 								.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
+							.addGap(21)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNewLabel_2)
+								.addComponent(comboBoxLocalidades, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(19)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGap(4)

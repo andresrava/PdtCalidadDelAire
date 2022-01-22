@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Localidades xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Localidades
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<departamento name="MONTEVIDEO">
 		<nombre>Montevideo</nombre>
 		<nombre>Abayubá</nombre>

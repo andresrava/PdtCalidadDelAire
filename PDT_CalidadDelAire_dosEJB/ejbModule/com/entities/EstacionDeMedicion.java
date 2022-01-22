@@ -1,7 +1,6 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -25,20 +24,22 @@ public class EstacionDeMedicion implements Serializable {
 	@Column(length=40)
 	private String descripcion;
 	
-	@JoinTable (
-			name = "EM_CASILLAS",
-			joinColumns = @JoinColumn(name = "FK_EM" , nullable = false),
-			inverseJoinColumns = @JoinColumn(name = "FK_CASILLA" , nullable = false)
-			)
+//	@JoinTable (
+//			name = "EM_CASILLAS",
+//			joinColumns = @JoinColumn(name = "FK_EM" , nullable = false),
+//			inverseJoinColumns = @JoinColumn(name = "FK_CASILLA" , nullable = false)
+//			)
+//	
+	@ManyToMany (mappedBy = "estaciones"  , fetch = FetchType.EAGER)
+	private List<Casilla> casillas;
 	
-	@ManyToMany (cascade = CascadeType.ALL)
-	private List<Casilla> casillas = new LinkedList<Casilla>();
+	private String departamento;
+//	@ManyToOne (cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
+//	private Ciudad ciudad;
 	
+	private String localidad;
 	
-	@ManyToOne (cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
-	private Ciudad ciudad;
-	
-	@ManyToOne  (cascade = CascadeType.PERSIST , fetch = FetchType.LAZY )
+	@ManyToOne  (fetch = FetchType.EAGER )
 	private Usuario usuario;
 	
 	
@@ -47,18 +48,18 @@ public class EstacionDeMedicion implements Serializable {
 	}
 
 	
-	public EstacionDeMedicion(String nombre, Ciudad ciudad, Usuario usuario) {
+	public EstacionDeMedicion(String nombre, String departamento, Usuario usuario) {
 		super();
 		this.nombre = nombre;
-		this.ciudad = ciudad;
+		this.departamento = departamento;
 		this.usuario = usuario;
 	}
 
 		
-	public EstacionDeMedicion(String nombre, Ciudad ciudad) {
+	public EstacionDeMedicion(String nombre, String departamento) {
 		super();
 		this.nombre = nombre;
-		this.ciudad = ciudad;
+		this.departamento = departamento;
 	}
 
 
@@ -69,13 +70,24 @@ public class EstacionDeMedicion implements Serializable {
 
 	
 	
-	public EstacionDeMedicion(String nombre, String descripcion, List<Casilla> casillas, Ciudad ciudad,
+	public EstacionDeMedicion(String nombre, String descripcion, List<Casilla> casillas, String departamento, String localidad ,
 			Usuario usuario) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.casillas = casillas;
-		this.ciudad = ciudad;
+		this.departamento = departamento;
+		this.localidad = localidad;
+		this.usuario = usuario;
+	}
+	
+	
+	
+	public EstacionDeMedicion(String nombre, String departamento, String localidad, Usuario usuario) {
+		super();
+		this.nombre = nombre;
+		this.departamento = departamento;
+		this.localidad = localidad;
 		this.usuario = usuario;
 	}
 
@@ -112,13 +124,25 @@ public class EstacionDeMedicion implements Serializable {
 		this.casillas = casillas;
 	}
 
-	public Ciudad getCiudad() {
-		return ciudad;
+	public String getDepartamento() {
+		return departamento;
 	}
 
-	public void setCiudad(Ciudad ciudad) {
-		this.ciudad = ciudad;
+	public void setCiudad(String departamento) {
+		this.departamento = departamento;
 	}
+
+	
+	
+	public String getLocalidad() {
+		return localidad;
+	}
+
+
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
+
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -131,12 +155,12 @@ public class EstacionDeMedicion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EstacionDeMedicion [nombre=" + nombre + ", ciudad=" + ciudad + ", usuario=" + usuario + ", descripcion=" + descripcion + ", casillas=" + casillas
+		return "EstacionDeMedicion [nombre=" + nombre + ", ciudad=" + departamento + ", usuario=" + usuario + ", descripcion=" + descripcion + ", casillas=" + casillas
 				+ "]";
 	}
 	
 	public String toStringCorto() {
-		return "EstacionDeMedicion [nombre=" + nombre + ", ciudad=" + ciudad + "]";
+		return "EstacionDeMedicion [nombre=" + nombre + ", ciudad=" + departamento + "]";
 	}
 	
 	
