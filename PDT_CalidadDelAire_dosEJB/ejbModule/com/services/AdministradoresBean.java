@@ -110,10 +110,9 @@ public class AdministradoresBean implements AdministradoresBeanRemote {
 	}
 
 	@Override
-	public List<Administrador> obtenerPorID(String id) {
-		TypedQuery<Administrador>query = em.createQuery("SELECT a FROM Administrador a WHERE a.id LIKE :id", Administrador.class)
-				.setParameter("id",id);
-		return query.getResultList();
+	public Administrador obtenerPorID(Long id) {
+		Administrador administrador = em.find(Administrador.class, id);
+		return administrador;
 	}
 	
 

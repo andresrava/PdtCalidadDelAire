@@ -14,7 +14,7 @@ public interface AdministradoresBeanRemote {
 	void borrar(Long id) throws ServiciosException;
 	List<Administrador> obtenerTodos();
 	List<Administrador> obtenerTodos(String filtro);
-	List<Administrador> obtenerPorID(String filtro);
+	Administrador obtenerPorID(Long id);
 	List<Administrador> obtenerPorFormulario(Long idFormulario);
 	void asignarFormulario(Long idAdministrador, Long idFormulario) throws ServiciosException;
 	void asignarCiudad(Long idAdministrador, Long idCiudad) throws ServiciosException;

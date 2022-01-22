@@ -147,15 +147,6 @@ public class CargaInicial {
 		System.out.println("los formularios creados son: ");
 		System.out.println(formularios);
 		
-//		System.out.println("Se completó la carga inicial");
-//		GestionChoto gestionChoto = new GestionChoto();
-//		gestionChoto.saludo();
-		
-		//Se muestran los departamentos
-//		GestionLocalidades gestionLocalidades = new GestionLocalidades();
-//		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
-//		System.out.println("Los departamentos disponibles son:");
-//		System.out.println(departamentos);
 		
 	}
 }
