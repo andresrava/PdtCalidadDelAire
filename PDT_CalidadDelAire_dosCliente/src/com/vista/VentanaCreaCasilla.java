@@ -91,7 +91,10 @@ public class VentanaCreaCasilla extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("(*) obligatorios");
 		
 		
-		JComboBox<Casilla.TipoDatoEnum> comboBoxTipos = new JComboBox(Casilla.TipoDatoEnum.values());
+		JComboBox<String> comboBoxTipos = new JComboBox();
+		for (TipoDatoEnum t : Casilla.TipoDatoEnum.values()) {
+			comboBoxTipos.addItem(t.name());
+		}
 		
 		JButton btnCrear = new JButton("Crear");
 		btnCrear.addMouseListener(new MouseAdapter() {
@@ -100,7 +103,7 @@ public class VentanaCreaCasilla extends JFrame {
 				if (textNombre.getText() == null || textParametro.getText() == null || textUnidad.getText() == null) 
 					JOptionPane.showMessageDialog(null, "Hay campos obligatorios incompletos","Error", JOptionPane.WARNING_MESSAGE);
 					
-				Casilla casilla = new Casilla(textNombre.getText(), (TipoDatoEnum) comboBoxTipos.getSelectedItem() , textParametro.getText(), textUnidad.getText(), textComentarios.getText() , usuarioLoged );
+				Casilla casilla = new Casilla(textNombre.getText(), (String)comboBoxTipos.getSelectedItem() , textParametro.getText(), textUnidad.getText(), textComentarios.getText() , usuarioLoged );
 				GestionCasillas gestionCasillas = new GestionCasillas();
 				try {
 					gestionCasillas.crearCasilla(casilla);

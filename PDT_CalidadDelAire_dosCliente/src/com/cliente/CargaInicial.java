@@ -96,8 +96,8 @@ public class CargaInicial {
 		
 		//Comienza la carga de 3 Casillas
 		
-		Casilla casilla1 = new Casilla("Primer Casilla" , "humedad" , "%");
-		Casilla casilla2 = new Casilla("Segunda Casilla" , "temperatura" , "ºC");
+		Casilla casilla1 = new Casilla("Primer Casilla" , "FLOAT" , "humedad" , "%" , "Vimos" , usuario );
+		Casilla casilla2 = new Casilla("Segunda Casilla" , "BOOLEAN" , "temperatura" , "ºC" , "Visto");
 		Casilla casilla3 = new Casilla("Tercera Casilla" , "viento" , "km/h");
 		Casilla casilla4 = new Casilla("Cuarta Casilla" , "presión atm." , "HPa");
 		
@@ -146,7 +146,14 @@ public class CargaInicial {
 		List<Formulario> formularios = gestionFormularios.listaFormularios();
 		System.out.println("los formularios creados son: ");
 		System.out.println(formularios);
+
+		System.out.println("Se completó la carga inicial");
 		
+		//Se muestran los departamentos
+//		GestionLocalidades gestionLocalidades = new GestionLocalidades();
+//		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
+//		System.out.println("Los departamentos disponibles son:");
+//		System.out.println(departamentos);
 		
 	}
 }
