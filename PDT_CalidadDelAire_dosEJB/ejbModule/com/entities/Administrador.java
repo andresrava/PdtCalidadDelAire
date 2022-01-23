@@ -26,7 +26,7 @@ public class Administrador extends Usuario implements Serializable {
 	@Column(length=20)
 	private String telefono;
 	
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	private Ciudad ciudad;
 	
 	public Ciudad getCiudad() {

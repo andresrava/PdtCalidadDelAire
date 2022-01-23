@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.entities.Administrador;
 import com.entities.Aficionado;
 import com.entities.Formulario;
 import com.exceptions.ServiciosException;
@@ -100,6 +101,12 @@ public class AficionadosBean implements AficionadosBeanRemote {
 		TypedQuery<Aficionado>query = em.createQuery("SELECT a FROM Aficionado a WHERE a.id LIKE :id", Aficionado.class)
 				.setParameter("id",id);
 		return query.getResultList();
+	}
+
+	@Override
+	public Aficionado obtenerPorID(Long id) {
+		Aficionado aficionado = em.find(Aficionado.class, id);
+		return aficionado;
 	}
 
 }

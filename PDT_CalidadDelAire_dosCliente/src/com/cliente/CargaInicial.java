@@ -149,7 +149,7 @@ public class CargaInicial {
 		List<Formulario> formularios = gestionFormularios.listaFormularios();
 		System.out.println("los formularios creados son: ");
 		System.out.println(formularios);
-		
+
 		System.out.println("Se completó la carga inicial");
 		
 		//Se muestran los departamentos

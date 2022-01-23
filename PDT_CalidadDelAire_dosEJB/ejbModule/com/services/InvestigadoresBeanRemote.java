@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import com.entities.Administrador;
 import com.entities.Investigador;
 import com.exceptions.ServiciosException;
 
@@ -15,6 +16,7 @@ public interface InvestigadoresBeanRemote {
 	List<Investigador> obtenerTodos();
 	List<Investigador> obtenerTodos(String filtro);
 	List<Investigador> obtenerPorID(String filtro);
+	Investigador obtenerPorID(Long id);
 	List<Investigador> obtenerPorFormulario(Long idFormulario);
 	void asignarFormulario(Long idInvestigador, Long idFormulario) throws ServiciosException;
 	void asignarCiudad(Long idInvestigador, Long idCiudad) throws ServiciosException;
