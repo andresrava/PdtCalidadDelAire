@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
+import com.enumerados.BorradoLogico.Estado;
+
 @Entity
 @Table (name = "ESTACIONESDEMEDICION")
-@NamedQuery(name="EstacionDeMedicion.obtenerTodos", query="SELECT e FROM EstacionDeMedicion e")
+@NamedQuery(name="EstacionDeMedicion.obtenerTodos", query="SELECT e FROM EstacionDeMedicion e ")
 public class EstacionDeMedicion implements Serializable {
 
 	
@@ -23,6 +25,9 @@ public class EstacionDeMedicion implements Serializable {
 	
 	@Column(length=40)
 	private String descripcion;
+	
+	@Column(length=10)
+	private Estado estado;
 	
 //	@JoinTable (
 //			name = "EM_CASILLAS",
@@ -53,6 +58,7 @@ public class EstacionDeMedicion implements Serializable {
 		this.nombre = nombre;
 		this.departamento = departamento;
 		this.usuario = usuario;
+		this.estado = Estado.HABILITADO;
 	}
 
 		
@@ -60,12 +66,14 @@ public class EstacionDeMedicion implements Serializable {
 		super();
 		this.nombre = nombre;
 		this.departamento = departamento;
+		this.estado = Estado.HABILITADO;
 	}
 
 
 	public EstacionDeMedicion(String nombre) {
 		super();
 		this.nombre = nombre;
+		this.estado = Estado.HABILITADO;
 	}
 
 	
@@ -79,6 +87,7 @@ public class EstacionDeMedicion implements Serializable {
 		this.departamento = departamento;
 		this.localidad = localidad;
 		this.usuario = usuario;
+		this.estado = Estado.HABILITADO;
 	}
 	
 	
@@ -89,6 +98,7 @@ public class EstacionDeMedicion implements Serializable {
 		this.departamento = departamento;
 		this.localidad = localidad;
 		this.usuario = usuario;
+		this.estado = Estado.HABILITADO;
 	}
 
 
@@ -134,6 +144,21 @@ public class EstacionDeMedicion implements Serializable {
 
 	
 	
+	public Estado getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
+
 	public String getLocalidad() {
 		return localidad;
 	}
@@ -155,12 +180,12 @@ public class EstacionDeMedicion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EstacionDeMedicion [nombre=" + nombre + ", ciudad=" + departamento + ", usuario=" + usuario + ", descripcion=" + descripcion + ", casillas=" + casillas
+		return "EstacionDeMedicion [nombre=" + nombre + ", departamento=" + departamento + ", usuario=" + usuario + ", descripcion=" + descripcion + ", casillas=" + casillas
 				+ "]";
 	}
 	
 	public String toStringCorto() {
-		return "EstacionDeMedicion [nombre=" + nombre + ", ciudad=" + departamento + "]";
+		return "EstacionDeMedicion [nombre=" + nombre + ", departamento=" + departamento + "]";
 	}
 	
 	

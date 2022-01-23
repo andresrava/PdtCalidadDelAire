@@ -1,5 +1,6 @@
 package com.services;
 
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -11,6 +12,8 @@ import com.entities.Casilla;
 import com.entities.EstacionDeMedicion;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
+
+import com.enumerados.BorradoLogico.Estado;
 
 
 @Stateless
@@ -92,8 +95,9 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 	public void borrar(Long id) throws ServiciosException {
 		try {
 			EstacionDeMedicion estacion = em.find(EstacionDeMedicion.class, id);
-			em.remove(estacion);
-			em.flush();
+			Estado estado = estacion.getEstado();
+			if ( estado == Estado.HABILITADO)
+			estacion.setEstado(Estado.BORRADO);
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo borrar la estacion");
 		}
@@ -103,21 +107,31 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 	@Override
 	public EstacionDeMedicion obtenerPorId(Long id) throws ServiciosException {
 		EstacionDeMedicion estacion = new EstacionDeMedicion();
+		EstacionDeMedicion estacionVacia = new EstacionDeMedicion();
+		
 		try {
 			estacion = em.find(EstacionDeMedicion.class, id);
 			
 		}catch (PersistenceException e) {
-			throw new ServiciosException ("No se pudo borrar la estacion");
+			throw new ServiciosException ("No se encontró la estación");
 		}
+		if (estacion.getEstado() == Estado.HABILITADO)
 		return estacion;
+		else
+			return estacionVacia;
 	}
 	
 	
 	@Override
 	public List<EstacionDeMedicion> obtenerTodasEM() {
 		List<EstacionDeMedicion> a = em.createNamedQuery("EstacionDeMedicion.obtenerTodos" , EstacionDeMedicion.class).getResultList();
+		List<EstacionDeMedicion> b = new LinkedList<>();
+		for (EstacionDeMedicion e : a)
+			{if (e.getEstado() == Estado.HABILITADO)
+				b.add(e);
+			}
 		System.out.println("Las Estaciones son: " + a);
-		return a;
+		return b;
 	}
 
 	@Override

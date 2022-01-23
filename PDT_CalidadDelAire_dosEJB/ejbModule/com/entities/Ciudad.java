@@ -50,11 +50,6 @@ public class Ciudad implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private NombresEnum departamento;
 	
-<<<<<<< HEAD
-//	@OneToMany ( fetch = FetchType.LAZY , 
-//			cascade = CascadeType.ALL  , orphanRemoval = true , mappedBy = "ciudad")
-//	private List<EstacionDeMedicion> em = new LinkedList<EstacionDeMedicion>();
-=======
 	public List<Administrador> getAdministradores() {
 		return administradores;
 	}
@@ -75,11 +70,6 @@ public class Ciudad implements Serializable {
 	}
 
 
-	@OneToMany ( fetch = FetchType.LAZY , 
-			cascade = CascadeType.ALL  , orphanRemoval = true , mappedBy = "ciudad")
-	private List<EstacionDeMedicion> em = new LinkedList<EstacionDeMedicion>();
->>>>>>> branch 'master' of https://andres.rava@git.utec.edu.uy/technocharruas/PDT_Tecnocharruas.git
-	
 	@OneToMany ( fetch = FetchType.LAZY , 
 			cascade = CascadeType.ALL  , orphanRemoval = true , mappedBy = "ciudad")
 	private List<Administrador> administradores = new LinkedList<Administrador>();

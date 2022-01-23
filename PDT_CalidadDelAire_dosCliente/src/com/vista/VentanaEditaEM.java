@@ -85,9 +85,10 @@ public class VentanaEditaEM extends JFrame {
 		
 		JLabel lblNewLabel_4 = new JLabel("Casillas:");
 		
+		GestionLocalidades gestionLocalidades = new GestionLocalidades();
+				
 		//Creo el Combo con departamentos y lo lleno de elementos
 		JComboBox <String> comboBoxDepartamento = new JComboBox();
-		GestionLocalidades gestionLocalidades = new GestionLocalidades();
 		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
 		System.out.println(departamentos);
 		for (String nombre : departamentos) {
@@ -96,14 +97,22 @@ public class VentanaEditaEM extends JFrame {
 		String deptoOriginal = estacionAEditar.getDepartamento();
 		comboBoxDepartamento.setSelectedItem(deptoOriginal);
 		
-		//Creo el Combo con Localidades usando el departamento seleccionado
 		JComboBox<String> comboBoxLocalidades = new JComboBox();
 		
-		Set<String> localidades = gestionLocalidades.obtieneLocalidades((String) comboBoxDepartamento.getSelectedItem());
-		for (String l : localidades) {
-			comboBoxLocalidades.addItem(l);
-		}
+		comboBoxDepartamento.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//Cargo el Combo con Localidades usando el departamento seleccionado
+				comboBoxLocalidades.removeAllItems();
+				Set<String> localidades = gestionLocalidades.obtieneLocalidades((String) comboBoxDepartamento.getSelectedItem());
+				for (String l : localidades) {
+					comboBoxLocalidades.addItem(l);
+				}
+				}
+		});
 		
+		
+
 		
 		
 		
@@ -115,52 +124,39 @@ public class VentanaEditaEM extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		//Actualiza con problemas
 		btnActualizar.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String nombre = textNombre.getText();
-				String depto = (String) comboBoxDepartamento.getSelectedItem();
-				String localidad = (String) comboBoxLocalidades.getSelectedItem();
-				String coment = textComentarios.getText();
-				GestionEstaciones gestionEstaciones = new GestionEstaciones();
-				EstacionDeMedicion estacion = new EstacionDeMedicion(nombre, coment , lista , depto , localidad , usuarioLoged);
-				try {
-					estacion = gestionEstaciones.crearEstacion(estacion);
-					Long id = estacion.getId();
-					if (!(id == null))
-					{
-						System.out.println("Se creó la Estación de Medición!");
-						dispose();
-						VentanaEMedicion ventanaEMedicion = new VentanaEMedicion(usuarioLoged);
-						ventanaEMedicion.ventanaEMedicion();
-					}
-				} catch (NamingException e1) {
-					System.out.println("No se pudo crear la Estación por NamingException");
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					System.out.println("No se pudo crear la Estación por ServiciosException");
-					e1.printStackTrace();
-				}
-				
+				 JFrame jFrame = new JFrame();
+			        JOptionPane.showMessageDialog(jFrame, "Se eliminó la Estacion de Medicion: ");
 			}
-
-			
-
-			private EstacionDeMedicion creaEstacion(EstacionDeMedicion estacion) {
-				GestionEstaciones gestionEstaciones = new GestionEstaciones();
-				try {
-					estacion = gestionEstaciones.crearEstacion(estacion);
-					JOptionPane.showMessageDialog(null, "Estación creada");
-					
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				return estacion;
-			}
+//				String nombre = textNombre.getText();
+//				String depto = (String) comboBoxDepartamento.getSelectedItem();
+//				String localidad = (String) comboBoxLocalidades.getSelectedItem();
+//				String coment = textComentarios.getText();
+//				GestionEstaciones gestionEstaciones = new GestionEstaciones();
+//				EstacionDeMedicion estacion = new EstacionDeMedicion(nombre, coment , lista , depto , localidad , usuarioLoged);
+//				try {
+//					estacion = gestionEstaciones.actualizarEstacion(estacion);
+//					Long id = estacion.getId();
+//					if (!(id == null))
+//					{
+//						System.out.println("Se creó la Estación de Medición!");
+//						dispose();
+//						VentanaEMedicion ventanaEMedicion = new VentanaEMedicion(usuarioLoged);
+//						ventanaEMedicion.ventanaEMedicion();
+//					}
+//				} catch (NamingException e1) {
+//					System.out.println("No se pudo crear la Estación por NamingException");
+//					e1.printStackTrace();
+//				} catch (ServiciosException e1) {
+//					System.out.println("No se pudo crear la Estación por ServiciosException");
+//					e1.printStackTrace();
+//				}
+//				
+//			}
 
 			
 		});
