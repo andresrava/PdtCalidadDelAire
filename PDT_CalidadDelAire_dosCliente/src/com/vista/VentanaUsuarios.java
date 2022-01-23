@@ -349,18 +349,23 @@ public class VentanaUsuarios {
 				
 				try {
 					Administrador administrador = administradorBean.obtenerPorID(Long.parseLong(textID.getText()));
-					
+					Investigador investigador = investigadorBean.obtenerPorID(Long.parseLong(textID.getText()));
+					Aficionado aficionado = aficionadoBean.obtenerPorID(Long.parseLong(textID.getText()));
 					if (administrador != null ) {
-						administradorBean.actualizar(new Administrador(Long.parseLong(textID.getText()),
-								textNombre.getText(), textApellido.getText(), textMail.getText(), textClave.getText(),
-								textDocumento.getText(), textDomicilio.getText(), textTelefono.getText(),
-								ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0))); 
+						administrador.setNombre(textNombre.getText());
+						administrador.setApellido(textApellido.getText());
+						administrador.setMail(textMail.getText());
+						administrador.setContraseña(textClave.getText());
+						administrador.setDocumento(textDocumento.getText());
+						administrador.setDomicilio(textDomicilio.getText());
+						administrador.setTelefono(textTelefono.getText());
+						administrador.setCiudad(ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0));
+						administradorBean.actualizar(administrador); 
 						
-						/*
-						 * }else if (investigadorBean.obtenerPorID(textID.getText()) != null) {
-						 * 
-						 * }else if (aficionadoBean.obtenerPorID(textID.getText()) != null) {
-						 */
+					} else if (investigadorBean.obtenerPorID(textID.getText()) != null) {
+
+					} else if (aficionadoBean.obtenerPorID(textID.getText()) != null) {
+
 					}
 
 					/*

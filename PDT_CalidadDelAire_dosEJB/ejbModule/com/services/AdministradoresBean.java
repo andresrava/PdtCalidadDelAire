@@ -48,7 +48,8 @@ public class AdministradoresBean implements AdministradoresBeanRemote {
 			em.merge(administrador);
 			em.flush();
 		}catch (PersistenceException e) {
-			throw new ServiciosException ("No se pudo actualizar el administrador: " + administrador.getNombre());
+			System.out.println(e.getMessage());
+			throw new ServiciosException ("No se pudo actualizar el administrador: " + administrador.getNombre() + e.getMessage());
 		}
 		
 	}

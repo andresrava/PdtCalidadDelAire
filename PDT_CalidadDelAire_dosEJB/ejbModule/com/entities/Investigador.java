@@ -32,7 +32,7 @@ public class Investigador extends Usuario implements Serializable {
 	@Column(length=20)
 	private String telefono;
 	
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.ALL , fetch = FetchType.LAZY)
 	private Ciudad ciudad;
 	
 	@OneToMany (

@@ -50,10 +50,37 @@ public class Ciudad implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private NombresEnum departamento;
 	
+	public List<Administrador> getAdministradores() {
+		return administradores;
+	}
+
+
+	public void setAdministradores(List<Administrador> administradores) {
+		this.administradores = administradores;
+	}
+
+
+	public List<Investigador> getInvestigadores() {
+		return investigadores;
+	}
+
+
+	public void setInvestigadores(List<Investigador> investigadores) {
+		this.investigadores = investigadores;
+	}
+
+
 	@OneToMany ( fetch = FetchType.LAZY , 
 			cascade = CascadeType.ALL  , orphanRemoval = true , mappedBy = "ciudad")
 	private List<EstacionDeMedicion> em = new LinkedList<EstacionDeMedicion>();
 	
+	@OneToMany ( fetch = FetchType.LAZY , 
+			cascade = CascadeType.ALL  , orphanRemoval = true , mappedBy = "ciudad")
+	private List<Administrador> administradores = new LinkedList<Administrador>();
+	
+	@OneToMany ( fetch = FetchType.LAZY , 
+			cascade = CascadeType.ALL  , orphanRemoval = true , mappedBy = "ciudad")
+	private List<Investigador> investigadores = new LinkedList<Investigador>();
 	
 	public Ciudad() {
 		super();

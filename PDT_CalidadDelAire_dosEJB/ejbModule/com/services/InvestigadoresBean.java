@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.entities.Administrador;
 import com.entities.Ciudad;
 import com.entities.Formulario;
 import com.entities.Investigador;
@@ -110,6 +111,12 @@ public class InvestigadoresBean implements InvestigadoresBeanRemote {
 		TypedQuery<Investigador>query = em.createQuery("SELECT a FROM Investigador i WHERE i.id LIKE :id", Investigador.class)
 				.setParameter("id",id);
 		return query.getResultList();
+	}
+
+	@Override
+	public Investigador obtenerPorID(Long id) {
+		Investigador investigador = em.find(Investigador.class, id);
+		return investigador;
 	}
 }
 
