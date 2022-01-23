@@ -29,12 +29,6 @@ public class EstacionDeMedicion implements Serializable {
 	@Column(length=10)
 	private Estado estado;
 	
-//	@JoinTable (
-//			name = "EM_CASILLAS",
-//			joinColumns = @JoinColumn(name = "FK_EM" , nullable = false),
-//			inverseJoinColumns = @JoinColumn(name = "FK_CASILLA" , nullable = false)
-//			)
-//	
 	@ManyToMany (mappedBy = "estaciones"  , fetch = FetchType.EAGER)
 	private List<Casilla> casillas;
 	

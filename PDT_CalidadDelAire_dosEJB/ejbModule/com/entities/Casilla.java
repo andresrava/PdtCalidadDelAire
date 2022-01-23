@@ -8,6 +8,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.enumerados.BorradoLogico.Estado;
+
 @Entity
 @Table (name = "casillas")
 @NamedQuery(name="Casilla.obtenerTodos", query="SELECT c FROM Casilla c")
@@ -57,6 +59,9 @@ public class Casilla implements Serializable {
 	@Column(length=50)
 	private String descripcion;
 	
+	@Column(length=10)
+	private Estado estado;
+		
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Usuario usuario;
 	
@@ -122,6 +127,18 @@ public class Casilla implements Serializable {
 
 
 
+	public Estado getEstado() {
+		return estado;
+	}
+
+
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+
+
 	public String getParametro() {
 		return parametro;
 	}
@@ -173,6 +190,7 @@ public class Casilla implements Serializable {
 		this.nombre = nombre;
 		this.parametro = parametro;
 		this.unidaDeMedida = unidaDeMedida;
+		this.estado = Estado.HABILITADO;
 	}
 	
 	
@@ -188,6 +206,7 @@ public class Casilla implements Serializable {
 		this.unidaDeMedida = unidaDeMedida;
 		this.descripcion = descripcion;
 		this.usuario = usuario;
+		this.estado = Estado.HABILITADO;
 	}
 	public Casilla(String nombre, String tipoDeDato, String parametro, String unidaDeMedida, String descripcion) {
 		super();
@@ -196,6 +215,7 @@ public class Casilla implements Serializable {
 		this.parametro = parametro;
 		this.unidaDeMedida = unidaDeMedida;
 		this.descripcion = descripcion;
+		this.estado = Estado.HABILITADO;
 	}
 
 	public String getTipoDeDato() {

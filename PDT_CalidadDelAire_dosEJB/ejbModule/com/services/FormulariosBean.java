@@ -1,5 +1,6 @@
 package com.services;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -10,6 +11,7 @@ import javax.persistence.TypedQuery;
 
 import com.entities.Casilla;
 import com.entities.Formulario;
+import com.enumerados.BorradoLogico.Estado;
 import com.exceptions.ServiciosException;
 
 
@@ -34,13 +36,14 @@ public class FormulariosBean implements FormulariosBeanRemote {
 	}
 
 	@Override
-	public void actualizar(Formulario formulario) throws ServiciosException {
+	public Formulario actualizar(Formulario formulario) throws ServiciosException {
 		try {
 			em.merge(formulario);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo actualizar el formulario: " + formulario.getNombre());
 		}
+		return formulario;
 		
 	}
 
@@ -48,8 +51,7 @@ public class FormulariosBean implements FormulariosBeanRemote {
 	public void borrar(Long id) throws ServiciosException {
 		try {
 			Formulario formulario = em.find(Formulario.class, id);
-			em.remove(formulario);
-			em.flush();
+			formulario.setEstado(Estado.BORRADO);
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo borrar el formulario");
 		}
@@ -57,9 +59,13 @@ public class FormulariosBean implements FormulariosBeanRemote {
 
 	@Override
 	public List<Formulario> obtenerTodos() {
-		List<Formulario> a = (List<Formulario>) em.createNamedQuery("Formulario.obtenerTodos").getResultList();
-		System.out.println("Esta es la lista de formularios" + a);
-		return a;
+		List<Formulario> a = em.createNamedQuery("Formulario.obtenerTodos",Formulario.class).getResultList();
+		List<Formulario> b = new LinkedList<>();
+		for (Formulario f : a)
+			{if (f.getEstado() == Estado.HABILITADO)
+				b.add(f);
+			}
+		return b;
 	}
 
 	@Override
@@ -79,12 +85,7 @@ public class FormulariosBean implements FormulariosBeanRemote {
 		} catch(PersistenceException e) {
 			throw new ServiciosException ("No se pudo asignar la Casilla al Formulario");
 		}
-		
-	}
-	@Override
-	public List<Formulario> obtenerPorCasilla(Long idCasilla) {
-		TypedQuery<Formulario>query = em.createQuery("SELECT f FROM Formulario f WHERE f.casillas", null);
-		return null;
-	}
+	}	
+	
 
 }

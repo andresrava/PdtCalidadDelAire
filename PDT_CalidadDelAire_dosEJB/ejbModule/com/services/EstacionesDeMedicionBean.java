@@ -28,40 +28,6 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 
 	@Override
 	public EstacionDeMedicion crear(EstacionDeMedicion estacion) throws ServiciosException {
-//		String nombre = estacion.getNombre();
-//		
-//		
-//		try {
-//			Ciudad ciudad = estacion.getCiudad();
-//			Long idCiudad = ciudad.getId();
-//			ciudad = em.find(Ciudad.class, idCiudad);
-//			estacion.setCiudad(ciudad);
-//			Usuario usuario = estacion.getUsuario();
-//			Long idUsuario = usuario.getId();
-//			usuario = em.find(Usuario.class, idUsuario);
-//			estacion.setUsuario(usuario);
-//			List<Casilla> casillas = new LinkedList<Casilla>();
-//			List<Casilla> casillasPlus = new LinkedList<Casilla>();
-//			casillas = estacion.getCasillas();
-//			if (!casillas.isEmpty())
-//			{
-//				Iterator<Casilla> it = casillas.iterator();
-//				Long idCasilla;
-//				Casilla casilla = new Casilla();
-//				while (it.hasNext()) {
-//					idCasilla = it.next().getId();
-//					casilla = em.find(Casilla.class, idCasilla);
-//					casillasPlus.add(casilla);
-//
-//				}
-//				estacion.setCasillas(casillasPlus);
-//			}
-//			em.persist(estacion);
-//			em.flush();
-//		}catch (PersistenceException e) {
-//			throw new ServiciosException ("No se pudo crear la estacion: " + nombre + e.getMessage());
-//		}
-//		return estacion;
 		try {
 			em.persist(estacion);
 			em.flush();
@@ -130,7 +96,6 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 			{if (e.getEstado() == Estado.HABILITADO)
 				b.add(e);
 			}
-		System.out.println("Las Estaciones son: " + a);
 		return b;
 	}
 

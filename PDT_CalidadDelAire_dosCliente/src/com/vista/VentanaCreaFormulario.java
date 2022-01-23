@@ -8,15 +8,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.controlador.GestionCasillas;
+import com.controlador.GestionFormularios;
 import com.entities.Administrador;
 import com.entities.Casilla;
+import com.entities.Formulario;
 import com.entities.Investigador;
 import com.entities.Usuario;
+import com.exceptions.ServiciosException;
 
 import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
@@ -77,16 +81,42 @@ public class VentanaCreaFormulario extends JFrame {
 		textResumen = new JTextField();
 		textResumen.setColumns(10);
 		
-		JComboBox comboCasillasEnFormulario = new JComboBox();
+		JComboBox<Casilla> comboCasillasEnFormulario = new JComboBox();
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JButton btnCrearFormulario = new JButton("Crear");
+		btnCrearFormulario.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (textNombre.getText() == null) 
+					JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para el formulario","Error", JOptionPane.WARNING_MESSAGE);
+				
+				Formulario formulario = new Formulario();
+				String nombreFormulario = textNombre.getText();
+				formulario.setNombre(nombreFormulario);
+				String resumen = textResumen.getText();
+				formulario.setResumen(resumen);
+				formulario.setCasillas(lista);
+				System.out.println("El formulario a crear es: " + formulario);
+				GestionFormularios gestionFormularios = new GestionFormularios();
+				try {
+					formulario = gestionFormularios.crearFormulario(formulario);
+					JOptionPane.showMessageDialog(null, "Se creó el Formulario","Crear Formulario", JOptionPane.OK_OPTION);
+				} catch (NamingException | ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				dispose();
+				VentanaFormularios ventanaFormulario = new VentanaFormularios(usuarioLoged);
+				ventanaFormulario.ventanaFormularios();
+			}
+		});
 		
 		JLabel lblCasillasDisponibles = new JLabel("Casillas disponibles:");
 		
-		JComboBox comboCasillasDisponibles = new JComboBox();
+		JComboBox<Casilla> comboCasillasDisponibles = new JComboBox();
 		List<Casilla> casillasDisponibles = new LinkedList<Casilla>();
 		GestionCasillas gestionCasillas = new GestionCasillas();
 		casillasDisponibles = gestionCasillas.listaCasillas();

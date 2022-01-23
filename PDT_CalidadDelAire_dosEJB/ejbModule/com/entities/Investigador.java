@@ -36,7 +36,7 @@ public class Investigador extends Usuario implements Serializable {
 	private Ciudad ciudad;
 	
 	@OneToMany (
-			mappedBy = "investigador" ,
+			mappedBy = "investigadorCreador" ,
 			cascade = CascadeType.ALL ,
 			orphanRemoval = true
 			)

@@ -40,7 +40,7 @@ public class Administrador extends Usuario implements Serializable {
 
 
 
-	@OneToMany (mappedBy = "administrador" ,
+	@OneToMany (mappedBy = "administradorCreador" ,
 			cascade = CascadeType.ALL ,
 			orphanRemoval = true
 			)

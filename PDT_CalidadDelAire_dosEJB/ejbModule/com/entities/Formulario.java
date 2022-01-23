@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import com.enumerados.BorradoLogico.Estado;
 
 @Entity
 @Table (name = "FORMULARIOS")
@@ -30,18 +29,20 @@ public class Formulario implements Serializable {
 	@Column(length=40)
 	private String resumen;
 
-	
+	@Column(length=10)
+	private Estado estado;
+		
 	@ManyToMany ( mappedBy = "formularios")
 	private List<Casilla> casillas = new LinkedList<Casilla>();
 	
-	@ManyToOne (fetch = FetchType.LAZY)
-	private Investigador investigador;
+	@ManyToOne (fetch = FetchType.EAGER)
+	private Investigador investigadorCreador;
 	
 	@ManyToMany (mappedBy = "formularios")
-	private List<Usuario> usuarios = new LinkedList<Usuario>();
+	private List<Usuario> usuariosHabilitados = new LinkedList<Usuario>();
 	
-	@ManyToOne ( fetch = FetchType.LAZY)
-	private Administrador administrador;
+	@ManyToOne ( fetch = FetchType.EAGER)
+	private Administrador administradorCreador;
 	
 	@OneToMany (
 			mappedBy = "formulario" ,
@@ -80,6 +81,16 @@ public class Formulario implements Serializable {
 		this.resumen = resumen;
 	}
 
+	
+	public Estado getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
 
 	public List<Casilla> getCasillas() {
 		return casillas;
@@ -91,43 +102,45 @@ public class Formulario implements Serializable {
 	}
 
 	public Investigador getInvestigador() {
-		return investigador;
+		return investigadorCreador;
 	}
 
 
 	public void setInvestigador(Investigador investigador) {
-		this.investigador = investigador;
+		this.investigadorCreador = investigador;
 	}
 
 
 	public Administrador getAdministrador() {
-		return administrador;
+		return administradorCreador;
 	}
 
 
 	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
+		this.administradorCreador = administrador;
 	}
 
 
 	public Formulario() {
 		super();
+		this.estado = Estado.HABILITADO;
 	}
 
 
 	public Formulario(String nombre, Investigador investigador) {
 		super();
 		this.nombre = nombre;
-		this.investigador = investigador;
+		this.investigadorCreador = investigador;
+		this.estado = Estado.HABILITADO;
 	} 
 	
 	public List<Usuario> getUsuarios() {
-		return usuarios;
+		return usuariosHabilitados;
 	}
 
 
 	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+		this.usuariosHabilitados = usuarios;
 	}
 
 
@@ -143,9 +156,7 @@ public class Formulario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Formulario [nombre=" + nombre + ", resumen=" + resumen + ", casillas=" + casillas + ", investigador="
-				+ investigador + ", usuarios=" + usuarios + ", administrador=" + administrador + ", actividades="
-				+ actividades + "]";
+		return "Formulario [nombre=" + nombre + ", resumen=" + resumen + "]";
 	}
 	
 	
