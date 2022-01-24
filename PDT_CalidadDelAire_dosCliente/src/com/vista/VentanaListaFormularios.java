@@ -12,11 +12,13 @@ import com.controlador.GestionFormularios;
 import com.entities.Casilla;
 import com.entities.Formulario;
 import com.entities.Usuario;
+import com.exceptions.ServiciosException;
 
 import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -81,14 +83,50 @@ public class VentanaListaFormularios extends JFrame {
 			}
 		});
 		
+		// Creo el Combo de Formularios y lo lleno
+		JComboBox<Formulario> comboFormularios = new JComboBox();
+		scrollPane.setColumnHeaderView(comboFormularios);
+		GestionFormularios gestionFormularios = new GestionFormularios();
+		List<Formulario> formularios = gestionFormularios.listaFormularios();
+		for (Formulario f : formularios) {
+			comboFormularios.addItem(f);
+			
+		}
+		comboFormularios.updateUI();
+		
 		JButton btnEditarFormulario = new JButton("Editar");
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Formulario formularioAEliminar = (Formulario)comboFormularios.getSelectedItem();
+				GestionFormularios gestionFormularios = new GestionFormularios();
+				String nombreFormularioAEliminar = formularioAEliminar.getNombre();	
+				int confirmacion =  JOptionPane.showConfirmDialog(null,"Realmente desea eliminar el formulario: " + nombreFormularioAEliminar + "?", "Confirmar la eliminación", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (confirmacion == 0)
+					{
+						try {
+							gestionFormularios.borrarFormulario(formularioAEliminar);
+							comboFormularios.removeItem(formularioAEliminar);
+					        comboFormularios.updateUI();
+					        JFrame jFrame = new JFrame();
+					        JOptionPane.showMessageDialog(jFrame, "Se eliminó el formulario: " + nombreFormularioAEliminar);
+					        
+						} catch (NamingException | ServiciosException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}	
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblNewLabel)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addContainerGap()
@@ -98,7 +136,10 @@ public class VentanaListaFormularios extends JFrame {
 									.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)))
 							.addPreferredGap(ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnEditarFormulario, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(btnEditarFormulario, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
 								.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 311, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap())
 		);
@@ -111,9 +152,10 @@ public class VentanaListaFormularios extends JFrame {
 						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
 						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnEditarFormulario, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-						.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnEliminar, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+						.addComponent(btnEditarFormulario, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+						.addComponent(btnVolver, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		
@@ -185,15 +227,6 @@ public class VentanaListaFormularios extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 		
-		JComboBox comboFormularios = new JComboBox();
-		scrollPane.setColumnHeaderView(comboFormularios);
-		GestionFormularios gestionFormularios = new GestionFormularios();
-		List<Formulario> formularios = gestionFormularios.listaFormularios();
-		for (Formulario f : formularios) {
-			comboFormularios.addItem(f);
-			
-		}
-		comboFormularios.updateUI();
 		contentPane.setLayout(gl_contentPane);
 	}
 }

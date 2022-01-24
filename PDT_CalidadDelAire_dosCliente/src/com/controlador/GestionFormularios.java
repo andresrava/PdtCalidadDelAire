@@ -27,4 +27,11 @@ public class GestionFormularios {
 		
 	}
 
+	public void borrarFormulario(Formulario formularioAEliminar) throws NamingException, ServiciosException {
+		FormulariosBeanRemote formularioBean = (FormulariosBeanRemote)
+				InitialContext.doLookup(ruta);
+		Long idABorrar = formularioAEliminar.getId();
+		formularioBean.borrar(idABorrar);
+	}
+
 }
