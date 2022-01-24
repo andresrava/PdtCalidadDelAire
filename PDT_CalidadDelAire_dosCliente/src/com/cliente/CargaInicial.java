@@ -1,5 +1,6 @@
 package com.cliente;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -140,8 +141,11 @@ public class CargaInicial {
 		
 				
 		//Comienza la carga de 2 formularios vacíos
+		List<Casilla> lista = new LinkedList<>();
+		lista.add(casilla1);
+		lista.add(casilla2);
 		Formulario form1 = new Formulario("PrimerFormulario" , investigador1);
-		Formulario form2 = new Formulario("SegundoFormulario" , investigador2);
+		Formulario form2 = new Formulario("SegundoFormulario", lista , investigador2 );
 		
 		GestionFormularios gestionFormularios = new GestionFormularios();
 		form1 = gestionFormularios.crearFormulario(form1);

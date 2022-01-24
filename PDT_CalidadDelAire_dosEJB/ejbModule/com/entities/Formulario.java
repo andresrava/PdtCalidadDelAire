@@ -32,8 +32,8 @@ public class Formulario implements Serializable {
 	@Column(length=10)
 	private Estado estado;
 		
-	@ManyToMany ( mappedBy = "formularios")
-	private List<Casilla> casillas = new LinkedList<Casilla>();
+	@ManyToMany ( mappedBy = "formularios" , fetch = FetchType.EAGER )
+	private List<Casilla> casillas;
 	
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Investigador investigadorCreador;
@@ -134,6 +134,19 @@ public class Formulario implements Serializable {
 		this.estado = Estado.HABILITADO;
 	} 
 	
+	
+	
+
+
+	public Formulario(String nombre, List<Casilla> casillas, Investigador investigadorCreador) {
+		super();
+		this.nombre = nombre;
+		this.estado = Estado.HABILITADO;
+		this.casillas = casillas;
+		this.investigadorCreador = investigadorCreador;
+	}
+
+
 	public List<Usuario> getUsuarios() {
 		return usuariosHabilitados;
 	}

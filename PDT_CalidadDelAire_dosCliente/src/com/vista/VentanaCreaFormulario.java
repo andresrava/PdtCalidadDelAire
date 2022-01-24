@@ -1,6 +1,5 @@
 package com.vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -30,6 +29,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaCreaFormulario extends JFrame {
 
@@ -92,12 +93,19 @@ public class VentanaCreaFormulario extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (textNombre.getText() == null) 
 					JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para el formulario","Error", JOptionPane.WARNING_MESSAGE);
-				
+				else {
 				Formulario formulario = new Formulario();
 				String nombreFormulario = textNombre.getText();
 				formulario.setNombre(nombreFormulario);
+				
+				if (usuarioLoged instanceof Administrador)
+					formulario.setAdministrador((Administrador) usuarioLoged);
+				if (usuarioLoged instanceof Investigador)
+					formulario.setInvestigador((Investigador) usuarioLoged);
+				
 				String resumen = textResumen.getText();
 				formulario.setResumen(resumen);
+				System.out.println(lista);
 				formulario.setCasillas(lista);
 				System.out.println("El formulario a crear es: " + formulario);
 				GestionFormularios gestionFormularios = new GestionFormularios();
@@ -111,6 +119,7 @@ public class VentanaCreaFormulario extends JFrame {
 				dispose();
 				VentanaFormularios ventanaFormulario = new VentanaFormularios(usuarioLoged);
 				ventanaFormulario.ventanaFormularios();
+				}
 			}
 		});
 		
@@ -125,6 +134,10 @@ public class VentanaCreaFormulario extends JFrame {
 		}
 		
 		JButton btnAgregarCasilla = new JButton("Agregar");
+		btnAgregarCasilla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnAgregarCasilla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -168,6 +181,10 @@ public class VentanaCreaFormulario extends JFrame {
 		
 		
 		JButton btnQuitarCasilla = new JButton("Quitar Casilla");
+		btnQuitarCasilla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnQuitarCasilla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

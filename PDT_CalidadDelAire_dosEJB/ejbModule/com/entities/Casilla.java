@@ -2,10 +2,7 @@ package com.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.*;
 
 import com.enumerados.BorradoLogico.Estado;
@@ -71,7 +68,7 @@ public class Casilla implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "FK_FORMULARIO" , nullable = false)
 			)
 	@ManyToMany (cascade = CascadeType.ALL )
-	private Set<Formulario> formularios = new HashSet<Formulario>();
+	private List<Formulario> formularios;
 	
 	@JoinTable (
 			name = "CASILLAS_EM" ,
@@ -163,13 +160,13 @@ public class Casilla implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public Set<Formulario> getFormularios() {
+	public List<Formulario> getFormularios() {
 		return formularios;
 	}
 
 
 
-	public void setFormularios(Set<Formulario> formularios) {
+	public void setFormularios(List<Formulario> formularios) {
 		this.formularios = formularios;
 	}
 

@@ -95,6 +95,24 @@ public class VentanaListaFormularios extends JFrame {
 		comboFormularios.updateUI();
 		
 		JButton btnEditarFormulario = new JButton("Editar");
+		btnEditarFormulario.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				Formulario formularioAEditar = (Formulario) comboFormularios.getSelectedItem();
+				
+				try {
+					VentanaEditaFormulario ventanaEditaFormulario = new VentanaEditaFormulario(usuarioLoged , formularioAEditar);
+					ventanaEditaFormulario.ventanaEditaFormulario();
+				
+				} catch (NamingException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				
+				
+			}
+		});
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addMouseListener(new MouseAdapter() {

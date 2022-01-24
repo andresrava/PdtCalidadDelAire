@@ -34,4 +34,11 @@ public class GestionFormularios {
 		formularioBean.borrar(idABorrar);
 	}
 
+	public Formulario actualizarFormulario(Formulario formularioAEditar) throws NamingException, ServiciosException {
+		FormulariosBeanRemote formularioBean = (FormulariosBeanRemote)
+				InitialContext.doLookup(ruta);
+		Formulario formularioEditado = formularioBean.actualizar(formularioAEditar);
+		return formularioEditado;
+	}
+
 }
