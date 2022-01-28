@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+
 import com.enumerados.BorradoLogico.Estado;
 
 @Entity
@@ -19,7 +20,7 @@ public class Casilla implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CAS" )
 	@SequenceGenerator(name = "SEQ_CAS", initialValue = 1, allocationSize = 1)
-
+	@Column( name = "FK_CASILLA")
 	private Long id;
 	
 	@Column(length=30,unique=true)
@@ -62,20 +63,25 @@ public class Casilla implements Serializable {
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Usuario usuario;
 	
-	@JoinTable (
-			name = "CASILLAS_FORMULARIOS" , 
-			joinColumns = @JoinColumn (name = "FK_CASILLA" , nullable = false),
-			inverseJoinColumns = @JoinColumn(name = "FK_FORMULARIO" , nullable = false)
-			)
-	@ManyToMany (cascade = CascadeType.ALL )
-	private List<Formulario> formularios;
+
+	@ManyToMany 
+	(
+			
+	mappedBy = "casillas" ,
+	
+	cascade = {
+			CascadeType.MERGE 		
+	} ,
+	fetch = FetchType.LAZY)
+	private List<Formulario> formularios = new ArrayList<>();
+	
+	@ManyToMany (cascade = {CascadeType.PERSIST , CascadeType.MERGE} , fetch = FetchType.EAGER)
 	
 	@JoinTable (
 			name = "CASILLAS_EM" ,
 			joinColumns = @JoinColumn(name = "FK_CASILLA" , nullable = false),
 			inverseJoinColumns = @JoinColumn(name = "FK_EM" , nullable = false)
 			)
-	@ManyToMany (cascade = CascadeType.ALL , fetch = FetchType.EAGER)
 	private List<EstacionDeMedicion> estaciones;
 	
 	@OneToMany (
@@ -241,9 +247,9 @@ public class Casilla implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Casilla [nombre=" + nombre + ", parametro=" + parametro + ", unidaDeMedida=" + unidaDeMedida + "]";
+		return "Casilla [id=" + id + ", nombre=" + nombre + ", parametro=" + parametro + "]";
 	}
 
 	
-	   
+	
 }

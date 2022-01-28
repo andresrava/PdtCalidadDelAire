@@ -47,13 +47,13 @@ public class GestionCasillas {
 		return casillas;
 	}
 
-	public void borrarCasilla(Casilla casillaAEliminar) throws NamingException, ServiciosException {
-		String ruta = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
-		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
-				InitialContext.doLookup(ruta);
-		Long idCasillaAEliminar = casillaAEliminar.getId();
-		casillaBean.borrar(idCasillaAEliminar);
-	}
+//	public void borrarCasilla(Casilla casillaAEliminar) throws NamingException, ServiciosException {
+//		String ruta = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
+//		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
+//				InitialContext.doLookup(ruta);
+//		Long idCasillaAEliminar = casillaAEliminar.getId();
+//		casillaBean.borrar(idCasillaAEliminar);
+//	}
 	
 	
 }

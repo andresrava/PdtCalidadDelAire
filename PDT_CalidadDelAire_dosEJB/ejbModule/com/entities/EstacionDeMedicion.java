@@ -172,12 +172,13 @@ public class EstacionDeMedicion implements Serializable {
 	}
 
 
+	
 	@Override
 	public String toString() {
-		return "EstacionDeMedicion [nombre=" + nombre + ", departamento=" + departamento + ", usuario=" + usuario + ", descripcion=" + descripcion + ", casillas=" + casillas
-				+ "]";
+		return "EstacionDeMedicion [id=" + id + ", nombre=" + nombre + ", casillas=" + casillas + "]";
 	}
-	
+
+
 	public String toStringCorto() {
 		return "EstacionDeMedicion [nombre=" + nombre + ", departamento=" + departamento + "]";
 	}

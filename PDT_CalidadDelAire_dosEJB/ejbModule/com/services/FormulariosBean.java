@@ -2,7 +2,6 @@ package com.services;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,25 +22,57 @@ public class FormulariosBean implements FormulariosBeanRemote {
     public FormulariosBean() {
         // TODO Auto-generated constructor stub
     }
+//    @Override
+//	public Formulario crear(String nombre , Set<Casilla> lista , Investigador investigador) throws ServiciosException {
+//    	Formulario formulario = new Formulario(nombre , lista , investigador);
+//		try {
+//			System.out.println("Lista pasada en el Bean: " + lista);
+//			em.merge(formulario);
+//			em.flush();
+//			System.out.println("Formulario 1 después del flush: " + formulario);
+//			
+//		}catch (PersistenceException e) {
+//			throw new ServiciosException ("No se pudo crear el formulario: " + formulario.getNombre());
+//		}
+//		return formulario;
+//		
+//	}
     @Override
-	public Formulario crear(Formulario formulario) throws ServiciosException {
-		try {
-			em.persist(formulario);
-			em.flush();
-		}catch (PersistenceException e) {
-			throw new ServiciosException ("No se pudo crear el formulario: " + formulario.getNombre());
-		}
-		return formulario;
-		
-	}
+    public Formulario crear(Formulario formulario) throws ServiciosException {
+    	System.out.println("Formulario 1 en el Bean: " + formulario);
+    	
+    	try {
+    		em.persist(formulario);
+    		em.flush();
+    		
+    	}catch (PersistenceException e) {
+    		throw new ServiciosException ("No se pudo crear el formulario: " + formulario.getNombre());
+    	}
+    	System.out.println("Formulario 1 después del flush: " + formulario);
+    	return formulario;
+    	
+    }
 
 	@Override
 	public Formulario actualizar(Formulario formulario) throws ServiciosException {
 		try {
 			em.merge(formulario);
 			em.flush();
+			
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo actualizar el formulario: " + formulario.getNombre());
+		}
+		return formulario;
+		
+	}
+	
+	@Override
+	public Formulario obtenerPorId(Long idForm) throws ServiciosException {
+		Formulario formulario;
+		try {
+			formulario = em.find(Formulario.class, idForm);
+			}catch (PersistenceException e) {
+			throw new ServiciosException ("No se pudo encontrar el formulario: ");
 		}
 		return formulario;
 		

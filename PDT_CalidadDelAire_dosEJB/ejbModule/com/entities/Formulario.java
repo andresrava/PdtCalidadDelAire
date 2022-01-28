@@ -1,9 +1,11 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
+
 
 import com.enumerados.BorradoLogico.Estado;
 
@@ -20,7 +22,7 @@ public class Formulario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_FOR" )
 	@SequenceGenerator(name = "SEQ_FOR", initialValue = 1, allocationSize = 1)
-
+	@Column (name = "FK_FORMULARIO")
 	private Long id;
 	
 	@Column(length=30,nullable=false,unique=true)
@@ -32,13 +34,27 @@ public class Formulario implements Serializable {
 	@Column(length=10)
 	private Estado estado;
 		
-	@ManyToMany ( mappedBy = "formularios" , fetch = FetchType.EAGER )
-	private List<Casilla> casillas;
+	@ManyToMany 
+	(
+	cascade = {
+			CascadeType.MERGE 		
+	} ,
+	fetch = FetchType.EAGER)
+	
+	@JoinTable (
+	name = "CASILLAS_FORMULARIOS" , 
+	joinColumns = @JoinColumn (referencedColumnName = "FK_FORMULARIO" , nullable = false),
+	inverseJoinColumns = @JoinColumn(referencedColumnName = "FK_CASILLA" , nullable = false)
+	)
+
+	private List<Casilla> casillas = new ArrayList<>();
 	
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Investigador investigadorCreador;
 	
-	@ManyToMany (mappedBy = "formularios")
+	@ManyToMany ( mappedBy = "formularios" , 
+			cascade = CascadeType.ALL 
+			)
 	private List<Usuario> usuariosHabilitados = new LinkedList<Usuario>();
 	
 	@ManyToOne ( fetch = FetchType.EAGER)
@@ -51,6 +67,11 @@ public class Formulario implements Serializable {
 	private List<Actividad> actividades = new LinkedList<Actividad>(); 
 	
 	
+	public String getNombre() {
+		return nombre;
+	}
+
+
 	public Long getId() {
 		return id;
 	}
@@ -58,11 +79,6 @@ public class Formulario implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-
-	public String getNombre() {
-		return nombre;
 	}
 
 
@@ -169,8 +185,11 @@ public class Formulario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Formulario [nombre=" + nombre + ", resumen=" + resumen + "]";
+		return "Formulario [id=" + id + ", nombre=" + nombre + ", casillas=" + casillas + "]";
 	}
+
+
+	
 	
 	
 	

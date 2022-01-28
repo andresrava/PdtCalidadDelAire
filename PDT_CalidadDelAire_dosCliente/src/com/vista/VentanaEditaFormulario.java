@@ -2,8 +2,10 @@ package com.vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

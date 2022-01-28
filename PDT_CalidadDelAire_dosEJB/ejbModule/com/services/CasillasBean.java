@@ -48,20 +48,20 @@ public CasillasBean() {
 		} 
 	}
 
-	@Override
-	public void borrar(Long id) throws ServiciosException {
-		try {
-		Casilla casilla = em.find(Casilla.class, id);
-		if (!casilla.getFormularios().isEmpty()) {
-			throw new ServiciosException ("La casilla tiene Formularios asociados, no se pudo borrar");
-		}	
-		else {
-		casilla.setEstado(Estado.BORRADO);
-		}
-		}catch (PersistenceException e) {
-			throw new ServiciosException("No se pudo borrar la casilla");
-		}
-	}
+//	@Override
+//	public void borrar(Long id) throws ServiciosException {
+//		try {
+//		Casilla casilla = em.find(Casilla.class, id);
+//		if (!casilla.getFormularios().isEmpty()) {
+//			throw new ServiciosException ("La casilla tiene Formularios asociados, no se pudo borrar");
+//		}	
+//		else {
+//		casilla.setEstado(Estado.BORRADO);
+//		}
+//		}catch (PersistenceException e) {
+//			throw new ServiciosException("No se pudo borrar la casilla");
+//		}
+//	}
 
 	@Override
 	public List<Casilla> obtenerTodasCasillas() {
