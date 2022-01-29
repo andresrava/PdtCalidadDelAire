@@ -112,13 +112,12 @@ public class CargaInicial {
 		Casilla casilla2pos = gestionCasilla.crearCasilla(casilla2);
 		Casilla casilla3pos = gestionCasilla.crearCasilla(casilla3);
 		Casilla casilla4pos = gestionCasilla.crearCasilla(casilla4);
-		System.out.println("Casilla1pos: " + casilla1pos);
 		List<Casilla> listaCasillas = gestionCasilla.listaCasillas();
 		System.out.println("Casillas creadas:");
 		System.out.println(listaCasillas);
-		List<Casilla> listaCasillasConId = new LinkedList<>();
-		listaCasillasConId.add(listaCasillas.get(0));
-		listaCasillasConId.add(listaCasillas.get(2));
+		List<Casilla> otraListaCasillas = new LinkedList<>();
+		otraListaCasillas.add(listaCasillas.get(0));
+		otraListaCasillas.add(listaCasillas.get(1));
 		 //Comienza la carga de dos Ciudades
 		
 		Ciudad primera = new Ciudad("Santa Marta" , NombresEnum.TREINTA_Y_TRES);
@@ -145,18 +144,18 @@ public class CargaInicial {
 				
 		//Comienza la carga de 2 formularios
 		List<Casilla> lista = new LinkedList<>();
-		lista.add(casilla1pos);
-		lista.add(casilla2pos);
-		Formulario form1 = new Formulario("PrimerFormulario" , listaCasillasConId , investigador1);
-//		Formulario form2 = new Formulario("SegundoFormulario", lista , investigador2 );
+		lista.add(listaCasillas.get(2));
+		lista.add(listaCasillas.get(3));
+		Formulario form1 = new Formulario("PrimerFormulario" , otraListaCasillas , investigador1);
+		Formulario form2 = new Formulario("SegundoFormulario", lista , investigador2 );
 		System.out.println("Formulario 1 Carga inicial antes: " + form1);
 		
 		GestionFormularios gestionFormularios = new GestionFormularios();
 		Formulario form1Creado = gestionFormularios.crearFormulario(form1);
-//		form2 = gestionFormularios.crearFormulario(form2);
-		System.out.println("Formulario 1 Carga inicial después: " + form1Creado);
-		Long ideForm1 = form1Creado.getId();
-		System.out.println("Ide de form1Creado: " + ideForm1);
+		form2 = gestionFormularios.crearFormulario(form2);
+//		System.out.println("Formulario 1 Carga inicial después: " + form1Creado);
+//		Long ideForm1 = form1Creado.getId();
+//		System.out.println("Ide de form1Creado: " + ideForm1);
 		
 		List<Formulario> formularios = gestionFormularios.listaFormularios();
 		System.out.println("los formularios creados son: ");

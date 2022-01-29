@@ -10,19 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.controlador.GestionCasillas;
-import com.controlador.GestionCiudades;
 import com.controlador.GestionEstaciones;
 import com.controlador.GestionLocalidades;
 import com.entities.Casilla;
-import com.entities.Ciudad;
-import com.entities.Ciudad.NombresEnum;
 import com.entities.EstacionDeMedicion;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
-import com.services.LocalidadesBeanRemote;
-import com.services.UsuariosBeanRemote;
-
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -60,7 +53,7 @@ public class VentanaCreaEM extends JFrame {
 	}
 
 	private static Usuario usuarioLoged;
-	private JTextField textNombre;
+	private JTextField textNombre = new JTextField();
 	private JTextField textComentarios;
 	private List<Casilla> lista = new LinkedList<Casilla>();
 	/**
@@ -70,10 +63,6 @@ public class VentanaCreaEM extends JFrame {
 	public VentanaCreaEM(Usuario usuarioLogedRef) throws NamingException {
 		setTitle("Crea Estaci\u00F3n de Medici\u00F3n");
 		VentanaCreaEM.usuarioLoged = usuarioLogedRef;
-		
-		String ruta="PDT_CalidadDelAire_dosEJB/LocalidadesBean!com.services.LocalidadesBeanRemote";
-		LocalidadesBeanRemote localidadBean = (LocalidadesBeanRemote) InitialContext.doLookup(ruta);
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 702, 355);
 		contentPane = new JPanel();
@@ -96,10 +85,10 @@ public class VentanaCreaEM extends JFrame {
 		JComboBox <String> comboBoxDepartamento = new JComboBox();
 		GestionLocalidades gestionLocalidades = new GestionLocalidades();
 		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
-		System.out.println(departamentos);
 		for (String nombre : departamentos) {
 			comboBoxDepartamento.addItem(nombre);
 		}
+		comboBoxDepartamento.setSelectedIndex(0);
 		
 
 		//Creo el Combo con Casillas disponibles y lo lleno de elementos	
@@ -113,14 +102,22 @@ public class VentanaCreaEM extends JFrame {
 		
 		//Creo el Combo con las localidades y lo lleno usando el depto seleccionado
 		JComboBox<String> comboBoxLocalidades = new JComboBox();
-		String deptoSelec = (String) comboBoxDepartamento.getSelectedItem();					// Ojo aca, no sé si hay seleccionado un depto
+		String deptoSelec = (String) comboBoxDepartamento.getSelectedItem();					
 		Set<String> localidadesEnDepto = gestionLocalidades.obtieneLocalidades(deptoSelec);
-		for (String d : localidadesEnDepto)
+		for (String l : localidadesEnDepto)
 		{
-			comboBoxLocalidades.addItem(d);
+			comboBoxLocalidades.addItem(l);
 		}
-		
-		
+		comboBoxDepartamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBoxLocalidades.removeAllItems();
+				Set<String> localidades = gestionLocalidades.obtieneLocalidades((String) comboBoxDepartamento.getSelectedItem());
+				for (String l : localidades) {
+					comboBoxLocalidades.addItem(l);
+				}	
+			}
+		});
+
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
@@ -129,9 +126,11 @@ public class VentanaCreaEM extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
 		btnCrear.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if (!textNombre.getText().isEmpty()) {
 				String nombre = textNombre.getText();
 				String nombreLocalidad = (String) comboBoxLocalidades.getSelectedItem();
 				String depto = (String) comboBoxDepartamento.getSelectedItem();
@@ -144,6 +143,7 @@ public class VentanaCreaEM extends JFrame {
 					Long id = estacion.getId();
 					if (!(id == null))
 					System.out.println("Se creó la Estación de Medición!");
+					JOptionPane.showMessageDialog(null, "Se creó la Estación de Medición");
 					dispose();
 					VentanaEMedicion ventanaEMedicion = new VentanaEMedicion(usuarioLoged);
 					ventanaEMedicion.ventanaEMedicion();
@@ -154,35 +154,17 @@ public class VentanaCreaEM extends JFrame {
 					System.out.println("No se pudo crear la Estación por ServiciosException");
 					e1.printStackTrace();
 				}
-
-			}
-
-			
-
-			private EstacionDeMedicion creaEstacion(EstacionDeMedicion estacion) {
-				GestionEstaciones gestionEstaciones = new GestionEstaciones();
-				try {
-					estacion = gestionEstaciones.crearEstacion(estacion);
-					JOptionPane.showMessageDialog(null, "Estación creada");
-					
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} else {
+					JOptionPane.showMessageDialog(null, "Debe ingresar un nombre");
 				}
-				return estacion;
-			}
 
+			}
 			
 		});
 		
-		textNombre = new JTextField();
-		textNombre.setColumns(10);
-		
 		JComboBox<Casilla> comboBoxCasillasEnEM = new JComboBox();
 		
+		textNombre.setColumns(15);
 		
 		JLabel lblNewLabel_6 = new JLabel("Comentarios:");
 		
@@ -202,7 +184,6 @@ public class VentanaCreaEM extends JFrame {
 				comboBoxCasillasEnEM.addItem(c);
 				comboBoxCasillasEnEM.updateUI();
 				lista.add(c);}
-					//JOptionPane.showMessageDialog(null, "Esa Casila ya está en la Estación");
 				
 			}
 		});

@@ -85,31 +85,47 @@ public class VentanaEditaEM extends JFrame {
 		
 		JLabel lblNewLabel_4 = new JLabel("Casillas:");
 		
-		GestionLocalidades gestionLocalidades = new GestionLocalidades();
+		
 				
 		//Creo el Combo con departamentos y lo lleno de elementos
 		JComboBox <String> comboBoxDepartamento = new JComboBox();
+		GestionLocalidades gestionLocalidades = new GestionLocalidades();
 		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
-		System.out.println(departamentos);
 		for (String nombre : departamentos) {
 			comboBoxDepartamento.addItem(nombre);
 		}
-		String deptoOriginal = estacionAEditar.getDepartamento();
-		comboBoxDepartamento.setSelectedItem(deptoOriginal);
+		comboBoxDepartamento.setSelectedItem(estacionAEditar.getDepartamento());
 		
+		//Creo el Combo con localidades y lo lleno de elementos
 		JComboBox<String> comboBoxLocalidades = new JComboBox();
-		
-		comboBoxDepartamento.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				//Cargo el Combo con Localidades usando el departamento seleccionado
+		Set<String> localidades = gestionLocalidades.obtieneLocalidades(estacionAEditar.getDepartamento());
+		for (String l : localidades) {
+			comboBoxLocalidades.addItem(l);
+		}
+		comboBoxLocalidades.setSelectedItem(estacionAEditar.getLocalidad());
+		//
+		comboBoxDepartamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				comboBoxLocalidades.removeAllItems();
 				Set<String> localidades = gestionLocalidades.obtieneLocalidades((String) comboBoxDepartamento.getSelectedItem());
 				for (String l : localidades) {
 					comboBoxLocalidades.addItem(l);
-				}
-				}
+				}	
+			}
 		});
+//		comboBoxLocalidades.addActionListener(comboBoxDepartamento);
+		
+//		comboBoxDepartamento.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				//Cargo el Combo con Localidades usando el departamento seleccionado
+//				comboBoxLocalidades.removeAllItems();
+//				Set<String> localidades = gestionLocalidades.obtieneLocalidades((String) comboBoxDepartamento.getSelectedItem());
+//				for (String l : localidades) {
+//					comboBoxLocalidades.addItem(l);
+//				}
+//				}
+//		});
 		
 		
 
@@ -130,7 +146,7 @@ public class VentanaEditaEM extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				 JFrame jFrame = new JFrame();
-			        JOptionPane.showMessageDialog(jFrame, "Se eliminó la Estacion de Medicion: ");
+			        JOptionPane.showMessageDialog(jFrame, "No se actializó, esta funcionalidad no está implementada");
 			}
 //				String nombre = textNombre.getText();
 //				String depto = (String) comboBoxDepartamento.getSelectedItem();

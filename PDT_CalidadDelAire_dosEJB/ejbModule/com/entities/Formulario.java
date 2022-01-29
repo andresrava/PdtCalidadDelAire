@@ -22,7 +22,7 @@ public class Formulario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_FOR" )
 	@SequenceGenerator(name = "SEQ_FOR", initialValue = 1, allocationSize = 1)
-	@Column (name = "FK_FORMULARIO")
+	@Column (name = "FK")
 	private Long id;
 	
 	@Column(length=30,nullable=false,unique=true)
@@ -36,15 +36,13 @@ public class Formulario implements Serializable {
 		
 	@ManyToMany 
 	(
-	cascade = {
-			CascadeType.MERGE 		
-	} ,
+	cascade = {	CascadeType.MERGE } ,
 	fetch = FetchType.EAGER)
 	
 	@JoinTable (
 	name = "CASILLAS_FORMULARIOS" , 
-	joinColumns = @JoinColumn (referencedColumnName = "FK_FORMULARIO" , nullable = false),
-	inverseJoinColumns = @JoinColumn(referencedColumnName = "FK_CASILLA" , nullable = false)
+	joinColumns = @JoinColumn (referencedColumnName = "FK" , nullable = false),
+	inverseJoinColumns = @JoinColumn(referencedColumnName = "FK" , nullable = false)
 	)
 
 	private List<Casilla> casillas = new ArrayList<>();

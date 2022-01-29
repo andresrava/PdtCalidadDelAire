@@ -1,6 +1,7 @@
 package com.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -17,7 +18,8 @@ public class EstacionDeMedicion implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_EM" )
 	@SequenceGenerator(name = "SEQ_EM", initialValue = 1, allocationSize = 1)
-
+	@Column (name = "FK")
+	
 	private Long id;
 	
 	@Column(length=40,nullable=false,unique=true)
@@ -29,8 +31,18 @@ public class EstacionDeMedicion implements Serializable {
 	@Column(length=10)
 	private Estado estado;
 	
-	@ManyToMany (mappedBy = "estaciones"  , fetch = FetchType.EAGER)
-	private List<Casilla> casillas;
+	@ManyToMany 
+	(
+	cascade = {	CascadeType.MERGE } ,
+	fetch = FetchType.EAGER)
+	
+	@JoinTable (
+	name = "CASILLAS_EM" , 
+	joinColumns = @JoinColumn (referencedColumnName = "FK" , nullable = false),
+	inverseJoinColumns = @JoinColumn(referencedColumnName = "FK" , nullable = false)
+	)
+
+	private List<Casilla> casillas = new ArrayList<>();
 	
 	private String departamento;
 //	@ManyToOne (cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)

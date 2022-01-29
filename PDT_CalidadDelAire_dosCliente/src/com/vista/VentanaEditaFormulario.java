@@ -179,6 +179,19 @@ public class VentanaEditaFormulario extends JFrame {
 		panel.setLayout(gl_panel);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				try {
+					VentanaListaFormularios ventanaListaFormularios = new VentanaListaFormularios(usuarioLoged);
+					ventanaListaFormularios.ventanaListaFormularios();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		JButton btnCrearFormulario = new JButton("Actualizar");
 		btnCrearFormulario.addMouseListener(new MouseAdapter() {

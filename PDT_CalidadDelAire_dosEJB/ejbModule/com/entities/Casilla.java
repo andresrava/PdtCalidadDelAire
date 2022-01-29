@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 
 import com.enumerados.BorradoLogico.Estado;
+import com.enumerados.BorradoLogico.Obligatoria;
 
 @Entity
 @Table (name = "casillas")
@@ -20,7 +21,7 @@ public class Casilla implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CAS" )
 	@SequenceGenerator(name = "SEQ_CAS", initialValue = 1, allocationSize = 1)
-	@Column( name = "FK_CASILLA")
+	@Column( name = "FK")
 	private Long id;
 	
 	@Column(length=30,unique=true)
@@ -57,31 +58,26 @@ public class Casilla implements Serializable {
 	@Column(length=50)
 	private String descripcion;
 	
+	@Column(length=2)
+	private Obligatoria obligatoria; 
+	
 	@Column(length=10)
 	private Estado estado;
+	
 		
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Usuario usuario;
 	
 
 	@ManyToMany 
-	(
-			
-	mappedBy = "casillas" ,
-	
-	cascade = {
-			CascadeType.MERGE 		
-	} ,
+	(mappedBy = "casillas" ,
+	cascade = {	CascadeType.MERGE } ,
 	fetch = FetchType.LAZY)
 	private List<Formulario> formularios = new ArrayList<>();
 	
-	@ManyToMany (cascade = {CascadeType.PERSIST , CascadeType.MERGE} , fetch = FetchType.EAGER)
-	
-	@JoinTable (
-			name = "CASILLAS_EM" ,
-			joinColumns = @JoinColumn(name = "FK_CASILLA" , nullable = false),
-			inverseJoinColumns = @JoinColumn(name = "FK_EM" , nullable = false)
-			)
+	@ManyToMany (mappedBy = "casillas" ,
+	cascade = {CascadeType.MERGE} , 
+	fetch = FetchType.LAZY)
 	private List<EstacionDeMedicion> estaciones;
 	
 	@OneToMany (
@@ -142,6 +138,18 @@ public class Casilla implements Serializable {
 
 
 
+	public Obligatoria getObligatoria() {
+		return obligatoria;
+	}
+
+
+
+	public void setObligatoria(Obligatoria obligatoria) {
+		this.obligatoria = obligatoria;
+	}
+
+
+
 	public String getParametro() {
 		return parametro;
 	}
@@ -194,14 +202,16 @@ public class Casilla implements Serializable {
 		this.parametro = parametro;
 		this.unidaDeMedida = unidaDeMedida;
 		this.estado = Estado.HABILITADO;
+		this.obligatoria = Obligatoria.NO;
 	}
 	
 	
 
 
 
-	public Casilla(String nombre, String tipoDeDato, String parametro, String unidaDeMedida, String descripcion,
-			Usuario usuario) {
+	public Casilla(String nombre, String tipoDeDato, String parametro, 
+			String unidaDeMedida, String descripcion, Usuario usuario) 
+	{
 		super();
 		this.nombre = nombre;
 		this.tipoDeDato = tipoDeDato;
@@ -210,8 +220,12 @@ public class Casilla implements Serializable {
 		this.descripcion = descripcion;
 		this.usuario = usuario;
 		this.estado = Estado.HABILITADO;
+		this.obligatoria = Obligatoria.NO;
+		
 	}
-	public Casilla(String nombre, String tipoDeDato, String parametro, String unidaDeMedida, String descripcion) {
+	public Casilla(String nombre, String tipoDeDato, String parametro, 
+			String unidaDeMedida, String descripcion) 
+	{
 		super();
 		this.nombre = nombre;
 		this.tipoDeDato = tipoDeDato;
@@ -219,6 +233,7 @@ public class Casilla implements Serializable {
 		this.unidaDeMedida = unidaDeMedida;
 		this.descripcion = descripcion;
 		this.estado = Estado.HABILITADO;
+		this.obligatoria = Obligatoria.NO;
 	}
 
 	public String getTipoDeDato() {

@@ -120,39 +120,41 @@ public class VentanaListaCasillas extends JFrame {
 		btnAplicaFiltro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "No se ha implementado esta funcionalidad","Error", JOptionPane.WARNING_MESSAGE);
 				
-				List<Casilla> casillasFiltradasNombre = new LinkedList<Casilla>();
-				List<Casilla> casillasFiltradas = new LinkedList<Casilla>();
-				GestionCasillas gestionCasillas = new GestionCasillas();
-				try {
-					casillasFiltradasNombre = gestionCasillas.listaCasillas(textNombreCasilla.getText());
-					comboBoxCasillas.removeAllItems();
-					for (Casilla c: casillasFiltradasNombre) {
-						comboBoxCasillas.addItem(c);
-					}
-					if (comboEM.getSelectedIndex() != -1  )
-					{
-						EstacionDeMedicion estacionSeleccionada = (EstacionDeMedicion) comboEM.getSelectedItem();
-						List<Casilla> casillasEnEM = estacionSeleccionada.getCasillas();
-						for (Casilla c : casillasFiltradasNombre)
-						{
-							if (casillasEnEM.contains(c))
-							{
-								casillasFiltradas.add(c);
-							}
-						}
-						comboBoxCasillas.removeAllItems();
-						for (Casilla c : casillasFiltradas)
-						{
-							comboBoxCasillas.addItem(c);
-						}
-						comboBoxCasillas.updateUI();
-					}
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				
+//				List<Casilla> casillasFiltradasNombre = new LinkedList<Casilla>();
+//				List<Casilla> casillasFiltradas = new LinkedList<Casilla>();
+//				GestionCasillas gestionCasillas = new GestionCasillas();
+//				try {
+//					casillasFiltradasNombre = gestionCasillas.listaCasillas(textNombreCasilla.getText());
+//					comboBoxCasillas.removeAllItems();
+//					for (Casilla c: casillasFiltradasNombre) {
+//						comboBoxCasillas.addItem(c);
+//					}
+//					if (comboEM.getSelectedIndex() != -1  )
+//					{
+//						EstacionDeMedicion estacionSeleccionada = (EstacionDeMedicion) comboEM.getSelectedItem();
+//						List<Casilla> casillasEnEM = estacionSeleccionada.getCasillas();
+//						for (Casilla c : casillasFiltradasNombre)
+//						{
+//							if (casillasEnEM.contains(c))
+//							{
+//								casillasFiltradas.add(c);
+//							}
+//						}
+//						comboBoxCasillas.removeAllItems();
+//						for (Casilla c : casillasFiltradas)
+//						{
+//							comboBoxCasillas.addItem(c);
+//						}
+//						comboBoxCasillas.updateUI();
+//					}
+//				} catch (NamingException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				
 			}
 		});
 		

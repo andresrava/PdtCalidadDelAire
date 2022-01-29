@@ -198,6 +198,12 @@ public class VentanaListaEM extends JFrame {
 		JComboBox comboLocalidad = new JComboBox();
 		
 		JButton btnAplicar = new JButton("Aplicar");
+		btnAplicar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "Esta funcionalidad no está implementada");
+			}
+		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)

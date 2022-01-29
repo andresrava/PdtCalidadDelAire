@@ -11,6 +11,8 @@ import com.entities.Administrador;
 import com.entities.Aficionado;
 import com.entities.Investigador;
 import com.entities.Usuario;
+
+import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -55,6 +57,21 @@ public class VentanaActividadDeCampo extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + usuarioNombre);
 		
 		JButton btnNoevaActividadDeCampo = new JButton("Nueva");
+		btnNoevaActividadDeCampo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				VentanaCreaActividad ventanaCreaActividad;
+				try {
+					ventanaCreaActividad = new VentanaCreaActividad(usuarioLoged);
+					ventanaCreaActividad.ventanaCreaActividad();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		
 		JButton btnListaActividadDeCampo = new JButton("Lista");
 		
