@@ -16,6 +16,7 @@ import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -75,10 +76,12 @@ public class VentanaCreaActividad extends JFrame {
 		btnAceptar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Formulario formularioElegido = (Formulario) comboFormulariosDisponibles.getSelectedItem();
-				dispose();
-				VentanaYenaFormulario ventanaLlenaFormulario = new VentanaYenaFormulario(usuarioLoged , formularioElegido);
-				ventanaLlenaFormulario.ventanaYenaFormulario();
+				JOptionPane.showMessageDialog(null, "Funcionalidad aún no implementada");
+				
+//				Formulario formularioElegido = (Formulario) comboFormulariosDisponibles.getSelectedItem();
+//				dispose();
+//				VentanaYenaFormulario ventanaLlenaFormulario = new VentanaYenaFormulario(usuarioLoged , formularioElegido);
+//				ventanaLlenaFormulario.ventanaYenaFormulario();
 			}
 		});
 		
