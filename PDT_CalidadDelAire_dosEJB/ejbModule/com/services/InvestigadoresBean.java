@@ -93,18 +93,7 @@ public class InvestigadoresBean implements InvestigadoresBeanRemote {
 			throw new ServiciosException ("No se pudo asignar el formulario al investigador");
 		}
 	}
-	@Override
-	public void asignarCiudad(Long idInvestigador, Long idCiudad) throws ServiciosException {
-		try {
-			Investigador investigador = em.find(Investigador.class, idInvestigador);
-			Ciudad ciudad = em.find(Ciudad.class, idCiudad);
-			investigador.setCiudad(ciudad);
-			em.flush();
-		} catch(PersistenceException e) {
-			throw new ServiciosException ("No se pudo asignar la ciudad al investigador");
-		}
-		
-	}
+
 
 	@Override
 	public List<Investigador> obtenerPorID(String id) {

@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,6 +22,7 @@ import javax.swing.JTextField;
 
 import javax.swing.SwingConstants;
 
+import com.controlador.GestionLocalidades;
 import com.entities.Administrador;
 import com.entities.Aficionado;
 import com.entities.Ciudad;
@@ -95,7 +97,7 @@ public class VentanaUsuarios {
 		
 		
 		frame = new JFrame();
-		frame.setBounds(600, 100, 419, 410);
+		frame.setBounds(600, 100, 419, 446);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -144,7 +146,7 @@ public class VentanaUsuarios {
 		textID.setColumns(10);
 		
 		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBounds(300, 340, 89, 23);
+		btnVolver.setBounds(306, 386, 89, 23);
 		frame.getContentPane().add(btnVolver);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -176,12 +178,44 @@ public class VentanaUsuarios {
 		frame.getContentPane().add(textTelefono);
 		
 		JLabel lblCiudad = new JLabel("Ciudad");
-		lblCiudad.setBounds(28, 309, 100, 14);
+		lblCiudad.setBounds(28, 337, 100, 14);
 		frame.getContentPane().add(lblCiudad);
 		
-		JComboBox cmbCiudad = new JComboBox();
-		cmbCiudad.setBounds(104, 305, 186, 22);
+		
+//Creo el combo con departamentos y lo lleno de elementos
+		JComboBox <String> comboBoxDepartamento = new JComboBox();
+		GestionLocalidades gestionLocalidades = new GestionLocalidades();
+		Set<String> departamentos = gestionLocalidades.obtieneDepartamentos();
+		for (String nombre : departamentos) {
+			comboBoxDepartamento.addItem(nombre);
+		}
+		comboBoxDepartamento.setSelectedIndex(0);
+		comboBoxDepartamento.setBounds(104, 304, 186, 22);
+		frame.getContentPane().add(comboBoxDepartamento);
+		
+		
+//Creo el Combo con las localidades y lo lleno usando el depto seleccionado
+		JComboBox<String> cmbCiudad = new JComboBox();
+		String deptoSelec = (String) comboBoxDepartamento.getSelectedItem();					
+		Set<String> localidadesEnDepto = gestionLocalidades.obtieneLocalidades(deptoSelec);
+		for (String l : localidadesEnDepto)
+		{
+			cmbCiudad.addItem(l);
+		}
+		cmbCiudad.setBounds(104, 333, 186, 22);
 		frame.getContentPane().add(cmbCiudad);
+		
+		comboBoxDepartamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cmbCiudad.removeAllItems();
+				Set<String> localidades = gestionLocalidades.obtieneLocalidades((String) comboBoxDepartamento.getSelectedItem());
+				for (String l : localidades) {
+					cmbCiudad.addItem(l);
+				}	
+			}
+		});
+		
+		
 		
 		List<Ciudad> ciudades = ciudadBean.obtenerTodos();
 		for (Ciudad ciudad: ciudades) {
@@ -207,12 +241,11 @@ public class VentanaUsuarios {
 					String mail = textMail.getText();
 					String domicilio = textDomicilio.getText();
 					String telefono = textTelefono.getText();
+					String ciudad = cmbCiudad.getSelectedItem().toString();
 					if (cmbRol.getSelectedItem() == "Administrador") {
-						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono));
-						administradorBean.asignarCiudad(administrador2.getId(), ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0).getId());
+						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono, ciudad));
 					}else if(cmbRol.getSelectedItem() == "Investigador"){
-						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, documento, domicilio, telefono));
-						investigadorBean.asignarCiudad(investigador.getId(), ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0).getId());						
+						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, documento, domicilio, telefono, ciudad));
 					}else { //sino crea un usuario aficionado
 						Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave));
 					}
@@ -292,7 +325,7 @@ public class VentanaUsuarios {
 						if (usuarios.get(0) instanceof Administrador) {
 							Administrador administrador = (Administrador) usuarios.get(0);
 							if (administrador.getCiudad() != null) 
-								cmbCiudad.setSelectedItem(administrador.getCiudad().getNombre());
+								cmbCiudad.setSelectedItem(administrador.getCiudad());
 							cmbRol.setSelectedItem("Administrador");
 							textDocumento.setText(administrador.getDocumento());
 							textDomicilio.setText(administrador.getDomicilio());
@@ -300,7 +333,7 @@ public class VentanaUsuarios {
 						} else if (usuarios.get(0) instanceof Investigador) {
 							Investigador investigador = (Investigador) usuarios.get(0);
 							if (investigador.getCiudad() != null)
-								cmbCiudad.setSelectedItem(investigador.getCiudad().getNombre());
+								cmbCiudad.setSelectedItem(investigador.getCiudad());
 							cmbRol.setSelectedItem("Investigador");
 							textDocumento.setText(investigador.getDocumento());
 							textDomicilio.setText(investigador.getDomicilio());
@@ -359,7 +392,7 @@ public class VentanaUsuarios {
 						administrador.setDocumento(textDocumento.getText());
 						administrador.setDomicilio(textDomicilio.getText());
 						administrador.setTelefono(textTelefono.getText());
-						administrador.setCiudad(ciudadBean.obtenerTodos(cmbCiudad.getSelectedItem().toString()).get(0));
+						administrador.setCiudad(cmbCiudad.getSelectedItem().toString());
 						administradorBean.actualizar(administrador); 
 						
 					} else if (investigadorBean.obtenerPorID(textID.getText()) != null) {
@@ -385,6 +418,11 @@ public class VentanaUsuarios {
 		frame.getContentPane().add(btnModificar);
 		
 		
+		JLabel lblDepartamento = new JLabel("Departamento");
+		lblDepartamento.setBounds(28, 308, 100, 14);
+		frame.getContentPane().add(lblDepartamento);
+		
+		
 				
 		//Se selecciona rol Aficionado deshabilita los datos que son solo de administrador e investigador
 		cmbRol.addItemListener(new ItemListener() {
@@ -397,11 +435,14 @@ public class VentanaUsuarios {
 					textTelefono.setEnabled(false);
 					textTelefono.setText("");
 					cmbCiudad.setEnabled(false);
+					comboBoxDepartamento.setEnabled(false);
 				}else {
 					textDocumento.setEnabled(true);
 					textDomicilio.setEnabled(true);
 					textTelefono.setEnabled(true);
 					cmbCiudad.setEnabled(true);
+					comboBoxDepartamento.setEnabled(true);
+
 				}
 			}
 		});

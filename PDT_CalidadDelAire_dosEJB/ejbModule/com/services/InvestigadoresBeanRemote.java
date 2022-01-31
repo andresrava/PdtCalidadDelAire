@@ -19,5 +19,4 @@ public interface InvestigadoresBeanRemote {
 	Investigador obtenerPorID(Long id);
 	List<Investigador> obtenerPorFormulario(Long idFormulario);
 	void asignarFormulario(Long idInvestigador, Long idFormulario) throws ServiciosException;
-	void asignarCiudad(Long idInvestigador, Long idCiudad) throws ServiciosException;
 }

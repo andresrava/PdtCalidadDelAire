@@ -32,8 +32,11 @@ public class Investigador extends Usuario implements Serializable {
 	@Column(length=20)
 	private String telefono;
 	
-	@ManyToOne (cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-	private Ciudad ciudad;
+	/*
+	 * @ManyToOne (cascade = CascadeType.ALL , fetch = FetchType.LAZY) private
+	 * Ciudad ciudad;
+	 */
+	private String ciudad;
 	
 	@OneToMany (
 			mappedBy = "investigadorCreador" ,
@@ -48,11 +51,11 @@ public class Investigador extends Usuario implements Serializable {
 			orphanRemoval = true)
 	private List<Actividad> actividades;
 	
-	public Ciudad getCiudad() {
+	public String getCiudad() {
 		return ciudad;
 	}
 
-	public void setCiudad(Ciudad ciudad) {
+	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
 
@@ -92,12 +95,13 @@ public class Investigador extends Usuario implements Serializable {
 		this.telefono = teléfono;
 	}
 
-	public Investigador( String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono) {
+	public Investigador( String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, String ciudad) {
 		super( nombre , apellido , mail , clave);
 		 
 		this.documento = documento;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
+		this.ciudad = ciudad;
 	}
 	
 	public Investigador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono) {
@@ -108,7 +112,7 @@ public class Investigador extends Usuario implements Serializable {
 		this.telefono = telefono;
 	}
 	
-	public Investigador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, Ciudad ciudad) {
+	public Investigador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, String ciudad) {
 		super( id, nombre , apellido , mail , clave);
 		 
 		this.documento = documento;

@@ -98,17 +98,7 @@ public class AdministradoresBean implements AdministradoresBeanRemote {
 		}
 	}
 
-	@Override
-	public void asignarCiudad(Long idAdministrador, Long idCiudad) throws ServiciosException {
-		try {
-			Administrador administrador = em.find(Administrador.class, idAdministrador);
-			Ciudad ciudad = em.find(Ciudad.class, idCiudad);
-			administrador.setCiudad(ciudad);
-			em.flush();
-		} catch(PersistenceException e) {
-			throw new ServiciosException ("No se pudo asignar la ciudad al administrador");
-		}
-	}
+
 
 	@Override
 	public Administrador obtenerPorID(Long id) {
