@@ -22,21 +22,7 @@ public class FormulariosBean implements FormulariosBeanRemote {
     public FormulariosBean() {
         // TODO Auto-generated constructor stub
     }
-//    @Override
-//	public Formulario crear(String nombre , Set<Casilla> lista , Investigador investigador) throws ServiciosException {
-//    	Formulario formulario = new Formulario(nombre , lista , investigador);
-//		try {
-//			System.out.println("Lista pasada en el Bean: " + lista);
-//			em.merge(formulario);
-//			em.flush();
-//			System.out.println("Formulario 1 después del flush: " + formulario);
-//			
-//		}catch (PersistenceException e) {
-//			throw new ServiciosException ("No se pudo crear el formulario: " + formulario.getNombre());
-//		}
-//		return formulario;
-//		
-//	}
+
     @Override
     public Formulario crear(Formulario formulario) throws ServiciosException {
     	System.out.println("Formulario 1 en el Bean: " + formulario);

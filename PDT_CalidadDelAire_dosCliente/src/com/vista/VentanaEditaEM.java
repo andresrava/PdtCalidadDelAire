@@ -113,24 +113,7 @@ public class VentanaEditaEM extends JFrame {
 				}	
 			}
 		});
-//		comboBoxLocalidades.addActionListener(comboBoxDepartamento);
-		
-//		comboBoxDepartamento.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				//Cargo el Combo con Localidades usando el departamento seleccionado
-//				comboBoxLocalidades.removeAllItems();
-//				Set<String> localidades = gestionLocalidades.obtieneLocalidades((String) comboBoxDepartamento.getSelectedItem());
-//				for (String l : localidades) {
-//					comboBoxLocalidades.addItem(l);
-//				}
-//				}
-//		});
-		
-		
 
-		
-		
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -145,35 +128,43 @@ public class VentanaEditaEM extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 JFrame jFrame = new JFrame();
-			        JOptionPane.showMessageDialog(jFrame, "No se actializó, esta funcionalidad no está implementada");
-			}
-//				String nombre = textNombre.getText();
-//				String depto = (String) comboBoxDepartamento.getSelectedItem();
-//				String localidad = (String) comboBoxLocalidades.getSelectedItem();
-//				String coment = textComentarios.getText();
-//				GestionEstaciones gestionEstaciones = new GestionEstaciones();
-//				EstacionDeMedicion estacion = new EstacionDeMedicion(nombre, coment , lista , depto , localidad , usuarioLoged);
-//				try {
-//					estacion = gestionEstaciones.actualizarEstacion(estacion);
-//					Long id = estacion.getId();
-//					if (!(id == null))
-//					{
-//						System.out.println("Se creó la Estación de Medición!");
-//						dispose();
-//						VentanaEMedicion ventanaEMedicion = new VentanaEMedicion(usuarioLoged);
-//						ventanaEMedicion.ventanaEMedicion();
-//					}
-//				} catch (NamingException e1) {
-//					System.out.println("No se pudo crear la Estación por NamingException");
-//					e1.printStackTrace();
-//				} catch (ServiciosException e1) {
-//					System.out.println("No se pudo crear la Estación por ServiciosException");
-//					e1.printStackTrace();
-//				}
-//				
+//				 JFrame jFrame = new JFrame();
+//			        JOptionPane.showMessageDialog(jFrame, "No se actializó, esta funcionalidad no está implementada");
 //			}
-
+				if (textNombre.getText() == null) 
+					JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para el formulario","Error", JOptionPane.WARNING_MESSAGE);
+				else {
+				String nombre = textNombre.getText();
+				estacionAEditar.setNombre(nombre);
+				String depto = (String) comboBoxDepartamento.getSelectedItem();
+				estacionAEditar.setDepartamento(depto);
+				String localidad = (String) comboBoxLocalidades.getSelectedItem();
+				estacionAEditar.setLocalidad(localidad);
+				String coment = textComentarios.getText();
+				estacionAEditar.setDescripcion(coment);
+				GestionEstaciones gestionEstaciones = new GestionEstaciones();
+				try {
+					estacionAEditar = gestionEstaciones.actualizarEstacion(estacionAEditar);
+					JOptionPane.showMessageDialog(null, "Se actualizó la Estación de Medición","Actualizar Estación de Medición", JOptionPane.OK_OPTION);
+				} catch (NamingException e1) {
+					System.out.println("No se pudo crear la Estación por NamingException");
+					e1.printStackTrace();
+				} catch (ServiciosException e1) {
+					System.out.println("No se pudo crear la Estación por ServiciosException");
+					e1.printStackTrace();
+				}
+				dispose();
+				VentanaEMedicion ventanaEMedicion;
+				try {
+					ventanaEMedicion = new VentanaEMedicion(usuarioLoged);
+					ventanaEMedicion.ventanaEMedicion();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				}
+			}	
 			
 		});
 		
@@ -183,6 +174,9 @@ public class VentanaEditaEM extends JFrame {
 		
 		JComboBox<Casilla> comboBoxCasillasEnEM = new JComboBox();
 		lista = estacionAEditar.getCasillas();
+		for (Casilla c : lista) {
+			comboBoxCasillasEnEM.addItem(c);
+		}
 		
 		JLabel lblNewLabel_6 = new JLabel("Comentarios:");
 		
@@ -222,16 +216,16 @@ public class VentanaEditaEM extends JFrame {
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel_5)
-					.addContainerGap(121, Short.MAX_VALUE))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap(229, Short.MAX_VALUE)
-					.addComponent(comboBoxCasillasDisponibles, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
 					.addComponent(btnAgregar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(144, Short.MAX_VALUE))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addGap(10)
+							.addComponent(comboBoxCasillasDisponibles, 0, 239, Short.MAX_VALUE))
+						.addComponent(lblNewLabel_5))
+					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
@@ -272,86 +266,92 @@ public class VentanaEditaEM extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblNewLabel_1)
-							.addGap(34)
-							.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblNewLabel_4)
-							.addGap(10)
-							.addComponent(comboBoxCasillasEnEM, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblNewLabel_6)
-							.addGap(18)
-							.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(10)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel_3)
-								.addComponent(lblNewLabel_2))
-							.addGap(132)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBoxLocalidades, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addGap(6)
-					.addComponent(btnQuitar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(126)
-					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-					.addGap(45)
-					.addComponent(btnActualizar, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblNewLabel)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(10)
+									.addComponent(lblNewLabel_1)
+									.addGap(34)
+									.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(10)
+									.addComponent(lblNewLabel_4)
+									.addGap(10)
+									.addComponent(comboBoxCasillasEnEM, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(10)
+									.addComponent(lblNewLabel_6)
+									.addGap(18)
+									.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(10)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNewLabel_3)
+										.addComponent(lblNewLabel_2))
+									.addGap(132)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(comboBoxLocalidades, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+							.addGap(6)
+							.addComponent(btnQuitar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(126)
+							.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+							.addGap(45)
+							.addComponent(btnActualizar, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel)
-							.addGap(21)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(3)
-									.addComponent(lblNewLabel_1))
-								.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(21)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel_3)
-								.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addComponent(lblNewLabel)
+									.addGap(21)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGap(3)
+											.addComponent(lblNewLabel_1))
+										.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(21)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNewLabel_3)
+										.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGap(19)
+											.addComponent(lblNewLabel_2))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGap(18)
+											.addComponent(comboBoxLocalidades, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+									.addGap(11)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGap(4)
+											.addComponent(lblNewLabel_4))
+										.addComponent(comboBoxCasillasEnEM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(50)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNewLabel_6)
+										.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(149)
+									.addComponent(btnQuitar, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
+							.addGap(20)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(19)
-									.addComponent(lblNewLabel_2))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(18)
-									.addComponent(comboBoxLocalidades, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addGap(11)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(4)
-									.addComponent(lblNewLabel_4))
-								.addComponent(comboBoxCasillasEnEM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(50)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel_6)
-								.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+									.addGap(1)
+									.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnActualizar, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(149)
-							.addComponent(btnQuitar, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(11)
+							.addContainerGap()
 							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGap(20)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(1)
-							.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btnActualizar, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(1, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
