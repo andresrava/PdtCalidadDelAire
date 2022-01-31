@@ -17,4 +17,5 @@ public interface CasillasBeanRemote {
 	List<Casilla> obtenerPorEM(Long idEM);
 	List<Casilla> obtenerTodasCasillas();
 	List<Casilla> obtenerCasillasObligatorias();
+	List<Casilla> obtenerCasillasOpcionales();
 }

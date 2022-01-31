@@ -18,6 +18,7 @@ import com.controlador.GestionLocalidades;
 import com.entities.Casilla;
 import com.entities.EstacionDeMedicion;
 import com.entities.Usuario;
+import com.enumerados.BorradoLogico.Obligatoria;
 import com.exceptions.ServiciosException;
 import com.services.LocalidadesBeanRemote;
 
@@ -103,7 +104,7 @@ public class VentanaEditaEM extends JFrame {
 			comboBoxLocalidades.addItem(l);
 		}
 		comboBoxLocalidades.setSelectedItem(estacionAEditar.getLocalidad());
-		//
+		//El combo Localidades responde a un cambio en el combo Departamentos
 		comboBoxDepartamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				comboBoxLocalidades.removeAllItems();
@@ -194,6 +195,7 @@ public class VentanaEditaEM extends JFrame {
 		casillasDisponibles = gestionCasillas.listaCasillas();
 		for (Casilla c : casillasDisponibles) {
 			comboBoxCasillasDisponibles.addItem(c);
+			comboBoxCasillasDisponibles.updateUI();
 		}
 		
 		
@@ -205,9 +207,7 @@ public class VentanaEditaEM extends JFrame {
 				if (!lista.contains(c)) {
 				comboBoxCasillasEnEM.addItem(c);
 				comboBoxCasillasEnEM.updateUI();
-				lista.add(c);}
-					//JOptionPane.showMessageDialog(null, "Esa Casila ya está en la Estación");
-				
+				lista.add(c);}				
 			}
 		});
 		
@@ -258,7 +258,7 @@ public class VentanaEditaEM extends JFrame {
 				lista.remove(c);
 				comboBoxCasillasEnEM.removeItem(c);
 				comboBoxCasillasEnEM.updateUI();
-			}
+				}
 		});
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

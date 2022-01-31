@@ -13,6 +13,7 @@ import com.entities.Casilla;
 import com.entities.Formulario;
 import com.entities.Investigador;
 import com.entities.Usuario;
+import com.enumerados.BorradoLogico.Obligatoria;
 import com.exceptions.ServiciosException;
 
 import javax.naming.NamingException;
@@ -70,7 +71,8 @@ public class VentanaCreaFormulario extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+	    GestionCasillas gestionCasillas = new GestionCasillas();
+	    lista = gestionCasillas.listaCasillasObligatorias();
 		String nombreDelUsuario = usuarioLoged.getNombre();
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
 		
@@ -84,7 +86,12 @@ public class VentanaCreaFormulario extends JFrame {
 		textResumen = new JTextField();
 		textResumen.setColumns(10);
 		
+		//Creo el Combo con las casillas en el formulario y lo lleno con las casillas obligatorias
 		JComboBox<Casilla> comboCasillasEnFormulario = new JComboBox();
+		List<Casilla> obligatorias = gestionCasillas.listaCasillasObligatorias();
+		for (Casilla c : obligatorias)
+			comboCasillasEnFormulario.addItem(c);
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -93,8 +100,9 @@ public class VentanaCreaFormulario extends JFrame {
 		btnCrearFormulario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (textNombre.getText() == null) 
+				if (textNombre.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para el formulario","Error", JOptionPane.WARNING_MESSAGE);
+				}
 				else {
 				Formulario formulario = new Formulario();
 				String nombreFormulario = textNombre.getText();
@@ -107,9 +115,7 @@ public class VentanaCreaFormulario extends JFrame {
 				
 				String resumen = textResumen.getText();
 				formulario.setResumen(resumen);
-				System.out.println(lista);
 				formulario.setCasillas(lista);
-				System.out.println("El formulario a crear es: " + formulario);
 				GestionFormularios gestionFormularios = new GestionFormularios();
 				try {
 					formulario = gestionFormularios.crearFormulario(formulario);
@@ -129,8 +135,7 @@ public class VentanaCreaFormulario extends JFrame {
 		
 		JComboBox<Casilla> comboCasillasDisponibles = new JComboBox();
 		List<Casilla> casillasDisponibles = new LinkedList<Casilla>();
-		GestionCasillas gestionCasillas = new GestionCasillas();
-		casillasDisponibles = gestionCasillas.listaCasillas();
+		casillasDisponibles = gestionCasillas.listaCasillasOpcionales();
 		for (Casilla c : casillasDisponibles) {
 			comboCasillasDisponibles.addItem(c);
 		}
@@ -191,9 +196,11 @@ public class VentanaCreaFormulario extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Casilla c = (Casilla) comboCasillasEnFormulario.getSelectedItem();
+				if (c.getObligatoria() == Obligatoria.NO) {
 				lista.remove(c);
 				comboCasillasEnFormulario.removeItem(c);
 				comboCasillasEnFormulario.updateUI();
+				}
 			}
 		});
 		

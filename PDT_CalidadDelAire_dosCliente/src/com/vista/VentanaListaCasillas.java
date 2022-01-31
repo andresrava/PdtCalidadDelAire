@@ -207,6 +207,12 @@ public class VentanaListaCasillas extends JFrame {
 		panel.setLayout(gl_panel);
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "Esa funcionalidad no está implementada");	
+			}
+		});
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addMouseListener(new MouseAdapter() {

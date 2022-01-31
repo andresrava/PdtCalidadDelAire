@@ -144,4 +144,17 @@ public CasillasBean() {
 		return b;
 	}
 
+	@Override
+	public List<Casilla> obtenerCasillasOpcionales() {
+		TypedQuery<Casilla>query = em.createNamedQuery("Casilla.obtenerTodos", Casilla.class);
+		List<Casilla> a = query.getResultList();
+		List<Casilla> b = new LinkedList<>();
+		for (Casilla c : a)
+			{
+				if (c.getEstado() == Estado.HABILITADO && c.getObligatoria() != Obligatoria.SI )
+					b.add(c);
+			}
+		return b;
+	}
+
 }

@@ -18,6 +18,7 @@ import com.entities.Casilla;
 import com.entities.Formulario;
 import com.entities.Investigador;
 import com.entities.Usuario;
+import com.enumerados.BorradoLogico.Obligatoria;
 import com.exceptions.ServiciosException;
 
 import javax.naming.NamingException;
@@ -107,9 +108,11 @@ public class VentanaEditaFormulario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				List<Casilla> listasa = lista;
 				Casilla c = (Casilla) comboCasillasEnFormulario.getSelectedItem();
+				if (c.getObligatoria() == Obligatoria.NO) {
 				lista.remove(c);
 				comboCasillasEnFormulario.removeItem(c);
 				comboCasillasEnFormulario.updateUI();
+				}
 			}
 		});
 		
@@ -220,6 +223,7 @@ public class VentanaEditaFormulario extends JFrame {
 			}
 		});
 		
+		//En la ventana se muestra el usuario creador del formulario
 		Administrador administradorCreador = formularioAEditar.getAdministrador();
 		Investigador investigadorCreador = formularioAEditar.getInvestigador();
 		String etiqueta = new String();
@@ -231,7 +235,7 @@ public class VentanaEditaFormulario extends JFrame {
 			{String nombreCreador = investigadorCreador.getNombre();
 			etiqueta = ("Formulario creado por el Investigador: " + nombreCreador);
 			}
-		JLabel lblNewLabel_2 = new JLabel(etiqueta);
+		JLabel lblCreador = new JLabel(etiqueta);
 		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -254,7 +258,7 @@ public class VentanaEditaFormulario extends JFrame {
 							.addComponent(lblNewLabel_4)
 							.addGap(4)
 							.addComponent(comboCasillasEnFormulario, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblNewLabel_2))
+						.addComponent(lblCreador))
 					.addGap(18)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -273,7 +277,7 @@ public class VentanaEditaFormulario extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lblNewLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblNewLabel_2)
+							.addComponent(lblCreador)
 							.addGap(27)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()

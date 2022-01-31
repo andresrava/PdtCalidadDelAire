@@ -37,6 +37,15 @@ public class GestionCasillas {
 		return casillas;	
 	}
 	
+	public List<Casilla> listaCasillasOpcionales() throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
+		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
+				InitialContext.doLookup(ruta);
+		List<Casilla> casillas = casillaBean.obtenerCasillasOpcionales();
+		
+		return casillas;	
+	}
+	
 	
 	public List<Casilla> listaCasillas(String nombre) throws NamingException {
 		String ruta = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";

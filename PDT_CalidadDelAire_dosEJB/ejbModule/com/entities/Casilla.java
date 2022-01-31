@@ -196,13 +196,13 @@ public class Casilla implements Serializable {
 		this.estaciones = estaciones;
 	}
 
-	public Casilla(String nombre, String parametro, String unidaDeMedida) {
+	public Casilla(String nombre, String parametro, String unidaDeMedida, Obligatoria obligatoria) {
 		super();
 		this.nombre = nombre;
 		this.parametro = parametro;
 		this.unidaDeMedida = unidaDeMedida;
 		this.estado = Estado.HABILITADO;
-		this.obligatoria = Obligatoria.NO;
+		this.obligatoria = obligatoria;
 	}
 	
 	

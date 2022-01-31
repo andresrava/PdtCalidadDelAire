@@ -21,6 +21,7 @@ import com.entities.EstacionDeMedicion;
 import com.entities.Formulario;
 import com.entities.Investigador;
 import com.entities.Usuario;
+import com.enumerados.BorradoLogico.Obligatoria;
 import com.exceptions.ServiciosException;
 
 public class CargaInicial {
@@ -102,8 +103,8 @@ public class CargaInicial {
 		
 		Casilla casilla1 = new Casilla("Primer Casilla" , "FLOAT" , "humedad" , "%" , "Vimos" , usuario );
 		Casilla casilla2 = new Casilla("Segunda Casilla" , "BOOLEAN" , "temperatura" , "ºC" , "Visto");
-		Casilla casilla3 = new Casilla("Tercera Casilla" , "viento" , "km/h");
-		Casilla casilla4 = new Casilla("Cuarta Casilla" , "presión atm." , "HPa");
+		Casilla casilla3 = new Casilla("Tercera Casilla" , "viento" , "km/h" , Obligatoria.SI);
+		Casilla casilla4 = new Casilla("Cuarta Casilla" , "presión atm." , "HPa" , Obligatoria.SI);
 		
 		
 		
