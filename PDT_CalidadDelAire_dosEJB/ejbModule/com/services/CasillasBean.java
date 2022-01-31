@@ -12,6 +12,7 @@ import com.entities.Casilla;
 import com.entities.EstacionDeMedicion;
 import com.entities.Formulario;
 import com.enumerados.BorradoLogico.Estado;
+import com.enumerados.BorradoLogico.Obligatoria;
 import com.exceptions.ServiciosException;
 
 
@@ -48,20 +49,20 @@ public CasillasBean() {
 		} 
 	}
 
-//	@Override
-//	public void borrar(Long id) throws ServiciosException {
-//		try {
-//		Casilla casilla = em.find(Casilla.class, id);
-//		if (!casilla.getFormularios().isEmpty()) {
-//			throw new ServiciosException ("La casilla tiene Formularios asociados, no se pudo borrar");
-//		}	
-//		else {
-//		casilla.setEstado(Estado.BORRADO);
-//		}
-//		}catch (PersistenceException e) {
-//			throw new ServiciosException("No se pudo borrar la casilla");
-//		}
-//	}
+	@Override
+	public void borrar(Long id) throws ServiciosException {
+		try {
+		Casilla casilla = em.find(Casilla.class, id);
+		if (!casilla.getFormularios().isEmpty()) {
+			throw new ServiciosException ("La casilla tiene Formularios asociados, no se pudo borrar");
+		}	
+		else {
+		casilla.setEstado(Estado.BORRADO);
+		}
+		}catch (PersistenceException e) {
+			throw new ServiciosException("No se pudo borrar la casilla");
+		}
+	}
 
 	@Override
 	public List<Casilla> obtenerTodasCasillas() {
@@ -125,6 +126,19 @@ public CasillasBean() {
 		for (Casilla c : lista)
 			{
 				if (c.getEstado() == Estado.HABILITADO)
+					b.add(c);
+			}
+		return b;
+	}
+
+	@Override
+	public List<Casilla> obtenerCasillasObligatorias() {
+		TypedQuery<Casilla>query = em.createNamedQuery("Casilla.obtenerTodos", Casilla.class);
+		List<Casilla> a = query.getResultList();
+		List<Casilla> b = new LinkedList<>();
+		for (Casilla c : a)
+			{
+				if (c.getEstado() == Estado.HABILITADO && c.getObligatoria() == Obligatoria.SI )
 					b.add(c);
 			}
 		return b;

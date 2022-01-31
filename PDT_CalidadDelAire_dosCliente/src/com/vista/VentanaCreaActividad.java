@@ -76,12 +76,12 @@ public class VentanaCreaActividad extends JFrame {
 		btnAceptar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "Funcionalidad aún no implementada");
+//				JOptionPane.showMessageDialog(null, "Funcionalidad aún no implementada");
 				
-//				Formulario formularioElegido = (Formulario) comboFormulariosDisponibles.getSelectedItem();
-//				dispose();
-//				VentanaYenaFormulario ventanaLlenaFormulario = new VentanaYenaFormulario(usuarioLoged , formularioElegido);
-//				ventanaLlenaFormulario.ventanaYenaFormulario();
+				Formulario formularioElegido = (Formulario) comboFormulariosDisponibles.getSelectedItem();
+				dispose();
+				VentanaLlenaFormulario ventanaLlenaFormulario = new VentanaLlenaFormulario(usuarioLoged , formularioElegido);
+				ventanaLlenaFormulario.ventanaLlenaFormulario();
 			}
 		});
 		

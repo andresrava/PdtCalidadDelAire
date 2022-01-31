@@ -218,17 +218,17 @@ public class VentanaListaCasillas extends JFrame {
 				int confirmacion =  JOptionPane.showConfirmDialog(null,"Realmente desea Eliminar la casilla: " + nombreCasillaAEliminar + "?", "Confirmar la eliminación", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (confirmacion == 0)
 					{
-//						try {
-//							gestionCasillas.borrarCasilla(casillaAEliminar);
-//							comboBoxCasillas.removeItem(casillaAEliminar);
-//					        comboBoxCasillas.updateUI();
-//					        JFrame jFrame = new JFrame();
-//					        JOptionPane.showMessageDialog(jFrame, "Se eliminó la casilla: " + nombreCasillaAEliminar);
-//					        
-//						} catch (NamingException | ServiciosException e1) {
-//							// TODO Auto-generated catch block
-//							e1.printStackTrace();
-//						}
+						try {
+							gestionCasillas.borrarCasilla(casillaAEliminar);
+							comboBoxCasillas.removeItem(casillaAEliminar);
+					        comboBoxCasillas.updateUI();
+					        JFrame jFrame = new JFrame();
+					        JOptionPane.showMessageDialog(jFrame, "Se eliminó la casilla: " + nombreCasillaAEliminar);
+					        
+						} catch (NamingException | ServiciosException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 			}
 		});
