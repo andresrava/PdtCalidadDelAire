@@ -9,10 +9,11 @@ import com.exceptions.ServiciosException;
 
 @Remote
 public interface ActividadesBeanRemote {
-	void crear(Actividad actividad) throws ServiciosException;
-	void actualizar(Actividad actividad) throws ServiciosException;
+	Actividad crear(Actividad actividad) throws ServiciosException;
+	Actividad actualizar(Actividad actividad) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Actividad> obtenerTodos();
 	List<Actividad> obtenerTodos(String filtro);
 	void asignarRegistro (Long idActividad, Long idRegistro) throws ServiciosException;
-}
+	Actividad agregaRegistro(Long idActividad, Long idRegistro);
+	}

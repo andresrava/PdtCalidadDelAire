@@ -6,6 +6,9 @@ import java.sql.Date;
 import javax.persistence.*;
 import javax.persistence.ManyToOne;
 
+import com.enumerados.BorradoLogico.Booleano;
+import com.enumerados.BorradoLogico.Estado;
+
 
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )
@@ -17,8 +20,17 @@ public class Registro implements Serializable {
 	@SequenceGenerator(name = "SEQ_REG", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
-	@Column(nullable=false)
-	private String valor;
+	@Column
+	private String valorString;
+	
+	@Column
+	private Booleano valorBooleano;
+	
+	@Column
+	private Float valorFloat;
+	
+	@Column
+	private Integer valorInteger;
 	
 	@Column
 	private float latitud;
@@ -32,11 +44,13 @@ public class Registro implements Serializable {
 	@Column(length=20)
 	private String metodoMuestreo;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@Column
+	private Estado estado;
+	
+	@ManyToOne (fetch = FetchType.EAGER)
 	private Casilla casilla;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn (name = "ACTIVIDADES_REGISTROS" , nullable = false)
+	@ManyToOne (fetch = FetchType.EAGER)
 	private Actividad actividad;
 	
 	public Registro() {
@@ -67,12 +81,36 @@ public class Registro implements Serializable {
 		this.id = id;
 	}
 
-	public String getValor() {
-		return valor;
+	public String getValorString() {
+		return valorString;
 	}
 
-	public void setValor(String valor) {
-		this.valor = valor;
+	public void setValorString(String valor) {
+		this.valorString = valor;
+	}
+
+	public Booleano getValorBooleano() {
+		return valorBooleano;
+	}
+
+	public void setValorBooleano(Booleano valorBooleano) {
+		this.valorBooleano = valorBooleano;
+	}
+
+	public Float getValorFloat() {
+		return valorFloat;
+	}
+
+	public void setValorFloat(Float valorFloat) {
+		this.valorFloat = valorFloat;
+	}
+
+	public Integer getValorInteger() {
+		return valorInteger;
+	}
+
+	public void setValorInteger(Integer valorInteger) {
+		this.valorInteger = valorInteger;
 	}
 
 	public float getLatitud() {
@@ -105,7 +143,62 @@ public class Registro implements Serializable {
 
 	public void setMetodoMuestreo(String metodoMuestreo) {
 		this.metodoMuestreo = metodoMuestreo;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	
+	public Registro(String valor, float latitud, float longitud, Date fechaHora, Casilla casilla) {
+		super();
+		this.valorString = valor;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.fechaHora = fechaHora;
+		this.casilla = casilla;
+	} 
+	
+	
+	public Registro(Booleano valor, float latitud, float longitud, Date fechaHora, Casilla casilla) {
+		super();
+		this.valorBooleano = valor;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.fechaHora = fechaHora;
+		this.casilla = casilla;
+	} 
+	
+	
+	public Registro(Integer valor, float latitud, float longitud, Date fechaHora, Casilla casilla) {
+		super();
+		this.valorInteger = valor;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.fechaHora = fechaHora;
+		this.casilla = casilla;
+	} 
+	public Registro(Float valor, float latitud, float longitud, Date fechaHora, Casilla casilla) {
+		super();
+		this.valorFloat = valor;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.fechaHora = fechaHora;
+		this.casilla = casilla;
+	}
+
+	@Override
+	public String toString() {
+		return "Registro [id=" + id + ", valorString=" + valorString + ", valorBooleano=" + valorBooleano
+				+ ", valorFloat=" + valorFloat + ", valorInteger=" + valorInteger + ", latitud=" + latitud
+				+ ", longitud=" + longitud + ", fechaHora=" + fechaHora + ", metodoMuestreo=" + metodoMuestreo
+				+ ", estado=" + estado + ", casilla=" + casilla + ", actividad=" + actividad + "]";
 	} 
 	
    
+	
 }

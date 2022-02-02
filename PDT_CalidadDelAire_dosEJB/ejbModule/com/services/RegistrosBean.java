@@ -25,13 +25,14 @@ public class RegistrosBean implements RegistrosBeanRemote {
         // TODO Auto-generated constructor stub
     }
     @Override
-	public void crear(Registro registro) throws ServiciosException {
+	public Registro crear(Registro registro) throws ServiciosException {
 		try {
 			em.persist(registro);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo crear el Registro");
 		}
+		return registro;
 		
 	}
 

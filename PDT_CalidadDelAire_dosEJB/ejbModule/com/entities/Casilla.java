@@ -47,7 +47,7 @@ public class Casilla implements Serializable {
 		
 	
 	@Column(length=10)
-	private String tipoDeDato;
+	private TipoDatoEnum tipoDeDato;
 	
 	@Column(length=40,nullable=false,unique=true)
 	private String parametro;
@@ -196,9 +196,10 @@ public class Casilla implements Serializable {
 		this.estaciones = estaciones;
 	}
 
-	public Casilla(String nombre, String parametro, String unidaDeMedida, Obligatoria obligatoria) {
+	public Casilla(String nombre, TipoDatoEnum tipoDato , String parametro, String unidaDeMedida, Obligatoria obligatoria) {
 		super();
 		this.nombre = nombre;
+		this.tipoDeDato = tipoDato;
 		this.parametro = parametro;
 		this.unidaDeMedida = unidaDeMedida;
 		this.estado = Estado.HABILITADO;
@@ -209,7 +210,7 @@ public class Casilla implements Serializable {
 
 
 
-	public Casilla(String nombre, String tipoDeDato, String parametro, 
+	public Casilla(String nombre, TipoDatoEnum tipoDeDato, String parametro, 
 			String unidaDeMedida, String descripcion, Usuario usuario) 
 	{
 		super();
@@ -223,7 +224,7 @@ public class Casilla implements Serializable {
 		this.obligatoria = Obligatoria.NO;
 		
 	}
-	public Casilla(String nombre, String tipoDeDato, String parametro, 
+	public Casilla(String nombre, TipoDatoEnum tipoDeDato, String parametro, 
 			String unidaDeMedida, String descripcion) 
 	{
 		super();
@@ -236,13 +237,13 @@ public class Casilla implements Serializable {
 		this.obligatoria = Obligatoria.NO;
 	}
 
-	public String getTipoDeDato() {
+	public TipoDatoEnum getTipoDeDato() {
 		return tipoDeDato;
 	}
 
 
 
-	public void setTipoDeDato(String tipoDeDato) {
+	public void setTipoDeDato(TipoDatoEnum tipoDeDato) {
 		this.tipoDeDato = tipoDeDato;
 	}
 

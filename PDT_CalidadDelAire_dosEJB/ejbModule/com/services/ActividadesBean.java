@@ -23,24 +23,25 @@ public class ActividadesBean implements ActividadesBeanRemote {
         // TODO Auto-generated constructor stub
     }
     @Override
-	public void crear(Actividad actividad) throws ServiciosException {
+	public Actividad crear(Actividad actividad) throws ServiciosException {
 		try {
 			em.persist(actividad);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo crear la Actividad");
 		}
-		
+		return actividad;
 	}
 
 	@Override
-	public void actualizar(Actividad actividad) throws ServiciosException {
+	public Actividad actualizar(Actividad actividad) throws ServiciosException {
 		try {
 			em.merge(actividad);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo actualizar la Actividad" );
 		}
+		return actividad;
 		
 	}
 
@@ -80,4 +81,15 @@ public class ActividadesBean implements ActividadesBeanRemote {
 		}
 		
 	}
+	
+	@Override
+	public Actividad agregaRegistro(Long idActividad, Long idRegistro) {
+		Registro registro = em.find(Registro.class, idRegistro);
+		Actividad actividad = em.find(Actividad.class, idActividad);
+		actividad.getRegistros().add(registro);
+		em.merge(actividad);
+		em.flush();
+		return actividad;
+	}
+	
 }

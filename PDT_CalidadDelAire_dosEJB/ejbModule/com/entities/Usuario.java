@@ -53,13 +53,18 @@ public class Usuario implements Serializable {
 			cascade = CascadeType.ALL , 
 			orphanRemoval = true)
 	private List<EstacionDeMedicion> estaciones = new ArrayList<EstacionDeMedicion>();
+
+	@OneToMany (mappedBy = "usuario" , 
+			cascade = CascadeType.ALL , 
+			orphanRemoval = true)
+	private List<Actividad> actividades = new ArrayList<Actividad>();
 	
 	
 	@JoinTable(
 			name = "USUARIOS_FORMULARIOS" ,
 			joinColumns = @JoinColumn(name = "FK_USUARIO" , nullable = false),
 			inverseJoinColumns = @JoinColumn (name = "FK_FORMULARIO" , nullable = false)
-		)	
+			)
 	@ManyToMany (cascade = CascadeType.ALL)
 	private List<Formulario> formularios = new LinkedList<Formulario>();
 	

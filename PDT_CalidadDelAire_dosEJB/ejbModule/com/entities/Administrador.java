@@ -43,11 +43,6 @@ public class Administrador extends Usuario implements Serializable {
 			)
 	private List<Formulario> formularios = new LinkedList<Formulario>();
 	
-	@OneToMany (
-			mappedBy = "administrador" ,
-			cascade = CascadeType.ALL ,
-			orphanRemoval = true)
-	private List<Actividad> actividades;
 	
 	public List<Formulario> getFormularios() {
 		return formularios;
@@ -141,14 +136,7 @@ public Administrador( Long id, String nombre , String apellido, String mail, Str
 	}
 
 
-public List<Actividad> getActividades() {
-	return actividades;
-}
 
-
-public void setActividades(List<Actividad> actividades) {
-	this.actividades = actividades;
-}
 
 
 

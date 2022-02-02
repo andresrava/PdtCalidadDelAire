@@ -1,12 +1,11 @@
 package com.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import com.enumerados.BorradoLogico.Estado;
 
 
 @Entity
@@ -22,59 +21,21 @@ public class Actividad implements Serializable {
 	@SequenceGenerator(name = "SEQ_ACT", initialValue = 1, allocationSize = 1)
 	private Long id;
 
+
+	@Column
+	private Estado estado;
+	
 	@ManyToOne (fetch = FetchType.LAZY)
 	private Formulario formulario;
-	
-	@ManyToOne (fetch = FetchType.LAZY)
-	private Administrador administrador;
-	
-	@ManyToOne (fetch = FetchType.LAZY)
-	private Investigador investigador;
-	
-	public Administrador getAdministrador() {
-		return administrador;
-	}
-
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
-	}
-
-	public Investigador getInvestigador() {
-		return investigador;
-	}
-
-	public void setInvestigador(Investigador investigador) {
-		this.investigador = investigador;
-	}
-
-	public Aficionado getAficionado() {
-		return aficionado;
-	}
-
-	public void setAficionado(Aficionado aficionado) {
-		this.aficionado = aficionado;
-	}
-
-	public Date getFechaHora() {
-		return fechaHora;
-	}
-
-	public void setFechaHora(Date fechaHora) {
-		this.fechaHora = fechaHora;
-	}
-
-	@ManyToOne (fetch = FetchType.LAZY)
-	private Aficionado aficionado;
-	
-	
-	@Column(nullable=false)
-	private Date fechaHora;
 	
 	@OneToMany (
 			mappedBy = "actividad" ,
 			cascade = CascadeType.ALL ,
 			orphanRemoval = true)
 	private List<Registro> registros;
+	
+	@ManyToOne (fetch = FetchType.LAZY)
+	private Usuario usuario;
 	
 	public List<Registro> getRegistros() {
 		return registros;
@@ -104,10 +65,34 @@ public class Actividad implements Serializable {
 		super();
 	} 
 	
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@Override
 	public String toString() {
-		return "Actividad [id=" + id + ", formulario=" + formulario + ", Investigador= " + investigador + ", administrador=" + administrador + ", fechaHora="
-				+ fechaHora + ", registros=" + registros + "]";
+		return "Actividad [id=" + id + ", estado=" + estado + ", formulario=" + formulario + ", registros=" + registros + ", usuario=" + usuario + "]";
 	}
-   
+
+	public Actividad(Formulario formulario, Usuario usuario) {
+		super();
+		this.formulario = formulario;
+		this.usuario = usuario;
+		this.estado = Estado.HABILITADO;
+	}
+
+	
+
 }

@@ -15,6 +15,7 @@ import com.controlador.GestionUsuarios;
 import com.entities.Administrador;
 import com.entities.Aficionado;
 import com.entities.Casilla;
+import com.entities.Casilla.TipoDatoEnum;
 import com.entities.Ciudad;
 import com.entities.Ciudad.NombresEnum;
 import com.entities.EstacionDeMedicion;
@@ -101,10 +102,10 @@ public class CargaInicial {
 		
 		//Comienza la carga de 3 Casillas
 		
-		Casilla casilla1 = new Casilla("Primer Casilla" , "FLOAT" , "humedad" , "%" , "Vimos" , usuario );
-		Casilla casilla2 = new Casilla("Segunda Casilla" , "BOOLEAN" , "temperatura" , "ºC" , "Visto");
-		Casilla casilla3 = new Casilla("Tercera Casilla" , "viento" , "km/h" , Obligatoria.SI);
-		Casilla casilla4 = new Casilla("Cuarta Casilla" , "presión atm." , "HPa" , Obligatoria.SI);
+		Casilla casilla1 = new Casilla("Primer Casilla" , TipoDatoEnum.FLOAT , "humedad" , "%" , "Vimos" , usuario );
+		Casilla casilla2 = new Casilla("Segunda Casilla" , TipoDatoEnum.INTEGER , "temperatura" , "ºC" , "Visto");
+		Casilla casilla3 = new Casilla("Tercera Casilla" , TipoDatoEnum.STRING , "viento" , "km/h" , Obligatoria.SI);
+		Casilla casilla4 = new Casilla("Cuarta Casilla" , TipoDatoEnum.FLOAT , "presión atm." , "HPa" , Obligatoria.SI);
 		
 		
 		

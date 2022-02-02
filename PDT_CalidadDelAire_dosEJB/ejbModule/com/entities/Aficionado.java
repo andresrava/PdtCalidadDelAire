@@ -23,13 +23,6 @@ public class Aficionado extends Usuario implements Serializable {
 	@ManyToMany
 	private List<Formulario> formularios;
 	
-	@OneToMany (
-			mappedBy = "aficionado" ,
-			cascade = CascadeType.ALL ,
-			orphanRemoval = true)
-	private List<Actividad> actividades;
-	
-
 	public List<Formulario> getFormularios() {
 		return formularios;
 	}
@@ -53,16 +46,6 @@ public class Aficionado extends Usuario implements Serializable {
 	public Aficionado(Long id, String nombre, String apellido, String mail, String clave) {
 		super(id, nombre, apellido, mail, clave);
 		// TODO Auto-generated constructor stub
-	}
-
-
-	public List<Actividad> getActividades() {
-		return actividades;
-	}
-
-
-	public void setActividades(List<Actividad> actividades) {
-		this.actividades = actividades;
 	}
 
 

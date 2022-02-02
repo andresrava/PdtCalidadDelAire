@@ -45,12 +45,6 @@ public class Investigador extends Usuario implements Serializable {
 			)
 	private List<Formulario> formularios;
 	
-	@OneToMany (
-			mappedBy = "investigador" ,
-			cascade = CascadeType.ALL ,
-			orphanRemoval = true)
-	private List<Actividad> actividades;
-	
 	public String getCiudad() {
 		return ciudad;
 	}
@@ -119,15 +113,6 @@ public class Investigador extends Usuario implements Serializable {
 		this.domicilio = domicilio;
 		this.telefono = telefono;
 		this.ciudad = ciudad;
-	}
-	
-	
-	public List<Actividad> getActividades() {
-		return actividades;
-	}
-
-	public void setActividades(List<Actividad> actividades) {
-		this.actividades = actividades;
 	}
 
 	@Override

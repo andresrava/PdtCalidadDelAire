@@ -97,9 +97,9 @@ public class VentanaCreaCasilla extends JFrame {
 		JRadioButton rdbtnObligatoria = new JRadioButton("");
 		
 		
-		JComboBox<String> comboBoxTipos = new JComboBox();
+		JComboBox<TipoDatoEnum> comboBoxTipos = new JComboBox();
 		for (TipoDatoEnum t : Casilla.TipoDatoEnum.values()) {
-			comboBoxTipos.addItem(t.name());
+			comboBoxTipos.addItem(t);
 		}
 		
 		JButton btnCrear = new JButton("Crear");
@@ -109,7 +109,7 @@ public class VentanaCreaCasilla extends JFrame {
 				if (textNombre.getText().isEmpty() || textParametro.getText().isEmpty() || textUnidad.getText().isEmpty()) 
 					JOptionPane.showMessageDialog(null, "Hay campos obligatorios incompletos","Error", JOptionPane.WARNING_MESSAGE);
 				else {
-				Casilla casilla = new Casilla(textNombre.getText(), (String)comboBoxTipos.getSelectedItem() , textParametro.getText(), textUnidad.getText(), textComentarios.getText() , usuarioLoged );
+				Casilla casilla = new Casilla(textNombre.getText(), (TipoDatoEnum) comboBoxTipos.getSelectedItem() , textParametro.getText(), textUnidad.getText(), textComentarios.getText() , usuarioLoged );
 				if (rdbtnObligatoria.isSelected() )
 					casilla.setObligatoria(Obligatoria.SI);
 				GestionCasillas gestionCasillas = new GestionCasillas();
