@@ -25,7 +25,7 @@ public class Actividad implements Serializable {
 	@Column
 	private Estado estado;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne (fetch = FetchType.EAGER)
 	private Formulario formulario;
 	
 	@OneToMany (
@@ -61,9 +61,6 @@ public class Actividad implements Serializable {
 		this.formulario = formulario;
 	}
 
-	public Actividad() {
-		super();
-	} 
 	
 	public Estado getEstado() {
 		return estado;
@@ -83,9 +80,14 @@ public class Actividad implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Actividad [id=" + id + ", estado=" + estado + ", formulario=" + formulario + ", registros=" + registros + ", usuario=" + usuario + "]";
+		return "Actividad [id=" + id + ", estado=" + estado + ", formulario=" + formulario + ", usuario=" + usuario + "]";
 	}
 
+	public Actividad() {
+		super();
+		this.estado = Estado.HABILITADO;
+	} 
+	
 	public Actividad(Formulario formulario, Usuario usuario) {
 		super();
 		this.formulario = formulario;

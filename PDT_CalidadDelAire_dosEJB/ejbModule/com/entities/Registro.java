@@ -20,7 +20,7 @@ public class Registro implements Serializable {
 	@SequenceGenerator(name = "SEQ_REG", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
-	@Column
+	@Column (length = 20)
 	private String valorString;
 	
 	@Column
@@ -55,6 +55,7 @@ public class Registro implements Serializable {
 	
 	public Registro() {
 		super();
+		this.estado = Estado.HABILITADO;
 	}
 
 	public Casilla getCasilla() {
@@ -196,7 +197,7 @@ public class Registro implements Serializable {
 		return "Registro [id=" + id + ", valorString=" + valorString + ", valorBooleano=" + valorBooleano
 				+ ", valorFloat=" + valorFloat + ", valorInteger=" + valorInteger + ", latitud=" + latitud
 				+ ", longitud=" + longitud + ", fechaHora=" + fechaHora + ", metodoMuestreo=" + metodoMuestreo
-				+ ", estado=" + estado + ", casilla=" + casilla + ", actividad=" + actividad + "]";
+				+ ", estado=" + estado + ", casilla=" + casilla + "]";
 	} 
 	
    
