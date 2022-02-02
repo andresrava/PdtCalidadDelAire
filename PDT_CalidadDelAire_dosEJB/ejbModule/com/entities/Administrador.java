@@ -30,8 +30,10 @@ public class Administrador extends Usuario implements Serializable {
 	 * @ManyToOne (cascade = CascadeType.ALL , fetch = FetchType.EAGER) private
 	 * Ciudad ciudad;
 	 */
-	@Column(length=50)
+	@Column
 	private String ciudad;
+	@Column
+	private String departamento;
 	
 
 
@@ -56,6 +58,17 @@ public class Administrador extends Usuario implements Serializable {
 
 	public Administrador() {
 		super();
+	}
+
+	
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 
 
@@ -99,15 +112,14 @@ public class Administrador extends Usuario implements Serializable {
 
 
 
-public Administrador( String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, String ciudad) 
+public Administrador( String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, String ciudad, String departamento) 
 	{
 		super(nombre , apellido , mail , clave);
 		this.documento = documento;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
 		this.ciudad = ciudad;
-		
-		;
+		this.departamento = departamento;
 	}
 
 public Administrador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono) 

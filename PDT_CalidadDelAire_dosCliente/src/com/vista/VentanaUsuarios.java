@@ -242,10 +242,11 @@ public class VentanaUsuarios {
 					String domicilio = textDomicilio.getText();
 					String telefono = textTelefono.getText();
 					String ciudad = cmbCiudad.getSelectedItem().toString();
+					String departamento = comboBoxDepartamento.getSelectedItem().toString();
 					if (cmbRol.getSelectedItem() == "Administrador") {
-						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono, ciudad));
+						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono, ciudad, departamento));
 					}else if(cmbRol.getSelectedItem() == "Investigador"){
-						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, documento, domicilio, telefono, ciudad));
+						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, documento, domicilio, telefono, ciudad, departamento));
 					}else { //sino crea un usuario aficionado
 						Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave));
 					}
@@ -330,6 +331,9 @@ public class VentanaUsuarios {
 							textDocumento.setText(administrador.getDocumento());
 							textDomicilio.setText(administrador.getDomicilio());
 							textTelefono.setText(administrador.getTelefono());
+							cmbCiudad.setSelectedItem(administrador.getCiudad());
+							comboBoxDepartamento.setSelectedItem(administrador.getDepartamento());
+							
 						} else if (usuarios.get(0) instanceof Investigador) {
 							Investigador investigador = (Investigador) usuarios.get(0);
 							if (investigador.getCiudad() != null)
@@ -338,6 +342,8 @@ public class VentanaUsuarios {
 							textDocumento.setText(investigador.getDocumento());
 							textDomicilio.setText(investigador.getDomicilio());
 							textTelefono.setText(investigador.getTelefono());
+							cmbCiudad.setSelectedItem(investigador.getCiudad());
+							comboBoxDepartamento.setSelectedItem(investigador.getDepartamento());
 						} else {
 							Aficionado aficionado = (Aficionado) usuarios.get(0);
 							cmbRol.setSelectedItem("Aficionado");
@@ -393,6 +399,7 @@ public class VentanaUsuarios {
 						administrador.setDomicilio(textDomicilio.getText());
 						administrador.setTelefono(textTelefono.getText());
 						administrador.setCiudad(cmbCiudad.getSelectedItem().toString());
+						administrador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
 						administradorBean.actualizar(administrador); 
 						
 					} else if (investigadorBean.obtenerPorID(textID.getText()) != null) {
