@@ -36,11 +36,11 @@ public class CargaInicial {
 	
 		usuario = gestionUsuarios.creaUsuario(usuario);
 		
-		//Comienza carga 2 Administradores 
-		Administrador administrador1 = new Administrador("Adminnombre1" , "AdminApellido1" ,  "AdminMail1" , "AdminClave1" , "AdmDocu1" ,"AdminDomic1" , "AdminTel1", "AdminCiu1");
-		Administrador administrador2 = new Administrador("Adminnombre2" , "AdminApellido2" ,  "AdminMail2" , "AdminClave2" , "AdmDocu2" ,"AdminDomic2" , "AdminTel2", "AdminCiu2");
-		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mailAdmin" , "claveAdmin" , "AdmDocu3" ,"AdminDomic3" , "AdminTel3", "AdminCiu3");
-		Administrador administrador4 = new Administrador("Adminnombre4" , "AdminApellido4" ,  "123" , "123" , "AdmDocu4" ,"AdminDomic4" , "AdminTel4", "AdminCiu4");
+		//Comienza carga Administradores 
+		Administrador administrador1 = new Administrador("Adminnombre1" , "AdminApellido1" ,  "AdminMail1" , "AdminClave1" , "AdmDocu1" ,"AdminDomic1" , "AdminTel1", "Bella Unión", "Artigas");
+		Administrador administrador2 = new Administrador("Adminnombre2" , "AdminApellido2" ,  "AdminMail2" , "AdminClave2" , "AdmDocu2" ,"AdminDomic2" , "AdminTel2", "Bella Unión", "Artigas");
+		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mailAdmin" , "claveAdmin" , "AdmDocu3" ,"AdminDomic3" , "AdminTel3", "Bella Unión","Artigas");
+		Administrador administrador4 = new Administrador("Adminnombre4" , "AdminApellido4" ,  "123" , "123" , "AdmDocu4" ,"AdminDomic4" , "AdminTel4", "Bella Unión","Artigas");
 
 		administrador1 = gestionUsuarios.crearAdministrador(administrador1);
 		administrador2 = gestionUsuarios.crearAdministrador(administrador2);
@@ -59,10 +59,10 @@ public class CargaInicial {
 		
 		//Comienza carga 4 Investigadores 
 		
-		Investigador investigador1 = new Investigador( "Investnombre1" ,"InvestApellido1" , "InvestMail1" , "InvestClave1" , "InvDocu1" ,"InvestDomic1" , "InvestTel1", "InvestCiu1");
-		Investigador investigador2 = new Investigador( "Investnombre2" ,"InvestApellido2" , "InvestMail2" , "InvestClave2" , "InvDocu2" ,"InvestDomic2" , "InvestTel2","InvestCiu2");
-		Investigador investigador3 = new Investigador( "Investnombre3" ,"InvestApellido3" , "InvestMail3" , "InvestClave3" , "InvDocu3" ,"InvestDomic3" , "InvestTel3","InvestCiu3");
-		Investigador investigador4 = new Investigador( "Investnombre4" ,"InvestApellido4" , "mailInvest" , "claveInvest" , "InvDocu4" ,"InvestDomic4" , "InvestTel4","InvestCiu4");
+		Investigador investigador1 = new Investigador( "Investnombre1" ,"InvestApellido1" , "InvestMail1" , "InvestClave1" , "InvDocu1" ,"InvestDomic1" , "InvestTel1",  "Bella Unión", "Artigas");
+		Investigador investigador2 = new Investigador( "Investnombre2" ,"InvestApellido2" , "InvestMail2" , "InvestClave2" , "InvDocu2" ,"InvestDomic2" , "InvestTel2", "Bella Unión", "Artigas");
+		Investigador investigador3 = new Investigador( "Investnombre3" ,"InvestApellido3" , "InvestMail3" , "InvestClave3" , "InvDocu3" ,"InvestDomic3" , "InvestTel3", "Bella Unión", "Artigas");
+		Investigador investigador4 = new Investigador( "Investnombre4" ,"InvestApellido4" , "mailInvest" , "claveInvest" , "InvDocu4" ,"InvestDomic4" , "InvestTel4", "Bella Unión", "Artigas");
 		
 			
 		investigador1 = gestionUsuarios.crearInvestigador(investigador1);

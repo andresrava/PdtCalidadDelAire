@@ -18,13 +18,6 @@ public class Investigador extends Usuario implements Serializable {
 	@Column(length=8,nullable=false,unique=true)
 	private String documento;
 	
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
 
 	@Column(length=40)
 	private String domicilio;
@@ -36,7 +29,10 @@ public class Investigador extends Usuario implements Serializable {
 	 * @ManyToOne (cascade = CascadeType.ALL , fetch = FetchType.LAZY) private
 	 * Ciudad ciudad;
 	 */
+	@Column
 	private String ciudad;
+	@Column
+	private String departamento;
 	
 	@OneToMany (
 			mappedBy = "investigadorCreador" ,
@@ -81,6 +77,15 @@ public class Investigador extends Usuario implements Serializable {
 		this.domicilio = domicilio;
 	}
 
+	
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
 	public String getTeléfono() {
 		return telefono;
 	}
@@ -89,13 +94,22 @@ public class Investigador extends Usuario implements Serializable {
 		this.telefono = teléfono;
 	}
 
-	public Investigador( String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, String ciudad) {
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public Investigador( String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, String ciudad, String departamento) {
 		super( nombre , apellido , mail , clave);
 		 
 		this.documento = documento;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
 		this.ciudad = ciudad;
+		this.departamento = departamento;
 	}
 	
 	public Investigador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono) {
