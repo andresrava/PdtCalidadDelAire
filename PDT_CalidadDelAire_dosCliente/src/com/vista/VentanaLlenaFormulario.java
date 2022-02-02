@@ -330,9 +330,10 @@ public class VentanaLlenaFormulario extends JFrame {
 				actividad.setUsuario(usuarioLoged);
 				actividad.setFormulario(formularioElegido);
 				GestionActividades gestionActividades = new GestionActividades();
-				GestionRegistros gestionRegistros = new GestionRegistros();
+				
 				try {
 					actividad = gestionActividades.crearActividad(actividad);
+					GestionRegistros gestionRegistros = new GestionRegistros();
 					System.out.println("Actividad: " + actividad);
 					Float latitud = Float.parseFloat(textLatitud.getText());
 					Float longitud = Float.parseFloat(textLongitud.getText());
@@ -341,11 +342,11 @@ public class VentanaLlenaFormulario extends JFrame {
 						Registro registro = new Registro();
 						
 						System.out.println("Entro al for" + i);
+						registro.setActividad(actividad);
 						registro.setCasilla(formularioElegido.getCasillas().get(i));
 						registro.setLatitud(latitud);
 						registro.setLongitud(longitud);
 						registro.setFechaHora(selectedDate);
-						registro = gestionRegistros.crearRegistro(registro);
 						System.out.println("Registro antes: " + registro);			
 						String dato = casillas.get(i).getTipoDeDato().toString();
 						System.out.println(dato);
@@ -356,23 +357,28 @@ public class VentanaLlenaFormulario extends JFrame {
 							String valor = jValor.getText();
 							System.out.println("Le saqué el String al jValor: " + valor);
 							registro.setValorString(valor);
+							registro = gestionRegistros.crearRegistro(registro);
+							
 						}
 		//						Casillas con tipo de dato Booleano						
 //						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.BOOLEAN) {
 //							Booleano valor = (Booleano) campos.get(i).getText();
 //							registro.setValorBooleano( valor);
+//						registro = gestionRegistros.crearRegistro(registro);
 //						}
 						
 						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.INTEGER) {
 							System.out.println("Entré al INTEGER");
 							Integer valor = Integer.valueOf(campos.get(i).getText());
 							registro.setValorInteger(valor);
+							registro = gestionRegistros.crearRegistro(registro);
 						}
 						
 						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.FLOAT) {
 							System.out.println("Entré al FLOAT");
 							float valor = Float.valueOf(campos.get(i).getText());
 							registro.setValorFloat(valor);
+							registro = gestionRegistros.crearRegistro(registro);
 						}
 					
 						System.out.println("Registro después: " + registro);
