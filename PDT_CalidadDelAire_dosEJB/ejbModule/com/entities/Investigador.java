@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
-@Entity
+@Entity (name = "Investigador")
 @Table(name="INVESTIGADORES")
 @PrimaryKeyJoinColumn(referencedColumnName="id")
 @NamedQuery(name="Investigador.obtenerTodos", query="SELECT i FROM Investigador i")

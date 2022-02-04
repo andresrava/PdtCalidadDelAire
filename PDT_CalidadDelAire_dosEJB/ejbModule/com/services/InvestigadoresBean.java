@@ -100,12 +100,17 @@ public class InvestigadoresBean implements InvestigadoresBeanRemote {
 		TypedQuery<Investigador>query = em.createQuery("SELECT a FROM Investigador i WHERE i.id LIKE :id", Investigador.class)
 				.setParameter("id",id);
 		return query.getResultList();
+		
 	}
 
 	@Override
-	public Investigador obtenerPorID(Long id) {
+	public Investigador obtenerPorID(Long id) throws ServiciosException  {
+		try {
 		Investigador investigador = em.find(Investigador.class, id);
 		return investigador;
+		} catch(PersistenceException e) {
+			throw new ServiciosException (e.getMessage());
+		}
 	}
 }
 

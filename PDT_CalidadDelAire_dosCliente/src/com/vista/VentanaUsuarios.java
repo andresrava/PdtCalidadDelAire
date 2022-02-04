@@ -38,6 +38,8 @@ import com.services.UsuariosBeanRemote;
 import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VentanaUsuarios {
 
@@ -402,16 +404,29 @@ public class VentanaUsuarios {
 						administrador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
 						administradorBean.actualizar(administrador); 
 						
-					} else if (investigadorBean.obtenerPorID(textID.getText()) != null) {
-
-					} else if (aficionadoBean.obtenerPorID(textID.getText()) != null) {
-
+					} else if (investigador != null) {
+						investigador.setNombre(textNombre.getText());
+						investigador.setApellido(textApellido.getText());
+						investigador.setMail(textMail.getText());
+						investigador.setContraseña(textClave.getText());
+						investigador.setDocumento(textDocumento.getText());
+						investigador.setDomicilio(textDomicilio.getText());
+						investigador.setTelefono(textTelefono.getText());
+						investigador.setCiudad(cmbCiudad.getSelectedItem().toString());
+						investigador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
+						investigadorBean.actualizar(investigador); 
+						
+					} else if (aficionado != null) {
+						aficionado.setNombre(textNombre.getText());
+						aficionado.setApellido(textApellido.getText());
+						aficionado.setMail(textMail.getText());
+						aficionado.setContraseña(textClave.getText());
+						
 					}
 
-					/*
-					 * JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito",
-					 * JOptionPane.INFORMATION_MESSAGE); limpiarFormulario();
-					 */
+					 JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE); 
+					 limpiarFormulario();
+
 				} catch (NumberFormatException | ServiciosException e1) {
 					JOptionPane.showMessageDialog(null, "Error, no se pudo actualizar al usuario.", "Error",
 							JOptionPane.ERROR_MESSAGE);
@@ -428,6 +443,16 @@ public class VentanaUsuarios {
 		JLabel lblDepartamento = new JLabel("Departamento");
 		lblDepartamento.setBounds(28, 308, 100, 14);
 		frame.getContentPane().add(lblDepartamento);
+		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				limpiarFormulario();
+			}
+		});
+		btnLimpiar.setBounds(300, 187, 89, 23);
+		frame.getContentPane().add(btnLimpiar);
 		
 		
 				
