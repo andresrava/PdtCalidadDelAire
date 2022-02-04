@@ -1,6 +1,7 @@
 package com.services;
 
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -15,4 +16,6 @@ public interface RegistrosBeanRemote {
 	void borrar(Long id) throws ServiciosException;
 	List<Registro> obtenerTodos();
 	List<Registro> obtenerTodos(Date fechahora);
+	ResultSet obtenerTodos(Long idFormulario);
+	List<Registro> obtenerTodosLista(Long idFormulario);
 }

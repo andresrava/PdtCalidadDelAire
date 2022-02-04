@@ -1,8 +1,9 @@
 package com.services;
 
-import java.sql.Date;
-import java.util.List;
 
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -70,8 +71,19 @@ public class RegistrosBean implements RegistrosBeanRemote {
 				.setParameter("fechaHora",fechahora);
 		return query.getResultList();
 	}
+	
+	@Override
+	public java.sql.ResultSet obtenerTodos(Long idFormulario) {
+		TypedQuery<Registro>query = em.createQuery("SELECT r FROM Registro r WHERE r.actividad.formulario.id LIKE :formId", Registro.class)
+				.setParameter("formId",idFormulario);
+		return (ResultSet) query.getResultList();
+	}
+	
+	@Override
+	public List<Registro> obtenerTodosLista(Long idFormulario) {
+		TypedQuery<Registro>query = em.createQuery("SELECT r FROM Registro r WHERE r.actividad.formulario.id LIKE :formId", Registro.class)
+				.setParameter("formId",idFormulario);
+		return query.getResultList();
+	}
 
-	
-		
-	
-}
+}	

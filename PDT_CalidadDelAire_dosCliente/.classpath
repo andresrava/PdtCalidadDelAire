@@ -19,5 +19,13 @@
 	<classpathentry kind="lib" path="lib/miglayout-swing-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/miglayout-swing-sources.jar"/>
 	<classpathentry kind="lib" path="lib/byte-buddy-1.12.7.jar"/>
+	<classpathentry kind="lib" path="lib/poi-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-excelant-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-lite-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/SparseBitSet-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-5.0.3.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.17.1.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-core-2.17.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

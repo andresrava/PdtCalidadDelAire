@@ -63,10 +63,10 @@ public class VentanaAdministrador extends JFrame {
 		btnGestionUsuarios.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				try {
+					dispose();
 					VentanaUsuarios ventanaUsuarios = new VentanaUsuarios ((Usuario) administradorLoged);
 					ventanaUsuarios.VentanaUsuarios((Usuario) administradorLoged);
-					dispose();
-				} catch (NamingException e1) {
+					} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -93,6 +93,14 @@ public class VentanaAdministrador extends JFrame {
 		btnGestionFormularios.setBackground(Color.WHITE);
 		
 		JButton btnGestinDeRegistros = new JButton("Gesti\u00F3n de Registros");
+		btnGestinDeRegistros.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				VentanaGestionRegistros ventanaGestionRegistros = new VentanaGestionRegistros((Usuario) administradorLoged);
+				ventanaGestionRegistros.ventanaGestionRegistros();
+			}
+		});
 		btnGestinDeRegistros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}

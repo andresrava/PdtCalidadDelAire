@@ -20,5 +20,19 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="lib/jakarta.persistence-api-2.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/poi-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-excelant-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-lite-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-5.0.3.jar"/>
+	<classpathentry kind="lib" path="lib/ant-1.10.12.jar"/>
+	<classpathentry kind="lib" path="lib/ant-launcher-1.10.12.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.15.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="lib/commons-compress-1.21.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.11.0.jar"/>
+	<classpathentry kind="lib" path="lib/curvesapi-1.06.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.17.1.jar"/>
+	<classpathentry kind="lib" path="lib/SparseBitSet-1.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
