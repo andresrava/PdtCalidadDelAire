@@ -111,14 +111,15 @@ public class VentanaListaRegistroFormulario extends JFrame {
 		btnExportar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				try {
-					Formulario formulario = (Formulario) comboFormularios.getSelectedItem();
-					Long idFormulario = formulario.getId();gestionRegistros.descargaRegistrosFormulario(idFormulario);
-					System.out.println("Se supone que descargó!!!");
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
+//				try {
+//					Formulario formulario = (Formulario) comboFormularios.getSelectedItem();
+//					Long idFormulario = formulario.getId();gestionRegistros.descargaRegistrosFormulario(idFormulario);
+//					System.out.println("Se supone que descargó!!!");
+//				} catch (NamingException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 			}
 		});
 		btnExportar.setEnabled(false);

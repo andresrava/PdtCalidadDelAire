@@ -350,36 +350,44 @@ public class VentanaLlenaFormulario extends JFrame {
 						System.out.println("Registro antes: " + registro);			
 						String dato = casillas.get(i).getTipoDeDato().toString();
 						System.out.println(dato);
-						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.STRING) {
-							System.out.println("Entré al STRING");
-							JTextField jValor = campos.get(i);
-							System.out.println("Llegué al jValor: " + jValor);
-							String valor = jValor.getText();
-							System.out.println("Le saqué el String al jValor: " + valor);
-							registro.setValorString(valor);
-							registro = gestionRegistros.crearRegistro(registro);
-							
-						}
-		//						Casillas con tipo de dato Booleano						
-//						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.BOOLEAN) {
-//							Booleano valor = (Booleano) campos.get(i).getText();
-//							registro.setValorBooleano( valor);
-//						registro = gestionRegistros.crearRegistro(registro);
+						JTextField jValor = campos.get(i);
+						System.out.println("Llegué al jValor: " + jValor);
+						String valor = jValor.getText();
+						System.out.println("Le saqué el String al jValor: " + valor);
+						registro.setValor(valor);
+						registro = gestionRegistros.crearRegistro(registro);
+//			***************Campos distintos para distintostipos de dato*******
+						
+//						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.STRING) {
+//							System.out.println("Entré al STRING");
+//							JTextField jValor = campos.get(i);
+//							System.out.println("Llegué al jValor: " + jValor);
+//							String valor = jValor.getText();
+//							System.out.println("Le saqué el String al jValor: " + valor);
+//							registro.setValorString(valor);
+//							registro = gestionRegistros.crearRegistro(registro);
+//							
 //						}
-						
-						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.INTEGER) {
-							System.out.println("Entré al INTEGER");
-							Integer valor = Integer.valueOf(campos.get(i).getText());
-							registro.setValorInteger(valor);
-							registro = gestionRegistros.crearRegistro(registro);
-						}
-						
-						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.FLOAT) {
-							System.out.println("Entré al FLOAT");
-							float valor = Float.valueOf(campos.get(i).getText());
-							registro.setValorFloat(valor);
-							registro = gestionRegistros.crearRegistro(registro);
-						}
+//		//						Casillas con tipo de dato Booleano						
+////						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.BOOLEAN) {
+////							Booleano valor = (Booleano) campos.get(i).getText();
+////							registro.setValorBooleano( valor);
+////						registro = gestionRegistros.crearRegistro(registro);
+////						}
+//						
+//						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.INTEGER) {
+//							System.out.println("Entré al INTEGER");
+//							Integer valor = Integer.valueOf(campos.get(i).getText());
+//							registro.setValorInteger(valor);
+//							registro = gestionRegistros.crearRegistro(registro);
+//						}
+//						
+//						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.FLOAT) {
+//							System.out.println("Entré al FLOAT");
+//							float valor = Float.valueOf(campos.get(i).getText());
+//							registro.setValorFloat(valor);
+//							registro = gestionRegistros.crearRegistro(registro);
+//						}
 					
 						System.out.println("Registro después: " + registro);
 						
