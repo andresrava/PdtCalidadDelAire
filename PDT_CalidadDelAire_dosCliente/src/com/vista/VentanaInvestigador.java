@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -78,6 +79,12 @@ public class VentanaInvestigador extends JFrame {
 		btnCasillas.setBackground(Color.WHITE);
 		
 		JButton btnCargaMasiva = new JButton("Carga Masiva");
+		btnCargaMasiva.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "Funcionalidad no implementada", "Atención!" , JOptionPane.WARNING_MESSAGE);
+				}
+		});
 		btnCargaMasiva.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnCargaMasiva.setBackground(Color.WHITE);
 		
@@ -126,6 +133,12 @@ public class VentanaInvestigador extends JFrame {
 		btnGestinDeEst.setBackground(Color.WHITE);
 		
 		JButton btnDescargaMasiva = new JButton("Descarga Masiva");
+		btnDescargaMasiva.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "Funcionalidad no implementada", "Atención!" , JOptionPane.WARNING_MESSAGE);
+				}
+		});
 		btnDescargaMasiva.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnDescargaMasiva.setBackground(Color.WHITE);
 		

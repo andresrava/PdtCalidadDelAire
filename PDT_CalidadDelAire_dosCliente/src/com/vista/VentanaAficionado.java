@@ -70,6 +70,14 @@ public class VentanaAficionado extends JFrame {
 		btnActividadCampo.setBackground(Color.WHITE);
 		
 		JButton btnGestinDeRegistros = new JButton("Gesti\u00F3n de Registros");
+		btnGestinDeRegistros.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				VentanaGestionRegistros ventanaGestionRegistros = new VentanaGestionRegistros((Usuario) aficionadoLoged);
+				ventanaGestionRegistros.ventanaGestionRegistros();
+			}
+		});
 		btnGestinDeRegistros.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnGestinDeRegistros.setBackground(Color.WHITE);
 		

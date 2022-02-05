@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import com.entities.Administrador;
 import com.entities.Usuario;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -133,6 +134,12 @@ public class VentanaAdministrador extends JFrame {
 		btnGestinDeEst.setBackground(Color.WHITE);
 		
 		JButton btnDescargaMasiva = new JButton("Descarga Masiva");
+		btnDescargaMasiva.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "Funcionalidad no implementada", "Atención!" , JOptionPane.WARNING_MESSAGE);
+				}
+		});
 		btnDescargaMasiva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -141,6 +148,12 @@ public class VentanaAdministrador extends JFrame {
 		btnDescargaMasiva.setBackground(Color.WHITE);
 		
 		JButton btnCargaMasiva = new JButton("Carga Masiva");
+		btnCargaMasiva.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "Funcionalidad no implementada", "Atención!" , JOptionPane.WARNING_MESSAGE);
+				}
+		});
 		btnCargaMasiva.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));
 		btnCargaMasiva.setBackground(Color.WHITE);
 		

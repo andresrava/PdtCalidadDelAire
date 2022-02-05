@@ -17,6 +17,7 @@ import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -94,7 +95,7 @@ public class VentanaListaRegistroFormulario extends JFrame {
 					Formulario formulario = (Formulario) comboFormularios.getSelectedItem();
 					Long idFormulario = formulario.getId();System.out.println("Ide formulario seleccionado" + idFormulario);
 					List<Registro> listaRegistros = gestionRegistros.muestraRegistros(idFormulario);
-
+					comboRegistros.removeAllItems();
 					for (Registro r : listaRegistros) {
 						System.out.println("Entró al for");
 						comboRegistros.addItem(r);
@@ -111,6 +112,7 @@ public class VentanaListaRegistroFormulario extends JFrame {
 		btnExportar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "Funcionalidad no implementada", "Atención!" , JOptionPane.WARNING_MESSAGE);
 				
 //				try {
 //					Formulario formulario = (Formulario) comboFormularios.getSelectedItem();
