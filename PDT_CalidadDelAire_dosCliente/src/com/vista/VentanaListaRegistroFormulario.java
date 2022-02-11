@@ -19,10 +19,12 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
 import java.util.List;
 import javax.swing.JScrollPane;
 
@@ -93,18 +95,24 @@ public class VentanaListaRegistroFormulario extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					Formulario formulario = (Formulario) comboFormularios.getSelectedItem();
-					Long idFormulario = formulario.getId();System.out.println("Ide formulario seleccionado" + idFormulario);
+					Long idFormulario = formulario.getId();
+					System.out.println("Ide formulario seleccionado" + idFormulario);
 					List<Registro> listaRegistros = gestionRegistros.muestraRegistros(idFormulario);
 					comboRegistros.removeAllItems();
 					for (Registro r : listaRegistros) {
 						System.out.println("Entró al for");
 						comboRegistros.addItem(r);
 						}
+					System.out.println("El largo de la Result list es: " + listaRegistros.size());
+					System.out.println(listaRegistros);
+					
 					} catch (NamingException e1) {
 					System.out.println("Entró al catch");
 					e1.printStackTrace();
-				}
-				btnExportar.setEnabled(true);
+					}
+				if (comboRegistros.getItemCount()>0)
+					{btnExportar.setEnabled(true);}
+				
 				
 			}
 		});
@@ -112,16 +120,24 @@ public class VentanaListaRegistroFormulario extends JFrame {
 		btnExportar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "Funcionalidad no implementada", "Atención!" , JOptionPane.WARNING_MESSAGE);
-				
-//				try {
-//					Formulario formulario = (Formulario) comboFormularios.getSelectedItem();
-//					Long idFormulario = formulario.getId();gestionRegistros.descargaRegistrosFormulario(idFormulario);
-//					System.out.println("Se supone que descargó!!!");
-//				} catch (NamingException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+//				
+				 JFileChooser f = new JFileChooser();
+				    f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
+				    f.showSaveDialog(null);
+
+				    System.out.println(f.getCurrentDirectory());
+				    System.out.println(f.getSelectedFile());
+				try {
+					Formulario formulario = (Formulario) comboFormularios.getSelectedItem();
+					Long idFormulario = formulario.getId();
+					gestionRegistros.descargaRegistrosFormulario(idFormulario , f);
+					System.out.println("Se supone que descargó!!!");
+					if (f != null)
+						JOptionPane.showMessageDialog(null, "Se descargó el archivo", "Atención!" , JOptionPane.WARNING_MESSAGE);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnExportar.setEnabled(false);

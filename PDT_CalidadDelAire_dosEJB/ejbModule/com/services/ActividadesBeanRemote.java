@@ -16,4 +16,5 @@ public interface ActividadesBeanRemote {
 	List<Actividad> obtenerTodos(String filtro);
 	void asignarRegistro (Long idActividad, Long idRegistro) throws ServiciosException;
 	Actividad agregaRegistro(Long idActividad, Long idRegistro);
+	Actividad encuentraPorId(Long id);
 	}

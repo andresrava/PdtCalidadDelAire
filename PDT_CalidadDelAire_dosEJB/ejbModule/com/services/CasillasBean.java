@@ -157,4 +157,10 @@ public CasillasBean() {
 		return b;
 	}
 
+	@Override
+	public Casilla ObtienePorId(Long id) {
+		Casilla casilla = em.find(Casilla.class, id);
+		return casilla;
+	}
+
 }

@@ -38,13 +38,14 @@ public class RegistrosBean implements RegistrosBeanRemote {
 	}
 
 	@Override
-	public void actualizar(Registro registro) throws ServiciosException {
+	public Registro actualizar(Registro registro) throws ServiciosException {
 		try {
 			em.merge(registro);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo actualizar el Registro");
 		}
+		return registro;
 		
 	}
 
@@ -76,6 +77,8 @@ public class RegistrosBean implements RegistrosBeanRemote {
 	public java.sql.ResultSet obtenerTodos(Long idFormulario) {
 		TypedQuery<Registro>query = em.createQuery("SELECT r FROM Registro r WHERE r.actividad.formulario.id LIKE :formId", Registro.class)
 				.setParameter("formId",idFormulario);
+		System.out.println("El largo de la Result list es: " + query.getResultList().size());
+		System.out.println(query.getResultList());
 		return (ResultSet) query.getResultList();
 	}
 	
@@ -83,7 +86,14 @@ public class RegistrosBean implements RegistrosBeanRemote {
 	public List<Registro> obtenerTodosLista(Long idFormulario) {
 		TypedQuery<Registro>query = em.createQuery("SELECT r FROM Registro r WHERE r.actividad.formulario.id LIKE :formId", Registro.class)
 				.setParameter("formId",idFormulario);
+		System.out.println("El largo de la Result list es: " + query.getResultList().size());
+		System.out.println(query.getResultList());
 		return query.getResultList();
+	}
+	@Override
+	public Registro encuentraPorId(Long id) {
+		Registro registro = em.find(Registro.class, id);
+		return registro;
 	}
 
 }	

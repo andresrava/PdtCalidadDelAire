@@ -75,9 +75,11 @@ public class Casilla implements Serializable {
 	fetch = FetchType.LAZY)
 	private List<Formulario> formularios = new ArrayList<>();
 	
-	@ManyToMany (mappedBy = "casillas" ,
-	cascade = {CascadeType.MERGE} , 
-	fetch = FetchType.LAZY)
+	@ManyToMany (
+			mappedBy = "casillas" ,
+			cascade = {CascadeType.MERGE} , 
+			fetch = FetchType.LAZY
+			)
 	private List<EstacionDeMedicion> estaciones = new ArrayList<>();
 	
 	@OneToMany (
@@ -85,7 +87,7 @@ public class Casilla implements Serializable {
 			cascade = CascadeType.ALL ,
 			orphanRemoval = true
 			)
-	private List<Registro> registros = new ArrayList<Registro>();
+	private List<Registro> registros;
 	
 	public Casilla() {
 		super();

@@ -406,8 +406,11 @@ public class VentanaLlenaFormulario extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				borraCampos();
 				
 			}
+
+			
 		});
 		
 		contentPane.add(btnIngresar, "4, 30");
@@ -415,5 +418,17 @@ public class VentanaLlenaFormulario extends JFrame {
 	Registro extraeDato(int i) {
 		Registro registro = new Registro();
 		return registro;
+	}
+	private void borraCampos() {
+		text0.setText("");
+		text1.setText("");
+		text2.setText("");
+		text3.setText("");
+		text4.setText("");
+		text5.setText("");
+		text6.setText("");
+		text7.setText("");
+		textLatitud.setText("");
+		textLongitud.setText("");
 	}
 }

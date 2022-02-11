@@ -91,5 +91,10 @@ public class ActividadesBean implements ActividadesBeanRemote {
 		em.flush();
 		return actividad;
 	}
+	@Override
+	public Actividad encuentraPorId(Long id) {
+		Actividad actividad = em.find(Actividad.class, id);
+		return actividad;
+	}
 	
 }

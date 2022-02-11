@@ -61,6 +61,17 @@ public class Registro implements Serializable {
 		this.estado = Estado.HABILITADO;
 	}
 
+	
+	public Registro(String valor, float latitud, float longitud, Date fechaHora, Estado estado ) {
+		super();
+		this.valor = valor;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.fechaHora = fechaHora;
+		this.estado = estado;
+	}
+
+
 	public Casilla getCasilla() {
 		return casilla;
 	}

@@ -74,6 +74,14 @@ public class GestionCasillas {
 		Long idCasillaAEliminar = casillaAEliminar.getId();
 		casillaBean.borrar(idCasillaAEliminar);
 	}
+
+	public Casilla obtienePorId(Long id) throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
+		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
+				InitialContext.doLookup(ruta);
+		Casilla casilla = casillaBean.ObtienePorId(id);
+		return casilla;
+	}
 	
 	
 }

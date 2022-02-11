@@ -1,12 +1,9 @@
 package com.controlador;
 
-import java.util.List;
-
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.entities.Actividad;
-import com.entities.Registro;
 import com.exceptions.ServiciosException;
 import com.services.ActividadesBeanRemote;
 
@@ -35,6 +32,16 @@ public class GestionActividades {
 				InitialContext.doLookup(ruta);
 		Actividad actividad = actividadBean.agregaRegistro (idActividad , idRegistro);
 		return actividad;
+		
+	}
+
+	public Actividad obtienePorId(Long id) throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/ActividadesBean!com.services.ActividadesBeanRemote";
+		ActividadesBeanRemote actividadBean = (ActividadesBeanRemote)
+				InitialContext.doLookup(ruta);
+		Actividad actividad = actividadBean.encuentraPorId(id);
+		return actividad;
+		// TODO Auto-generated method stub
 		
 	}
 }
