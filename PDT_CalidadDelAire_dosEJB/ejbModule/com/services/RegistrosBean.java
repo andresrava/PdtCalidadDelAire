@@ -2,6 +2,7 @@ package com.services;
 
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -67,12 +68,15 @@ public class RegistrosBean implements RegistrosBeanRemote {
 	}
 
 	@Override
-	public List<Registro> obtenerTodos(Date fechahora) {
-		TypedQuery<Registro>query = em.createQuery("SELECT r FROM Registro r WHERE r.fechaHora LIKE :fechaHora", Registro.class)
-				.setParameter("fechaHora",fechahora);
-		return query.getResultList();
+	public List<Registro> obtenerTodos(Date dateDesde , Date dateHasta) {
+		List<Registro> lista = em.createQuery(
+				"SELECT r FROM Registro r WHERE ?1<r.fechaHora AND r.fechaHora<?2")
+				.setParameter(1, dateDesde)
+				.setParameter(2, dateHasta)
+				.getResultList();
+		return lista;
 	}
-	
+
 	@Override
 	public java.sql.ResultSet obtenerTodos(Long idFormulario) {
 		TypedQuery<Registro>query = em.createQuery("SELECT r FROM Registro r WHERE r.actividad.formulario.id LIKE :formId", Registro.class)

@@ -19,6 +19,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.entities.Formulario;
 import com.entities.Registro;
 import com.exceptions.ServiciosException;
 import com.services.RegistrosBeanRemote;
@@ -60,6 +61,39 @@ public class GestionRegistros {
 		return registro;
 	} 
    
+	public List<Registro> encuentraPorFechas(Date dateDesde, Date dateHasta) throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/RegistrosBean!com.services.RegistrosBeanRemote";
+		RegistrosBeanRemote registroBean = (RegistrosBeanRemote)
+				InitialContext.doLookup(ruta);
+		List<Registro> lista = registroBean.obtenerTodos(dateDesde , dateHasta);
+		return lista;
+	}
+	
+	public void descargaRegistros (List<Registro> registros , JFileChooser f) {
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        String excelFilePath = f.getCurrentDirectory() + "\\Registros" + timeStamp + ".xlsx";
+
+        try {
+ 
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet("Registros");
+ 
+            writeHeaderLine(sheet);
+ 
+            writeDataLines( registros, workbook, sheet);
+ 
+            FileOutputStream outputStream = new FileOutputStream(excelFilePath);
+            workbook.write(outputStream);
+            workbook.close();
+ 
+        } catch (SQLException e) {
+            System.out.println("Datababse error:");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("File IO error:");
+            e.printStackTrace();
+        }
+	}
 	
 	public void descargaRegistrosFormulario(Long idFormulario, JFileChooser f) throws NamingException {
 		String ruta = "PDT_CalidadDelAire_dosEJB/RegistrosBean!com.services.RegistrosBeanRemote";
@@ -151,6 +185,10 @@ public class GestionRegistros {
  
         }
     }
+
+	
+
+	
 
 
 

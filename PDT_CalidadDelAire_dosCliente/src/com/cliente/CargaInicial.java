@@ -185,7 +185,8 @@ public class CargaInicial {
 		//Comienza la carga de 6 registros
 		 long miliseconds = System.currentTimeMillis();
 	        Date date = new Date(miliseconds);
-	   
+	        System.out.println("El datees: " + date);
+	        
         Registro registro1 = new Registro("fuerte" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO );
 	    Registro registro2 = new Registro("18" , (float) 20.1 , (float) -43.6 , date , Estado.HABILITADO );
 	    Registro registro3 = new Registro("1568.4" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO );

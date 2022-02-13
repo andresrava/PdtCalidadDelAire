@@ -75,6 +75,14 @@ public class VentanaGestionRegistros extends JFrame {
 		});
 		
 		JButton btnListaPorFechas = new JButton("Lista por fechas");
+		btnListaPorFechas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				VentanaListaRegistrosFecha ventanaListaRegistrosFecha = new VentanaListaRegistrosFecha(usuarioLoged);
+				ventanaListaRegistrosFecha.ventanaListaRegistrosFecha();
+			}
+		});
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addMouseListener(new MouseAdapter() {

@@ -15,7 +15,7 @@ public interface RegistrosBeanRemote {
 	Registro actualizar(Registro registro) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Registro> obtenerTodos();
-	List<Registro> obtenerTodos(Date fechahora);
+	List<Registro> obtenerTodos(Date dateDesde, Date dateHasta);
 	ResultSet obtenerTodos(Long idFormulario);
 	List<Registro> obtenerTodosLista(Long idFormulario);
 	Registro encuentraPorId(Long id);
