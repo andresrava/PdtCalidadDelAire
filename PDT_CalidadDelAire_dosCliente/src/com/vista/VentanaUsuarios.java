@@ -395,52 +395,59 @@ public class VentanaUsuarios {
 		
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					Administrador administrador = administradorBean.obtenerPorID(Long.parseLong(textID.getText()));
-					Investigador investigador = investigadorBean.obtenerPorID(Long.parseLong(textID.getText()));
-					Aficionado aficionado = aficionadoBean.obtenerPorID(Long.parseLong(textID.getText()));
-					if (administrador != null ) {
-						administrador.setNombre(textNombre.getText());
-						administrador.setApellido(textApellido.getText());
-						administrador.setMail(textMail.getText());
-						administrador.setContraseña(textClave.getText());
-						administrador.setDocumento(textDocumento.getText());
-						administrador.setDomicilio(textDomicilio.getText());
-						administrador.setTelefono(textTelefono.getText());
-						administrador.setCiudad(cmbCiudad.getSelectedItem().toString());
-						administrador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
-						administradorBean.actualizar(administrador); 
+				if (JOptionPane.showConfirmDialog(null, "Está seguro que desea modificar este usuario?", "Confirmación",
+						JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+
+					try {
+						Administrador administrador = administradorBean.obtenerPorID(Long.parseLong(textID.getText()));
+						Investigador investigador = investigadorBean.obtenerPorID(Long.parseLong(textID.getText()));
+						Aficionado aficionado = aficionadoBean.obtenerPorID(Long.parseLong(textID.getText()));
+						if (administrador != null ) {
+							administrador.setNombre(textNombre.getText());
+							administrador.setApellido(textApellido.getText());
+							administrador.setMail(textMail.getText());
+							administrador.setContraseña(textClave.getText());
+							administrador.setDocumento(textDocumento.getText());
+							administrador.setDomicilio(textDomicilio.getText());
+							administrador.setTelefono(textTelefono.getText());
+							administrador.setCiudad(cmbCiudad.getSelectedItem().toString());
+							administrador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
+							administradorBean.actualizar(administrador); 
+							
+						} else if (investigador != null) {
+							investigador.setNombre(textNombre.getText());
+							investigador.setApellido(textApellido.getText());
+							investigador.setMail(textMail.getText());
+							investigador.setContraseña(textClave.getText());
+							investigador.setDocumento(textDocumento.getText());
+							investigador.setDomicilio(textDomicilio.getText());
+							investigador.setTelefono(textTelefono.getText());
+							investigador.setCiudad(cmbCiudad.getSelectedItem().toString());
+							investigador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
+							investigadorBean.actualizar(investigador); 
+							
+						} else if (aficionado != null) {
+							aficionado.setNombre(textNombre.getText());
+							aficionado.setApellido(textApellido.getText());
+							aficionado.setMail(textMail.getText());
+							aficionado.setContraseña(textClave.getText());
+							
+						}
+	
+						 JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE); 
+						 limpiarFormulario();
 						
-					} else if (investigador != null) {
-						investigador.setNombre(textNombre.getText());
-						investigador.setApellido(textApellido.getText());
-						investigador.setMail(textMail.getText());
-						investigador.setContraseña(textClave.getText());
-						investigador.setDocumento(textDocumento.getText());
-						investigador.setDomicilio(textDomicilio.getText());
-						investigador.setTelefono(textTelefono.getText());
-						investigador.setCiudad(cmbCiudad.getSelectedItem().toString());
-						investigador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
-						investigadorBean.actualizar(investigador); 
-						
-					} else if (aficionado != null) {
-						aficionado.setNombre(textNombre.getText());
-						aficionado.setApellido(textApellido.getText());
-						aficionado.setMail(textMail.getText());
-						aficionado.setContraseña(textClave.getText());
-						
+
+					} catch (NumberFormatException | ServiciosException e1) {
+						JOptionPane.showMessageDialog(null, "Error, no se pudo actualizar al usuario.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
 					}
-
-					 JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE); 
-					 limpiarFormulario();
-
-				} catch (NumberFormatException | ServiciosException e1) {
-					JOptionPane.showMessageDialog(null, "Error, no se pudo actualizar al usuario.", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					e1.printStackTrace();
+				}else {
+					JOptionPane.showMessageDialog(null,
+							"Se canceló la modificación.",
+							"Aviso", JOptionPane.INFORMATION_MESSAGE);
 				}
-				 
 			}
 		});
 		 
