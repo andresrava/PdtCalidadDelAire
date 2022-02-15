@@ -253,7 +253,7 @@ public class VentanaUsuarios {
 					}else { //sino crea un usuario aficionado
 						Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave, Estado.HABILITADO));
 					}
-					JOptionPane.showMessageDialog(null, "Exito", "Usuario ingresado con éxito",
+					JOptionPane.showMessageDialog(null,  "Usuario ingresado con éxito","Exito",
 							JOptionPane.INFORMATION_MESSAGE);		 
 
 				} catch (ServiciosException e) { // TODO Auto-generated catch block
@@ -299,7 +299,10 @@ public class VentanaUsuarios {
 					if (JOptionPane.showConfirmDialog(null, "Está seguro que desea eliminar este usuario?", "Confirmación",
 							JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 						try {
-							usuarioBean.borrar(Long.parseLong(textID.getText()));
+							Usuario usuario = usuarioBean.obtenerPorID(Long.parseLong(textID.getText()));
+							usuario.setEstado(Estado.BORRADO);
+							usuarioBean.actualizar(usuario);
+							
 							JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Exito",
 									JOptionPane.INFORMATION_MESSAGE);
 							limpiarFormulario();

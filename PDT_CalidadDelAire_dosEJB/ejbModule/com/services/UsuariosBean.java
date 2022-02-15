@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import com.entities.Investigador;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 
@@ -108,5 +109,16 @@ public class UsuariosBean implements UsuariosBeanRemote {
 				.setParameter("mail",mail);
 		return query.getResultList();
 	}
+
+	@Override
+	public Usuario obtenerPorID(Long id) throws ServiciosException {
+		try {
+			Usuario usuario = em.find(Usuario.class, id);
+			return usuario;
+		} catch(PersistenceException e) {
+			throw new ServiciosException (e.getMessage());
+		}
+	}
+	
 
 }
