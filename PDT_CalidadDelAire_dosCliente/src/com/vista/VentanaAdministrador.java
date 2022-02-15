@@ -17,6 +17,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Color;
@@ -151,7 +152,20 @@ public class VentanaAdministrador extends JFrame {
 		btnCargaMasiva.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "Funcionalidad no implementada", "Atención!" , JOptionPane.WARNING_MESSAGE);
+//				JOptionPane.showMessageDialog(null, "Funcionalidad no implementada", "Atención!" , JOptionPane.WARNING_MESSAGE);
+				JFileChooser f = new JFileChooser("Seleccione el archivo");
+			    f.setFileSelectionMode(JFileChooser.FILES_ONLY); 
+			    f.showSaveDialog(null);
+				dispose();
+				VentanaCargaMasiva ventanaCargaMasiva;
+				try {
+					ventanaCargaMasiva = new VentanaCargaMasiva((Usuario) administradorLoged , f );
+					ventanaCargaMasiva.ventanaCargaMasiva();
+					
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				}
 		});
 		btnCargaMasiva.setBorder(new SoftBevelBorder(BevelBorder.RAISED, null, null, null, null));

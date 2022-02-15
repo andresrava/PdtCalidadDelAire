@@ -4,13 +4,12 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.*;
-import javax.persistence.ManyToOne;
 
-import com.enumerados.BorradoLogico.Booleano;
-import com.enumerados.BorradoLogico.Estado;
+import com.enumerados.Enumerados.Estado;
 
-
-@Entity
+@MappedSuperclass
+@Entity (name = "Registro")
+@Table (name = "REGISTROS")
 @Inheritance( strategy = InheritanceType.JOINED )
 
 public class Registro implements Serializable {
@@ -19,21 +18,9 @@ public class Registro implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_REG" )
 	@SequenceGenerator(name = "SEQ_REG", initialValue = 1, allocationSize = 1)
 	private Long id;
-	
-//	@Column (length = 20)
-//	private String valorString;
-//	
-//	@Column
-//	private Booleano valorBooleano;
-//	
-//	@Column
-//	private Float valorFloat;
-//	
-//	@Column
-//	private Integer valorInteger;
-//	
-	@Column 
-	private String valor;
+
+//	@Column 
+//	private String valor;
 	
 	@Column
 	private float latitud;
@@ -62,13 +49,13 @@ public class Registro implements Serializable {
 	}
 
 	
-	public Registro(String valor, float latitud, float longitud, Date fechaHora, Estado estado ) {
+	public Registro( float latitud, float longitud, Date fechaHora, Estado estado, Casilla casilla ) {
 		super();
-		this.valor = valor;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.fechaHora = fechaHora;
 		this.estado = estado;
+		this.casilla = casilla;
 	}
 
 
@@ -96,46 +83,7 @@ public class Registro implements Serializable {
 		this.id = id;
 	}
 	 
-	
-//	public String getValorString() {
-//		return valorString;
-//	}
-//
-//	public void setValorString(String valor) {
-//		this.valorString = valor;
-//	}
-//
-//	public Booleano getValorBooleano() {
-//		return valorBooleano;
-//	}
-//
-//	public void setValorBooleano(Booleano valorBooleano) {
-//		this.valorBooleano = valorBooleano;
-//	}
-//
-//	public Float getValorFloat() {
-//		return valorFloat;
-//	}
-//
-//	public void setValorFloat(Float valorFloat) {
-//		this.valorFloat = valorFloat;
-//	}
-//
-//	public Integer getValorInteger() {
-//		return valorInteger;
-//	}
-//
-//	public void setValorInteger(Integer valorInteger) {
-//		this.valorInteger = valorInteger;
-//	}
 
-	public String getValor() {
-		return valor;
-	}
-
-	public void setValor(String valor) {
-		this.valor = valor;
-	}
 
 	public float getLatitud() {
 		return latitud;
@@ -179,8 +127,8 @@ public class Registro implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Registro [id=" + id + ", valor=" + valor + ", latitud=" + latitud + ", longitud=" + longitud
-				+ ", fechaHora=" + fechaHora + ", casilla=" + casilla + "]";
+		return "Registro [id= " + id + ", latitud= " + latitud + ", longitud= " + longitud
+				+ ", fechaHora= " + fechaHora + ", casilla= " + casilla + "]";
 	}
 
 	

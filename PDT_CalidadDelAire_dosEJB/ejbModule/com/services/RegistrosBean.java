@@ -2,7 +2,6 @@ package com.services;
 
 
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -12,6 +11,10 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.Registro;
+import com.entities.RegistroBoolean;
+import com.entities.RegistroFloat;
+import com.entities.RegistroInteger;
+import com.entities.RegistroString;
 import com.exceptions.ServiciosException;
 
 /**
@@ -28,12 +31,33 @@ public class RegistrosBean implements RegistrosBeanRemote {
     }
     @Override
 	public Registro crear(Registro registro) throws ServiciosException {
-		try {
-			em.persist(registro);
-			em.flush();
-		}catch (PersistenceException e) {
-			throw new ServiciosException ("No se pudo crear el Registro");
-		}
+    	if (registro instanceof RegistroString) {
+    		
+    	}
+    	if (registro instanceof RegistroBoolean) {
+    		registro = (RegistroBoolean) registro;
+    		try {
+    			em.persist(registro);
+    			em.flush();
+    		}catch (PersistenceException e) {
+    			throw new ServiciosException ("No se pudo crear el Registro");
+    		}
+    	}
+    	if (registro instanceof RegistroFloat) {
+    		registro = (RegistroFloat) registro;
+    		try {
+    			em.persist(registro);
+    			em.flush();
+    		}catch (PersistenceException e) {
+    			throw new ServiciosException ("No se pudo crear el Registro");
+    		}
+    	}
+    	if (registro instanceof RegistroInteger) {
+    		registro = (RegistroInteger) registro;
+    		
+    	}
+    	
+    	
 		return registro;
 		
 	}
@@ -98,6 +122,46 @@ public class RegistrosBean implements RegistrosBeanRemote {
 	public Registro encuentraPorId(Long id) {
 		Registro registro = em.find(Registro.class, id);
 		return registro;
+	}
+	@Override
+	public RegistroString crearString(RegistroString registro1) throws ServiciosException {
+		try {
+			em.persist(registro1);
+			em.flush();
+		}catch (PersistenceException e) {
+			throw new ServiciosException ("No se pudo crear el RegistroString");
+		}
+		return registro1;
+	}
+	@Override
+	public RegistroInteger crearInteger(RegistroInteger registro2) throws ServiciosException {
+		try {
+			em.persist(registro2);
+			em.flush();
+		}catch (PersistenceException e) {
+			throw new ServiciosException ("No se pudo crear el Registro");
+		}
+		return registro2;
+	}
+	@Override
+	public RegistroFloat crearFloat(RegistroFloat registro3) throws ServiciosException {
+		try {
+			em.persist(registro3);
+			em.flush();
+		}catch (PersistenceException e) {
+			throw new ServiciosException ("No se pudo crear el Registro");
+		}
+		return registro3;
+	}
+	@Override
+	public RegistroBoolean crearBoolean(RegistroBoolean registro4) throws ServiciosException {
+		try {
+			em.persist(registro4);
+			em.flush();
+		}catch (PersistenceException e) {
+			throw new ServiciosException ("No se pudo crear el Registro");
+		}
+		return registro4;
 	}
 
 }	

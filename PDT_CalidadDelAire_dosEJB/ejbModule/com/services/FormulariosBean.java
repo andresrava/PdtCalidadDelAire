@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 
 import com.entities.Casilla;
 import com.entities.Formulario;
-import com.enumerados.BorradoLogico.Estado;
+import com.enumerados.Enumerados.Estado;
 import com.exceptions.ServiciosException;
 
 

@@ -13,7 +13,7 @@ import com.entities.EstacionDeMedicion;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 
-import com.enumerados.BorradoLogico.Estado;
+import com.enumerados.Enumerados.Estado;
 
 
 @Stateless

@@ -18,7 +18,7 @@ import com.entities.Casilla;
 import com.entities.Formulario;
 import com.entities.Investigador;
 import com.entities.Usuario;
-import com.enumerados.BorradoLogico.Obligatoria;
+import com.enumerados.Enumerados.Obligatoria;
 import com.exceptions.ServiciosException;
 
 import javax.naming.NamingException;

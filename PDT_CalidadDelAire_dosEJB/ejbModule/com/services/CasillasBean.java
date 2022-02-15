@@ -11,8 +11,8 @@ import javax.persistence.TypedQuery;
 import com.entities.Casilla;
 import com.entities.EstacionDeMedicion;
 import com.entities.Formulario;
-import com.enumerados.BorradoLogico.Estado;
-import com.enumerados.BorradoLogico.Obligatoria;
+import com.enumerados.Enumerados.Estado;
+import com.enumerados.Enumerados.Obligatoria;
 import com.exceptions.ServiciosException;
 
 

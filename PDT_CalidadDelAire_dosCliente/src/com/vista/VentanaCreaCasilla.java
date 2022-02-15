@@ -8,13 +8,12 @@ import javax.swing.border.EmptyBorder;
 
 import com.controlador.GestionCasillas;
 import com.entities.Casilla;
-import com.entities.Casilla.TipoDatoEnum;
+import com.enumerados.Enumerados.TipoDatoEnum;
 import com.entities.Usuario;
-import com.enumerados.BorradoLogico.Obligatoria;
+import com.enumerados.Enumerados.Obligatoria;
 import com.exceptions.ServiciosException;
 
 import javax.naming.NamingException;
-import javax.swing.ComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -98,7 +97,7 @@ public class VentanaCreaCasilla extends JFrame {
 		
 		
 		JComboBox<TipoDatoEnum> comboBoxTipos = new JComboBox();
-		for (TipoDatoEnum t : Casilla.TipoDatoEnum.values()) {
+		for (TipoDatoEnum t : TipoDatoEnum.values()) {
 			comboBoxTipos.addItem(t);
 		}
 		

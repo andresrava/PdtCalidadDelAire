@@ -46,5 +46,21 @@
 		<table name="REGISTROS">
 		</table>
 	</entity>
+	<entity class="com.entities.RegistroString" access="FIELD">
+		<table name="REGISTROSSTRING">
+		</table>
+	</entity>
+	<entity class="com.entities.RegistroInteger" access="FIELD">
+		<table name="REGISTROSINTEGER">
+		</table>
+	</entity>
+	<entity class="com.entities.RegistroFloat" access="FIELD">
+		<table name="REGISTROSFLOAT">
+		</table>
+	</entity>
+	<entity class="com.entities.RegistroBoolean" access="FIELD">
+		<table name="REGISTROSBOOLEAN">
+		</table>
+	</entity>
 
 </entity-mappings>

@@ -18,7 +18,7 @@ import com.controlador.GestionLocalidades;
 import com.entities.Casilla;
 import com.entities.EstacionDeMedicion;
 import com.entities.Usuario;
-import com.enumerados.BorradoLogico.Obligatoria;
+import com.enumerados.Enumerados.Obligatoria;
 import com.exceptions.ServiciosException;
 import com.services.LocalidadesBeanRemote;
 

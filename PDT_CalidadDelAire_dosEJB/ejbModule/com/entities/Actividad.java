@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.enumerados.BorradoLogico.Estado;
+import com.enumerados.Enumerados.Estado;
+import com.enumerados.Enumerados.Ingreso;
 
 
 @Entity
@@ -24,6 +25,9 @@ public class Actividad implements Serializable {
 
 	@Column
 	private Estado estado;
+	
+	@Column
+	private Ingreso ingreso;
 	
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Formulario formulario;
@@ -70,6 +74,14 @@ public class Actividad implements Serializable {
 		this.estado = estado;
 	}
 
+	public Ingreso getIngreso() {
+		return ingreso;
+	}
+
+	public void setIngreso(Ingreso ingreso) {
+		this.ingreso = ingreso;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -86,6 +98,7 @@ public class Actividad implements Serializable {
 	public Actividad() {
 		super();
 		this.estado = Estado.HABILITADO;
+		this.ingreso = Ingreso.NORMAL;
 	} 
 	
 	public Actividad(Formulario formulario, Usuario usuario) {
@@ -93,6 +106,7 @@ public class Actividad implements Serializable {
 		this.formulario = formulario;
 		this.usuario = usuario;
 		this.estado = Estado.HABILITADO;
+		this.ingreso = Ingreso.NORMAL;
 	}
 
 	

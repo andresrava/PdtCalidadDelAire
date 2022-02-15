@@ -1,6 +1,5 @@
 package com.vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.controlador.GestionFormularios;
+import com.controlador.GestionIO;
 import com.controlador.GestionRegistros;
 import com.entities.Formulario;
 import com.entities.Registro;
@@ -24,9 +24,8 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.ResultSet;
+import java.util.LinkedList;
 import java.util.List;
-import javax.swing.JScrollPane;
 
 public class VentanaListaRegistroFormulario extends JFrame {
 
@@ -48,6 +47,8 @@ public class VentanaListaRegistroFormulario extends JFrame {
 		});
 	}
 	private static Usuario usuarioLoged;
+	List<Registro> listaLlena = new LinkedList<Registro>();
+	
 	/**
 	 * Create the frame.
 	 * @throws NamingException 
@@ -68,6 +69,7 @@ public class VentanaListaRegistroFormulario extends JFrame {
 		JComboBox<Formulario> comboFormularios = new JComboBox();
 		GestionFormularios gestionFormularios = new GestionFormularios();
 		GestionRegistros gestionRegistros = new GestionRegistros();
+		GestionIO gestionIO = new GestionIO();
 		
 		List<Formulario> formularios = gestionFormularios.listaFormularios();
 		for (Formulario f : formularios) {
@@ -96,18 +98,14 @@ public class VentanaListaRegistroFormulario extends JFrame {
 				try {
 					Formulario formulario = (Formulario) comboFormularios.getSelectedItem();
 					Long idFormulario = formulario.getId();
-					System.out.println("Ide formulario seleccionado" + idFormulario);
 					List<Registro> listaRegistros = gestionRegistros.muestraRegistros(idFormulario);
 					comboRegistros.removeAllItems();
 					for (Registro r : listaRegistros) {
-						System.out.println("Entró al for");
 						comboRegistros.addItem(r);
 						}
-					System.out.println("El largo de la Result list es: " + listaRegistros.size());
-					System.out.println(listaRegistros);
+					listaLlena = listaRegistros;
 					
 					} catch (NamingException e1) {
-					System.out.println("Entró al catch");
 					e1.printStackTrace();
 					}
 				if (comboRegistros.getItemCount()>0)
@@ -124,20 +122,10 @@ public class VentanaListaRegistroFormulario extends JFrame {
 				 JFileChooser f = new JFileChooser();
 				    f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
 				    f.showSaveDialog(null);
-
-				    System.out.println(f.getCurrentDirectory());
-				    System.out.println(f.getSelectedFile());
-				try {
-					Formulario formulario = (Formulario) comboFormularios.getSelectedItem();
-					Long idFormulario = formulario.getId();
-					gestionRegistros.descargaRegistrosFormulario(idFormulario , f);
-					System.out.println("Se supone que descargó!!!");
-					if (f != null)
+				    gestionIO.descargaRegistros(listaLlena , f);
+				    if (f != null)
 						JOptionPane.showMessageDialog(null, "Se descargó el archivo", "Atención!" , JOptionPane.WARNING_MESSAGE);
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+
 			}
 		});
 		btnExportar.setEnabled(false);

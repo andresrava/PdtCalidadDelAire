@@ -1,7 +1,6 @@
 package com.vista;
 
 import java.awt.EventQueue;
-import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -20,12 +19,15 @@ import com.controlador.GestionActividades;
 import com.controlador.GestionRegistros;
 import com.entities.Actividad;
 import com.entities.Casilla;
-import com.entities.Casilla.TipoDatoEnum;
 import com.entities.Formulario;
-import com.entities.Registro;
+import com.entities.RegistroBoolean;
+import com.entities.RegistroFloat;
+import com.entities.RegistroInteger;
+import com.entities.RegistroString;
 import com.entities.Usuario;
-import com.enumerados.BorradoLogico.Booleano;
-import com.enumerados.BorradoLogico.Obligatoria;
+import com.enumerados.Enumerados.Booleano;
+import com.enumerados.Enumerados.Obligatoria;
+import com.enumerados.Enumerados.TipoDatoEnum;
 import com.exceptions.ServiciosException;
 
 import javax.swing.JLabel;
@@ -40,6 +42,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JInternalFrame;
+import javax.swing.JToggleButton;
 
 public class VentanaLlenaFormulario extends JFrame {
 
@@ -87,6 +90,15 @@ public class VentanaLlenaFormulario extends JFrame {
 	private JTextField textLatitud;
 	private JLabel lblLongitud;
 	private JTextField textLongitud;
+	private JToggleButton tglbtnNewToggleButton0;
+	private JToggleButton tglbtnNewToggleButton1;
+	private JToggleButton tglbtnNewToggleButton2;
+	private JToggleButton tglbtnNewToggleButton3;
+	private JToggleButton tglbtnNewToggleButton4;
+	private JToggleButton tglbtnNewToggleButton5;
+	private JToggleButton tglbtnNewToggleButton6;
+	private JToggleButton tglbtnNewToggleButton7;
+	
 	
 	
 	/**
@@ -150,6 +162,40 @@ public class VentanaLlenaFormulario extends JFrame {
 		
 		List<Casilla> casillas = formularioElegido.getCasillas();
 		
+		tglbtnNewToggleButton0 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton0.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton0, "4, 8");
+				
+		tglbtnNewToggleButton1 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton1.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton1, "4, 10");
+		
+		tglbtnNewToggleButton2 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton2.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton2, "4, 12");
+		
+		tglbtnNewToggleButton3 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton3.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton3, "4, 14");
+		
+		tglbtnNewToggleButton4 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton4.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton4, "4, 16");
+		
+		tglbtnNewToggleButton5 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton5.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton5, "4, 18");
+		
+		tglbtnNewToggleButton6 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton6.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton6, "4, 20");
+		
+		tglbtnNewToggleButton7 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton7.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton7, "4, 22");
+		
+		
+		
 		lblLatitud = new JLabel("Latitud: (*)");
 		contentPane.add(lblLatitud, "3, 26, right, default");
 		
@@ -203,14 +249,22 @@ public class VentanaLlenaFormulario extends JFrame {
 		text0 = new JTextField();
 		text0.setVisible(false);
 		text0.setColumns(10);
+		
 		if (casillas.size() > 0) {
-			String etiqueta = casillas.get(0).getParametro() + ": ";
-			if (casillas.get(0).getObligatoria() == Obligatoria.SI)
+			String etiqueta = casillas.get(0).getParametro() + ": ";	//Obtiene el parámetro de la csilla
+			if (casillas.get(0).getObligatoria() == Obligatoria.SI)		//Si la Casilla es obligatoria agrega (*) a la etiqueta
 				etiqueta = etiqueta + "(*)";
 			lbl0 = new JLabel(etiqueta);
 			contentPane.add(lbl0, "3, 8, right, default");
-			contentPane.add(text0, "4, 8, fill, default");
-			text0.setVisible(true);
+			if (casillas.get(0).getTipoDeDato() == TipoDatoEnum.BOOLEAN) //Si es booleano despliega un botón
+				{
+				contentPane.add(tglbtnNewToggleButton0, "4, 8");
+				tglbtnNewToggleButton0.setVisible(true);
+				}
+			else {														//En otro caso despliega un cuadro de texto
+				contentPane.add(text0, "4, 8, fill, default");
+				text0.setVisible(true);
+				}
 		}
 		
 		text1 = new JTextField();
@@ -222,8 +276,17 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl1 = new JLabel(etiqueta);
 			contentPane.add(lbl1, "3, 10, right, default");
-			contentPane.add(text1, "4, 10, fill, default");
-			text1.setVisible(true);
+			if (casillas.get(1).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+			{
+				contentPane.add(tglbtnNewToggleButton1, "4, 10");
+				tglbtnNewToggleButton1.setVisible(true);
+			}
+			else {	
+				contentPane.add(text1, "4, 10, fill, default");
+				text1.setVisible(true);
+				}
+//			contentPane.add(text1, "4, 10, fill, default");
+//			text1.setVisible(true);
 		}
 		
 		text2 = new JTextField();
@@ -235,8 +298,17 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl2 = new JLabel(etiqueta);
 			contentPane.add(lbl2, "3, 12, right, default");
-			contentPane.add(text2, "4, 12, fill, default");
-			text2.setVisible(true);
+			if (casillas.get(2).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+				{
+				contentPane.add(tglbtnNewToggleButton2, "4, 12");
+				tglbtnNewToggleButton2.setVisible(true);
+				}
+			else {	
+				contentPane.add(text2, "4, 12, fill, default");
+				text2.setVisible(true);
+				}
+//			contentPane.add(text2, "4, 12, fill, default");
+//			text2.setVisible(true);
 		}
 		
 		text3 = new JTextField();
@@ -248,8 +320,17 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl3 = new JLabel(etiqueta);
 			contentPane.add(lbl3, "3, 14, right, default");
-			contentPane.add(text3, "4, 14, fill, default");
-			text3.setVisible(true);
+			if (casillas.get(3).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+				{
+				contentPane.add(tglbtnNewToggleButton3, "4, 14");
+				tglbtnNewToggleButton3.setVisible(true);
+				}
+			else {	
+				contentPane.add(text3, "4, 14, fill, default");
+				text3.setVisible(true);
+				}
+//			contentPane.add(text3, "4, 14, fill, default");
+//			text3.setVisible(true);
 		}
 		
 		text4 = new JTextField();
@@ -259,9 +340,19 @@ public class VentanaLlenaFormulario extends JFrame {
 			String etiqueta = casillas.get(4).getParametro() + ": ";
 			if (casillas.get(4).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
-			lbl4 = new JLabel(etiqueta);contentPane.add(lbl4, "3, 16, right, default");
-			contentPane.add(text4, "4, 16, fill, default");
-			text4.setVisible(true);
+			lbl4 = new JLabel(etiqueta);
+			contentPane.add(lbl4, "3, 16, right, default");
+			if (casillas.get(4).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+				{
+				contentPane.add(tglbtnNewToggleButton4, "4, 16");
+				tglbtnNewToggleButton4.setVisible(true);
+				}
+			else {	
+				contentPane.add(text4, "4, 16, fill, default");
+				text4.setVisible(true);
+				}
+//			contentPane.add(text4, "4, 16, fill, default");
+//			text4.setVisible(true);
 		}
 		
 		text5 = new JTextField();
@@ -273,8 +364,17 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl5 = new JLabel(etiqueta);
 			contentPane.add(lbl5, "3, 18, right, default");
-			contentPane.add(text5, "4, 18, fill, default");
-			text5.setVisible(true);
+			if (casillas.get(5).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+				{
+				contentPane.add(tglbtnNewToggleButton5, "4, 18");
+				tglbtnNewToggleButton5.setVisible(true);
+				}
+			else {	
+				contentPane.add(text5, "4, 18, fill, default");
+				text5.setVisible(true);
+				}
+//			contentPane.add(text5, "4, 18, fill, default");
+//			text5.setVisible(true);
 		}
 		
 		text6 = new JTextField();
@@ -286,8 +386,17 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl6 = new JLabel(etiqueta);
 			contentPane.add(lbl6, "3, 20, right, default");
-			contentPane.add(text6, "4, 20, fill, default");
-			text6.setVisible(true);
+			if (casillas.get(6).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+				{
+				contentPane.add(tglbtnNewToggleButton6, "4, 20");
+				tglbtnNewToggleButton6.setVisible(true);
+				}
+			else {	
+				contentPane.add(text6, "4, 20, fill, default");
+				text6.setVisible(true);
+				}
+//			contentPane.add(text6, "4, 20, fill, default");
+//			text6.setVisible(true);
 		}
 		
 		text7 = new JTextField();
@@ -299,9 +408,29 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl7 = new JLabel(etiqueta);
 			contentPane.add(lbl7, "3, 22, right, default");
-			contentPane.add(text7, "4, 22, fill, default");
-			text7.setVisible(true);
+			if (casillas.get(7).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+				{
+				contentPane.add(tglbtnNewToggleButton7, "4, 22");
+				tglbtnNewToggleButton7.setVisible(true);
+				}
+			else {	
+				contentPane.add(text7, "4, 22, fill, default");
+				text7.setVisible(true);
+				}
+//			contentPane.add(text7, "4, 22, fill, default");
+//			text7.setVisible(true);
 		}
+		
+		List<JToggleButton> booleanos = new LinkedList<>();
+		booleanos.add(tglbtnNewToggleButton0);
+		booleanos.add(tglbtnNewToggleButton1);
+		booleanos.add(tglbtnNewToggleButton2);
+		booleanos.add(tglbtnNewToggleButton3);
+		booleanos.add(tglbtnNewToggleButton4);
+		booleanos.add(tglbtnNewToggleButton5);
+		booleanos.add(tglbtnNewToggleButton6);
+		booleanos.add(tglbtnNewToggleButton7);
+		
 		
 		List<JTextField> campos = new LinkedList<>();
 		campos.add(text0);
@@ -315,6 +444,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		for (JTextField t : campos) {
 			System.out.println("Campo " + t + " : " + t.getText());
 		}
+		
 		int largo = formularioElegido.getCasillas().size();
 		
 		System.out.println("Largo de las casillas: " + largo);
@@ -335,78 +465,130 @@ public class VentanaLlenaFormulario extends JFrame {
 					actividad = gestionActividades.crearActividad(actividad);
 					GestionRegistros gestionRegistros = new GestionRegistros();
 					System.out.println("Actividad: " + actividad);
-					Float latitud = Float.parseFloat(textLatitud.getText());
-					Float longitud = Float.parseFloat(textLongitud.getText());
+					
+					// Se obtienen y validan los valores de Latitud y Longitud
+					float latitud = 0;
+					try {
+						latitud = Float.parseFloat(textLatitud.getText());
+						if (-90 > latitud || 90 < latitud )
+						{
+							JOptionPane.showMessageDialog(null, "Debe ingresar un valor entre -90 y 90 para la Latitud","Error", JOptionPane.WARNING_MESSAGE);
+							textLatitud.setText("");
+						}
+					} catch (NumberFormatException e1)
+					{
+						JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la Latitud","Error", JOptionPane.WARNING_MESSAGE);
+						textLatitud.setText("");
+					}
+					//*********************
+					float longitud = 0;
+					try {
+						longitud = Float.parseFloat(textLongitud.getText());
+						if (-90 > longitud || 90 < longitud )
+						{
+							JOptionPane.showMessageDialog(null, "Debe ingresar un valor entre -90 y 90 para la Longitud","Error", JOptionPane.WARNING_MESSAGE);
+							textLongitud.setText("");
+						}
+					} catch (NumberFormatException e1)
+					{
+						JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la Longitud","Error", JOptionPane.WARNING_MESSAGE);
+						textLongitud.setText("");
+					}
+					//*********************
+					//Float longitud = Float.parseFloat(textLongitud.getText());
+					
+					// Se obtiene la fecha
 					 java.sql.Date selectedDate = new java.sql.Date(((java.util.Date) datePicker.getModel().getValue()).getTime());
 					for (int i=0 ; i<largo ; i++) {
-						Registro registro = new Registro();
+						TipoDatoEnum dato = casillas.get(i).getTipoDeDato();
+						Casilla casilla = formularioElegido.getCasillas().get(i);
+						if (dato == TipoDatoEnum.STRING)
+							{RegistroString registro = new RegistroString();
+							registro.setActividad(actividad);
+							registro.setCasilla(casilla);
+							registro.setLatitud(latitud);
+							registro.setLongitud(longitud);
+							registro.setFechaHora(selectedDate);
+							JTextField jValor = campos.get(i);
+							String valor = jValor.getText();
+							registro.setValor(valor);
+							registro = (RegistroString) gestionRegistros.crearRegistroString(registro);
+							gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
+							}
 						
-						System.out.println("Entro al for" + i);
-						registro.setActividad(actividad);
-						registro.setCasilla(formularioElegido.getCasillas().get(i));
-						registro.setLatitud(latitud);
-						registro.setLongitud(longitud);
-						registro.setFechaHora(selectedDate);
-						System.out.println("Registro antes: " + registro);			
-						String dato = casillas.get(i).getTipoDeDato().toString();
-						System.out.println(dato);
-						JTextField jValor = campos.get(i);
-						System.out.println("Llegué al jValor: " + jValor);
-						String valor = jValor.getText();
-						System.out.println("Le saqué el String al jValor: " + valor);
-						registro.setValor(valor);
-						registro = gestionRegistros.crearRegistro(registro);
-//			***************Campos distintos para distintostipos de dato*******
+						if (dato == TipoDatoEnum.INTEGER)
+							{RegistroInteger registro = new RegistroInteger();
+							registro.setActividad(actividad);
+							registro.setCasilla(casilla);
+							registro.setLatitud(latitud);
+							registro.setLongitud(longitud);
+							registro.setFechaHora(selectedDate);
+							JTextField jValor = campos.get(i);
+							String valorString = jValor.getText();
+							try {
+								Integer valorInteger = Integer.valueOf (valorString);
+								registro.setValor(valorInteger);
+								registro = gestionRegistros.crearRegistroInteger(registro);
+								gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
+							}catch (NumberFormatException e1) {
+								JOptionPane.showMessageDialog(null, "Debe ingresar un entero en: " + casilla.getParametro(),"Error", JOptionPane.WARNING_MESSAGE);
+								campos.get(i).setText("");
+								break;
+							}
+							}
 						
-//						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.STRING) {
-//							System.out.println("Entré al STRING");
-//							JTextField jValor = campos.get(i);
-//							System.out.println("Llegué al jValor: " + jValor);
-//							String valor = jValor.getText();
-//							System.out.println("Le saqué el String al jValor: " + valor);
-//							registro.setValorString(valor);
-//							registro = gestionRegistros.crearRegistro(registro);
-//							
-//						}
-//		//						Casillas con tipo de dato Booleano						
-////						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.BOOLEAN) {
-////							Booleano valor = (Booleano) campos.get(i).getText();
-////							registro.setValorBooleano( valor);
-////						registro = gestionRegistros.crearRegistro(registro);
-////						}
-//						
-//						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.INTEGER) {
-//							System.out.println("Entré al INTEGER");
-//							Integer valor = Integer.valueOf(campos.get(i).getText());
-//							registro.setValorInteger(valor);
-//							registro = gestionRegistros.crearRegistro(registro);
-//						}
-//						
-//						if (casillas.get(i).getTipoDeDato() == TipoDatoEnum.FLOAT) {
-//							System.out.println("Entré al FLOAT");
-//							float valor = Float.valueOf(campos.get(i).getText());
-//							registro.setValorFloat(valor);
-//							registro = gestionRegistros.crearRegistro(registro);
-//						}
-					
-						System.out.println("Registro después: " + registro);
-						
-						Long idActividad = actividad.getId();
-						Long idRegistro = registro.getId();
-						actividad = gestionActividades.agregaRegistro(idActividad, idRegistro);
-						}	
-						JOptionPane.showMessageDialog(null, "Actividad cargada", "Éxito!" , JOptionPane.WARNING_MESSAGE);
-					
-					
+						if (dato == TipoDatoEnum.BOOLEAN)
+							{
+							RegistroBoolean registro = new RegistroBoolean();
+							registro.setActividad(actividad);
+							registro.setCasilla(casilla);
+							registro.setLatitud(latitud);
+							registro.setLongitud(longitud);
+							registro.setFechaHora(selectedDate);
+							boolean valor = booleanos.get(i).isSelected();
+							if (valor) 
+								registro.setValor(Booleano.TRUE);
+							
+							else 
+								registro.setValor(Booleano.FALSE);
+							registro = gestionRegistros.crearRegistroBoolean(registro);
+							gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
+							}
+						if (dato == TipoDatoEnum.FLOAT)
+							{RegistroFloat registro = new RegistroFloat();
+							registro.setActividad(actividad);
+							registro.setCasilla(casilla);
+							registro.setLatitud(latitud);
+							registro.setLongitud(longitud);
+							registro.setFechaHora(selectedDate);
+							String valorString = campos.get(i).getText();
+							try {
+								double valor = Double.parseDouble(valorString);
+								registro.setValor(valor);
+								registro = gestionRegistros.crearRegistroFloat(registro);
+								gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
+								
+							}catch (NumberFormatException e1) 
+							{
+								JOptionPane.showMessageDialog(null, "Debe ingresar un número en: " + casilla.getParametro(),"Error", JOptionPane.WARNING_MESSAGE);
+								campos.get(i).setText("");
+							}
+							
+							}
+				
+						}
 					
 				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "No se creó la Actividad por NamingException","Error", JOptionPane.WARNING_MESSAGE);
 					e1.printStackTrace();
 				} catch (ServiciosException e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "No se creó la Actividad por ServiciosException","Error", JOptionPane.WARNING_MESSAGE);
 					e1.printStackTrace();
 				}
 				borraCampos();
+				
+				JOptionPane.showMessageDialog(null, "Actividad cargada", "Éxito!" , JOptionPane.WARNING_MESSAGE);
+				
 				
 			}
 
@@ -415,10 +597,10 @@ public class VentanaLlenaFormulario extends JFrame {
 		
 		contentPane.add(btnIngresar, "4, 30");
 	}
-	Registro extraeDato(int i) {
-		Registro registro = new Registro();
-		return registro;
-	}
+//	Registro extraeDato(int i) {
+//		Registro registro = new Registro();
+//		return registro;
+//	}
 	private void borraCampos() {
 		text0.setText("");
 		text1.setText("");

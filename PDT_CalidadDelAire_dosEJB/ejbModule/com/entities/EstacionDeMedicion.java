@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-import com.enumerados.BorradoLogico.Estado;
+import com.enumerados.Enumerados.Estado;
 
 @Entity
 @Table (name = "ESTACIONESDEMEDICION")

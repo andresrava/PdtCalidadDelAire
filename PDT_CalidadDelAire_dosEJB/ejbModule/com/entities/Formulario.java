@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 
-import com.enumerados.BorradoLogico.Estado;
+import com.enumerados.Enumerados.Estado;
 
 @Entity
 @Table (name = "FORMULARIOS")
@@ -49,10 +49,13 @@ public class Formulario implements Serializable {
 	
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Investigador investigadorCreador;
-	
-	@ManyToMany ( mappedBy = "formularios" , 
-			cascade = CascadeType.ALL 
+	@JoinTable(
+			name = "FORMULARIOS_USUARIOS" ,
+			joinColumns = @JoinColumn(name = "FK_FORMULARIO" , nullable = false),
+			inverseJoinColumns = @JoinColumn (name = "FK_USUARIO" , nullable = false)
 			)
+	@ManyToMany (cascade = CascadeType.ALL ,
+			fetch = FetchType.EAGER)
 	private List<Usuario> usuariosHabilitados = new LinkedList<Usuario>();
 	
 	@ManyToOne ( fetch = FetchType.EAGER)
@@ -183,7 +186,7 @@ public class Formulario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Formulario [id=" + id + ", nombre=" + nombre + ", casillas=" + casillas + "]";
+		return "Formulario [id=" + id + ", nombre=" + nombre + ", casillas=" + casillas + ",usuarios habilitados=" + usuariosHabilitados + "]";
 	}
 
 

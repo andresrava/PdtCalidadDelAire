@@ -14,6 +14,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import com.controlador.GestionIO;
 import com.controlador.GestionRegistros;
 import com.entities.Registro;
 import com.entities.Usuario;
@@ -65,7 +66,7 @@ public class VentanaListaRegistrosFecha extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		String nombreusuario = usuarioLoged.getNombre();
-		GestionRegistros gestionRegistros = new GestionRegistros();
+		GestionIO gestionIO = new GestionIO();
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreusuario);
 		
 		JLabel lblNewLabel_1 = new JLabel("Seleccione el rango de fechas:");
@@ -94,7 +95,7 @@ public class VentanaListaRegistrosFecha extends JFrame {
 			    f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
 			    f.showSaveDialog(null);
 			    
-			    gestionRegistros.descargaRegistros(listaLlena , f);
+			    gestionIO.descargaRegistros(listaLlena , f);
 			    if (f != null)
 					JOptionPane.showMessageDialog(null, "Se descargó el archivo", "Atención!" , JOptionPane.WARNING_MESSAGE);
 			}

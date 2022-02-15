@@ -6,8 +6,9 @@ import java.util.List;
 import javax.persistence.*;
 
 
-import com.enumerados.BorradoLogico.Estado;
-import com.enumerados.BorradoLogico.Obligatoria;
+import com.enumerados.Enumerados.Estado;
+import com.enumerados.Enumerados.Obligatoria;
+import com.enumerados.Enumerados.TipoDatoEnum;
 
 @Entity
 @Table (name = "casillas")
@@ -26,26 +27,7 @@ public class Casilla implements Serializable {
 	
 	@Column(length=30,unique=true)
 	private String nombre;
-	
-
-	public enum TipoDatoEnum 
-	{
-		STRING("String",0), BOOLEAN("Boolean",1), INTEGER("Integer",2), FLOAT("Float",3);
-		private String nombreTipoDato;
-		private int numero;
-		private TipoDatoEnum (String nombre, int numero) {
-			this.numero = numero;
-			this.nombreTipoDato = nombre;
-		}
-		public String getTipoDato() 
-		{return nombreTipoDato;
-		}
-		public int getNumero()
-		{return numero;
-		}
-}
-		
-	
+			
 	@Column(length=10)
 	private TipoDatoEnum tipoDeDato;
 	
