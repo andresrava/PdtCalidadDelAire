@@ -41,6 +41,10 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import Atxy2k.CustomTextField.RestrictedTextField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
 
 public class VentanaUsuarios {
 
@@ -103,12 +107,28 @@ public class VentanaUsuarios {
 		frame.setBounds(600, 100, 419, 446);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+	
 		
-		textDocumento = new JTextField();
+		textDocumento = new JTextField(8);
+		textDocumento.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (!verificarCI(textDocumento.getText())) {
+					JOptionPane.showMessageDialog(null, "Error, el documento ingresado no es correcto","Error", 
+							JOptionPane.ERROR_MESSAGE);
+					textDocumento.requestFocus();
+				}
+			}
+		});
 		textDocumento.setBounds(104, 216, 186, 20);
 		frame.getContentPane().add(textDocumento);
 		textDocumento.setColumns(10);
-			
+		textDocumento.setToolTipText("Ingresar CI con dígito verificador, sin puntos ni guiones.");
+		//Definimos restricciones para que en el documento solo se acepten números, máximo 8 caractéres
+		RestrictedTextField restrictedDocumento = new RestrictedTextField(this.textDocumento);
+		restrictedDocumento.setOnlyNums(true);
+		restrictedDocumento.setLimit(8);
+		
 		textNombre = new JTextField();
 		textNombre.setBounds(104, 62, 186, 20);
 		frame.getContentPane().add(textNombre);
@@ -517,6 +537,38 @@ public class VentanaUsuarios {
 		VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador)usuarioLoged);
 		ventanaAdministrador.ventanaAdministrador();
 		
+	}
+	
+	public Boolean verificarCI(String documento) {
+		int suma = 0;
+		int correcto=0;
+		String ced = documento.trim();
+		int cedula[]; // Vector donde van a estar los digitos de la cedula
+		int factor[] = {8,1,2,3,4,7,6,0};// factor a multiplicar
+		
+		cedula = new int[8];
+		
+		for(int i=0;i<ced.length();i++){
+			if(ced.charAt(i) == '0' || ced.charAt(i)== '1' || ced.charAt(i)=='2' 
+               || ced.charAt(i)== '3' || ced.charAt(i) == '4' || ced.charAt(i)== '5' || ced.charAt(i)=='6' 
+              || ced.charAt(i) == '7' || ced.charAt(i)== '8' || ced.charAt(i)=='9'){
+				correcto++;
+				cedula[i]=Integer.parseInt("" +ced.charAt(i));
+				suma = suma + (cedula[i]*factor[i]);
+				
+			}
+			
+		}
+		if (correcto!=8){
+			return Boolean.FALSE;
+		} else {
+			int resto=suma%10;
+			if (resto == cedula[7]) {
+				return Boolean.TRUE;
+			} else {
+				return Boolean.FALSE;				
+			}
+		}
 	}
 }
 
