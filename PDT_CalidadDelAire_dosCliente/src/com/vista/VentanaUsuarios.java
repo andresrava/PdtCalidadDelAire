@@ -28,6 +28,7 @@ import com.entities.Aficionado;
 import com.entities.Ciudad;
 import com.entities.Investigador;
 import com.entities.Usuario;
+import com.enumerados.BorradoLogico.Estado;
 import com.exceptions.ServiciosException;
 import com.services.AdministradoresBeanRemote;
 import com.services.AficionadosBeanRemote;
@@ -246,11 +247,11 @@ public class VentanaUsuarios {
 					String ciudad = cmbCiudad.getSelectedItem().toString();
 					String departamento = comboBoxDepartamento.getSelectedItem().toString();
 					if (cmbRol.getSelectedItem() == "Administrador") {
-						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono, ciudad, departamento));
+						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento));
 					}else if(cmbRol.getSelectedItem() == "Investigador"){
-						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, documento, domicilio, telefono, ciudad, departamento));
+						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento));
 					}else { //sino crea un usuario aficionado
-						Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave));
+						Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave, Estado.HABILITADO));
 					}
 					JOptionPane.showMessageDialog(null, "Exito", "Usuario ingresado con éxito",
 							JOptionPane.INFORMATION_MESSAGE);		 
@@ -295,15 +296,22 @@ public class VentanaUsuarios {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textID.getText() != "") {
-					try {
-						usuarioBean.borrar(Long.parseLong(textID.getText()));
-						JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Exito",
-								JOptionPane.INFORMATION_MESSAGE);
-						limpiarFormulario();
-					} catch (NumberFormatException | ServiciosException e1) {
-						JOptionPane.showMessageDialog(null, "Error, no se pudo eliminar el usuario.", "Error",
-								JOptionPane.ERROR_MESSAGE);
-						e1.printStackTrace();
+					if (JOptionPane.showConfirmDialog(null, "Está seguro que desea eliminar este usuario?", "Confirmación",
+							JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+						try {
+							usuarioBean.borrar(Long.parseLong(textID.getText()));
+							JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Exito",
+									JOptionPane.INFORMATION_MESSAGE);
+							limpiarFormulario();
+						} catch (NumberFormatException | ServiciosException e1) {
+							JOptionPane.showMessageDialog(null, "Error, no se pudo eliminar el usuario.", "Error",
+									JOptionPane.ERROR_MESSAGE);
+							e1.printStackTrace();
+						}
+					}else {
+						JOptionPane.showMessageDialog(null,
+								"Se canceló la eliminación.",
+								"Aviso", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} else {
 					JOptionPane.showMessageDialog(null,

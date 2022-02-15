@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+
+import com.enumerados.BorradoLogico.Estado;
 
 @MappedSuperclass
 @Entity (name = "Usuario")
@@ -30,6 +30,8 @@ public class Usuario implements Serializable {
 	@SequenceGenerator(name = "SEQ_USU", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
+	@Column
+	private Estado estado;
 	
 	@Column(length=255,nullable=false)
 	private String contraseña;
@@ -70,28 +72,42 @@ public class Usuario implements Serializable {
 	
 	public Usuario() {
 		super();
+		this.estado = Estado.HABILITADO;
 	}
 
 	//Constructor sin ID
-		public Usuario( String nombre , String apellido, String mail, String clave ) {
+		public Usuario( String nombre , String apellido, String mail, String clave , Estado estado) {
 			
 			this.apellido = apellido;
 			this.contraseña = clave;
 			this.mail = mail;
 			this.nombre = nombre;
+			this.estado = estado;
 		}
 		
-		//Constructor agregando ID
-		public Usuario(long idUsuario,  String nombre , String apellido, String mail, String clave) {
-			
-			this.id = idUsuario;
-			this.apellido = apellido;
-			this.contraseña = clave;
-			this.mail = mail;
-			this.nombre = nombre;
-		}
+	//Constructor agregando ID
+	public Usuario(long idUsuario,  String nombre , String apellido, String mail, String clave, Estado estado) {
+		
+		this.id = idUsuario;
+		this.apellido = apellido;
+		this.contraseña = clave;
+		this.mail = mail;
+		this.nombre = nombre;
+		this.estado = estado;
+	}
+	
+	
 		
 		
+	
+		
+	public Estado getEstado() {
+			return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 
 	public Long getId() {
 		return id;

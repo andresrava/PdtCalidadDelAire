@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.enumerados.BorradoLogico.Estado;
+
 @Entity (name = "Investigador")
 @Table(name="INVESTIGADORES")
 @PrimaryKeyJoinColumn(referencedColumnName="id")
@@ -102,8 +104,8 @@ public class Investigador extends Usuario implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public Investigador( String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, String ciudad, String departamento) {
-		super( nombre , apellido , mail , clave);
+	public Investigador( String nombre , String apellido, String mail, String clave, Estado estado , String documento , String domicilio, String telefono, String ciudad, String departamento) {
+		super( nombre , apellido , mail , clave, estado);
 		 
 		this.documento = documento;
 		this.domicilio = domicilio;
@@ -112,16 +114,16 @@ public class Investigador extends Usuario implements Serializable {
 		this.departamento = departamento;
 	}
 	
-	public Investigador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono) {
-		super( id, nombre , apellido , mail , clave);
+	public Investigador( Long id, String nombre , String apellido, String mail, String clave, Estado estado , String documento , String domicilio, String telefono) {
+		super( id, nombre , apellido , mail , clave, estado);
 		 
 		this.documento = documento;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
 	}
 	
-	public Investigador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, String ciudad) {
-		super( id, nombre , apellido , mail , clave);
+	public Investigador( Long id, String nombre , String apellido, String mail, String clave, Estado estado , String documento , String domicilio, String telefono, String ciudad) {
+		super( id, nombre , apellido , mail , clave, estado);
 		 
 		this.documento = documento;
 		this.domicilio = domicilio;
