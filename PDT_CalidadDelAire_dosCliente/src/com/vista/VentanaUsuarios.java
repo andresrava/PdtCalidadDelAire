@@ -104,7 +104,7 @@ public class VentanaUsuarios {
 		
 		
 		frame = new JFrame();
-		frame.setBounds(600, 100, 419, 446);
+		frame.setBounds(600, 100, 528, 446);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 	
@@ -154,7 +154,7 @@ public class VentanaUsuarios {
 		frame.getContentPane().add(lblRol);
 		
 		lblUsuario = new JLabel("New label");
-		lblUsuario.setBounds(28, 11, 361, 14);
+		lblUsuario.setBounds(28, 11, 476, 14);
 		lblUsuario.setText("Usuario logueado en el sistema: " + usuarioLoged.getNombre() + " " + usuarioLoged.getApellido());
 		frame.getContentPane().add(lblUsuario);
 		
@@ -169,7 +169,7 @@ public class VentanaUsuarios {
 		textID.setColumns(10);
 		
 		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBounds(306, 386, 89, 23);
+		btnVolver.setBounds(306, 386, 181, 23);
 		frame.getContentPane().add(btnVolver);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -286,7 +286,7 @@ public class VentanaUsuarios {
 			}
 		});
 
-		btnAlta.setBounds(300, 58, 89, 23);
+		btnAlta.setBounds(300, 58, 204, 23);
 		frame.getContentPane().add(btnAlta);
 				
 		JLabel lblDocumento = new JLabel("Documento");
@@ -345,10 +345,10 @@ public class VentanaUsuarios {
 			}
 		});
 		 
-		btnEliminar.setBounds(300, 94, 89, 23);
+		btnEliminar.setBounds(300, 94, 204, 23);
 		frame.getContentPane().add(btnEliminar);
 		
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("Buscar por mail");
 		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -411,7 +411,7 @@ public class VentanaUsuarios {
 			}
 		});
 		 
-		btnBuscar.setBounds(300, 125, 89, 23);
+		btnBuscar.setBounds(300, 156, 204, 23);
 		frame.getContentPane().add(btnBuscar);
 		
 		btnModificar = new JButton("Modificar");
@@ -474,7 +474,7 @@ public class VentanaUsuarios {
 			}
 		});
 		 
-		btnModificar.setBounds(300, 156, 89, 23);
+		btnModificar.setBounds(300, 123, 204, 23);
 		frame.getContentPane().add(btnModificar);
 		
 		
@@ -482,15 +482,32 @@ public class VentanaUsuarios {
 		lblDepartamento.setBounds(28, 308, 100, 14);
 		frame.getContentPane().add(lblDepartamento);
 		
-		JButton btnLimpiar = new JButton("Limpiar");
+		JButton btnLimpiar = new JButton("Limpiar formulario");
 		btnLimpiar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				limpiarFormulario();
 			}
 		});
-		btnLimpiar.setBounds(300, 187, 89, 23);
+		btnLimpiar.setBounds(306, 352, 181, 23);
 		frame.getContentPane().add(btnLimpiar);
+		
+		JButton btnBuscarNombre = new JButton("Buscar por nombre y apellido");
+		btnBuscarNombre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+				VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, null);
+				ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, null);
+				
+			}
+		});
+		btnBuscarNombre.setBounds(300, 187, 204, 23);
+		frame.getContentPane().add(btnBuscarNombre);
+		
+		JButton btnBuscarRol = new JButton("Buscar por rol");
+		btnBuscarRol.setBounds(300, 215, 204, 23);
+		frame.getContentPane().add(btnBuscarRol);
 		
 		
 				
