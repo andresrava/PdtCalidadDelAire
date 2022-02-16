@@ -6,10 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 
-import com.enumerados.Enumerados.Estado;
-import com.enumerados.Enumerados.Obligatoria;
-import com.enumerados.Enumerados.TipoDatoEnum;
-
+import com.enumerados.BorradoLogico.*;
 @Entity
 @Table (name = "casillas")
 @NamedQuery(name="Casilla.obtenerTodos", query="SELECT c FROM Casilla c")

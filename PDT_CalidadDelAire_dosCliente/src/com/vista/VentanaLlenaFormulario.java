@@ -25,9 +25,7 @@ import com.entities.RegistroFloat;
 import com.entities.RegistroInteger;
 import com.entities.RegistroString;
 import com.entities.Usuario;
-import com.enumerados.Enumerados.Booleano;
-import com.enumerados.Enumerados.Obligatoria;
-import com.enumerados.Enumerados.TipoDatoEnum;
+import com.enumerados.BorradoLogico.*;
 import com.exceptions.ServiciosException;
 
 import javax.swing.JLabel;

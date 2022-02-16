@@ -7,8 +7,7 @@ import java.util.List;
 import javax.persistence.*;
 
 
-import com.enumerados.Enumerados.Estado;
-
+import com.enumerados.BorradoLogico.Estado;
 @Entity
 @Table (name = "FORMULARIOS")
 @NamedQuery(name="Formulario.obtenerTodos", query="SELECT f FROM Formulario f")

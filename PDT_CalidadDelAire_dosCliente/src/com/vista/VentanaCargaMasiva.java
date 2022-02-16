@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.controlador.GestionFormularios;
 import com.controlador.GestionIO;
 import com.entities.Administrador;
 import com.entities.Aficionado;
@@ -49,7 +50,8 @@ public class VentanaCargaMasiva extends JFrame {
 	}
 	private static Usuario usuarioLoged;
 	private static JFileChooser f;
-	private List<Formulario> formularios = usuarioLoged.getFormularios();
+	GestionFormularios gestionFormularios = new GestionFormularios();
+	List<Formulario> formularios = gestionFormularios.listaFormularios();
 	
 	/**
 	 * Create the frame.
@@ -67,7 +69,6 @@ public class VentanaCargaMasiva extends JFrame {
 		setContentPane(contentPane);
 		String nombreUsuario = usuarioLoged.getNombre();
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreUsuario);
-		GestionIO gestionIO = new GestionIO();
 		JComboBox<Formulario> comboFormularios = new JComboBox();
 		
 		for ( Formulario form : formularios)
@@ -101,8 +102,9 @@ public class VentanaCargaMasiva extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Formulario form = (Formulario) comboFormularios.getSelectedItem();
-				JOptionPane.showMessageDialog(null, "Creé el formulario", "Atención!" , JOptionPane.WARNING_MESSAGE);
-				System.out.println("Creé el formulario");
+				JOptionPane.showMessageDialog(null, "Obtuve el formulario seleccionado", "Atención!" , JOptionPane.WARNING_MESSAGE);
+				System.out.println("Obtuve el formulario seleccionado");
+				GestionIO gestionIO = new GestionIO();
 				gestionIO.cargarRegistros(usuarioLoged , form , f);
 			}
 		});

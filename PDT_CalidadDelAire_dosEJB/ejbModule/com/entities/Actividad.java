@@ -5,9 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.enumerados.Enumerados.Estado;
-import com.enumerados.Enumerados.Ingreso;
-
+import com.enumerados.BorradoLogico.*;
 
 @Entity
 @Inheritance( strategy = InheritanceType.JOINED )

@@ -8,10 +8,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.controlador.GestionCasillas;
 import com.entities.Casilla;
-import com.enumerados.Enumerados.TipoDatoEnum;
 import com.entities.Usuario;
-import com.enumerados.Enumerados.Obligatoria;
 import com.exceptions.ServiciosException;
+import com.enumerados.BorradoLogico.*;
 
 import javax.naming.NamingException;
 import javax.swing.GroupLayout;

@@ -19,7 +19,6 @@ import com.entities.Actividad;
 import com.entities.Administrador;
 import com.entities.Aficionado;
 import com.entities.Casilla;
-import com.enumerados.Enumerados.TipoDatoEnum;
 import com.entities.Ciudad;
 import com.entities.Ciudad.NombresEnum;
 import com.entities.EstacionDeMedicion;
@@ -30,7 +29,7 @@ import com.entities.RegistroInteger;
 import com.entities.RegistroString;
 import com.entities.Usuario;
 //import com.enumerados.BorradoLogico.Estado;
-import com.enumerados.Enumerados.Obligatoria;
+import com.enumerados.BorradoLogico.*;
 import com.exceptions.ServiciosException;
 
 public class CargaInicial {
@@ -196,13 +195,13 @@ public class CargaInicial {
 	        Date date = new Date(miliseconds);
 	        System.out.println("El datees: " + date);
 	         
-        RegistroString registro1 = new RegistroString("fuerte" , (float) 23.1 , (float) -33.6 , date , com.enumerados.Enumerados.Estado.HABILITADO, casilla3pos );
+        RegistroString registro1 = new RegistroString("fuerte" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO, casilla3pos );
         System.out.println("registro1: " + registro1);
-	    RegistroInteger registro2 = new RegistroInteger(18 , (float) 20.1 , (float) -43.6 , date , com.enumerados.Enumerados.Estado.HABILITADO , casilla2pos);
-	    RegistroFloat registro3 = new RegistroFloat(1568.4 , (float) 23.1 , (float) -33.6 , date , com.enumerados.Enumerados.Estado.HABILITADO , casilla4pos);
-	    RegistroString registro4 = new RegistroString("poco" , (float) 23.1 , (float) -33.6 , date , com.enumerados.Enumerados.Estado.HABILITADO, casilla3pos );
-	    RegistroInteger registro5 = new RegistroInteger(21 , (float) 23.1 , (float) -33.6 , date , com.enumerados.Enumerados.Estado.HABILITADO , casilla2pos);
-	    RegistroFloat registro6 = new RegistroFloat(1024.3 , (float) 23.1 , (float) -33.6 , date , com.enumerados.Enumerados.Estado.HABILITADO , casilla4pos);
+	    RegistroInteger registro2 = new RegistroInteger(18 , (float) 20.1 , (float) -43.6 , date , Estado.HABILITADO , casilla2pos);
+	    RegistroFloat registro3 = new RegistroFloat(1568.4 , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO , casilla4pos);
+	    RegistroString registro4 = new RegistroString("poco" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO, casilla3pos );
+	    RegistroInteger registro5 = new RegistroInteger(21 , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO , casilla2pos);
+	    RegistroFloat registro6 = new RegistroFloat(1024.3 , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO , casilla4pos);
 	    
 	    GestionRegistros gestionRegistros = new GestionRegistros();
 	    

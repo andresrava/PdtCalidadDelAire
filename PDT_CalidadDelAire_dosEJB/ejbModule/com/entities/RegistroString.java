@@ -8,8 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import com.enumerados.Enumerados.Estado;
-
+import com.enumerados.BorradoLogico.Estado;
 @Entity (name = "RegistroString")
 @Table (name = "REGISTROSSTRING")
 @PrimaryKeyJoinColumn(referencedColumnName="id")

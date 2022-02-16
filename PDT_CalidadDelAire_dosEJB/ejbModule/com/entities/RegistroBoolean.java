@@ -7,8 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import com.enumerados.Enumerados.Booleano;
-
+import com.enumerados.BorradoLogico.Booleano;
 @Entity (name = "RegistroBoolean")
 @Table (name = "REGISTROSBOOLEAN")
 @PrimaryKeyJoinColumn(referencedColumnName="id")

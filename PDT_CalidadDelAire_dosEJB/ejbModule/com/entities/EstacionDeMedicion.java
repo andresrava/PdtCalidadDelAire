@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-import com.enumerados.Enumerados.Estado;
-
+import com.enumerados.BorradoLogico.*;
 @Entity
 @Table (name = "ESTACIONESDEMEDICION")
 @NamedQuery(name="EstacionDeMedicion.obtenerTodos", query="SELECT e FROM EstacionDeMedicion e ")

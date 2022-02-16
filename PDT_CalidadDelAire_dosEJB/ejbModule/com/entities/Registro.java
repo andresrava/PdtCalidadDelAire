@@ -5,8 +5,7 @@ import java.sql.Date;
 
 import javax.persistence.*;
 
-import com.enumerados.Enumerados.Estado;
-
+import com.enumerados.BorradoLogico.Estado;
 @MappedSuperclass
 @Entity (name = "Registro")
 @Table (name = "REGISTROS")
