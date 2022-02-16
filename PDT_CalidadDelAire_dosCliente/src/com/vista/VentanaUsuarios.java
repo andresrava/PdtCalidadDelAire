@@ -515,6 +515,25 @@ public class VentanaUsuarios {
 		frame.getContentPane().add(btnBuscarNombre);
 		
 		JButton btnBuscarRol = new JButton("Buscar por rol");
+		btnBuscarRol.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+				if (cmbRol.getSelectedItem().toString() == "Administrador") {
+					List<? extends Usuario> usuarios = administradorBean.obtenerTodos();
+					VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, (List<Usuario>) usuarios);
+					ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, (List<Usuario>) usuarios);
+				} else if (cmbRol.getSelectedItem().toString() == "Investigador") {
+					List<? extends Usuario> usuarios = investigadorBean.obtenerTodos();
+					VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, (List<Usuario>) usuarios);
+					ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, (List<Usuario>) usuarios);
+				} else {
+					List<? extends Usuario> usuarios = aficionadoBean.obtenerTodos();
+					VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, (List<Usuario>) usuarios);
+					ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, (List<Usuario>) usuarios);
+				}
+			}
+		});
 		btnBuscarRol.setBounds(300, 215, 204, 23);
 		frame.getContentPane().add(btnBuscarRol);
 		
