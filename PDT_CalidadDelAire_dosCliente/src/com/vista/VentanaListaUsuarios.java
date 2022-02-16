@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.entities.Administrador;
 import com.entities.Usuario;
+import com.enumerados.BorradoLogico.Estado;
+
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
@@ -68,9 +70,15 @@ public class VentanaListaUsuarios {
 		frame.setTitle("Listado usuarios");
 		frame.setBounds(100, 100, 639, 289);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JLabel lblUsuario = new JLabel("New label");
+		lblUsuario.setBounds(28, 11, 476, 14);
+		lblUsuario.setText("Usuario logueado en el sistema: " + usuarioLoged.getNombre() + " " + usuarioLoged.getApellido());
+		frame.getContentPane().add(lblUsuario);
+		
 		DefaultTableModel modelo= new DefaultTableModel();
 		//crea un array que contiene los nombre de las columnas
-		final String[] columnNames = {"ID Persona", "Documento", "Primer Apellido", "Segundo Apellido", "Primer Nombre","Segundo Nombre"};
+		final String[] columnNames = {"ID Usuario", "Nombre", "Apellido", "Mail"};
 		// insertamos las columnas
 		for(int column = 0; column < columnNames.length; column++){
 			//agrega las columnas a la tabla
@@ -79,27 +87,23 @@ public class VentanaListaUsuarios {
 		// Se crea un array que será una de las filas de la tabla. 
 		Object [] fila = new Object[columnNames.length]; 
 		// Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
-		// LinkedList<Persona> personas = DAOPersona.findAll();
+		for (int i=0;i<usuarios.size();i++){
+			if (usuarios.get(i).getEstado() == Estado.HABILITADO) {
+				Long id=usuarios.get(i).getId(); 
+				String nombre=usuarios.get(i).getNombre(); 
+				String apellido=usuarios.get(i).getApellido(); 
+				String mail=usuarios.get(i).getMail();  
 			
-			
-		/*
-		 * for (int i=0;i<personas.size();i++){
-		 * 
-		 * int id=personas.get(i).getID_PERSONA(); String
-		 * documento=personas.get(i).getDOCUMENTO(); String
-		 * nombre1=personas.get(i).getNOMBRE1(); String
-		 * apellido1=personas.get(i).getAPELLIDO1(); String
-		 * nombre2=personas.get(i).getNOMBRE2(); String
-		 * apellido2=personas.get(i).getAPELLIDO2();
-		 * 
-		 * fila[0] = id; fila[1] = documento; fila[2] = nombre1; fila[3] = nombre2;
-		 * fila[4] = apellido1; fila[5] = apellido2; modelo.addRow(fila); }
-		 */
+				fila[0] = id; 
+				fila[1] = nombre; 
+				fila[2] = apellido; 
+				fila[3] = mail;
+				modelo.addRow(fila); 
+			}
+		}
+		 
 		final JTable table = new JTable(modelo);
 		// Se añade al modelo la fila completa.
-			
-		//System.out.println(modelo);
-		
 
 		//se define el tamaño de la tabla
 		table.setPreferredScrollableViewportSize(new Dimension(600, 200));

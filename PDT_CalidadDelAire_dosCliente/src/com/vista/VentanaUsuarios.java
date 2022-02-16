@@ -34,6 +34,7 @@ import com.services.AdministradoresBeanRemote;
 import com.services.AficionadosBeanRemote;
 import com.services.CiudadesBeanRemote;
 import com.services.InvestigadoresBeanRemote;
+import com.services.UsuariosBean;
 import com.services.UsuariosBeanRemote;
 
 import javax.swing.JComboBox;
@@ -496,9 +497,17 @@ public class VentanaUsuarios {
 		btnBuscarNombre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
-				VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, null);
-				ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, null);
+				try {
+					frame.dispose();
+					List<Usuario> usuarios = usuarioBean.obtenerPorNomApe(textNombre.getText(), textApellido.getText());
+					VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, usuarios);
+					ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, usuarios);
+				} catch (ServiciosException e1) {
+					JOptionPane.showMessageDialog(null, "Error, no se pudo realizar la búsqueda.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				}
+				
 				
 			}
 		});

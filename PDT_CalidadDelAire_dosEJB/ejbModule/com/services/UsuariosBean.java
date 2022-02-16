@@ -118,6 +118,13 @@ public class UsuariosBean implements UsuariosBeanRemote {
 			throw new ServiciosException (e.getMessage());
 		}
 	}
+
+	@Override
+	public List<Usuario> obtenerPorNomApe(String nombre, String apellido) throws ServiciosException {
+		TypedQuery<Usuario>query = em.createQuery("SELECT u FROM Usuario u WHERE u.nombre LIKE :nombre AND u.apellido LIKE :apellido", Usuario.class)
+				.setParameter("nombre",nombre+"%").setParameter("apellido", apellido+"%");
+		return query.getResultList();
+	}
 	
 
 }
