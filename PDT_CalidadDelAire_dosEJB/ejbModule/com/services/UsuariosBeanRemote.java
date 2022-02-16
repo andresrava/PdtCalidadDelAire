@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import com.entities.Investigador;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 
@@ -17,6 +18,8 @@ public interface UsuariosBeanRemote {
 	List<Usuario> obtenerTodos(String filtro);
 	List<Usuario> validarLogin(String mail, String password);
 	List<Usuario> obtenerPorMail(String mail) throws ServiciosException;
+	Usuario obtenerPorID(Long id) throws ServiciosException;
+
 	//void asignarActividad (Long idUsuario, Long idActividad) throws ServiciosException;
 	
 }

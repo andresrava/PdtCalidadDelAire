@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.enumerados.BorradoLogico.Estado;
+
 /**
  * Entity implementation class for Entity: Aficionado
  *
@@ -38,13 +40,13 @@ public class Aficionado extends Usuario implements Serializable {
 	}
 
 
-	public Aficionado(String nombre, String apellido, String mail, String clave) {
-		super(nombre, apellido, mail, clave);
+	public Aficionado(String nombre, String apellido, String mail, String clave, Estado estado) {
+		super(nombre, apellido, mail, clave, estado);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Aficionado(Long id, String nombre, String apellido, String mail, String clave) {
-		super(id, nombre, apellido, mail, clave);
+	public Aficionado(Long id, String nombre, String apellido, String mail, String clave,Estado estado) {
+		super(id, nombre, apellido, mail, clave, estado);
 		// TODO Auto-generated constructor stub
 	}
 

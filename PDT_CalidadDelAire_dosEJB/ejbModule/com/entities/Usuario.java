@@ -10,7 +10,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.enumerados.Enumerados.Estado;
+
+import com.enumerados.BorradoLogico.Estado;
 
 @MappedSuperclass
 @Entity (name = "Usuario")
@@ -74,35 +75,28 @@ public class Usuario implements Serializable {
 	}
 
 	//Constructor sin ID
-		public Usuario( String nombre , String apellido, String mail, String clave , Estado estado) {
-			
+		public Usuario( String nombre , String apellido, String mail, String clave , com.enumerados.BorradoLogico.Estado habilitado) {
+			super();
 			this.apellido = apellido;
 			this.contrasea = clave;
 			this.mail = mail;
 			this.nombre = nombre;
-			this.estado = estado;
+			this.estado = habilitado;
 		}
 		
-		//Constructor agregando ID
-		public Usuario(long idUsuario,  String nombre , String apellido, String mail, String clave ) {
-			
-			this.id = idUsuario;
-			this.apellido = apellido;
-			this.contrasea = clave;
-			this.mail = mail;
-			this.nombre = nombre;
-		}
-		
-		public Usuario(long idUsuario,  String nombre , String apellido, String mail, String clave, Estado estado) {
-			
-			this.id = idUsuario;
-			this.apellido = apellido;
-			this.contrasea = clave;
-			this.mail = mail;
-			this.nombre = nombre;
-			this.estado = estado;
-		}
+
+	//Constructor agregando ID
+	public Usuario(long idUsuario,  String nombre , String apellido, String mail, String clave, Estado estado) {
+		super();
+		this.id = idUsuario;
+		this.apellido = apellido;
+		this.contrasea = clave;
+		this.mail = mail;
+		this.nombre = nombre;
+		this.estado = estado;
+	}
 	
+
 
 	public Estado getEstado() {
 			return estado;

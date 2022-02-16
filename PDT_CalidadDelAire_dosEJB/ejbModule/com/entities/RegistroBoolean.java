@@ -30,6 +30,12 @@ public class RegistroBoolean extends Registro implements Serializable{
 	public RegistroBoolean() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "RegistroBoolean  [id= " + this.getId() + ", latitud= " + getLatitud() + ", longitud= " + getLongitud()
+				+ ", fechaHora= " + getFechaHora() + ", casilla= " + getCasilla() + ", valor=" + valor + "]";
+	}
+	
 	
 	
 }

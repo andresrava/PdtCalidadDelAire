@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.enumerados.BorradoLogico.Estado;
+
 @Entity (name = "Administrador")
 @Table (name = "ADMINISTRADORES")
 @PrimaryKeyJoinColumn(referencedColumnName="id")
@@ -112,9 +114,9 @@ public class Administrador extends Usuario implements Serializable {
 
 
 
-public Administrador( String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, String ciudad, String departamento) 
+public Administrador( String nombre , String apellido, String mail, String clave, com.enumerados.BorradoLogico.Estado habilitado , String documento , String domicilio, String telefono, String ciudad, String departamento) 
 	{
-		super(nombre , apellido , mail , clave);
+		super(nombre , apellido , mail , clave, habilitado);
 		this.documento = documento;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
@@ -122,18 +124,18 @@ public Administrador( String nombre , String apellido, String mail, String clave
 		this.departamento = departamento;
 	}
 
-public Administrador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono) 
+public Administrador( Long id, String nombre , String apellido, String mail, String clave, Estado estado , String documento , String domicilio, String telefono) 
 {
-	super(id, nombre , apellido , mail , clave);
+	super(id, nombre , apellido , mail , clave, estado);
 	this.documento = documento;
 	this.domicilio = domicilio;
 	this.telefono = telefono;
 
 }
 
-public Administrador( Long id, String nombre , String apellido, String mail, String clave , String documento , String domicilio, String telefono, String ciudad) 
+public Administrador( Long id, String nombre , String apellido, String mail, String clave, Estado estado , String documento , String domicilio, String telefono, String ciudad) 
 {
-	super(id, nombre , apellido , mail , clave);
+	super(id, nombre , apellido , mail , clave, estado);
 	this.documento = documento;
 	this.domicilio = domicilio;
 	this.telefono = telefono;

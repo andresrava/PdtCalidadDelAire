@@ -28,6 +28,7 @@ import com.entities.Aficionado;
 import com.entities.Ciudad;
 import com.entities.Investigador;
 import com.entities.Usuario;
+import com.enumerados.BorradoLogico.Estado;
 import com.exceptions.ServiciosException;
 import com.services.AdministradoresBeanRemote;
 import com.services.AficionadosBeanRemote;
@@ -40,6 +41,10 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import Atxy2k.CustomTextField.RestrictedTextField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
 
 public class VentanaUsuarios {
 
@@ -99,15 +104,31 @@ public class VentanaUsuarios {
 		
 		
 		frame = new JFrame();
-		frame.setBounds(600, 100, 419, 446);
+		frame.setBounds(600, 100, 528, 446);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+	
 		
-		textDocumento = new JTextField();
+		textDocumento = new JTextField(8);
+		textDocumento.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (!verificarCI(textDocumento.getText())) {
+					JOptionPane.showMessageDialog(null, "Error, el documento ingresado no es correcto","Error", 
+							JOptionPane.ERROR_MESSAGE);
+					textDocumento.requestFocus();
+				}
+			}
+		});
 		textDocumento.setBounds(104, 216, 186, 20);
 		frame.getContentPane().add(textDocumento);
 		textDocumento.setColumns(10);
-			
+		textDocumento.setToolTipText("Ingresar CI con dígito verificador, sin puntos ni guiones.");
+		//Definimos restricciones para que en el documento solo se acepten números, máximo 8 caractéres
+		RestrictedTextField restrictedDocumento = new RestrictedTextField(this.textDocumento);
+		restrictedDocumento.setOnlyNums(true);
+		restrictedDocumento.setLimit(8);
+		
 		textNombre = new JTextField();
 		textNombre.setBounds(104, 62, 186, 20);
 		frame.getContentPane().add(textNombre);
@@ -133,7 +154,7 @@ public class VentanaUsuarios {
 		frame.getContentPane().add(lblRol);
 		
 		lblUsuario = new JLabel("New label");
-		lblUsuario.setBounds(28, 11, 361, 14);
+		lblUsuario.setBounds(28, 11, 476, 14);
 		lblUsuario.setText("Usuario logueado en el sistema: " + usuarioLoged.getNombre() + " " + usuarioLoged.getApellido());
 		frame.getContentPane().add(lblUsuario);
 		
@@ -148,7 +169,7 @@ public class VentanaUsuarios {
 		textID.setColumns(10);
 		
 		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBounds(306, 386, 89, 23);
+		btnVolver.setBounds(306, 386, 181, 23);
 		frame.getContentPane().add(btnVolver);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -246,13 +267,13 @@ public class VentanaUsuarios {
 					String ciudad = cmbCiudad.getSelectedItem().toString();
 					String departamento = comboBoxDepartamento.getSelectedItem().toString();
 					if (cmbRol.getSelectedItem() == "Administrador") {
-						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, documento, domicilio, telefono, ciudad, departamento));
+						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento));
 					}else if(cmbRol.getSelectedItem() == "Investigador"){
-						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, documento, domicilio, telefono, ciudad, departamento));
+						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento));
 					}else { //sino crea un usuario aficionado
-						Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave));
+						Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave, Estado.HABILITADO));
 					}
-					JOptionPane.showMessageDialog(null, "Exito", "Usuario ingresado con éxito",
+					JOptionPane.showMessageDialog(null,  "Usuario ingresado con éxito","Exito",
 							JOptionPane.INFORMATION_MESSAGE);		 
 
 				} catch (ServiciosException e) { // TODO Auto-generated catch block
@@ -265,7 +286,7 @@ public class VentanaUsuarios {
 			}
 		});
 
-		btnAlta.setBounds(300, 58, 89, 23);
+		btnAlta.setBounds(300, 58, 204, 23);
 		frame.getContentPane().add(btnAlta);
 				
 		JLabel lblDocumento = new JLabel("Documento");
@@ -295,15 +316,25 @@ public class VentanaUsuarios {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textID.getText() != "") {
-					try {
-						usuarioBean.borrar(Long.parseLong(textID.getText()));
-						JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Exito",
-								JOptionPane.INFORMATION_MESSAGE);
-						limpiarFormulario();
-					} catch (NumberFormatException | ServiciosException e1) {
-						JOptionPane.showMessageDialog(null, "Error, no se pudo eliminar el usuario.", "Error",
-								JOptionPane.ERROR_MESSAGE);
-						e1.printStackTrace();
+					if (JOptionPane.showConfirmDialog(null, "Está seguro que desea eliminar este usuario?", "Confirmación",
+							JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+						try {
+							Usuario usuario = usuarioBean.obtenerPorID(Long.parseLong(textID.getText()));
+							usuario.setEstado(Estado.BORRADO);
+							usuarioBean.actualizar(usuario);
+							
+							JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Exito",
+									JOptionPane.INFORMATION_MESSAGE);
+							limpiarFormulario();
+						} catch (NumberFormatException | ServiciosException e1) {
+							JOptionPane.showMessageDialog(null, "Error, no se pudo eliminar el usuario.", "Error",
+									JOptionPane.ERROR_MESSAGE);
+							e1.printStackTrace();
+						}
+					}else {
+						JOptionPane.showMessageDialog(null,
+								"Se canceló la eliminación.",
+								"Aviso", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} else {
 					JOptionPane.showMessageDialog(null,
@@ -314,10 +345,10 @@ public class VentanaUsuarios {
 			}
 		});
 		 
-		btnEliminar.setBounds(300, 94, 89, 23);
+		btnEliminar.setBounds(300, 94, 204, 23);
 		frame.getContentPane().add(btnEliminar);
 		
-		btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("Buscar por mail");
 		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -380,63 +411,70 @@ public class VentanaUsuarios {
 			}
 		});
 		 
-		btnBuscar.setBounds(300, 125, 89, 23);
+		btnBuscar.setBounds(300, 156, 204, 23);
 		frame.getContentPane().add(btnBuscar);
 		
 		btnModificar = new JButton("Modificar");
 		
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					Administrador administrador = administradorBean.obtenerPorID(Long.parseLong(textID.getText()));
-					Investigador investigador = investigadorBean.obtenerPorID(Long.parseLong(textID.getText()));
-					Aficionado aficionado = aficionadoBean.obtenerPorID(Long.parseLong(textID.getText()));
-					if (administrador != null ) {
-						administrador.setNombre(textNombre.getText());
-						administrador.setApellido(textApellido.getText());
-						administrador.setMail(textMail.getText());
-						administrador.setContraseña(textClave.getText());
-						administrador.setDocumento(textDocumento.getText());
-						administrador.setDomicilio(textDomicilio.getText());
-						administrador.setTelefono(textTelefono.getText());
-						administrador.setCiudad(cmbCiudad.getSelectedItem().toString());
-						administrador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
-						administradorBean.actualizar(administrador); 
+				if (JOptionPane.showConfirmDialog(null, "Está seguro que desea modificar este usuario?", "Confirmación",
+						JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+
+					try {
+						Administrador administrador = administradorBean.obtenerPorID(Long.parseLong(textID.getText()));
+						Investigador investigador = investigadorBean.obtenerPorID(Long.parseLong(textID.getText()));
+						Aficionado aficionado = aficionadoBean.obtenerPorID(Long.parseLong(textID.getText()));
+						if (administrador != null ) {
+							administrador.setNombre(textNombre.getText());
+							administrador.setApellido(textApellido.getText());
+							administrador.setMail(textMail.getText());
+							administrador.setContraseña(textClave.getText());
+							administrador.setDocumento(textDocumento.getText());
+							administrador.setDomicilio(textDomicilio.getText());
+							administrador.setTelefono(textTelefono.getText());
+							administrador.setCiudad(cmbCiudad.getSelectedItem().toString());
+							administrador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
+							administradorBean.actualizar(administrador); 
+							
+						} else if (investigador != null) {
+							investigador.setNombre(textNombre.getText());
+							investigador.setApellido(textApellido.getText());
+							investigador.setMail(textMail.getText());
+							investigador.setContraseña(textClave.getText());
+							investigador.setDocumento(textDocumento.getText());
+							investigador.setDomicilio(textDomicilio.getText());
+							investigador.setTelefono(textTelefono.getText());
+							investigador.setCiudad(cmbCiudad.getSelectedItem().toString());
+							investigador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
+							investigadorBean.actualizar(investigador); 
+							
+						} else if (aficionado != null) {
+							aficionado.setNombre(textNombre.getText());
+							aficionado.setApellido(textApellido.getText());
+							aficionado.setMail(textMail.getText());
+							aficionado.setContraseña(textClave.getText());
+							
+						}
+	
+						 JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE); 
+						 limpiarFormulario();
 						
-					} else if (investigador != null) {
-						investigador.setNombre(textNombre.getText());
-						investigador.setApellido(textApellido.getText());
-						investigador.setMail(textMail.getText());
-						investigador.setContraseña(textClave.getText());
-						investigador.setDocumento(textDocumento.getText());
-						investigador.setDomicilio(textDomicilio.getText());
-						investigador.setTelefono(textTelefono.getText());
-						investigador.setCiudad(cmbCiudad.getSelectedItem().toString());
-						investigador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
-						investigadorBean.actualizar(investigador); 
-						
-					} else if (aficionado != null) {
-						aficionado.setNombre(textNombre.getText());
-						aficionado.setApellido(textApellido.getText());
-						aficionado.setMail(textMail.getText());
-						aficionado.setContraseña(textClave.getText());
-						
+
+					} catch (NumberFormatException | ServiciosException e1) {
+						JOptionPane.showMessageDialog(null, "Error, no se pudo actualizar al usuario.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
 					}
-
-					 JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE); 
-					 limpiarFormulario();
-
-				} catch (NumberFormatException | ServiciosException e1) {
-					JOptionPane.showMessageDialog(null, "Error, no se pudo actualizar al usuario.", "Error",
-							JOptionPane.ERROR_MESSAGE);
-					e1.printStackTrace();
+				}else {
+					JOptionPane.showMessageDialog(null,
+							"Se canceló la modificación.",
+							"Aviso", JOptionPane.INFORMATION_MESSAGE);
 				}
-				 
 			}
 		});
 		 
-		btnModificar.setBounds(300, 156, 89, 23);
+		btnModificar.setBounds(300, 123, 204, 23);
 		frame.getContentPane().add(btnModificar);
 		
 		
@@ -444,15 +482,32 @@ public class VentanaUsuarios {
 		lblDepartamento.setBounds(28, 308, 100, 14);
 		frame.getContentPane().add(lblDepartamento);
 		
-		JButton btnLimpiar = new JButton("Limpiar");
+		JButton btnLimpiar = new JButton("Limpiar formulario");
 		btnLimpiar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				limpiarFormulario();
 			}
 		});
-		btnLimpiar.setBounds(300, 187, 89, 23);
+		btnLimpiar.setBounds(306, 352, 181, 23);
 		frame.getContentPane().add(btnLimpiar);
+		
+		JButton btnBuscarNombre = new JButton("Buscar por nombre y apellido");
+		btnBuscarNombre.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+				VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, null);
+				ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, null);
+				
+			}
+		});
+		btnBuscarNombre.setBounds(300, 187, 204, 23);
+		frame.getContentPane().add(btnBuscarNombre);
+		
+		JButton btnBuscarRol = new JButton("Buscar por rol");
+		btnBuscarRol.setBounds(300, 215, 204, 23);
+		frame.getContentPane().add(btnBuscarRol);
 		
 		
 				
@@ -499,6 +554,38 @@ public class VentanaUsuarios {
 		VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador)usuarioLoged);
 		ventanaAdministrador.ventanaAdministrador();
 		
+	}
+	
+	public Boolean verificarCI(String documento) {
+		int suma = 0;
+		int correcto=0;
+		String ced = documento.trim();
+		int cedula[]; // Vector donde van a estar los digitos de la cedula
+		int factor[] = {8,1,2,3,4,7,6,0};// factor a multiplicar
+		
+		cedula = new int[8];
+		
+		for(int i=0;i<ced.length();i++){
+			if(ced.charAt(i) == '0' || ced.charAt(i)== '1' || ced.charAt(i)=='2' 
+               || ced.charAt(i)== '3' || ced.charAt(i) == '4' || ced.charAt(i)== '5' || ced.charAt(i)=='6' 
+              || ced.charAt(i) == '7' || ced.charAt(i)== '8' || ced.charAt(i)=='9'){
+				correcto++;
+				cedula[i]=Integer.parseInt("" +ced.charAt(i));
+				suma = suma + (cedula[i]*factor[i]);
+				
+			}
+			
+		}
+		if (correcto!=8){
+			return Boolean.FALSE;
+		} else {
+			int resto=suma%10;
+			if (resto == cedula[7]) {
+				return Boolean.TRUE;
+			} else {
+				return Boolean.FALSE;				
+			}
+		}
 	}
 }
 

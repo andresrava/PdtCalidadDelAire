@@ -35,6 +35,11 @@ public class RegistroInteger extends Registro implements Serializable{
 		super(latitud, longitud, fechaHora, estado, casilla);
 		this.valor = valor;
 	}
+	@Override
+	public String toString() {
+		return "RegistroInteger  [id= " + this.getId() + ", latitud= " + getLatitud() + ", longitud= " + getLongitud()
+				+ ", fechaHora= " + getFechaHora() + ", casilla= " + getCasilla() + ", valor=" + valor + "]";
+	}
 	
 	
 	

@@ -35,6 +35,11 @@ public class RegistroFloat extends Registro implements Serializable{
 		super(latitud, longitud, fechaHora, estado, casilla);
 		this.valor = valor;
 	}
+	@Override
+	public String toString() {
+		return "RegistroFloat  [id= " + this.getId() + ", latitud= " + getLatitud() + ", longitud= " + getLongitud()
+				+ ", fechaHora= " + getFechaHora() + ", casilla= " + getCasilla() + ", valor=" + valor + "]";
+	}
 	
 	
 	

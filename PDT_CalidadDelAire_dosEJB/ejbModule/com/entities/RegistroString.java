@@ -46,6 +46,12 @@ public class RegistroString extends Registro implements Serializable {
 		this.valor = valor;
 	}
 
+	@Override
+	public String toString() {
+		return "RegistroString [id= " + this.getId() + ", latitud= " + getLatitud() + ", longitud= " + getLongitud()
+				+ ", fechaHora= " + getFechaHora() + ", casilla= " + getCasilla() + ", valor=" + valor + "]";
+	}
+
 	
 	
 	

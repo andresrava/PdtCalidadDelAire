@@ -29,7 +29,7 @@ import com.entities.RegistroFloat;
 import com.entities.RegistroInteger;
 import com.entities.RegistroString;
 import com.entities.Usuario;
-import com.enumerados.Enumerados.Estado;
+//import com.enumerados.BorradoLogico.Estado;
 import com.enumerados.Enumerados.Obligatoria;
 import com.exceptions.ServiciosException;
 
@@ -40,15 +40,15 @@ public class CargaInicial {
 		GestionUsuarios gestionUsuarios = new GestionUsuarios();
 		
 		//Comienza la carga de un Usuario
-		Usuario usuario = new Usuario("Andrés" , "Rava" , "mimail" , "miclave" , Estado.HABILITADO);
-	
+		Usuario usuario = new Usuario("Andrés" , "Rava" , "mimail" , "miclave" , com.enumerados.BorradoLogico.Estado.HABILITADO);
+	 
 		usuario = gestionUsuarios.creaUsuario(usuario);
 		
 		//Comienza carga Administradores 
-		Administrador administrador1 = new Administrador("Adminnombre1" , "AdminApellido1" ,  "AdminMail1" , "AdminClave1" , "AdmDocu1" ,"AdminDomic1" , "AdminTel1", "Bella Unión", "ARTIGAS");
-		Administrador administrador2 = new Administrador("Adminnombre2" , "AdminApellido2" ,  "AdminMail2" , "AdminClave2" , "AdmDocu2" ,"AdminDomic2" , "AdminTel2", "Bella Unión", "ARTIGAS");
-		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mailAdmin" , "claveAdmin" , "AdmDocu3" ,"AdminDomic3" , "AdminTel3", "Bella Unión","ARTIGAS");
-		Administrador administrador4 = new Administrador("Adminnombre4" , "AdminApellido4" ,  "123" , "123" , "AdmDocu4" ,"AdminDomic4" , "AdminTel4", "Bella Unión","ARTIGAS");
+		Administrador administrador1 = new Administrador("Adminnombre1" , "AdminApellido1" ,  "AdminMail1" , "AdminClave1", com.enumerados.BorradoLogico.Estado.HABILITADO, "AdmDocu1" ,"AdminDomic1" , "AdminTel1", "Bella Unión", "ARTIGAS");
+		Administrador administrador2 = new Administrador("Adminnombre2" , "AdminApellido2" ,  "AdminMail2" , "AdminClave2" , com.enumerados.BorradoLogico.Estado.HABILITADO, "AdmDocu2" ,"AdminDomic2" , "AdminTel2", "Bella Unión", "ARTIGAS");
+		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mailAdmin" , "claveAdmin" , com.enumerados.BorradoLogico.Estado.HABILITADO, "AdmDocu3" ,"AdminDomic3" , "AdminTel3", "Bella Unión","ARTIGAS");
+		Administrador administrador4 = new Administrador("Adminnombre4" , "AdminApellido4" ,  "123" , "123" , com.enumerados.BorradoLogico.Estado.HABILITADO, "AdmDocu4" ,"AdminDomic4" , "AdminTel4", "Bella Unión","ARTIGAS");
 
 		administrador1 = gestionUsuarios.crearAdministrador(administrador1);
 		administrador2 = gestionUsuarios.crearAdministrador(administrador2);
@@ -67,10 +67,10 @@ public class CargaInicial {
 		
 		//Comienza carga 4 Investigadores 
 		
-		Investigador investigador1 = new Investigador( "Investnombre1" ,"InvestApellido1" , "InvestMail1" , "InvestClave1" , "InvDocu1" ,"InvestDomic1" , "InvestTel1",  "Bella Unión", "ARTIGAS");
-		Investigador investigador2 = new Investigador( "Investnombre2" ,"InvestApellido2" , "InvestMail2" , "InvestClave2" , "InvDocu2" ,"InvestDomic2" , "InvestTel2", "Bella Unión", "ARTIGAS");
-		Investigador investigador3 = new Investigador( "Investnombre3" ,"InvestApellido3" , "InvestMail3" , "InvestClave3" , "InvDocu3" ,"InvestDomic3" , "InvestTel3", "Bella Unión", "ARTIGAS");
-		Investigador investigador4 = new Investigador( "Investnombre4" ,"InvestApellido4" , "mailInvest" , "claveInvest" , "InvDocu4" ,"InvestDomic4" , "InvestTel4", "Bella Unión", "ARTIGAS");
+		Investigador investigador1 = new Investigador( "Investnombre1" ,"InvestApellido1" , "InvestMail1" , "InvestClave1", com.enumerados.BorradoLogico.Estado.HABILITADO , "InvDocu1" ,"InvestDomic1" , "InvestTel1",  "Bella Unión", "ARTIGAS");
+		Investigador investigador2 = new Investigador( "Investnombre2" ,"InvestApellido2" , "InvestMail2" , "InvestClave2", com.enumerados.BorradoLogico.Estado.HABILITADO , "InvDocu2" ,"InvestDomic2" , "InvestTel2", "Bella Unión", "ARTIGAS");
+		Investigador investigador3 = new Investigador( "Investnombre3" ,"InvestApellido3" , "InvestMail3" , "InvestClave3", com.enumerados.BorradoLogico.Estado.HABILITADO , "InvDocu3" ,"InvestDomic3" , "InvestTel3", "Bella Unión", "ARTIGAS");
+		Investigador investigador4 = new Investigador( "Investnombre4" ,"InvestApellido4" , "mailInvest" , "claveInvest", com.enumerados.BorradoLogico.Estado.HABILITADO , "InvDocu4" ,"InvestDomic4" , "InvestTel4", "Bella Unión", "ARTIGAS");
 		
 			
 		investigador1 = gestionUsuarios.crearInvestigador(investigador1);
@@ -88,10 +88,10 @@ public class CargaInicial {
 		System.out.println(investEncontrado);
 				
 		//Comienza la carga de 4 Aficionados
-		Aficionado aficionado1 = new Aficionado( "Aficnombre1" , "AficApellido1" , "AficMail1" , "AficClave1");
-		Aficionado aficionado2 = new Aficionado( "Aficnombre2" , "AficApellido2" ,"AficMail2" , "AficClave2");
-		Aficionado aficionado3 = new Aficionado( "Aficnombre3" , "AficApellido3" ,"AficMail3" , "AficClave3");
-		Aficionado aficionado4 = new Aficionado( "Aficnombre4" , "AficApellido4" , "mailAfic" , "claveAfic");
+		Aficionado aficionado1 = new Aficionado( "Aficnombre1" , "AficApellido1" , "AficMail1" , "AficClave1", com.enumerados.BorradoLogico.Estado.HABILITADO);
+		Aficionado aficionado2 = new Aficionado( "Aficnombre2" , "AficApellido2" ,"AficMail2" , "AficClave2", com.enumerados.BorradoLogico.Estado.HABILITADO);
+		Aficionado aficionado3 = new Aficionado( "Aficnombre3" , "AficApellido3" ,"AficMail3" , "AficClave3", com.enumerados.BorradoLogico.Estado.HABILITADO);
+		Aficionado aficionado4 = new Aficionado( "Aficnombre4" , "AficApellido4" , "mailAfic" , "claveAfic", com.enumerados.BorradoLogico.Estado.HABILITADO);
 		
 		aficionado1 = gestionUsuarios.crearAficionado(aficionado1);
 		aficionado2 = gestionUsuarios.crearAficionado(aficionado2);
@@ -196,16 +196,15 @@ public class CargaInicial {
 	        Date date = new Date(miliseconds);
 	        System.out.println("El datees: " + date);
 	         
-        RegistroString registro1 = new RegistroString("fuerte" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO, casilla3pos );
+        RegistroString registro1 = new RegistroString("fuerte" , (float) 23.1 , (float) -33.6 , date , com.enumerados.Enumerados.Estado.HABILITADO, casilla3pos );
         System.out.println("registro1: " + registro1);
-	    RegistroInteger registro2 = new RegistroInteger(18 , (float) 20.1 , (float) -43.6 , date , Estado.HABILITADO , casilla2pos);
-	    RegistroFloat registro3 = new RegistroFloat(1568.4 , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO , casilla4pos);
-	    RegistroString registro4 = new RegistroString("poco" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO, casilla3pos );
-	    RegistroInteger registro5 = new RegistroInteger(21 , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO , casilla2pos);
-	    RegistroFloat registro6 = new RegistroFloat(1024.3 , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO , casilla4pos);
+	    RegistroInteger registro2 = new RegistroInteger(18 , (float) 20.1 , (float) -43.6 , date , com.enumerados.Enumerados.Estado.HABILITADO , casilla2pos);
+	    RegistroFloat registro3 = new RegistroFloat(1568.4 , (float) 23.1 , (float) -33.6 , date , com.enumerados.Enumerados.Estado.HABILITADO , casilla4pos);
+	    RegistroString registro4 = new RegistroString("poco" , (float) 23.1 , (float) -33.6 , date , com.enumerados.Enumerados.Estado.HABILITADO, casilla3pos );
+	    RegistroInteger registro5 = new RegistroInteger(21 , (float) 23.1 , (float) -33.6 , date , com.enumerados.Enumerados.Estado.HABILITADO , casilla2pos);
+	    RegistroFloat registro6 = new RegistroFloat(1024.3 , (float) 23.1 , (float) -33.6 , date , com.enumerados.Enumerados.Estado.HABILITADO , casilla4pos);
 	    
 	    GestionRegistros gestionRegistros = new GestionRegistros();
-	    GestionCasillas gestionCasillas = new GestionCasillas();
 	    
 	    actividad1 = gestionActividades.obtienePorId(actividad1.getId());
 		registro1.setActividad(actividad1);

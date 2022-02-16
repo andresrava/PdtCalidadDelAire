@@ -37,7 +37,7 @@ public class UsuariosBean implements UsuariosBeanRemote {
 	
 	@Override
 	public List<Usuario> validarLogin(String mail, String password) {
-		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.contraseña = :password AND u.mail = :mail", Usuario.class)
+		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.contrasea = :password AND u.mail = :mail", Usuario.class)
 				.setParameter("password", password).setParameter("mail", mail);
 		return query.getResultList();
 	}
@@ -108,5 +108,16 @@ public class UsuariosBean implements UsuariosBeanRemote {
 				.setParameter("mail",mail);
 		return query.getResultList();
 	}
+
+	@Override
+	public Usuario obtenerPorID(Long id) throws ServiciosException {
+		try {
+			Usuario usuario = em.find(Usuario.class, id);
+			return usuario;
+		} catch(PersistenceException e) {
+			throw new ServiciosException (e.getMessage());
+		}
+	}
+	
 
 }
