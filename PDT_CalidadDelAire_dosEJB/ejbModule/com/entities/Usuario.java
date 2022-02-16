@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.*;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+
+import com.enumerados.Enumerados.Estado;
 
 @MappedSuperclass
 @Entity (name = "Usuario")
@@ -30,9 +30,11 @@ public class Usuario implements Serializable {
 	@SequenceGenerator(name = "SEQ_USU", initialValue = 1, allocationSize = 1)
 	private Long id;
 	
+	@Column
+	private Estado estado;
 	
 	@Column(length=255,nullable=false)
-	private String contraseña;
+	private String contrasea;
 	
 	@Column(length=255,nullable=false,unique=true)
 	private String mail;
@@ -59,39 +61,72 @@ public class Usuario implements Serializable {
 			orphanRemoval = true)
 	private List<Actividad> actividades = new ArrayList<Actividad>();
 	
-	
-	@JoinTable(
-			name = "USUARIOS_FORMULARIOS" ,
-			joinColumns = @JoinColumn(name = "FK_USUARIO" , nullable = false),
-			inverseJoinColumns = @JoinColumn (name = "FK_FORMULARIO" , nullable = false)
+	@ManyToMany ( mappedBy = "usuariosHabilitados" , 
+			cascade = CascadeType.ALL  ,
+			fetch = FetchType.EAGER
 			)
-	@ManyToMany (cascade = CascadeType.ALL)
+
 	private List<Formulario> formularios = new LinkedList<Formulario>();
 	
 	public Usuario() {
 		super();
+		this.estado = Estado.HABILITADO;
 	}
 
 	//Constructor sin ID
-		public Usuario( String nombre , String apellido, String mail, String clave ) {
+		public Usuario( String nombre , String apellido, String mail, String clave , Estado estado) {
 			
 			this.apellido = apellido;
-			this.contraseña = clave;
+			this.contrasea = clave;
 			this.mail = mail;
 			this.nombre = nombre;
+			this.estado = estado;
 		}
 		
 		//Constructor agregando ID
-		public Usuario(long idUsuario,  String nombre , String apellido, String mail, String clave) {
+		public Usuario(long idUsuario,  String nombre , String apellido, String mail, String clave ) {
 			
 			this.id = idUsuario;
 			this.apellido = apellido;
-			this.contraseña = clave;
+			this.contrasea = clave;
 			this.mail = mail;
 			this.nombre = nombre;
 		}
 		
-		
+		public Usuario(long idUsuario,  String nombre , String apellido, String mail, String clave, Estado estado) {
+			
+			this.id = idUsuario;
+			this.apellido = apellido;
+			this.contrasea = clave;
+			this.mail = mail;
+			this.nombre = nombre;
+			this.estado = estado;
+		}
+	
+
+	public Estado getEstado() {
+			return estado;
+		}
+
+		public void setEstado(Estado estado) {
+			this.estado = estado;
+		}
+
+		public String getContrasea() {
+			return contrasea;
+		}
+
+		public void setContrasea(String contrasea) {
+			this.contrasea = contrasea;
+		}
+
+		public List<Actividad> getActividades() {
+			return actividades;
+		}
+
+		public void setActividades(List<Actividad> actividades) {
+			this.actividades = actividades;
+		}
 
 	public Long getId() {
 		return id;
@@ -102,11 +137,11 @@ public class Usuario implements Serializable {
 	}
 
 	public String getContraseña() {
-		return contraseña;
+		return contrasea;
 	}
 
 	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+		this.contrasea = contraseña;
 	}
 
 	public String getMail() {
@@ -160,7 +195,7 @@ public class Usuario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Usuario [contraseña=" + contraseña + ", mail=" + mail + ", nombre=" + nombre + ", apellido=" + apellido
+		return "Usuario [contraseña=" + contrasea + ", mail=" + mail + ", nombre=" + nombre + ", apellido=" + apellido
 				+ "]";
 	}
 

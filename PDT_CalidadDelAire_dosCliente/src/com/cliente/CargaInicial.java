@@ -19,16 +19,18 @@ import com.entities.Actividad;
 import com.entities.Administrador;
 import com.entities.Aficionado;
 import com.entities.Casilla;
-import com.entities.Casilla.TipoDatoEnum;
+import com.enumerados.Enumerados.TipoDatoEnum;
 import com.entities.Ciudad;
 import com.entities.Ciudad.NombresEnum;
 import com.entities.EstacionDeMedicion;
 import com.entities.Formulario;
 import com.entities.Investigador;
-import com.entities.Registro;
+import com.entities.RegistroFloat;
+import com.entities.RegistroInteger;
+import com.entities.RegistroString;
 import com.entities.Usuario;
-import com.enumerados.BorradoLogico.Estado;
-import com.enumerados.BorradoLogico.Obligatoria;
+import com.enumerados.Enumerados.Estado;
+import com.enumerados.Enumerados.Obligatoria;
 import com.exceptions.ServiciosException;
 
 public class CargaInicial {
@@ -38,7 +40,7 @@ public class CargaInicial {
 		GestionUsuarios gestionUsuarios = new GestionUsuarios();
 		
 		//Comienza la carga de un Usuario
-		Usuario usuario = new Usuario("Andrés" , "Rava" , "mimail" , "miclave");
+		Usuario usuario = new Usuario("Andrés" , "Rava" , "mimail" , "miclave" , Estado.HABILITADO);
 	
 		usuario = gestionUsuarios.creaUsuario(usuario);
 		
@@ -112,6 +114,7 @@ public class CargaInicial {
 		Casilla casilla2 = new Casilla("Segunda Casilla" , TipoDatoEnum.INTEGER , "temperatura" , "ºC" , "Visto");
 		Casilla casilla3 = new Casilla("Tercera Casilla" , TipoDatoEnum.STRING , "viento" , "km/h" , Obligatoria.SI);
 		Casilla casilla4 = new Casilla("Cuarta Casilla" , TipoDatoEnum.FLOAT , "presión atm." , "HPa" , Obligatoria.SI);
+		Casilla casilla5 = new Casilla("Quinta Casilla" , TipoDatoEnum.BOOLEAN , "certeza" , "-" , "Viendo" , administrador4);
 		
 		
 		
@@ -120,12 +123,13 @@ public class CargaInicial {
 		Casilla casilla2pos = gestionCasilla.crearCasilla(casilla2);
 		Casilla casilla3pos = gestionCasilla.crearCasilla(casilla3);
 		Casilla casilla4pos = gestionCasilla.crearCasilla(casilla4);
+		Casilla casilla5pos = gestionCasilla.crearCasilla(casilla5);
 		List<Casilla> listaCasillas = gestionCasilla.listaCasillas();
 		System.out.println("Casillas creadas:");
 		System.out.println(listaCasillas);
-//		List<Casilla> otraListaCasillas = new LinkedList<>();
-//		otraListaCasillas.add(listaCasillas.get(0));
-//		otraListaCasillas.add(listaCasillas.get(1));
+		List<Casilla> otraListaCasillas = new LinkedList<>();
+		otraListaCasillas.add(listaCasillas.get(0));
+		otraListaCasillas.add(listaCasillas.get(1));
 		 //Comienza la carga de dos Ciudades
 		
 		Ciudad primera = new Ciudad("Santa Marta" , NombresEnum.TREINTA_Y_TRES);
@@ -155,10 +159,13 @@ public class CargaInicial {
 		lista1.add(listaCasillas.get(0));
 		lista1.add(listaCasillas.get(2));
 		lista1.add(listaCasillas.get(3));
+		lista1.add(listaCasillas.get(4));
 		List<Casilla> lista2 = new LinkedList<>();
 		lista2.add(listaCasillas.get(1));
 		lista2.add(listaCasillas.get(2));
 		lista2.add(listaCasillas.get(3));
+		List<Usuario> usuariosHabilitados = new LinkedList<Usuario>();
+		usuariosHabilitados.add(administrador3);
 		Formulario form1 = new Formulario("PrimerFormulario" , lista1 , investigador1);
 		Formulario form2 = new Formulario("SegundoFormulario", lista2 , investigador2 );
 		System.out.println("Formulario 1 Carga inicial antes: " + form1);
@@ -166,9 +173,11 @@ public class CargaInicial {
 		GestionFormularios gestionFormularios = new GestionFormularios();
 		form1 = gestionFormularios.crearFormulario(form1);
 		form2 = gestionFormularios.crearFormulario(form2);
-//		System.out.println("Formulario 1 Carga inicial después: " + form1Creado);
-//		Long ideForm1 = form1Creado.getId();
-//		System.out.println("Ide de form1Creado: " + ideForm1);
+		form2.setUsuarios(usuariosHabilitados);
+		form2 = gestionFormularios.actualizarFormulario(form2);
+		form2 = gestionFormularios.encontrarFormulario(form2.getId());
+		System.out.println("El formulario2 es: " + form2);
+		
 		
 		List<Formulario> formularios = gestionFormularios.listaFormularios();
 		System.out.println("los formularios creados son: ");
@@ -176,7 +185,7 @@ public class CargaInicial {
 		  
 		//Comienza la carga de 2 Actividades
 		Actividad actividad1 = new Actividad(form2 , usuario);
-		Actividad actividad2 = new Actividad(form2 , usuario);
+		Actividad actividad2 = new Actividad(form2 , (Usuario) administrador3);
 		GestionActividades gestionActividades = new GestionActividades();
 		actividad1 = gestionActividades.crearActividad(actividad1);
 		actividad2 = gestionActividades.crearActividad(actividad2);
@@ -186,13 +195,14 @@ public class CargaInicial {
 		 long miliseconds = System.currentTimeMillis();
 	        Date date = new Date(miliseconds);
 	        System.out.println("El datees: " + date);
-	        
-        Registro registro1 = new Registro("fuerte" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO );
-	    Registro registro2 = new Registro("18" , (float) 20.1 , (float) -43.6 , date , Estado.HABILITADO );
-	    Registro registro3 = new Registro("1568.4" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO );
-	    Registro registro4 = new Registro("poco" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO );
-	    Registro registro5 = new Registro("21" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO );
-	    Registro registro6 = new Registro("1024.3" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO );
+	         
+        RegistroString registro1 = new RegistroString("fuerte" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO, casilla3pos );
+        System.out.println("registro1: " + registro1);
+	    RegistroInteger registro2 = new RegistroInteger(18 , (float) 20.1 , (float) -43.6 , date , Estado.HABILITADO , casilla2pos);
+	    RegistroFloat registro3 = new RegistroFloat(1568.4 , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO , casilla4pos);
+	    RegistroString registro4 = new RegistroString("poco" , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO, casilla3pos );
+	    RegistroInteger registro5 = new RegistroInteger(21 , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO , casilla2pos);
+	    RegistroFloat registro6 = new RegistroFloat(1024.3 , (float) 23.1 , (float) -33.6 , date , Estado.HABILITADO , casilla4pos);
 	    
 	    GestionRegistros gestionRegistros = new GestionRegistros();
 	    GestionCasillas gestionCasillas = new GestionCasillas();
@@ -200,32 +210,32 @@ public class CargaInicial {
 	    actividad1 = gestionActividades.obtienePorId(actividad1.getId());
 		registro1.setActividad(actividad1);
 		registro1.setCasilla(listaCasillas.get(2)); 
-	    registro1 = gestionRegistros.crearRegistro(registro1);
+	    registro1 = gestionRegistros.crearRegistroString(registro1);
 	    System.out.println("registro1: ");
 	    System.out.println(registro1);
 	    
 	    registro2.setActividad(actividad1);
 	    registro2.setCasilla(listaCasillas.get(1));
-	    registro2 = gestionRegistros.crearRegistro(registro2);
+	    registro2 = gestionRegistros.crearRegistroInteger(registro2);
 	    
 	    
 	    registro3.setActividad(actividad1);
 	    registro3.setCasilla(listaCasillas.get(3));
-	    registro3 = gestionRegistros.crearRegistro(registro3);
+	    registro3 = gestionRegistros.crearRegistroFloat(registro3);
 	    
 	    actividad2 = gestionActividades.obtienePorId(actividad2.getId());
 		   
 	    registro4.setActividad(actividad2);
 	    registro4.setCasilla(listaCasillas.get(2));
-	    registro4 = gestionRegistros.crearRegistro(registro4);
+	    registro4 = gestionRegistros.crearRegistroString(registro4);
 	    
 	    registro5.setActividad(actividad2);
 	    registro5.setCasilla(listaCasillas.get(1));
-	    registro5 = gestionRegistros.crearRegistro(registro5);
+	    registro5 = gestionRegistros.crearRegistroInteger(registro5);
 	    
 	    registro6.setActividad(actividad2);
 	    registro6.setCasilla(listaCasillas.get(3));
-	    registro6 = gestionRegistros.crearRegistro(registro6);
+	    registro6 = gestionRegistros.crearRegistroFloat(registro6);
 	    
 	   
 	    System.out.println("Se completó la carga inicial");
