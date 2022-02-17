@@ -249,7 +249,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text0.setColumns(10);
 		
 		if (casillas.size() > 0) {
-			String etiqueta = casillas.get(0).getParametro() + ": ";	//Obtiene el parámetro de la csilla
+			String etiqueta = casillas.get(0).getParametro() + casillas.get(0).getUnidaDeMedida() + ": ";	//Obtiene el parámetro y la unidad de la casilla
 			if (casillas.get(0).getObligatoria() == Obligatoria.SI)		//Si la Casilla es obligatoria agrega (*) a la etiqueta
 				etiqueta = etiqueta + "(*)";
 			lbl0 = new JLabel(etiqueta);
@@ -269,7 +269,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text1.setVisible(false);
 		text1.setColumns(10);
 		if (casillas.size() > 1) {
-			String etiqueta = casillas.get(1).getParametro() + ": ";
+			String etiqueta = casillas.get(1).getParametro() + casillas.get(1).getUnidaDeMedida()+ ": ";
 			if (casillas.get(1).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl1 = new JLabel(etiqueta);
@@ -291,7 +291,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text2.setVisible(false);
 		text2.setColumns(10);
 		if (casillas.size() > 2) {
-			String etiqueta = casillas.get(2).getParametro() + ": ";
+			String etiqueta = casillas.get(2).getParametro() + casillas.get(2).getUnidaDeMedida()+ ": ";
 			if (casillas.get(2).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl2 = new JLabel(etiqueta);
@@ -313,7 +313,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text3.setVisible(false);
 		text3.setColumns(10);
 		if (casillas.size() > 3) {
-			String etiqueta = casillas.get(3).getParametro() + ": ";
+			String etiqueta = casillas.get(3).getParametro() + casillas.get(3).getUnidaDeMedida()+ ": ";
 			if (casillas.get(3).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl3 = new JLabel(etiqueta);
@@ -335,7 +335,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text4.setVisible(false);
 		text4.setColumns(10);
 		if (casillas.size() > 4) {
-			String etiqueta = casillas.get(4).getParametro() + ": ";
+			String etiqueta = casillas.get(4).getParametro() + casillas.get(4).getUnidaDeMedida()+ ": ";
 			if (casillas.get(4).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl4 = new JLabel(etiqueta);
@@ -357,7 +357,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text5.setVisible(false);
 		text5.setColumns(10);
 		if (casillas.size() > 5) {
-			String etiqueta = casillas.get(5).getParametro() + ": ";
+			String etiqueta = casillas.get(5).getParametro() + casillas.get(5).getUnidaDeMedida()+ ": ";
 			if (casillas.get(5).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl5 = new JLabel(etiqueta);
@@ -379,7 +379,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text6.setVisible(false);
 		text6.setColumns(10);
 		if (casillas.size() > 6) {
-			String etiqueta = casillas.get(6).getParametro() + ": ";
+			String etiqueta = casillas.get(6).getParametro() + casillas.get(6).getUnidaDeMedida()+ ": ";
 			if (casillas.get(6).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl6 = new JLabel(etiqueta);
@@ -401,7 +401,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text7.setVisible(false);
 		text7.setColumns(10);
 		if (casillas.size() > 7) {
-			String etiqueta = casillas.get(7).getParametro() + ": ";
+			String etiqueta = casillas.get(7).getParametro() + casillas.get(7).getUnidaDeMedida()+ ": ";
 			if (casillas.get(7).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl7 = new JLabel(etiqueta);
@@ -458,7 +458,7 @@ public class VentanaLlenaFormulario extends JFrame {
 				actividad.setUsuario(usuarioLoged);
 				actividad.setFormulario(formularioElegido);
 				GestionActividades gestionActividades = new GestionActividades();
-				
+				boolean cargo = true; 
 				try {
 					actividad = gestionActividades.crearActividad(actividad);
 					GestionRegistros gestionRegistros = new GestionRegistros();
@@ -497,6 +497,7 @@ public class VentanaLlenaFormulario extends JFrame {
 					
 					// Se obtiene la fecha
 					 java.sql.Date selectedDate = new java.sql.Date(((java.util.Date) datePicker.getModel().getValue()).getTime());
+					
 					for (int i=0 ; i<largo ; i++) {
 						TipoDatoEnum dato = casillas.get(i).getTipoDeDato();
 						Casilla casilla = formularioElegido.getCasillas().get(i);
@@ -531,10 +532,10 @@ public class VentanaLlenaFormulario extends JFrame {
 							}catch (NumberFormatException e1) {
 								JOptionPane.showMessageDialog(null, "Debe ingresar un entero en: " + casilla.getParametro(),"Error", JOptionPane.WARNING_MESSAGE);
 								campos.get(i).setText("");
+								cargo = false;
 								break;
 							}
 							}
-						
 						if (dato == TipoDatoEnum.BOOLEAN)
 							{
 							RegistroBoolean registro = new RegistroBoolean();
@@ -560,6 +561,7 @@ public class VentanaLlenaFormulario extends JFrame {
 							registro.setLongitud(longitud);
 							registro.setFechaHora(selectedDate);
 							String valorString = campos.get(i).getText();
+							
 							try {
 								double valor = Double.parseDouble(valorString);
 								registro.setValor(valor);
@@ -570,6 +572,8 @@ public class VentanaLlenaFormulario extends JFrame {
 							{
 								JOptionPane.showMessageDialog(null, "Debe ingresar un número en: " + casilla.getParametro(),"Error", JOptionPane.WARNING_MESSAGE);
 								campos.get(i).setText("");
+								cargo = false;
+								break;
 							}
 							
 							}
@@ -584,8 +588,8 @@ public class VentanaLlenaFormulario extends JFrame {
 					e1.printStackTrace();
 				}
 				borraCampos();
-				
-				JOptionPane.showMessageDialog(null, "Actividad cargada", "Éxito!" , JOptionPane.WARNING_MESSAGE);
+				if (cargo)
+					JOptionPane.showMessageDialog(null, "Actividad cargada", "Éxito!" , JOptionPane.WARNING_MESSAGE);
 				
 				
 			}
@@ -595,10 +599,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		
 		contentPane.add(btnIngresar, "4, 30");
 	}
-//	Registro extraeDato(int i) {
-//		Registro registro = new Registro();
-//		return registro;
-//	}
+
 	private void borraCampos() {
 		text0.setText("");
 		text1.setText("");

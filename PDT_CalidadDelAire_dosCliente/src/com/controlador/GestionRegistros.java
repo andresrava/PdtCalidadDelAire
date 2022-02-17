@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import com.entities.Actividad;
+import com.entities.Casilla;
 import com.entities.Registro;
 import com.entities.RegistroBoolean;
 import com.entities.RegistroFloat;
@@ -14,6 +17,10 @@ import com.exceptions.ServiciosException;
 import com.services.RegistrosBeanRemote;
 
 public class GestionRegistros {
+	
+	GestionCasillas gestionCasillas = new GestionCasillas();
+	GestionActividades gestionActividades = new GestionActividades();
+	
 	public Registro crearRegistro (Registro registro) throws NamingException, ServiciosException {
 		String ruta = "PDT_CalidadDelAire_dosEJB/RegistrosBean!com.services.RegistrosBeanRemote";
 		RegistrosBeanRemote registroBean = (RegistrosBeanRemote)
@@ -76,6 +83,13 @@ public class GestionRegistros {
 		String ruta = "PDT_CalidadDelAire_dosEJB/RegistrosBean!com.services.RegistrosBeanRemote";
 		RegistrosBeanRemote registroBean = (RegistrosBeanRemote)
 				InitialContext.doLookup(ruta);
+		Casilla casilla = registro3.getCasilla();
+		casilla = gestionCasillas.obtienePorId(casilla.getId());
+		registro3.setCasilla(casilla);
+		Actividad actividad = registro3.getActividad();
+		System.out.println("Id de actividad: " + actividad.getId());
+		actividad = gestionActividades.obtienePorId(actividad.getId());
+		registro3.setActividad(actividad);
 		registro3 = registroBean.crearFloat(registro3); 
 		return registro3;
 	}

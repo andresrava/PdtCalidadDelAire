@@ -122,8 +122,8 @@ public class VentanaListaRegistroFormulario extends JFrame {
 				 JFileChooser f = new JFileChooser();
 				    f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
 				    f.showSaveDialog(null);
-				    gestionIO.descargaRegistros(listaLlena , f);
-				    if (f != null)
+				    boolean confirma = gestionIO.descargaRegistros(listaLlena , f);
+				    if (confirma)
 						JOptionPane.showMessageDialog(null, "Se descargó el archivo", "Atención!" , JOptionPane.WARNING_MESSAGE);
 
 			}
