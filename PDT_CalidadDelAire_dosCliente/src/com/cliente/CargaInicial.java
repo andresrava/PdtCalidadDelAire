@@ -46,8 +46,8 @@ public class CargaInicial {
 		//Comienza carga Administradores 
 		Administrador administrador1 = new Administrador("Adminnombre1" , "AdminApellido1" ,  "AdminMail1@algo.com" , "AdminClave1", com.enumerados.BorradoLogico.Estado.HABILITADO, "AdmDocu1" ,"AdminDomic1" , "AdminTel1", "Bella Unión", "ARTIGAS");
 		Administrador administrador2 = new Administrador("Adminnombre2" , "AdminApellido2" ,  "AdminMail2@algo.com" , "AdminClave2" , com.enumerados.BorradoLogico.Estado.HABILITADO, "AdmDocu2" ,"AdminDomic2" , "AdminTel2", "Bella Unión", "ARTIGAS");
-		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mailAdmin@algo.com" , "claveAdmin" , com.enumerados.BorradoLogico.Estado.HABILITADO, "AdmDocu3" ,"AdminDomic3" , "AdminTel3", "Bella Unión","ARTIGAS");
-		Administrador administrador4 = new Administrador("Adminnombre4" , "AdminApellido4" ,  "123@algo.com" , "123" , com.enumerados.BorradoLogico.Estado.HABILITADO, "AdmDocu4" ,"AdminDomic4" , "AdminTel4", "Bella Unión","ARTIGAS");
+		Administrador administrador3 = new Administrador("Adminnombre3" , "AdminApellido3" ,  "mailAdmin@algo.com" , "claveAdmin1" , com.enumerados.BorradoLogico.Estado.HABILITADO, "AdmDocu3" ,"AdminDomic3" , "AdminTel3", "Bella Unión","ARTIGAS");
+		Administrador administrador4 = new Administrador("Adminnombre4" , "AdminApellido4" ,  "123@algo.com" , "1234567A" , com.enumerados.BorradoLogico.Estado.HABILITADO, "AdmDocu4" ,"AdminDomic4" , "AdminTel4", "Bella Unión","ARTIGAS");
 
 		administrador1 = gestionUsuarios.crearAdministrador(administrador1);
 		administrador2 = gestionUsuarios.crearAdministrador(administrador2);
@@ -69,7 +69,7 @@ public class CargaInicial {
 		Investigador investigador1 = new Investigador( "Investnombre1" ,"InvestApellido1" , "InvestMail1@algo.com" , "InvestClave1", com.enumerados.BorradoLogico.Estado.HABILITADO , "InvDocu1" ,"InvestDomic1" , "InvestTel1",  "Bella Unión", "ARTIGAS");
 		Investigador investigador2 = new Investigador( "Investnombre2" ,"InvestApellido2" , "InvestMail2@algo.com" , "InvestClave2", com.enumerados.BorradoLogico.Estado.HABILITADO , "InvDocu2" ,"InvestDomic2" , "InvestTel2", "Bella Unión", "ARTIGAS");
 		Investigador investigador3 = new Investigador( "Investnombre3" ,"InvestApellido3" , "InvestMail3@algo.com" , "InvestClave3", com.enumerados.BorradoLogico.Estado.HABILITADO , "InvDocu3" ,"InvestDomic3" , "InvestTel3", "Bella Unión", "ARTIGAS");
-		Investigador investigador4 = new Investigador( "Investnombre4" ,"InvestApellido4" , "mailInvest@algo.com" , "claveInvest", com.enumerados.BorradoLogico.Estado.HABILITADO , "InvDocu4" ,"InvestDomic4" , "InvestTel4", "Bella Unión", "ARTIGAS");
+		Investigador investigador4 = new Investigador( "Investnombre4" ,"InvestApellido4" , "mailInvest@algo.com" , "claveInvest1", com.enumerados.BorradoLogico.Estado.HABILITADO , "InvDocu4" ,"InvestDomic4" , "InvestTel4", "Bella Unión", "ARTIGAS");
 		
 			
 		investigador1 = gestionUsuarios.crearInvestigador(investigador1);
@@ -90,7 +90,7 @@ public class CargaInicial {
 		Aficionado aficionado1 = new Aficionado( "Aficnombre1" , "AficApellido1" , "AficMail1@algo.com" , "AficClave1", com.enumerados.BorradoLogico.Estado.HABILITADO);
 		Aficionado aficionado2 = new Aficionado( "Aficnombre2" , "AficApellido2" ,"AficMail2@algo.com" , "AficClave2", com.enumerados.BorradoLogico.Estado.HABILITADO);
 		Aficionado aficionado3 = new Aficionado( "Aficnombre3" , "AficApellido3" ,"AficMail3@algo.com" , "AficClave3", com.enumerados.BorradoLogico.Estado.HABILITADO);
-		Aficionado aficionado4 = new Aficionado( "Aficnombre4" , "AficApellido4" , "mailAfic@algo.com" , "claveAfic", com.enumerados.BorradoLogico.Estado.HABILITADO);
+		Aficionado aficionado4 = new Aficionado( "Aficnombre4" , "AficApellido4" , "mailAfic@algo.com" , "claveAfic1", com.enumerados.BorradoLogico.Estado.HABILITADO);
 		
 		aficionado1 = gestionUsuarios.crearAficionado(aficionado1);
 		aficionado2 = gestionUsuarios.crearAficionado(aficionado2);

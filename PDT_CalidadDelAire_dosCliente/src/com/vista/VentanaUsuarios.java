@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -90,6 +92,10 @@ public class VentanaUsuarios {
 		    "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 		    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	
+	private static final String PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,20}$";
+	private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+	
 	public VentanaUsuarios(Usuario usuarioLogedRef, Long idRef) throws NamingException {
 		VentanaUsuarios.usuarioLoged = usuarioLogedRef;
 		VentanaUsuarios.id = idRef;
@@ -151,6 +157,17 @@ public class VentanaUsuarios {
 		restrictedApellido.setOnlyText(true);
 		
 		textClave = new JPasswordField();
+		textClave.setToolTipText("La contraseña deberá contener letras y números, al menos 8 caracteres.");
+		textClave.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (!verificarPass(textClave.getText())) {
+					JOptionPane.showMessageDialog(null, "Error, la password ingresada no es correcta.","Error", 
+							JOptionPane.ERROR_MESSAGE);
+					textDocumento.requestFocus();
+				}
+			}
+		});
 		textClave.setBounds(104, 124, 186, 20);
 		frame.getContentPane().add(textClave);
 		textClave.setColumns(10);
@@ -671,6 +688,12 @@ public class VentanaUsuarios {
 			return Boolean.TRUE;
 		}
 	}
+	
+	public static boolean verificarPass(final String password) {
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+	
 	public Boolean verificarCI(String documento) {
 		int suma = 0;
 		int correcto=0;
