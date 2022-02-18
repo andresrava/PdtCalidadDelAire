@@ -140,11 +140,15 @@ public class VentanaUsuarios {
 		textNombre.setBounds(104, 62, 186, 20);
 		frame.getContentPane().add(textNombre);
 		textNombre.setColumns(10);
+		RestrictedTextField restrictedNombre = new RestrictedTextField(this.textNombre);
+		restrictedNombre.setOnlyText(true);
 		
 		textApellido = new JTextField();
 		textApellido.setBounds(104, 93, 186, 20);
 		frame.getContentPane().add(textApellido);
 		textApellido.setColumns(10);
+		RestrictedTextField restrictedApellido = new RestrictedTextField(this.textApellido);
+		restrictedApellido.setOnlyText(true);
 		
 		textClave = new JPasswordField();
 		textClave.setBounds(104, 124, 186, 20);
@@ -207,6 +211,8 @@ public class VentanaUsuarios {
 		textDomicilio.setColumns(10);
 		textDomicilio.setBounds(104, 247, 186, 20);
 		frame.getContentPane().add(textDomicilio);
+		RestrictedTextField restrictedDomicilio = new RestrictedTextField(this.textDomicilio);
+		restrictedDomicilio.setOnlyText(true);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
 		lblTelefono.setBounds(28, 280, 100, 14);
