@@ -66,8 +66,8 @@ public class VentanaAdministrador extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					dispose();
-					VentanaUsuarios ventanaUsuarios = new VentanaUsuarios ((Usuario) administradorLoged);
-					ventanaUsuarios.VentanaUsuarios((Usuario) administradorLoged);
+					VentanaUsuarios ventanaUsuarios = new VentanaUsuarios ((Usuario) administradorLoged, null);
+					ventanaUsuarios.VentanaUsuarios((Usuario) administradorLoged, null);
 					} catch (NamingException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

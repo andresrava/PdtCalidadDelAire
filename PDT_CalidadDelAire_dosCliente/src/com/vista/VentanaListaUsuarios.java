@@ -29,6 +29,8 @@ import java.awt.Color;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+import com.services.UsuariosBean;
+
 import net.miginfocom.swing.MigLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.BorderLayout;
@@ -134,6 +136,7 @@ public class VentanaListaUsuarios {
 					.addContainerGap())
 		);
 		
+	
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
@@ -147,6 +150,22 @@ public class VentanaListaUsuarios {
 		});
 		
 		JButton btnEditar = new JButton("Editar");
+		btnEditar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Long id;
+					if (table.getSelectedRow() != -1) {
+						id = (Long) table.getValueAt(table.getSelectedRow(), 0);
+					}else {
+						id = null;
+					}
+					editar(usuarioLoged, id);
+				} catch (NamingException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -189,13 +208,25 @@ public class VentanaListaUsuarios {
 		
 	public void volver(Usuario usuarioLoged) throws NamingException {
 		try {
-		this.frame.dispose();
-		VentanaUsuarios ventanaUsuarios = new VentanaUsuarios ((Usuario) usuarioLoged);
-		ventanaUsuarios.VentanaUsuarios((Usuario) usuarioLoged);
+			this.frame.dispose();
+			VentanaUsuarios ventanaUsuarios = new VentanaUsuarios ((Usuario) usuarioLoged, null);
+			ventanaUsuarios.VentanaUsuarios((Usuario) usuarioLoged, null);
 		} catch (NamingException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		
+		}
 	}
+	
+	public void editar(Usuario usuarioLoged, Long id) throws NamingException {
+		try {
+			this.frame.dispose();
+			VentanaUsuarios ventanaUsuarios = new VentanaUsuarios ((Usuario) usuarioLoged, id);
+			ventanaUsuarios.VentanaUsuarios((Usuario) usuarioLoged, id);
+		} catch (NamingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		
+		}
 	}
 }

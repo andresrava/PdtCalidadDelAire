@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -70,11 +72,11 @@ public class VentanaUsuarios {
 	/**
 	 * Launch the application.
 	 */
-	public static void VentanaUsuarios(Usuario usuarioLoged) {
+	public static void VentanaUsuarios(Usuario usuarioLoged, Long id) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaUsuarios window = new VentanaUsuarios(usuarioLoged);
+					VentanaUsuarios window = new VentanaUsuarios(usuarioLoged, id);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,9 +86,19 @@ public class VentanaUsuarios {
 	}
 
 	private static Usuario usuarioLoged;
+	private static Long id; 
 	
-	public VentanaUsuarios(Usuario usuarioLogedRef) throws NamingException {
+	private static final String EMAIL_PATTERN = 
+		    "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	
+	private static final String PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,20}$";
+	private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+	
+	public VentanaUsuarios(Usuario usuarioLogedRef, Long idRef) throws NamingException {
 		VentanaUsuarios.usuarioLoged = usuarioLogedRef;
+		VentanaUsuarios.id = idRef;
 		
 		String ruta="PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
 		UsuariosBeanRemote usuarioBean = (UsuariosBeanRemote) InitialContext.doLookup(ruta);
@@ -117,7 +129,6 @@ public class VentanaUsuarios {
 				if (!verificarCI(textDocumento.getText())) {
 					JOptionPane.showMessageDialog(null, "Error, el documento ingresado no es correcto","Error", 
 							JOptionPane.ERROR_MESSAGE);
-					textDocumento.requestFocus();
 				}
 			}
 		});
@@ -134,18 +145,41 @@ public class VentanaUsuarios {
 		textNombre.setBounds(104, 62, 186, 20);
 		frame.getContentPane().add(textNombre);
 		textNombre.setColumns(10);
+		RestrictedTextField restrictedNombre = new RestrictedTextField(this.textNombre);
+		restrictedNombre.setOnlyText(true);
 		
 		textApellido = new JTextField();
 		textApellido.setBounds(104, 93, 186, 20);
 		frame.getContentPane().add(textApellido);
 		textApellido.setColumns(10);
+		RestrictedTextField restrictedApellido = new RestrictedTextField(this.textApellido);
+		restrictedApellido.setOnlyText(true);
 		
 		textClave = new JPasswordField();
+		textClave.setToolTipText("La contraseña deberá contener letras y números, al menos 8 caracteres.");
+		textClave.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (!verificarPass(textClave.getText())) {
+					JOptionPane.showMessageDialog(null, "Error, la password ingresada no es correcta.","Error", 
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		textClave.setBounds(104, 124, 186, 20);
 		frame.getContentPane().add(textClave);
 		textClave.setColumns(10);
 		
 		textMail = new JTextField();
+		textMail.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (!verificarMail(textMail.getText())) {
+					JOptionPane.showMessageDialog(null, "Error, el mail ingresado no es correcto","Error", 
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		textMail.setBounds(104, 157, 186, 20);
 		frame.getContentPane().add(textMail);
 		textMail.setColumns(10);
@@ -191,6 +225,8 @@ public class VentanaUsuarios {
 		textDomicilio.setColumns(10);
 		textDomicilio.setBounds(104, 247, 186, 20);
 		frame.getContentPane().add(textDomicilio);
+		RestrictedTextField restrictedDomicilio = new RestrictedTextField(this.textDomicilio);
+		restrictedDomicilio.setOnlyText(true);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
 		lblTelefono.setBounds(28, 280, 100, 14);
@@ -267,22 +303,46 @@ public class VentanaUsuarios {
 					String telefono = textTelefono.getText();
 					String ciudad = cmbCiudad.getSelectedItem().toString();
 					String departamento = comboBoxDepartamento.getSelectedItem().toString();
-					if (cmbRol.getSelectedItem() == "Administrador") {
-						Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento));
-					}else if(cmbRol.getSelectedItem() == "Investigador"){
-						Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento));
-					}else { //sino crea un usuario aficionado
-						Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave, Estado.HABILITADO));
+					if ((!verificarMail(mail)) || (!verificarPass(clave))){
+						JOptionPane.showMessageDialog(null, "Error, verifica los datos ingresados.","Error", 
+								JOptionPane.ERROR_MESSAGE);
+					}else {
+
+						if (cmbRol.getSelectedItem() == "Administrador") {
+							if (verificarCI(documento)) {
+								Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento));
+								JOptionPane.showMessageDialog(null,  "Usuario ingresado con éxito","Exito",
+										JOptionPane.INFORMATION_MESSAGE);	
+								limpiarFormulario();
+							}else {
+								JOptionPane.showMessageDialog(null, "Error, verifica los datos ingresados.","Error", 
+										JOptionPane.ERROR_MESSAGE);
+							}
+						}else if(cmbRol.getSelectedItem() == "Investigador"){
+							if (verificarCI(documento)) {
+								Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento));
+								JOptionPane.showMessageDialog(null,  "Usuario ingresado con éxito","Exito",
+										JOptionPane.INFORMATION_MESSAGE);	
+								limpiarFormulario();
+							}else {
+								JOptionPane.showMessageDialog(null, "Error, verifica los datos ingresados.","Error", 
+										JOptionPane.ERROR_MESSAGE);
+							}
+						}else { //sino crea un usuario aficionado
+							Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave, Estado.HABILITADO));
+							JOptionPane.showMessageDialog(null,  "Usuario ingresado con éxito","Exito",
+									JOptionPane.INFORMATION_MESSAGE);	
+							limpiarFormulario();
+						}
+						
 					}
-					JOptionPane.showMessageDialog(null,  "Usuario ingresado con éxito","Exito",
-							JOptionPane.INFORMATION_MESSAGE);		 
 
 				} catch (ServiciosException e) { // TODO Auto-generated catch block
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Error", "Error, el usuario no pudo ingresarse",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				limpiarFormulario();
+				
 
 			}
 		});
@@ -423,44 +483,57 @@ public class VentanaUsuarios {
 						JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 
 					try {
-						Administrador administrador = administradorBean.obtenerPorID(Long.parseLong(textID.getText()));
-						Investigador investigador = investigadorBean.obtenerPorID(Long.parseLong(textID.getText()));
-						Aficionado aficionado = aficionadoBean.obtenerPorID(Long.parseLong(textID.getText()));
-						if (administrador != null ) {
-							administrador.setNombre(textNombre.getText());
-							administrador.setApellido(textApellido.getText());
-							administrador.setMail(textMail.getText());
-							administrador.setContraseña(textClave.getText());
-							administrador.setDocumento(textDocumento.getText());
-							administrador.setDomicilio(textDomicilio.getText());
-							administrador.setTelefono(textTelefono.getText());
-							administrador.setCiudad(cmbCiudad.getSelectedItem().toString());
-							administrador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
-							administradorBean.actualizar(administrador); 
-							
-						} else if (investigador != null) {
-							investigador.setNombre(textNombre.getText());
-							investigador.setApellido(textApellido.getText());
-							investigador.setMail(textMail.getText());
-							investigador.setContraseña(textClave.getText());
-							investigador.setDocumento(textDocumento.getText());
-							investigador.setDomicilio(textDomicilio.getText());
-							investigador.setTelefono(textTelefono.getText());
-							investigador.setCiudad(cmbCiudad.getSelectedItem().toString());
-							investigador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
-							investigadorBean.actualizar(investigador); 
-							
-						} else if (aficionado != null) {
-							aficionado.setNombre(textNombre.getText());
-							aficionado.setApellido(textApellido.getText());
-							aficionado.setMail(textMail.getText());
-							aficionado.setContraseña(textClave.getText());
-							
+						if (verificarMail(textMail.getText()) && verificarPass(textClave.getText())){
+							Administrador administrador = administradorBean.obtenerPorID(Long.parseLong(textID.getText()));
+							Investigador investigador = investigadorBean.obtenerPorID(Long.parseLong(textID.getText()));
+							Aficionado aficionado = aficionadoBean.obtenerPorID(Long.parseLong(textID.getText()));
+							if (administrador != null ) {
+								if (verificarCI(textDocumento.getText())) {
+									administrador.setNombre(textNombre.getText());
+									administrador.setApellido(textApellido.getText());
+									administrador.setMail(textMail.getText());
+									administrador.setContraseña(textClave.getText());
+									administrador.setDocumento(textDocumento.getText());
+									administrador.setDomicilio(textDomicilio.getText());
+									administrador.setTelefono(textTelefono.getText());
+									administrador.setCiudad(cmbCiudad.getSelectedItem().toString());
+									administrador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
+									administradorBean.actualizar(administrador); 
+								}else {
+									JOptionPane.showMessageDialog(null, "Error, verifica los datos ingresados.","Error", 
+											JOptionPane.ERROR_MESSAGE);
+								}
+									
+							} else if (investigador != null) {
+								if (verificarCI(textDocumento.getText())) {
+									investigador.setNombre(textNombre.getText());
+									investigador.setApellido(textApellido.getText());
+									investigador.setMail(textMail.getText());
+									investigador.setContraseña(textClave.getText());
+									investigador.setDocumento(textDocumento.getText());
+									investigador.setDomicilio(textDomicilio.getText());
+									investigador.setTelefono(textTelefono.getText());
+									investigador.setCiudad(cmbCiudad.getSelectedItem().toString());
+									investigador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
+									investigadorBean.actualizar(investigador); 
+								}else {
+									JOptionPane.showMessageDialog(null, "Error, verifica los datos ingresados.","Error", 
+											JOptionPane.ERROR_MESSAGE);
+								}
+							} else if (aficionado != null) {
+								aficionado.setNombre(textNombre.getText());
+								aficionado.setApellido(textApellido.getText());
+								aficionado.setMail(textMail.getText());
+								aficionado.setContraseña(textClave.getText());
+								
+							}
+		
+							 JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE); 
+							 limpiarFormulario();
+						}else {
+							JOptionPane.showMessageDialog(null, "Error, verifica los datos ingresados.","Error", 
+									JOptionPane.ERROR_MESSAGE);
 						}
-	
-						 JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE); 
-						 limpiarFormulario();
-						
 
 					} catch (NumberFormatException | ServiciosException e1) {
 						JOptionPane.showMessageDialog(null, "Error, no se pudo actualizar al usuario.", "Error",
@@ -562,9 +635,67 @@ public class VentanaUsuarios {
 			}
 		});
 		
+		//Cargo datos de persona si se le pasa un ID al crear la ventana
+		if (id != null) {
+			try {
+				Usuario usuario = usuarioBean.obtenerPorID(id);
+				if (usuario != null) {
+					if (usuario instanceof Administrador) {
+						Administrador administrador = (Administrador) usuario;
+						if (administrador.getCiudad() != null) 
+							cmbCiudad.setSelectedItem(administrador.getCiudad());
+						cmbRol.setSelectedItem("Administrador");
+						textDocumento.setText(administrador.getDocumento());
+						textDomicilio.setText(administrador.getDomicilio());
+						textTelefono.setText(administrador.getTelefono());
+						cmbCiudad.setSelectedItem(administrador.getCiudad());
+						comboBoxDepartamento.setSelectedItem(administrador.getDepartamento());
+						
+					} else if (usuario instanceof Investigador) {
+						Investigador investigador = (Investigador) usuario;
+						if (investigador.getCiudad() != null)
+							cmbCiudad.setSelectedItem(investigador.getCiudad());
+						cmbRol.setSelectedItem("Investigador");
+						textDocumento.setText(investigador.getDocumento());
+						textDomicilio.setText(investigador.getDomicilio());
+						textTelefono.setText(investigador.getTelefono());
+						cmbCiudad.setSelectedItem(investigador.getCiudad());
+						comboBoxDepartamento.setSelectedItem(investigador.getDepartamento());
+					} else {
+						Aficionado aficionado = (Aficionado) usuario;
+						cmbRol.setSelectedItem("Aficionado");
+					}
+					textID.setText(Long.toString(usuario.getId()));
+					textNombre.setText(usuario.getNombre());
+					textApellido.setText(usuario.getApellido());
+					textClave.setText(usuario.getContraseña());
+					textMail.setText(usuario.getMail());
+					
+					
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					limpiarFormulario();
+				}
+			} catch (HeadlessException e1) {
+				JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				e1.printStackTrace();
+				limpiarFormulario();
+
+			} catch (ServiciosException e1) {
+				JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				e1.printStackTrace();
+				limpiarFormulario();
+
+			}
+		}
 		
 		
 	}
+	
 	
 	public void limpiarFormulario() {
 		textNombre.setText(null);
@@ -583,6 +714,19 @@ public class VentanaUsuarios {
 		ventanaAdministrador.ventanaAdministrador();
 		
 	}
+	
+	public Boolean verificarMail(String mail) {
+		if (!mail.matches(EMAIL_PATTERN)) {
+			return Boolean.FALSE;
+		}else {
+			return Boolean.TRUE;
+		}
+	}
+	
+	public static boolean verificarPass(final String password) {
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
 	
 	public Boolean verificarCI(String documento) {
 		int suma = 0;
