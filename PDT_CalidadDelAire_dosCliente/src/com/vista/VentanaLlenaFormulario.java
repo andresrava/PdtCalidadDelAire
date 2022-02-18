@@ -97,7 +97,8 @@ public class VentanaLlenaFormulario extends JFrame {
 	private JToggleButton tglbtnNewToggleButton5;
 	private JToggleButton tglbtnNewToggleButton6;
 	private JToggleButton tglbtnNewToggleButton7;
-	
+	boolean correcto = true;
+
 	
 	
 	/**
@@ -113,7 +114,6 @@ public class VentanaLlenaFormulario extends JFrame {
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
 		contentPane.setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("20px"),
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -251,7 +251,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text0.setColumns(10);
 		
 		if (casillas.size() > 0) {
-			String etiqueta = casillas.get(0).getParametro() + casillas.get(0).getUnidaDeMedida() + ": ";	//Obtiene el parámetro y la unidad de la casilla
+			String etiqueta = casillas.get(0).getParametro() + " (" + casillas.get(0).getUnidaDeMedida() + ")  " + ": ";	//Obtiene el parámetro y la unidad de la casilla
 			if (casillas.get(0).getObligatoria() == Obligatoria.SI)		//Si la Casilla es obligatoria agrega (*) a la etiqueta
 				etiqueta = etiqueta + "(*)";
 			lbl0 = new JLabel(etiqueta);
@@ -271,7 +271,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text1.setVisible(false);
 		text1.setColumns(10);
 		if (casillas.size() > 1) {
-			String etiqueta = casillas.get(1).getParametro() + casillas.get(1).getUnidaDeMedida()+ ": ";
+			String etiqueta = casillas.get(1).getParametro() + " (" + casillas.get(1).getUnidaDeMedida() + ")  " + ": ";
 			if (casillas.get(1).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl1 = new JLabel(etiqueta);
@@ -293,7 +293,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text2.setVisible(false);
 		text2.setColumns(10);
 		if (casillas.size() > 2) {
-			String etiqueta = casillas.get(2).getParametro() + casillas.get(2).getUnidaDeMedida()+ ": ";
+			String etiqueta = casillas.get(2).getParametro() + " (" + casillas.get(2).getUnidaDeMedida() + ")  " + ": ";
 			if (casillas.get(2).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl2 = new JLabel(etiqueta);
@@ -315,7 +315,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text3.setVisible(false);
 		text3.setColumns(10);
 		if (casillas.size() > 3) {
-			String etiqueta = casillas.get(3).getParametro() + casillas.get(3).getUnidaDeMedida()+ ": ";
+			String etiqueta = casillas.get(3).getParametro() + " (" + casillas.get(3).getUnidaDeMedida() + ")  " + ": ";
 			if (casillas.get(3).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl3 = new JLabel(etiqueta);
@@ -337,7 +337,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text4.setVisible(false);
 		text4.setColumns(10);
 		if (casillas.size() > 4) {
-			String etiqueta = casillas.get(4).getParametro() + casillas.get(4).getUnidaDeMedida()+ ": ";
+			String etiqueta = casillas.get(4).getParametro() + " (" + casillas.get(4).getUnidaDeMedida() + ")  " + ": ";
 			if (casillas.get(4).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl4 = new JLabel(etiqueta);
@@ -359,7 +359,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text5.setVisible(false);
 		text5.setColumns(10);
 		if (casillas.size() > 5) {
-			String etiqueta = casillas.get(5).getParametro() + casillas.get(5).getUnidaDeMedida()+ ": ";
+			String etiqueta = casillas.get(5).getParametro() + " (" + casillas.get(5).getUnidaDeMedida() + ")  " + ": ";
 			if (casillas.get(5).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl5 = new JLabel(etiqueta);
@@ -381,7 +381,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text6.setVisible(false);
 		text6.setColumns(10);
 		if (casillas.size() > 6) {
-			String etiqueta = casillas.get(6).getParametro() + casillas.get(6).getUnidaDeMedida()+ ": ";
+			String etiqueta = casillas.get(6).getParametro() + " (" + casillas.get(6).getUnidaDeMedida() + ")  " + ": ";
 			if (casillas.get(6).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl6 = new JLabel(etiqueta);
@@ -403,7 +403,7 @@ public class VentanaLlenaFormulario extends JFrame {
 		text7.setVisible(false);
 		text7.setColumns(10);
 		if (casillas.size() > 7) {
-			String etiqueta = casillas.get(7).getParametro() + casillas.get(7).getUnidaDeMedida()+ ": ";
+			String etiqueta = casillas.get(7).getParametro() + " (" + casillas.get(7).getUnidaDeMedida() + ")  " + ": ";
 			if (casillas.get(7).getObligatoria() == Obligatoria.SI)
 				etiqueta = etiqueta + "(*)";
 			lbl7 = new JLabel(etiqueta);
@@ -451,6 +451,8 @@ public class VentanaLlenaFormulario extends JFrame {
 
 		contentPane.add(btnVolver, "3, 30");
 		
+		
+		
 		btnIngresar = new JButton("Ingresar");
 		btnIngresar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -461,8 +463,7 @@ public class VentanaLlenaFormulario extends JFrame {
 				actividad.setFormulario(formularioElegido);
 				GestionActividades gestionActividades = new GestionActividades();
 				boolean cargo = true; 
-				try {
-					actividad = gestionActividades.crearActividad(actividad);
+				
 					GestionRegistros gestionRegistros = new GestionRegistros();
 					System.out.println("Actividad: " + actividad);
 					
@@ -471,15 +472,17 @@ public class VentanaLlenaFormulario extends JFrame {
 					try {
 						latitud = Float.parseFloat(textLatitud.getText());
 						if (-90 > latitud || 90 < latitud )
-						{
-							JOptionPane.showMessageDialog(null, "Debe ingresar un valor entre -90 y 90 para la Latitud","Error", JOptionPane.WARNING_MESSAGE);
-							textLatitud.setText("");
+							{
+								JOptionPane.showMessageDialog(null, "Debe ingresar un valor entre -90 y 90 para la Latitud","Error", JOptionPane.WARNING_MESSAGE);
+								textLatitud.setText("");
+								cargo = false;
+							}
+						} catch (NumberFormatException e1)
+							{
+								JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la Latitud","Error", JOptionPane.WARNING_MESSAGE);
+								textLatitud.setText("");
+								cargo = false;
 						}
-					} catch (NumberFormatException e1)
-					{
-						JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la Latitud","Error", JOptionPane.WARNING_MESSAGE);
-						textLatitud.setText("");
-					}
 					//*********************
 					float longitud = 0;
 					try {
@@ -488,107 +491,120 @@ public class VentanaLlenaFormulario extends JFrame {
 						{
 							JOptionPane.showMessageDialog(null, "Debe ingresar un valor entre -90 y 90 para la Longitud","Error", JOptionPane.WARNING_MESSAGE);
 							textLongitud.setText("");
+							cargo = false;
 						}
-					} catch (NumberFormatException e1)
-					{
-						JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la Longitud","Error", JOptionPane.WARNING_MESSAGE);
-						textLongitud.setText("");
-					}
+						} catch (NumberFormatException e1)
+						{
+							JOptionPane.showMessageDialog(null, "Debe ingresar un valor válido para la Longitud","Error", JOptionPane.WARNING_MESSAGE);
+							textLongitud.setText("");
+							cargo = false;
+						}
 					//*********************
 					//Float longitud = Float.parseFloat(textLongitud.getText());
 					
 					// Se obtiene la fecha
 					 java.sql.Date selectedDate = new java.sql.Date(((java.util.Date) datePicker.getModel().getValue()).getTime());
-					
+					 try {
+							actividad = gestionActividades.crearActividad(actividad);
+							
 					for (int i=0 ; i<largo ; i++) {
 						TipoDatoEnum dato = casillas.get(i).getTipoDeDato();
 						Casilla casilla = formularioElegido.getCasillas().get(i);
-						if (dato == TipoDatoEnum.STRING)
-							{RegistroString registro = new RegistroString();
-							registro.setActividad(actividad);
-							registro.setCasilla(casilla);
-							registro.setLatitud(latitud);
-							registro.setLongitud(longitud);
-							registro.setFechaHora(selectedDate);
-							JTextField jValor = campos.get(i);
-							String valor = jValor.getText();
-							registro.setValor(valor);
-							registro = (RegistroString) gestionRegistros.crearRegistroString(registro);
-							gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
-							}
-						
-						if (dato == TipoDatoEnum.INTEGER)
-							{RegistroInteger registro = new RegistroInteger();
-							registro.setActividad(actividad);
-							registro.setCasilla(casilla);
-							registro.setLatitud(latitud);
-							registro.setLongitud(longitud);
-							registro.setFechaHora(selectedDate);
-							JTextField jValor = campos.get(i);
-							String valorString = jValor.getText();
-							try {
-								Integer valorInteger = Integer.valueOf (valorString);
-								registro.setValor(valorInteger);
-								registro = gestionRegistros.crearRegistroInteger(registro);
-								gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
-							}catch (NumberFormatException e1) {
-								JOptionPane.showMessageDialog(null, "Debe ingresar un entero en: " + casilla.getParametro(),"Error", JOptionPane.WARNING_MESSAGE);
-								campos.get(i).setText("");
-								cargo = false;
-								break;
-							}
-							}
-						if (dato == TipoDatoEnum.BOOLEAN)
-							{
-							RegistroBoolean registro = new RegistroBoolean();
-							registro.setActividad(actividad);
-							registro.setCasilla(casilla);
-							registro.setLatitud(latitud);
-							registro.setLongitud(longitud);
-							registro.setFechaHora(selectedDate);
-							boolean valor = booleanos.get(i).isSelected();
-							if (valor) 
-								registro.setValor(Booleano.TRUE);
+						if (cargo)
+						{
 							
-							else 
-								registro.setValor(Booleano.FALSE);
-							registro = gestionRegistros.crearRegistroBoolean(registro);
-							gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
-							}
-						if (dato == TipoDatoEnum.FLOAT)
-							{RegistroFloat registro = new RegistroFloat();
-							registro.setActividad(actividad);
-							registro.setCasilla(casilla);
-							registro.setLatitud(latitud);
-							registro.setLongitud(longitud);
-							registro.setFechaHora(selectedDate);
-							String valorString = campos.get(i).getText();
-							
-							try {
-								double valor = Double.parseDouble(valorString);
+							if (dato == TipoDatoEnum.STRING)
+								{
+								RegistroString registro = new RegistroString();
+								registro.setActividad(actividad);
+								registro.setCasilla(casilla);
+								registro.setLatitud(latitud);
+								registro.setLongitud(longitud);
+								registro.setFechaHora(selectedDate);
+								JTextField jValor = campos.get(i);
+								String valor = jValor.getText();
 								registro.setValor(valor);
-								registro = gestionRegistros.crearRegistroFloat(registro);
+								registro = (RegistroString) gestionRegistros.crearRegistroString(registro);
 								gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
-								
-							}catch (NumberFormatException e1) 
-							{
-								JOptionPane.showMessageDialog(null, "Debe ingresar un número en: " + casilla.getParametro(),"Error", JOptionPane.WARNING_MESSAGE);
-								campos.get(i).setText("");
-								cargo = false;
-								break;
-							}
+								}
 							
+							if (dato == TipoDatoEnum.INTEGER)
+								{
+								RegistroInteger registro = new RegistroInteger();
+								registro.setActividad(actividad);
+								registro.setCasilla(casilla);
+								registro.setLatitud(latitud);
+								registro.setLongitud(longitud);
+								registro.setFechaHora(selectedDate);
+								JTextField jValor = campos.get(i);
+								String valorString = jValor.getText();
+								try {
+									Integer valorInteger = Integer.valueOf (valorString);
+									registro.setValor(valorInteger);
+									registro = gestionRegistros.crearRegistroInteger(registro);
+									gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
+								}catch (NumberFormatException e1) {
+									JOptionPane.showMessageDialog(null, "Debe ingresar un entero en: " + casilla.getParametro(),"Error", JOptionPane.WARNING_MESSAGE);
+									campos.get(i).setText("");
+									cargo = false;
+									break;
+								}
+								}
+							if (dato == TipoDatoEnum.BOOLEAN)
+								{
+								RegistroBoolean registro = new RegistroBoolean();
+								registro.setActividad(actividad);
+								registro.setCasilla(casilla);
+								registro.setLatitud(latitud);
+								registro.setLongitud(longitud);
+								registro.setFechaHora(selectedDate);
+								boolean valor = booleanos.get(i).isSelected();
+								if (valor) 
+									registro.setValor(Booleano.TRUE);
+								
+								else 
+									registro.setValor(Booleano.FALSE);
+								registro = gestionRegistros.crearRegistroBoolean(registro);
+								gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
+								}
+							if (dato == TipoDatoEnum.FLOAT)
+								{
+								RegistroFloat registro = new RegistroFloat();
+								registro.setActividad(actividad);
+								registro.setCasilla(casilla);
+								registro.setLatitud(latitud);
+								registro.setLongitud(longitud);
+								registro.setFechaHora(selectedDate);
+								String valorString = campos.get(i).getText();
+								
+								try {
+									double valor = Double.parseDouble(valorString);
+									registro.setValor(valor);
+									registro = gestionRegistros.crearRegistroFloat(registro);
+									gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
+									
+								}catch (NumberFormatException e1) 
+								{
+									JOptionPane.showMessageDialog(null, "Debe ingresar un número en: " + casilla.getParametro(),"Error", JOptionPane.WARNING_MESSAGE);
+									campos.get(i).setText("");
+									cargo = false;
+									break;
+								}
 							}
-				
 						}
-					
-				} catch (NamingException e1) {
-					JOptionPane.showMessageDialog(null, "No se creó la Actividad por NamingException","Error", JOptionPane.WARNING_MESSAGE);
-					e1.printStackTrace();
-				} catch (ServiciosException e1) {
-					JOptionPane.showMessageDialog(null, "No se creó la Actividad por ServiciosException","Error", JOptionPane.WARNING_MESSAGE);
-					e1.printStackTrace();
-				}
+					}
+								
+						} catch (NamingException e1) {
+							JOptionPane.showMessageDialog(null, "No se creó la Actividad por NamingException","Error", JOptionPane.WARNING_MESSAGE);
+							e1.printStackTrace();
+						} catch (ServiciosException e1) {
+							JOptionPane.showMessageDialog(null, "No se creó la Actividad por ServiciosException","Error", JOptionPane.WARNING_MESSAGE);
+							e1.printStackTrace();
+						}
+							
+						
+						
+				
 				borraCampos();
 				if (cargo)
 					JOptionPane.showMessageDialog(null, "Actividad cargada", "Éxito!" , JOptionPane.WARNING_MESSAGE);

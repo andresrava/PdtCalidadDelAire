@@ -29,6 +29,7 @@ public class ActividadesBean implements ActividadesBeanRemote {
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo crear la Actividad");
+			 
 		}
 		return actividad;
 	}

@@ -111,7 +111,7 @@ public class CargaInicial {
 		
 		Casilla casilla1 = new Casilla("Primer Casilla" , TipoDatoEnum.FLOAT , "humedad" , "%" , "Vimos" , usuario );
 		Casilla casilla2 = new Casilla("Segunda Casilla" , TipoDatoEnum.INTEGER , "temperatura" , "ºC" , "Visto");
-		Casilla casilla3 = new Casilla("Tercera Casilla" , TipoDatoEnum.STRING , "viento" , "km/h" , Obligatoria.SI);
+		Casilla casilla3 = new Casilla("Tercera Casilla" , TipoDatoEnum.STRING , "viento" , "-" , Obligatoria.SI);
 		Casilla casilla4 = new Casilla("Cuarta Casilla" , TipoDatoEnum.FLOAT , "presión atm." , "HPa" , Obligatoria.SI);
 		Casilla casilla5 = new Casilla("Quinta Casilla" , TipoDatoEnum.BOOLEAN , "certeza" , "-" , "Viendo" , administrador4);
 		
