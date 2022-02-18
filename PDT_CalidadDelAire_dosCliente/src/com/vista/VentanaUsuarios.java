@@ -86,6 +86,10 @@ public class VentanaUsuarios {
 	private static Usuario usuarioLoged;
 	private static Long id; 
 	
+	private static final String EMAIL_PATTERN = 
+		    "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	
 	public VentanaUsuarios(Usuario usuarioLogedRef, Long idRef) throws NamingException {
 		VentanaUsuarios.usuarioLoged = usuarioLogedRef;
 		VentanaUsuarios.id = idRef;
@@ -148,6 +152,16 @@ public class VentanaUsuarios {
 		textClave.setColumns(10);
 		
 		textMail = new JTextField();
+		textMail.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if (!verificarMail(textMail.getText())) {
+					JOptionPane.showMessageDialog(null, "Error, el mail ingresado no es correcto","Error", 
+							JOptionPane.ERROR_MESSAGE);
+					textDocumento.requestFocus();
+				}
+			}
+		});
 		textMail.setBounds(104, 157, 186, 20);
 		frame.getContentPane().add(textMail);
 		textMail.setColumns(10);
@@ -644,6 +658,13 @@ public class VentanaUsuarios {
 		
 	}
 	
+	public Boolean verificarMail(String mail) {
+		if (!mail.matches(EMAIL_PATTERN)) {
+			return Boolean.FALSE;
+		}else {
+			return Boolean.TRUE;
+		}
+	}
 	public Boolean verificarCI(String documento) {
 		int suma = 0;
 		int correcto=0;
