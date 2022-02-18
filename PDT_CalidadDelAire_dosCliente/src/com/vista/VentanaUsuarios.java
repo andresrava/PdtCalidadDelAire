@@ -70,11 +70,11 @@ public class VentanaUsuarios {
 	/**
 	 * Launch the application.
 	 */
-	public static void VentanaUsuarios(Usuario usuarioLoged) {
+	public static void VentanaUsuarios(Usuario usuarioLoged, Long id) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaUsuarios window = new VentanaUsuarios(usuarioLoged);
+					VentanaUsuarios window = new VentanaUsuarios(usuarioLoged, id);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,9 +84,11 @@ public class VentanaUsuarios {
 	}
 
 	private static Usuario usuarioLoged;
+	private static Long id; 
 	
-	public VentanaUsuarios(Usuario usuarioLogedRef) throws NamingException {
+	public VentanaUsuarios(Usuario usuarioLogedRef, Long idRef) throws NamingException {
 		VentanaUsuarios.usuarioLoged = usuarioLogedRef;
+		VentanaUsuarios.id = idRef;
 		
 		String ruta="PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
 		UsuariosBeanRemote usuarioBean = (UsuariosBeanRemote) InitialContext.doLookup(ruta);
@@ -562,9 +564,67 @@ public class VentanaUsuarios {
 			}
 		});
 		
+		//Cargo datos de persona si se le pasa un ID al crear la ventana
+		if (id != null) {
+			try {
+				Usuario usuario = usuarioBean.obtenerPorID(id);
+				if (usuario != null) {
+					if (usuario instanceof Administrador) {
+						Administrador administrador = (Administrador) usuario;
+						if (administrador.getCiudad() != null) 
+							cmbCiudad.setSelectedItem(administrador.getCiudad());
+						cmbRol.setSelectedItem("Administrador");
+						textDocumento.setText(administrador.getDocumento());
+						textDomicilio.setText(administrador.getDomicilio());
+						textTelefono.setText(administrador.getTelefono());
+						cmbCiudad.setSelectedItem(administrador.getCiudad());
+						comboBoxDepartamento.setSelectedItem(administrador.getDepartamento());
+						
+					} else if (usuario instanceof Investigador) {
+						Investigador investigador = (Investigador) usuario;
+						if (investigador.getCiudad() != null)
+							cmbCiudad.setSelectedItem(investigador.getCiudad());
+						cmbRol.setSelectedItem("Investigador");
+						textDocumento.setText(investigador.getDocumento());
+						textDomicilio.setText(investigador.getDomicilio());
+						textTelefono.setText(investigador.getTelefono());
+						cmbCiudad.setSelectedItem(investigador.getCiudad());
+						comboBoxDepartamento.setSelectedItem(investigador.getDepartamento());
+					} else {
+						Aficionado aficionado = (Aficionado) usuario;
+						cmbRol.setSelectedItem("Aficionado");
+					}
+					textID.setText(Long.toString(usuario.getId()));
+					textNombre.setText(usuario.getNombre());
+					textApellido.setText(usuario.getApellido());
+					textClave.setText(usuario.getContraseña());
+					textMail.setText(usuario.getMail());
+					
+					
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					limpiarFormulario();
+				}
+			} catch (HeadlessException e1) {
+				JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				e1.printStackTrace();
+				limpiarFormulario();
+
+			} catch (ServiciosException e1) {
+				JOptionPane.showMessageDialog(null, "Error, no se encontró el usuario.", "Error",
+						JOptionPane.ERROR_MESSAGE);
+				e1.printStackTrace();
+				limpiarFormulario();
+
+			}
+		}
 		
 		
 	}
+	
 	
 	public void limpiarFormulario() {
 		textNombre.setText(null);
