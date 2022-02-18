@@ -111,13 +111,22 @@ public class RegistrosBean implements RegistrosBeanRemote {
 	}
 	
 	@Override
-	public List<Registro> obtenerTodosLista(Long idFormulario) {
+	public List<Registro> obtenerPorFormulario(Long idFormulario) {
 		TypedQuery<Registro>query = em.createQuery("SELECT r FROM Registro r WHERE r.actividad.formulario.id LIKE :formId", Registro.class)
 				.setParameter("formId",idFormulario);
 		System.out.println("El largo de la Result list es: " + query.getResultList().size());
 		System.out.println(query.getResultList());
 		return query.getResultList();
 	}
+	@Override
+	public List<Registro> obtenerPorCasilla(Long idCasilla) {
+		TypedQuery<Registro>query = em.createQuery("SELECT r FROM Registro r WHERE r.casilla.id LIKE :formId", Registro.class)
+				.setParameter("formId",idCasilla);
+		System.out.println("El largo de la Result list es: " + query.getResultList().size());
+		System.out.println(query.getResultList());
+		return query.getResultList();
+	}
+
 	@Override
 	public Registro encuentraPorId(Long id) {
 		Registro registro = em.find(Registro.class, id);
@@ -163,5 +172,5 @@ public class RegistrosBean implements RegistrosBeanRemote {
 		}
 		return registro4;
 	}
-
+	
 }	

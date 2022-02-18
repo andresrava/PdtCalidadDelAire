@@ -34,7 +34,6 @@ public class FormulariosBean implements FormulariosBeanRemote {
     	}catch (PersistenceException e) {
     		throw new ServiciosException ("No se pudo crear el formulario: " + formulario.getNombre());
     	}
-    	System.out.println("Formulario 1 después del flush: " + formulario);
     	return formulario;
     	
     }

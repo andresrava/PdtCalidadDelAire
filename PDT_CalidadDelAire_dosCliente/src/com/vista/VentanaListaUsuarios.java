@@ -24,6 +24,8 @@ import java.awt.GridLayout;
 import javax.naming.NamingException;
 import javax.swing.BoxLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;

@@ -36,7 +36,7 @@ public class Registro implements Serializable {
 	@Column
 	private Estado estado;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne (fetch = FetchType.EAGER)
 	private Casilla casilla;
 	
 	@ManyToOne (fetch = FetchType.LAZY)

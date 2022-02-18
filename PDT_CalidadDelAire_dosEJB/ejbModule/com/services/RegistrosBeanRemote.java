@@ -21,10 +21,11 @@ public interface RegistrosBeanRemote {
 	List<Registro> obtenerTodos();
 	List<Registro> obtenerTodos(Date dateDesde, Date dateHasta);
 	ResultSet obtenerTodos(Long idFormulario);
-	List<Registro> obtenerTodosLista(Long idFormulario);
+	List<Registro> obtenerPorFormulario(Long idFormulario);
 	Registro encuentraPorId(Long id);
 	RegistroString crearString(RegistroString registro1) throws ServiciosException;
 	RegistroInteger crearInteger(RegistroInteger registro2) throws ServiciosException;
 	RegistroFloat crearFloat(RegistroFloat registro3) throws ServiciosException;
 	RegistroBoolean crearBoolean(RegistroBoolean registro4) throws ServiciosException;
+	List<Registro> obtenerPorCasilla(Long idCasilla);
 }

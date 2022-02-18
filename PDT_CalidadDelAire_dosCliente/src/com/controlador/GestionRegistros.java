@@ -39,13 +39,21 @@ public class GestionRegistros {
 		
 	}
 	
-	public List<Registro> muestraRegistros(Long idFormulario) throws NamingException {
+	public List<Registro> muestraRegistrosPorFormulario(Long idFormulario) throws NamingException {
 		String ruta = "PDT_CalidadDelAire_dosEJB/RegistrosBean!com.services.RegistrosBeanRemote";
 		RegistrosBeanRemote registroBean = (RegistrosBeanRemote)
 				InitialContext.doLookup(ruta);
-		List<Registro> registros = (List<Registro>) registroBean.obtenerTodosLista(idFormulario);
+		List<Registro> registros = (List<Registro>) registroBean.obtenerPorFormulario(idFormulario);
 		return  registros;
 		}
+	
+	public List<Registro> muestraRegistrosPorCasilla(Long idCasilla) throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/RegistrosBean!com.services.RegistrosBeanRemote";
+		RegistrosBeanRemote registroBean = (RegistrosBeanRemote)
+				InitialContext.doLookup(ruta);
+		List<Registro> registros = (List<Registro>) registroBean.obtenerPorCasilla(idCasilla);
+		return  registros;
+	}
 	
 	public Registro encuentraPorId(Long id) throws NamingException {
 		String ruta = "PDT_CalidadDelAire_dosEJB/RegistrosBean!com.services.RegistrosBeanRemote";

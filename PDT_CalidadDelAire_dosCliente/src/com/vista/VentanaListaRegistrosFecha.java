@@ -1,5 +1,6 @@
 package com.vista;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.LinkedList;
 import java.util.List;
@@ -63,6 +64,7 @@ public class VentanaListaRegistrosFecha extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 746, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		String nombreusuario = usuarioLoged.getNombre();
@@ -165,11 +167,7 @@ public class VentanaListaRegistrosFecha extends JFrame {
 		JDatePickerImpl datePickerDesde = new JDatePickerImpl(datePanelDesde, formato1);
 		 
 		internalFrameDesde.getContentPane().add(datePickerDesde);
-		
-//		Properties pp = new Properties();
-//		pp.put("text.today", "Today");
-//		pp.put("text.month", "Month");
-//		pp.put("text.year", "Year");
+
 		UtilDateModel model2 = new UtilDateModel();
 		JDatePanelImpl datePanelHasta = new JDatePanelImpl(model2, p);
 		DateComponentFormatter formato2 = new DateComponentFormatter();
@@ -189,6 +187,7 @@ public class VentanaListaRegistrosFecha extends JFrame {
 					List<Registro> lista = gestionRegistros.encuentraPorFechas(dateDesde , dateHasta);
 					listaLlena = lista;
 					for (Registro r : lista) {
+//						r = gestionRegistros.encuentraPorId(r.getId());
 						comboRegistros.addItem(r);
 					}
 				} catch (NamingException e1) {
