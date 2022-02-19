@@ -226,7 +226,10 @@ public class VentanaUsuarios {
 		textDomicilio.setBounds(104, 247, 186, 20);
 		frame.getContentPane().add(textDomicilio);
 		RestrictedTextField restrictedDomicilio = new RestrictedTextField(this.textDomicilio);
-		restrictedDomicilio.setOnlyText(true);
+		restrictedDomicilio.setOnlyAlphaNumeric(true);
+		restrictedDomicilio.setAcceptSpace(true);
+		restrictedDomicilio.setOnlyNums(false);
+		restrictedDomicilio.setLimit(40);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
 		lblTelefono.setBounds(28, 280, 100, 14);
