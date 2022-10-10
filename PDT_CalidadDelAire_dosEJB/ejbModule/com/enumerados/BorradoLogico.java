@@ -7,6 +7,6 @@ public class BorradoLogico {
 	public enum Ingreso {NORMAL , MASIVO }
 	
 	public enum TipoDatoEnum 
-	{ STRING , BOOLEAN , INTEGER , FLOAT }
+	{ TEXTO , VERDADEROÛFALSO , ENTERO , DECIMAL }
 
 }

@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Set;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class VentanaCreaFormulario extends JFrame {
 
@@ -68,8 +69,8 @@ public class VentanaCreaFormulario extends JFrame {
 		setTitle("Crea Formulario");
 		VentanaCreaFormulario.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1009, 356);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);		//Cambié esto para el fondo
+		contentPane = new PaneImage();		//Cambié esto para el fondo decía "content = newJPanel()"
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,11 +80,13 @@ public class VentanaCreaFormulario extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
 		
 		JLabel lblNombre = new JLabel("Nombre(*):");
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textNombre = new JTextField();
 		textNombre.setColumns(10);
 		
 		JLabel lblResumen = new JLabel("Resumen:");
+		lblResumen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textResumen = new JTextField();
 		textResumen.setColumns(10);
@@ -99,6 +102,7 @@ public class VentanaCreaFormulario extends JFrame {
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JButton btnCrearFormulario = new JButton("Crear");
+		btnCrearFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCrearFormulario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -134,6 +138,7 @@ public class VentanaCreaFormulario extends JFrame {
 		});
 		
 		JLabel lblCasillasDisponibles = new JLabel("Casillas disponibles:");
+		lblCasillasDisponibles.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JComboBox<Casilla> comboCasillasDisponibles = new JComboBox();
 		List<Casilla> casillasDisponibles = new LinkedList<Casilla>();
@@ -143,6 +148,7 @@ public class VentanaCreaFormulario extends JFrame {
 		}
 		
 		JButton btnAgregarCasilla = new JButton("Agregar");
+		btnAgregarCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAgregarCasilla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -187,9 +193,11 @@ public class VentanaCreaFormulario extends JFrame {
 		panel.setLayout(gl_panel);
 		
 		JLabel lblCasillasEnFormulario = new JLabel("Casillas:");
+		lblCasillasEnFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		
 		JButton btnQuitarCasilla = new JButton("Quitar Casilla");
+		btnQuitarCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnQuitarCasilla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -207,6 +215,7 @@ public class VentanaCreaFormulario extends JFrame {
 		});
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -247,13 +256,13 @@ public class VentanaCreaFormulario extends JFrame {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(comboCasillasEnFormulario, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)))
 							.addGap(18)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 505, GroupLayout.PREFERRED_SIZE))
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 341, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(169)
 							.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
 							.addGap(83)
 							.addComponent(btnCrearFormulario, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
-					.addGap(85))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

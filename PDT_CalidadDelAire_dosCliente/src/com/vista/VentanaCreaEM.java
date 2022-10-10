@@ -32,6 +32,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 
 public class VentanaCreaEM extends JFrame {
 
@@ -65,8 +66,9 @@ public class VentanaCreaEM extends JFrame {
 		setTitle("Crea Estaci\u00F3n de Medici\u00F3n");
 		VentanaCreaEM.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 702, 355);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);	
+		// Agrego el fondo
+		contentPane = new PaneImage();		
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -75,12 +77,16 @@ public class VentanaCreaEM extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre(*):");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblNewLabel_2 = new JLabel("Localidad (*):");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblNewLabel_3 = new JLabel("Departamento (*):");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblNewLabel_4 = new JLabel("Casillas:");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		
 		//Creo el combo con departamentos y lo lleno de elementos
@@ -124,6 +130,7 @@ public class VentanaCreaEM extends JFrame {
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JButton btnCrear = new JButton("Crear");
+		btnCrear.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -169,15 +176,18 @@ public class VentanaCreaEM extends JFrame {
 		textNombre.setColumns(15);
 		
 		JLabel lblNewLabel_6 = new JLabel("Comentarios:");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textComentarios = new JTextField();
 		textComentarios.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Casillas disponibles");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 
 		
 		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAgregar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -220,6 +230,7 @@ public class VentanaCreaEM extends JFrame {
 		panel.setLayout(gl_panel);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -235,6 +246,7 @@ public class VentanaCreaEM extends JFrame {
 		});
 		
 		JButton btnQuitar = new JButton("Quitar");
+		btnQuitar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnQuitar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

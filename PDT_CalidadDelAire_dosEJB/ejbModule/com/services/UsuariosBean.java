@@ -1,5 +1,6 @@
 package com.services;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -7,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
-
 import com.entities.Usuario;
+import com.enumerados.BorradoLogico.Estado;
 import com.exceptions.ServiciosException;
 
 
@@ -17,7 +18,8 @@ public class UsuariosBean implements UsuariosBeanRemote {
 
 	@PersistenceContext
 	private EntityManager em;
-
+	
+	
     public UsuariosBean() {
         // TODO Auto-generated constructor stub
     }
@@ -58,8 +60,9 @@ public class UsuariosBean implements UsuariosBeanRemote {
 	public void borrar(Long id) throws ServiciosException {
 		try {
 			Usuario usuario = em.find(Usuario.class, id);
-			em.remove(usuario);
-			em.flush();
+			Estado estado = usuario.getEstado();
+			if ( estado == Estado.HABILITADO)
+				usuario.setEstado(Estado.BORRADO);
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo borrar el usuario");
 		}
@@ -68,29 +71,28 @@ public class UsuariosBean implements UsuariosBeanRemote {
 	@Override
 	public List<Usuario> obtenerTodos() {
 		TypedQuery<Usuario>query = em.createNamedQuery("Usuario.obtenerTodos", Usuario.class);
-		return query.getResultList();
+		List<Usuario> usuariosFiltrados = new LinkedList<Usuario>();
+		for (Usuario u : query.getResultList()) {
+			if (u.getEstado() == Estado.HABILITADO)
+				usuariosFiltrados.add(u);
+		}
+		return usuariosFiltrados;
 	}
 
 	@Override
 	public List<Usuario> obtenerTodos(String filtro) {
 		TypedQuery<Usuario>query = em.createQuery("SELECT u FROM Usuario u WHERE u.nombre LIKE :nombre", Usuario.class)
 				.setParameter("nombre",filtro);
-		return query.getResultList();
+		List<Usuario> usuariosFiltrados = new LinkedList<Usuario>();
+		for (Usuario u : query.getResultList()) {
+			if (u.getEstado() == Estado.HABILITADO)
+				usuariosFiltrados.add(u);
+		}
+		return usuariosFiltrados;
 	}
 
-//	@Override
-//	public void asignarActividad(Long idUsuario, Long idActividad) throws ServiciosException {
-//		try {
-//			Usuario usuario = em.find(Usuario.class, idUsuario);
-//			Actividad actividad = em.find(Actividad.class, idActividad);
-//			usuario.getActividades().add(actividad);
-//			em.flush();
-//		} catch(PersistenceException e) {
-//			throw new ServiciosException ("No se pudo asignar la Actividad al Usuario");
-//		}
-//		
-//	}
 
+	
 	@Override
 	public Usuario obtenerPorId(Long id) throws ServiciosException {
 		Usuario usuario = new Usuario();
@@ -99,21 +101,32 @@ public class UsuariosBean implements UsuariosBeanRemote {
 	} catch(PersistenceException e) {
 		throw new ServiciosException ("No se pudo recuperar el Usuario");
 	}
-		return usuario;
+		if (usuario.getEstado() == Estado.HABILITADO)
+			return usuario;
+		else
+			return null;
 	}
-
+	
 	@Override
 	public List<Usuario> obtenerPorMail(String mail) throws ServiciosException {
 		TypedQuery<Usuario>query = em.createQuery("SELECT u FROM Usuario u WHERE u.mail LIKE :mail", Usuario.class)
 				.setParameter("mail",mail);
-		return query.getResultList();
+		List<Usuario> usuariosFiltrados = new LinkedList<Usuario>();
+		for (Usuario u : query.getResultList()) {
+			if (u.getEstado() == Estado.HABILITADO)
+				usuariosFiltrados.add(u);
+		}
+		return usuariosFiltrados;
 	}
 
 	@Override
 	public Usuario obtenerPorID(Long id) throws ServiciosException {
 		try {
 			Usuario usuario = em.find(Usuario.class, id);
-			return usuario;
+			if (usuario.getEstado() == Estado.HABILITADO)
+				return usuario;
+			else
+				return null;
 		} catch(PersistenceException e) {
 			throw new ServiciosException (e.getMessage());
 		}
@@ -123,7 +136,12 @@ public class UsuariosBean implements UsuariosBeanRemote {
 	public List<Usuario> obtenerPorNomApe(String nombre, String apellido) throws ServiciosException {
 		TypedQuery<Usuario>query = em.createQuery("SELECT u FROM Usuario u WHERE u.nombre LIKE :nombre AND u.apellido LIKE :apellido", Usuario.class)
 				.setParameter("nombre",nombre+"%").setParameter("apellido", apellido+"%");
-		return query.getResultList();
+		List<Usuario> usuariosFiltrados = new LinkedList<Usuario>();
+		for (Usuario u : query.getResultList()) {
+			if (u.getEstado() == Estado.HABILITADO)
+				usuariosFiltrados.add(u);
+		}
+		return usuariosFiltrados;
 	}
 	
 

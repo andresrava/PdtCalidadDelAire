@@ -57,17 +57,26 @@ public class Usuario implements Serializable {
 			orphanRemoval = true)
 	private List<EstacionDeMedicion> estaciones = new ArrayList<EstacionDeMedicion>();
 
-	@OneToMany (mappedBy = "usuario" , 
+	@OneToMany (
+			mappedBy = "usuario" , 
 			cascade = CascadeType.ALL , 
 			orphanRemoval = true)
 	private List<Actividad> actividades = new ArrayList<Actividad>();
 	
+	//Esto cambié 17 de julio 2022
+	@OneToMany (mappedBy = "ultimoEditor" , 
+			cascade = CascadeType.ALL , 
+			orphanRemoval = true)
+	private List<Formulario> ultimoEditos = new ArrayList<Formulario>();
+	
+
 	@ManyToMany ( mappedBy = "usuariosHabilitados" , 
-			cascade = CascadeType.ALL  ,
+			cascade = CascadeType.MERGE,  
 			fetch = FetchType.EAGER
 			)
 
 	private List<Formulario> formularios = new LinkedList<Formulario>();
+	
 	
 	public Usuario() {
 		super();

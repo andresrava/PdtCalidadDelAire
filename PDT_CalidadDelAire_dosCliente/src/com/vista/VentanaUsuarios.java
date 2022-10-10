@@ -4,10 +4,7 @@ import java.awt.EventQueue;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -19,24 +16,24 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import com.controlador.GestionLocalidades;
+import com.controlador.GestionUsuarios;
 import com.entities.Administrador;
 import com.entities.Aficionado;
-import com.entities.Ciudad;
 import com.entities.Investigador;
 import com.entities.Usuario;
 import com.enumerados.BorradoLogico.Estado;
 import com.exceptions.ServiciosException;
 import com.services.AdministradoresBeanRemote;
 import com.services.AficionadosBeanRemote;
-import com.services.CiudadesBeanRemote;
 import com.services.InvestigadoresBeanRemote;
-import com.services.UsuariosBean;
 import com.services.UsuariosBeanRemote;
 
 import javax.swing.JComboBox;
@@ -47,11 +44,15 @@ import java.awt.event.MouseEvent;
 import Atxy2k.CustomTextField.RestrictedTextField;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.Font;
+import java.awt.Color;
+
 
 
 public class VentanaUsuarios {
 
 	private JFrame frame;
+	private static JPanel contentPane_1;
 	private JTextField textDocumento;
 	private JTextField textApellido;
 	private JTextField textNombre;
@@ -78,6 +79,7 @@ public class VentanaUsuarios {
 				try {
 					VentanaUsuarios window = new VentanaUsuarios(usuarioLoged, id);
 					window.frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -111,18 +113,23 @@ public class VentanaUsuarios {
 		
 		String ruta4="PDT_CalidadDelAire_dosEJB/AficionadosBean!com.services.AficionadosBeanRemote";
 		AficionadosBeanRemote aficionadoBean = (AficionadosBeanRemote) InitialContext.doLookup(ruta4);
-		
-		String ruta5="PDT_CalidadDelAire_dosEJB/CiudadesBean!com.services.CiudadesBeanRemote";
-		CiudadesBeanRemote ciudadBean = (CiudadesBeanRemote) InitialContext.doLookup(ruta5);
+	
+//		contentPane = new PaneImage();		//Cambié esto para el fondo decía "content = newJPanel()"
 		
 		
 		frame = new JFrame();
-		frame.setBounds(600, 100, 528, 446);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-	
 		
+		frame.setBounds(100, 100, 800, 500);	// anterior: frame.setBounds(600, 100, 528, 446);
+		
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		
+		//Agrego el fondo
+				contentPane_1 = new PaneImage();		
+				contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));
+				frame.setContentPane(contentPane_1);
 		textDocumento = new JTextField(8);
+		textDocumento.setActionCommand("");
+		textDocumento.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textDocumento.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -132,31 +139,34 @@ public class VentanaUsuarios {
 				}
 			}
 		});
-		textDocumento.setBounds(104, 216, 186, 20);
-		frame.getContentPane().add(textDocumento);
+		textDocumento.setBounds(223, 129, 277, 20);
 		textDocumento.setColumns(10);
-		textDocumento.setToolTipText("Ingresar CI con dígito verificador, sin puntos ni guiones.");
 		//Definimos restricciones para que en el documento solo se acepten números, máximo 8 caractéres
 		RestrictedTextField restrictedDocumento = new RestrictedTextField(this.textDocumento);
 		restrictedDocumento.setOnlyNums(true);
 		restrictedDocumento.setLimit(8);
 		
+		
+		
 		textNombre = new JTextField();
-		textNombre.setBounds(104, 62, 186, 20);
-		frame.getContentPane().add(textNombre);
+		textNombre.setActionCommand("");
+		textNombre.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textNombre.setBounds(223, 66, 277, 20);
 		textNombre.setColumns(10);
 		RestrictedTextField restrictedNombre = new RestrictedTextField(this.textNombre);
 		restrictedNombre.setOnlyText(true);
 		
 		textApellido = new JTextField();
-		textApellido.setBounds(104, 93, 186, 20);
-		frame.getContentPane().add(textApellido);
+		textApellido.setActionCommand("");
+		textApellido.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		textApellido.setBounds(223, 98, 277, 20);
 		textApellido.setColumns(10);
 		RestrictedTextField restrictedApellido = new RestrictedTextField(this.textApellido);
 		restrictedApellido.setOnlyText(true);
 		
 		textClave = new JPasswordField();
-		textClave.setToolTipText("La contraseña deberá contener letras y números, al menos 8 caracteres.");
+		textClave.setActionCommand("");
+		textClave.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textClave.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -166,11 +176,12 @@ public class VentanaUsuarios {
 				}
 			}
 		});
-		textClave.setBounds(104, 124, 186, 20);
-		frame.getContentPane().add(textClave);
+		textClave.setBounds(223, 158, 277, 20);
 		textClave.setColumns(10);
 		
 		textMail = new JTextField();
+		textMail.setActionCommand("");
+		textMail.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textMail.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -180,32 +191,34 @@ public class VentanaUsuarios {
 				}
 			}
 		});
-		textMail.setBounds(104, 157, 186, 20);
-		frame.getContentPane().add(textMail);
+		textMail.setBounds(223, 188, 277, 20);
 		textMail.setColumns(10);
 		
 		lblRol = new JLabel("Rol");
-		lblRol.setBounds(28, 191, 47, 14);
-		frame.getContentPane().add(lblRol);
+		lblRol.setForeground(Color.BLACK);
+		lblRol.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblRol.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblRol.setBounds(15, 337, 144, 22);
 		
 		lblUsuario = new JLabel("New label");
-		lblUsuario.setBounds(28, 11, 476, 14);
+		lblUsuario.setBounds(15, 10, 275, 14);
 		lblUsuario.setText("Usuario logueado en el sistema: " + usuarioLoged.getNombre() + " " + usuarioLoged.getApellido());
-		frame.getContentPane().add(lblUsuario);
 		
 		lblID = new JLabel("ID");
-		lblID.setBounds(28, 37, 47, 14);
-		frame.getContentPane().add(lblID);
+		lblID.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblID.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblID.setBounds(15, 41, 144, 19);
 		
 		textID = new JTextField();
+		textID.setActionCommand("");
+		textID.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textID.setEditable(false);
-		textID.setBounds(103, 31, 187, 20);
-		frame.getContentPane().add(textID);
+		textID.setBounds(223, 35, 277, 20);
 		textID.setColumns(10);
 		
 		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBounds(306, 386, 181, 23);
-		frame.getContentPane().add(btnVolver);
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnVolver.setBounds(397, 379, 180, 35);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -218,13 +231,15 @@ public class VentanaUsuarios {
 
 		
 		JLabel lblDomicilio = new JLabel("Domicilio");
-		lblDomicilio.setBounds(28, 251, 100, 14);
-		frame.getContentPane().add(lblDomicilio);
+		lblDomicilio.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDomicilio.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDomicilio.setBounds(15, 247, 144, 19);
 		
 		textDomicilio = new JTextField();
+		textDomicilio.setActionCommand("");
+		textDomicilio.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textDomicilio.setColumns(10);
-		textDomicilio.setBounds(104, 247, 186, 20);
-		frame.getContentPane().add(textDomicilio);
+		textDomicilio.setBounds(223, 248, 287, 20);
 		RestrictedTextField restrictedDomicilio = new RestrictedTextField(this.textDomicilio);
 		restrictedDomicilio.setOnlyAlphaNumeric(true);
 		restrictedDomicilio.setAcceptSpace(true);
@@ -232,17 +247,24 @@ public class VentanaUsuarios {
 		restrictedDomicilio.setLimit(40);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono");
-		lblTelefono.setBounds(28, 280, 100, 14);
-		frame.getContentPane().add(lblTelefono);
+		lblTelefono.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTelefono.setBounds(15, 217, 144, 19);
 		
 		textTelefono = new JTextField();
+		textTelefono.setActionCommand("");
+		textTelefono.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		textTelefono.setColumns(10);
-		textTelefono.setBounds(104, 276, 186, 20);
-		frame.getContentPane().add(textTelefono);
+		textTelefono.setBounds(223, 218, 277, 20);
+		//Definimos restricciones para que en el campo teléfono sólo se acepten números
+		RestrictedTextField restrictedTelefono = new RestrictedTextField(this.textTelefono);
+		restrictedTelefono.setOnlyNums(true);
 		
-		JLabel lblCiudad = new JLabel("Ciudad");
-		lblCiudad.setBounds(28, 337, 100, 14);
-		frame.getContentPane().add(lblCiudad);
+		JLabel lblCiudad = new JLabel("Localidad");
+		lblCiudad.setForeground(Color.BLACK);
+		lblCiudad.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCiudad.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblCiudad.setBounds(99, 307, 60, 19);
 		
 		
 //Creo el combo con departamentos y lo lleno de elementos
@@ -253,8 +275,7 @@ public class VentanaUsuarios {
 			comboBoxDepartamento.addItem(nombre);
 		}
 		comboBoxDepartamento.setSelectedIndex(0);
-		comboBoxDepartamento.setBounds(104, 304, 186, 22);
-		frame.getContentPane().add(comboBoxDepartamento);
+		comboBoxDepartamento.setBounds(223, 277, 156, 22);
 		
 		
 //Creo el Combo con las localidades y lo lleno usando el depto seleccionado
@@ -265,8 +286,7 @@ public class VentanaUsuarios {
 		{
 			cmbCiudad.addItem(l);
 		}
-		cmbCiudad.setBounds(104, 333, 186, 22);
-		frame.getContentPane().add(cmbCiudad);
+		cmbCiudad.setBounds(223, 307, 156, 22);
 		
 		comboBoxDepartamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -280,19 +300,17 @@ public class VentanaUsuarios {
 		
 		
 		
-		List<Ciudad> ciudades = ciudadBean.obtenerTodos();
-		for (Ciudad ciudad: ciudades) {
-			cmbCiudad.addItem(ciudad.getNombre()); }
-		
 		JComboBox cmbRol = new JComboBox();
 		
-		cmbRol.setBounds(104, 188, 186, 22);
+		cmbRol.setBounds(223, 341, 95, 20);
 		cmbRol.addItem("Administrador");
 		cmbRol.addItem("Investigador");
 		cmbRol.addItem("Aficionado");
-		frame.getContentPane().add(cmbRol);
 		
+		
+		GestionUsuarios gestionUsuarios = new GestionUsuarios();
 		btnAlta = new JButton("Alta");
+		btnAlta.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		btnAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -306,15 +324,16 @@ public class VentanaUsuarios {
 					String telefono = textTelefono.getText();
 					String ciudad = cmbCiudad.getSelectedItem().toString();
 					String departamento = comboBoxDepartamento.getSelectedItem().toString();
-					if ((!verificarMail(mail)) || (!verificarPass(clave))){
+					if ((!verificarMail(mail)) || (!verificarPass(clave)) || (!verificarTel(telefono))){
 						JOptionPane.showMessageDialog(null, "Error, verifica los datos ingresados.","Error", 
 								JOptionPane.ERROR_MESSAGE);
 					}else {
 
 						if (cmbRol.getSelectedItem() == "Administrador") {
 							if (verificarCI(documento)) {
-								Administrador administrador2 = administradorBean.crear(new Administrador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento));
-								JOptionPane.showMessageDialog(null,  "Usuario ingresado con éxito","Exito",
+								Administrador administrador2 = new Administrador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento);
+								administrador2 = gestionUsuarios.crearAdministrador(administrador2);
+								JOptionPane.showMessageDialog(null,  "Administrador ingresado con éxito","Exito",
 										JOptionPane.INFORMATION_MESSAGE);	
 								limpiarFormulario();
 							}else {
@@ -323,7 +342,8 @@ public class VentanaUsuarios {
 							}
 						}else if(cmbRol.getSelectedItem() == "Investigador"){
 							if (verificarCI(documento)) {
-								Investigador investigador = investigadorBean.crear(new Investigador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento));
+								Investigador investigador = new Investigador(nombre, apellido, mail, clave, Estado.HABILITADO, documento, domicilio, telefono, ciudad, departamento);
+								investigador = gestionUsuarios.crearInvestigador(investigador);
 								JOptionPane.showMessageDialog(null,  "Usuario ingresado con éxito","Exito",
 										JOptionPane.INFORMATION_MESSAGE);	
 								limpiarFormulario();
@@ -332,15 +352,16 @@ public class VentanaUsuarios {
 										JOptionPane.ERROR_MESSAGE);
 							}
 						}else { //sino crea un usuario aficionado
-							Aficionado aficionado = aficionadoBean.crear(new Aficionado(nombre, apellido, mail, clave, Estado.HABILITADO));
-							JOptionPane.showMessageDialog(null,  "Usuario ingresado con éxito","Exito",
+							Aficionado aficionado = new Aficionado(nombre, apellido, mail, clave, Estado.HABILITADO);
+							aficionado = gestionUsuarios.crearAficionado(aficionado);
+							JOptionPane.showMessageDialog(null,  "Aficionado ingresado con éxito","Exito",
 									JOptionPane.INFORMATION_MESSAGE);	
 							limpiarFormulario();
 						}
 						
 					}
 
-				} catch (ServiciosException e) { // TODO Auto-generated catch block
+				} catch (ServiciosException | NamingException e) { // TODO Auto-generated catch block
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Error", "Error, el usuario no pudo ingresarse",
 							JOptionPane.ERROR_MESSAGE);
@@ -350,74 +371,98 @@ public class VentanaUsuarios {
 			}
 		});
 
-		btnAlta.setBounds(300, 58, 204, 23);
-		frame.getContentPane().add(btnAlta);
+		btnAlta.setBounds(522, 26, 250, 29);
 				
 		JLabel lblDocumento = new JLabel("Documento");
-		lblDocumento.setBounds(28, 220, 100, 14);
-		frame.getContentPane().add(lblDocumento);
+		lblDocumento.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDocumento.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDocumento.setBounds(15, 127, 144, 19);
 		
 		JLabel lblNombre1 = new JLabel("Nombre");
-		lblNombre1.setBounds(28, 66, 100, 14);
-		frame.getContentPane().add(lblNombre1);
+		lblNombre1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNombre1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNombre1.setBounds(15, 66, 144, 19);
 		
 		JLabel lblApellido1 = new JLabel("Apellido");
-		lblApellido1.setBounds(28, 97, 100, 14);
-		frame.getContentPane().add(lblApellido1);
+		lblApellido1.setToolTipText("");
+		lblApellido1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblApellido1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblApellido1.setBounds(15, 97, 144, 19);
 		
 		
 		JLabel lblClave = new JLabel("Clave");
-		lblClave.setBounds(28, 128, 100, 14);
-		frame.getContentPane().add(lblClave);
+		lblClave.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblClave.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblClave.setBounds(15, 157, 144, 19);
 		
 		
-		JLabel lblMail = new JLabel("Mail");
-		lblMail.setBounds(28, 161, 100, 14);
-		frame.getContentPane().add(lblMail);
+		JLabel lblMail = new JLabel("Correo electr\u00F3nico");
+		lblMail.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMail.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMail.setBounds(15, 187, 144, 19);
 		
 		btnEliminar = new JButton("Eliminar");
-		
-		btnEliminar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (textID.getText() != "") {
-					if (JOptionPane.showConfirmDialog(null, "Está seguro que desea eliminar este usuario?", "Confirmación",
-							JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
-						try {
-							Usuario usuario = usuarioBean.obtenerPorID(Long.parseLong(textID.getText()));
-							usuario.setEstado(Estado.BORRADO);
-							usuarioBean.actualizar(usuario);
-							
-							JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.", "Exito",
-									JOptionPane.INFORMATION_MESSAGE);
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (!textID.getText().isEmpty()) {
+					GestionUsuarios gestionUsuarios = new GestionUsuarios();
+					Usuario usuarioAEliminar;
+					try {
+						usuarioAEliminar = gestionUsuarios.obtienePorId(Long.parseLong(textID.getText()));
+						String nombre = usuarioAEliminar.getNombre();
+						if (JOptionPane.showConfirmDialog(null, 
+								"Está seguro que desea eliminar el usuario " + nombre + "?", 
+								"Confirmación",
+								JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+							gestionUsuarios.borraUsuario(usuarioAEliminar);
+							JFrame jFrame = new JFrame();
+							JOptionPane.showMessageDialog(jFrame, "Se eliminó el usuario: " + nombre);
 							limpiarFormulario();
-						} catch (NumberFormatException | ServiciosException e1) {
-							JOptionPane.showMessageDialog(null, "Error, no se pudo eliminar el usuario.", "Error",
-									JOptionPane.ERROR_MESSAGE);
-							e1.printStackTrace();
+						
+						}else {
+							JOptionPane.showMessageDialog(null,
+									"Se canceló la eliminación.",
+									"Aviso", JOptionPane.INFORMATION_MESSAGE);
 						}
-					}else {
-						JOptionPane.showMessageDialog(null,
-								"Se canceló la eliminación.",
-								"Aviso", JOptionPane.INFORMATION_MESSAGE);
+					} catch (NumberFormatException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (NamingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ServiciosException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
+					
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"Error, el campo ID no puede estar vacío. Debe buscar la persona a eliminar primero.",
 							"Error", JOptionPane.ERROR_MESSAGE);
 
+					}
 				}
+		
+		});
+		
+		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		 
-		btnEliminar.setBounds(300, 94, 204, 23);
-		frame.getContentPane().add(btnEliminar);
+		btnEliminar.setBounds(522, 66, 252, 29);
 		
 		btnBuscar = new JButton("Buscar por mail");
+		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					List<Usuario> usuarios = usuarioBean.obtenerPorMail(textMail.getText());
+					List<Usuario> usuarios = gestionUsuarios.obtenerPorMail(textMail.getText());
 					if (usuarios.size() == 1) {
 						Usuario usuario = usuarios.get(0);
 						if (usuarios.get(0) instanceof Administrador) {
@@ -471,14 +516,17 @@ public class VentanaUsuarios {
 					e1.printStackTrace();
 					limpiarFormulario();
 
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
 		 
-		btnBuscar.setBounds(300, 156, 204, 23);
-		frame.getContentPane().add(btnBuscar);
+		btnBuscar.setBounds(522, 152, 252, 29);
 		
 		btnModificar = new JButton("Modificar");
+		btnModificar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -487,11 +535,11 @@ public class VentanaUsuarios {
 
 					try {
 						if (verificarMail(textMail.getText()) && verificarPass(textClave.getText())){
-							Administrador administrador = administradorBean.obtenerPorID(Long.parseLong(textID.getText()));
-							Investigador investigador = investigadorBean.obtenerPorID(Long.parseLong(textID.getText()));
-							Aficionado aficionado = aficionadoBean.obtenerPorID(Long.parseLong(textID.getText()));
-							if (administrador != null ) {
-								if (verificarCI(textDocumento.getText())) {
+							Usuario usuario = gestionUsuarios.obtienePorId(Long.parseLong(textID.getText()));
+						
+							if (Administrador.class.isInstance(usuario) ) {
+								if (verificarCI(textDocumento.getText()) || (!verificarTel(textTelefono.getText()))) {
+									Administrador administrador = (Administrador) usuario;
 									administrador.setNombre(textNombre.getText());
 									administrador.setApellido(textApellido.getText());
 									administrador.setMail(textMail.getText());
@@ -501,14 +549,15 @@ public class VentanaUsuarios {
 									administrador.setTelefono(textTelefono.getText());
 									administrador.setCiudad(cmbCiudad.getSelectedItem().toString());
 									administrador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
-									administradorBean.actualizar(administrador); 
+									administrador = gestionUsuarios.actualizarAdministrador(administrador); 
 								}else {
 									JOptionPane.showMessageDialog(null, "Error, verifica los datos ingresados.","Error", 
 											JOptionPane.ERROR_MESSAGE);
 								}
 									
-							} else if (investigador != null) {
-								if (verificarCI(textDocumento.getText())) {
+							} else if (Investigador.class.isInstance(usuario)) {
+								if (verificarCI(textDocumento.getText())|| (!verificarTel(textTelefono.getText()))) {
+									Investigador investigador = (Investigador) usuario;
 									investigador.setNombre(textNombre.getText());
 									investigador.setApellido(textApellido.getText());
 									investigador.setMail(textMail.getText());
@@ -518,19 +567,22 @@ public class VentanaUsuarios {
 									investigador.setTelefono(textTelefono.getText());
 									investigador.setCiudad(cmbCiudad.getSelectedItem().toString());
 									investigador.setDepartamento(comboBoxDepartamento.getSelectedItem().toString());
-									investigadorBean.actualizar(investigador); 
+									investigador = gestionUsuarios.actualizarInvestigador(investigador); 
 								}else {
 									JOptionPane.showMessageDialog(null, "Error, verifica los datos ingresados.","Error", 
 											JOptionPane.ERROR_MESSAGE);
 								}
-							} else if (aficionado != null) {
+							} else if (Aficionado.class.isInstance(usuario)) {
+								Aficionado aficionado = (Aficionado) usuario;
 								aficionado.setNombre(textNombre.getText());
 								aficionado.setApellido(textApellido.getText());
 								aficionado.setMail(textMail.getText());
 								aficionado.setContraseña(textClave.getText());
+								aficionado = gestionUsuarios.actualizaAficionado(aficionado);
 								
 							}
 		
+				
 							 JOptionPane.showMessageDialog(null, "Usuario modificado con éxito.", "Exito", JOptionPane.INFORMATION_MESSAGE); 
 							 limpiarFormulario();
 						}else {
@@ -542,6 +594,9 @@ public class VentanaUsuarios {
 						JOptionPane.showMessageDialog(null, "Error, no se pudo actualizar al usuario.", "Error",
 								JOptionPane.ERROR_MESSAGE);
 						e1.printStackTrace();
+					} catch (NamingException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 				}else {
 					JOptionPane.showMessageDialog(null,
@@ -551,67 +606,110 @@ public class VentanaUsuarios {
 			}
 		});
 		 
-		btnModificar.setBounds(300, 123, 204, 23);
-		frame.getContentPane().add(btnModificar);
+		btnModificar.setBounds(522, 106, 252, 29);
 		
 		
 		JLabel lblDepartamento = new JLabel("Departamento");
-		lblDepartamento.setBounds(28, 308, 100, 14);
-		frame.getContentPane().add(lblDepartamento);
+		lblDepartamento.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDepartamento.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDepartamento.setBounds(15, 277, 144, 19);
 		
 		JButton btnLimpiar = new JButton("Limpiar formulario");
+		btnLimpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnLimpiar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				limpiarFormulario();
 			}
 		});
-		btnLimpiar.setBounds(306, 352, 181, 23);
-		frame.getContentPane().add(btnLimpiar);
+		btnLimpiar.setBounds(223, 382, 163, 29);
 		
 		JButton btnBuscarNombre = new JButton("Buscar por nombre y apellido");
+		btnBuscarNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnBuscarNombre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
 					frame.dispose();
-					List<Usuario> usuarios = usuarioBean.obtenerPorNomApe(textNombre.getText(), textApellido.getText());
-					VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, usuarios);
-					ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, usuarios);
+					List<Usuario> usuarios = gestionUsuarios.obtenerPorNombreApellido(textNombre.getText().toUpperCase(), textApellido.getText().toUpperCase());
+//					List<Usuario> usuarios = usuarioBean.obtenerPorNomApe(textNombre.getText(), textApellido.getText());
+					VentanaListaUsuarios ventanaListaUsuaries = new VentanaListaUsuarios ((Usuario) usuarioLoged, (List<Usuario>) usuarios);
+					ventanaListaUsuaries.ventanaListaUsuaries();
 				} catch (ServiciosException e1) {
 					JOptionPane.showMessageDialog(null, "Error, no se pudo realizar la búsqueda.", "Error",
 							JOptionPane.ERROR_MESSAGE);
+					e1.printStackTrace();
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
 				
 			}
 		});
-		btnBuscarNombre.setBounds(300, 187, 204, 23);
-		frame.getContentPane().add(btnBuscarNombre);
+		btnBuscarNombre.setBounds(520, 192, 252, 27);
 		
 		JButton btnBuscarRol = new JButton("Buscar por rol");
+		btnBuscarRol.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnBuscarRol.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
+				List<Usuario> usuarios = usuarioBean.obtenerTodos();
+				List<Usuario> usuariosFiltrados = new LinkedList<Usuario>();
 				if (cmbRol.getSelectedItem().toString() == "Administrador") {
-					List<? extends Usuario> usuarios = administradorBean.obtenerTodos();
-					VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, (List<Usuario>) usuarios);
-					ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, (List<Usuario>) usuarios);
+					for (Usuario u : usuarios) {
+						if (u instanceof Administrador)
+							usuariosFiltrados.add(u);
+					}
 				} else if (cmbRol.getSelectedItem().toString() == "Investigador") {
-					List<? extends Usuario> usuarios = investigadorBean.obtenerTodos();
-					VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, (List<Usuario>) usuarios);
-					ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, (List<Usuario>) usuarios);
+					for (Usuario u : usuarios) {
+						if (u instanceof Investigador)
+							usuariosFiltrados.add(u);
+					}
 				} else {
-					List<? extends Usuario> usuarios = aficionadoBean.obtenerTodos();
-					VentanaListaUsuarios ventanaListaUsuarios = new VentanaListaUsuarios ((Usuario) usuarioLoged, (List<Usuario>) usuarios);
-					ventanaListaUsuarios.VentanaListaUsuarios((Usuario) usuarioLoged, (List<Usuario>) usuarios);
+					for (Usuario u : usuarios) {
+						if (u instanceof Aficionado)
+							usuariosFiltrados.add(u);
+					}
 				}
+				VentanaListaUsuarios ventanaListaUsuaries = new VentanaListaUsuarios ((Usuario) usuarioLoged, (List<Usuario>) usuariosFiltrados);
+				ventanaListaUsuaries.ventanaListaUsuaries();
 			}
 		});
-		btnBuscarRol.setBounds(300, 215, 204, 23);
-		frame.getContentPane().add(btnBuscarRol);
+		btnBuscarRol.setBounds(520, 230, 252, 29);
+		contentPane_1.setLayout(null);
+		contentPane_1.add(lblDomicilio);
+		contentPane_1.add(textDomicilio);
+		contentPane_1.add(lblDepartamento);
+		contentPane_1.add(comboBoxDepartamento);
+		contentPane_1.add(lblCiudad);
+		contentPane_1.add(lblRol);
+		contentPane_1.add(cmbCiudad);
+		contentPane_1.add(cmbRol);
+		contentPane_1.add(btnBuscar);
+		contentPane_1.add(btnLimpiar);
+		contentPane_1.add(btnVolver);
+		contentPane_1.add(btnBuscarNombre);
+		contentPane_1.add(btnBuscarRol);
+		contentPane_1.add(lblClave);
+		contentPane_1.add(lblMail);
+		contentPane_1.add(lblTelefono);
+		contentPane_1.add(textTelefono);
+		contentPane_1.add(textMail);
+		contentPane_1.add(textClave);
+		contentPane_1.add(lblDocumento);
+		contentPane_1.add(textDocumento);
+		contentPane_1.add(lblNombre1);
+		contentPane_1.add(lblApellido1);
+		contentPane_1.add(btnModificar);
+		contentPane_1.add(btnEliminar);
+		contentPane_1.add(lblUsuario);
+		contentPane_1.add(lblID);
+		contentPane_1.add(textNombre);
+		contentPane_1.add(textID);
+		contentPane_1.add(textApellido);
+		contentPane_1.add(btnAlta);
 		
 		
 				
@@ -730,6 +828,13 @@ public class VentanaUsuarios {
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
+	
+	public static boolean verificarTel(final String telefono) {
+		if (telefono.matches("[+-]?\\d*(\\.\\d+)?"))
+			return true;
+		else 
+			return false;
+	}
 	
 	public Boolean verificarCI(String documento) {
 		int suma = 0;

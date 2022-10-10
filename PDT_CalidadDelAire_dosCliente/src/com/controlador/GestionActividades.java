@@ -1,5 +1,7 @@
 package com.controlador;
 
+import java.util.List;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -44,4 +46,25 @@ public class GestionActividades {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	public List<Actividad> obtieneTodas() throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/ActividadesBean!com.services.ActividadesBeanRemote";
+		ActividadesBeanRemote actividadBean = (ActividadesBeanRemote)
+				InitialContext.doLookup(ruta);
+		List<Actividad> actividades = actividadBean.obtenerTodos();
+		return actividades;
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void borraActividad(Actividad actividad) throws NamingException, ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/ActividadesBean!com.services.ActividadesBeanRemote";
+		ActividadesBeanRemote actividadBean = (ActividadesBeanRemote)
+				InitialContext.doLookup(ruta);
+		Long idActividadAEliminar = actividad.getId();
+		actividadBean.borrar(idActividadAEliminar);
+	}
+	
+	
 }

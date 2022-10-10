@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
-import com.entities.Administrador;
 import com.entities.Aficionado;
 import com.entities.Formulario;
 import com.exceptions.ServiciosException;
@@ -108,5 +107,18 @@ public class AficionadosBean implements AficionadosBeanRemote {
 		Aficionado aficionado = em.find(Aficionado.class, id);
 		return aficionado;
 	}
+
+	@Override
+	public Aficionado actualizarAficionado(Aficionado aficionado) throws ServiciosException {
+		try {
+			em.merge(aficionado);
+			em.flush();
+		}catch (PersistenceException e) {
+			throw new ServiciosException ("No se pudo actualizar el aficionado: " + aficionado.getNombre());
+		}
+		return aficionado;
+		
+	}
+
 
 }

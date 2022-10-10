@@ -32,6 +32,9 @@ public class Formulario implements Serializable {
 
 	@Column(length=10)
 	private Estado estado;
+	
+	@ManyToOne (fetch = FetchType.LAZY)
+	private Usuario ultimoEditor;
 		
 	@ManyToMany 
 	(
@@ -48,6 +51,7 @@ public class Formulario implements Serializable {
 	
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Investigador investigadorCreador;
+	
 	@JoinTable(
 			name = "FORMULARIOS_USUARIOS" ,
 			joinColumns = @JoinColumn(name = "FK_FORMULARIO" , nullable = false),
@@ -117,6 +121,18 @@ public class Formulario implements Serializable {
 		this.casillas = casillas;
 	}
 
+	
+	
+	public Usuario getUltimoEditor() {
+		return ultimoEditor;
+	}
+
+
+	public void setUltimoEditor(Usuario ultimoEditor) {
+		this.ultimoEditor = ultimoEditor;
+	}
+
+
 	public Investigador getInvestigador() {
 		return investigadorCreador;
 	}
@@ -163,6 +179,15 @@ public class Formulario implements Serializable {
 	}
 
 
+	public Formulario(String nombre, List<Casilla> casillas, Administrador administradorCreador) {
+		super();
+		this.nombre = nombre;
+		this.estado = Estado.HABILITADO;
+		this.casillas = casillas;
+		this.administradorCreador = administradorCreador;
+	}
+
+
 	public List<Usuario> getUsuarios() {
 		return usuariosHabilitados;
 	}
@@ -185,7 +210,7 @@ public class Formulario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Formulario [id=" + id + ", nombre=" + nombre + ", casillas=" + casillas + ",usuarios habilitados=" + usuariosHabilitados + "]";
+		return nombre ;
 	}
 
 

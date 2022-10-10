@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 import com.entities.Casilla;
 import com.entities.Formulario;
+import com.entities.Usuario;
 import com.enumerados.BorradoLogico.Estado;
 import com.exceptions.ServiciosException;
 
@@ -25,7 +26,7 @@ public class FormulariosBean implements FormulariosBeanRemote {
 
     @Override
     public Formulario crear(Formulario formulario) throws ServiciosException {
-    	System.out.println("Formulario 1 en el Bean: " + formulario);
+    	System.out.println("Formulario en el Bean: " + formulario);
     	
     	try {
     		em.persist(formulario);
@@ -51,6 +52,7 @@ public class FormulariosBean implements FormulariosBeanRemote {
 		
 	}
 	
+
 	@Override
 	public Formulario obtenerPorId(Long idForm) throws ServiciosException {
 		Formulario formulario;
@@ -59,7 +61,10 @@ public class FormulariosBean implements FormulariosBeanRemote {
 			}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo encontrar el formulario: ");
 		}
-		return formulario;
+		if (formulario.getEstado() == Estado.HABILITADO)
+			return formulario;
+		else
+			return null;
 		
 	}
 
@@ -68,6 +73,7 @@ public class FormulariosBean implements FormulariosBeanRemote {
 		try {
 			Formulario formulario = em.find(Formulario.class, id);
 			formulario.setEstado(Estado.BORRADO);
+			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo borrar el formulario");
 		}
@@ -88,7 +94,11 @@ public class FormulariosBean implements FormulariosBeanRemote {
 	public List<Formulario> obtenerTodos(String filtro) {
 		TypedQuery<Formulario>query = em.createQuery("SELECT f FROM Formulario f WHERE f.nombre LIKE :nombre", Formulario.class)
 				.setParameter("nombre",filtro);
-		return query.getResultList();
+		List<Formulario> formulariosHabilitados = new LinkedList<Formulario>();
+		for (Formulario f : query.getResultList()) 
+			if (f.getEstado() == Estado.HABILITADO)
+				formulariosHabilitados.add(f);
+		return formulariosHabilitados;
 	}
 
 	@Override
@@ -101,7 +111,34 @@ public class FormulariosBean implements FormulariosBeanRemote {
 		} catch(PersistenceException e) {
 			throw new ServiciosException ("No se pudo asignar la Casilla al Formulario");
 		}
-	}	
+	}
+
+	@Override
+	public List<Formulario> obtenerPorNombre(String nombreFormulario) {
+		TypedQuery<Formulario>query = em.createQuery("SELECT c FROM Formulario c WHERE c.nombre LIKE :nombre", Formulario.class)
+				.setParameter("nombre",nombreFormulario);
+		List<Formulario> a = query.getResultList();
+		List<Formulario> b = new LinkedList<>();
+		for (Formulario c : a)
+		{
+			if (c.getEstado() == Estado.HABILITADO)
+			b.add(c);
+		}
+		return b;
+	}
+
+	@Override
+	public Formulario asignarUsuario(Long idFormulario, Long idUsuario) throws ServiciosException {
+		Formulario formulario = em.find(Formulario.class, idFormulario);
+		Usuario usuario = em.find(Usuario.class, idUsuario);
+		if (formulario.getEstado() == Estado.HABILITADO && usuario.getEstado() == Estado.HABILITADO) {
+			formulario.getUsuarios().add(usuario);
+			em.flush();
+		}
+		return formulario;
+	}
+
+	
 	
 
 }

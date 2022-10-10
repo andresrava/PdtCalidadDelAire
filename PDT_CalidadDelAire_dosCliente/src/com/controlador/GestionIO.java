@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -164,81 +163,64 @@ public class GestionIO {
 	            int actividades = workbook.getNumberOfSheets();		//Cantidad de actividades (hojas) en la carga
 	            List<Casilla> casillas = form.getCasillas();
 	            int campos = casillas.size();						//Cantidad de campos en cada formulario
-	           
+	            
 	            for (int i=0 ; i < actividades ; i++) {
 	            	Actividad actividad = new Actividad();
 	            	actividad.setUsuario(usuarioLoged);
 	    			actividad.setFormulario(form);
 	    			actividad.setIngreso(Ingreso.MASIVO);
 	    			actividad = gestionActividades.crearActividad(actividad);
-	    			
 	    			Sheet sheet = workbook.getSheetAt(i);
 		            
-		            for ( int j=1 ; j-1<campos ; j++) {
+		            for ( int j=0 ; j<campos ; j++) {
 		            	Row row = sheet.getRow(j);
-			            Cell cell1 = row.getCell(1);
-			            switch (casillas.get(j-1).getTipoDeDato().toString()) {
-		                        case "STRING":
-		                        	System.out.println("Entró a String");
-		                            RegistroString registroS = new RegistroString();
+		            	Cell cell1 = row.getCell(0);
+			            switch (casillas.get(j).getTipoDeDato().toString()) {
+		                        case "TEXTO":
+		                        	RegistroString registroS = new RegistroString();
 		                            registroS.setValor(cell1.getStringCellValue());
 		                            registroS.setActividad(actividad);
-		                            registroS.setCasilla(casillas.get(j-1));
-		                            registroS.setFechaHora(dameSql(row.getCell(2)));
-		                            registroS.setLatitud((float) row.getCell(3).getNumericCellValue());
-		                            registroS.setLongitud((float) row.getCell(4).getNumericCellValue());
+		                            registroS.setCasilla(casillas.get(j));
+		                            registroS.setFechaHora(dameSql(row.getCell(1)));
+		                            registroS.setLatitud((float) row.getCell(2).getNumericCellValue());
+		                            registroS.setLongitud((float) row.getCell(3).getNumericCellValue());
 		                            registroS = gestionRegistros.crearRegistroString(registroS);
 		                            actividad = gestionActividades.agregaRegistro(actividad.getId(), registroS.getId());
 		                            break;
-		                        case "BOOLEAN":
-		                        	System.out.println("Entró a Boolean");
-		                            RegistroBoolean registroB = new RegistroBoolean();
-		                            System.out.println("El stringCellValue es: " + cell1.toString());
-//		                            String valorBoolean = cell1.getStringCellValue().toString();
-		                            String valorBoolean = cell1.toString();
-		                            String verdadero = "TRUE";
-		                        	if (valorBoolean == verdadero)
-		                        	{
-		                        		registroB.setValor(Booleano.TRUE);
-		                        		System.out.println("Ahora desde el registro: " + registroB.getValor());
-		                        	}
-		                        	String falso = "FALSE";
-		                        	if (valorBoolean == falso)
-		                        	{
-		                        		registroB.setValor(Booleano.FALSE);
-		                        		System.out.println("Ahora desde el registro: " + registroB.getValor());
-		                        	}
-		                        	System.out.println("Registro boolean: " + registroB.getValor());
+		                        case "VERDADEROóFALSO":
+		                        	RegistroBoolean registroB = new RegistroBoolean();
+		                            if (cell1.toString().equals("TRUE"))
+		                            	registroB.setValor(Booleano.TRUE);
+		                            else
+		                            	registroB.setValor(Booleano.FALSE);
 		                            registroB.setActividad(actividad);
-		                            registroB.setCasilla(casillas.get(j-1));
-		                            registroB.setFechaHora(dameSql(row.getCell(2)));
-		                            registroB.setLatitud((float) row.getCell(3).getNumericCellValue());
-		                            registroB.setLongitud((float) row.getCell(4).getNumericCellValue());
+		                            registroB.setCasilla(casillas.get(j));
+		                            registroB.setFechaHora(dameSql(row.getCell(1)));
+		                            registroB.setLatitud((float) row.getCell(2).getNumericCellValue());
+		                            registroB.setLongitud((float) row.getCell(3).getNumericCellValue());
 		                            registroB = gestionRegistros.crearRegistroBoolean(registroB);
 		                            actividad = gestionActividades.agregaRegistro(actividad.getId(), registroB.getId());
 		                            break;
-		                        case "INTEGER":
-		                        	System.out.println("Entró a Integer");
-		                            RegistroInteger registroI = new RegistroInteger();
+		                        case "ENTERO":
+		                        	RegistroInteger registroI = new RegistroInteger();
 		                            registroI.setValor((int) cell1.getNumericCellValue());
 		                            registroI.setActividad(actividad);
-		                            registroI.setCasilla(casillas.get(j-1));
-		                            registroI.setFechaHora(dameSql(row.getCell(2)));
-		                            registroI.setLatitud((float) row.getCell(3).getNumericCellValue());
-		                            registroI.setLongitud((float) row.getCell(4).getNumericCellValue());
+		                            registroI.setCasilla(casillas.get(j));
+		                            registroI.setFechaHora(dameSql(row.getCell(1)));
+		                            registroI.setLatitud((float) row.getCell(2).getNumericCellValue());
+		                            registroI.setLongitud((float) row.getCell(3).getNumericCellValue());
 		                            registroI = gestionRegistros.crearRegistroInteger(registroI);
 		                            actividad = gestionActividades.agregaRegistro(actividad.getId(), registroI.getId());
 		                            break;
-		                        case "FLOAT":
-		                        	System.out.println("Entró a Float");
-		                        	System.out.println("la celda tiene: " + cell1.getNumericCellValue());
-		                            RegistroFloat registroF = new RegistroFloat();
+		                        case "DECIMAL":
+		                        	cell1.setCellValue(Float.parseFloat(cell1.getStringCellValue()));
+		                        	RegistroFloat registroF = new RegistroFloat();
 		                            registroF.setValor( cell1.getNumericCellValue());
 		                            registroF.setActividad(actividad);
-		                            registroF.setCasilla(casillas.get(j-1));
-		                            registroF.setFechaHora(dameSql(row.getCell(2))); 
-		                            registroF.setLatitud((float) row.getCell(3).getNumericCellValue());
-		                            registroF.setLongitud((float) row.getCell(4).getNumericCellValue());
+		                            registroF.setCasilla(casillas.get(j));
+		                            registroF.setFechaHora(dameSql(row.getCell(1))); 
+		                            registroF.setLatitud((float) row.getCell(2).getNumericCellValue());
+		                            registroF.setLongitud((float) row.getCell(3).getNumericCellValue());
 		                            registroF = gestionRegistros.crearRegistroFloat(registroF);
 		                            actividad = gestionActividades.agregaRegistro(actividad.getId(), registroF.getId());
 		                            break;
@@ -248,6 +230,8 @@ public class GestionIO {
 	             
 	            workbook.close();
 	            file.close();
+	            JOptionPane.showMessageDialog(null, "Actividades cargadas correctamente", "Felicitaciones!" , JOptionPane.INFORMATION_MESSAGE);
+	            
 	        }catch(Exception e)
 	        {
 	        	JOptionPane.showMessageDialog(null, "Mal archivo", "Atención!" , JOptionPane.WARNING_MESSAGE);

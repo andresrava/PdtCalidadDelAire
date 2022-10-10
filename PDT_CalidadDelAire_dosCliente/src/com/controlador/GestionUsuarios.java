@@ -34,6 +34,8 @@ public class GestionUsuarios {
 		String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
 		UsuariosBeanRemote usuariosBean = (UsuariosBeanRemote)
 				InitialContext.doLookup(ruta);
+		usuario.setNombre(usuario.getNombre().toUpperCase());
+		usuario.setApellido(usuario.getApellido().toUpperCase());
 		usuario = usuariosBean.crear(usuario);
 		return usuario;		
 	}
@@ -43,10 +45,43 @@ public class GestionUsuarios {
 		
 		AdministradoresBeanRemote administradorBean = (AdministradoresBeanRemote)
 					InitialContext.doLookup(ruta);
+		administrador.setNombre(administrador.getNombre().toUpperCase());
+		administrador.setApellido(administrador.getApellido().toUpperCase());
 		administrador = administradorBean.crear(administrador);
 		return administrador;
 	}
 	
+	public Administrador actualizarAdministrador(Administrador administrador) throws NamingException , ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/AdministradoresBean!com.services.AdministradoresBeanRemote";
+		
+		AdministradoresBeanRemote administradorBean = (AdministradoresBeanRemote)
+				InitialContext.doLookup(ruta);
+		administrador.setNombre(administrador.getNombre().toUpperCase());
+		administrador.setApellido(administrador.getApellido().toUpperCase());
+		administrador = administradorBean.actualizar(administrador);
+		return administrador;
+	}
+	public Investigador actualizarInvestigador(Investigador investigador) throws NamingException, ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/InvestigadoresBean!com.services.InvestigadoresBeanRemote";
+		
+		InvestigadoresBeanRemote investigadorBean = (InvestigadoresBeanRemote)
+				InitialContext.doLookup(ruta);
+		investigador.setNombre(investigador.getNombre().toUpperCase());
+		investigador.setApellido(investigador.getApellido().toUpperCase());
+		investigador = investigadorBean.actualizarInvestigador(investigador);
+		return investigador;
+	}
+	
+	public Aficionado actualizaAficionado(Aficionado aficionado) throws NamingException, ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/AficionadosBean!com.services.AficionadosBeanRemote";
+		
+		AficionadosBeanRemote investigadorBean = (AficionadosBeanRemote)
+				InitialContext.doLookup(ruta);
+		aficionado.setNombre(aficionado.getNombre().toUpperCase());
+		aficionado.setApellido(aficionado.getApellido().toUpperCase());
+		aficionado = investigadorBean.actualizarAficionado(aficionado);
+		return aficionado;
+	}
 	public List<Administrador> obtieneAdministradores() throws NamingException {
 		String ruta = "PDT_CalidadDelAire_dosEJB/AdministradoresBean!com.services.AdministradoresBeanRemote";
 		AdministradoresBeanRemote administradorBean = (AdministradoresBeanRemote)
@@ -60,6 +95,8 @@ public class GestionUsuarios {
 		
 		InvestigadoresBeanRemote investigadorBean = (InvestigadoresBeanRemote)
 					InitialContext.doLookup(ruta);
+		investigador.setNombre(investigador.getNombre().toUpperCase());
+		investigador.setApellido(investigador.getApellido().toUpperCase());
 		investigador = investigadorBean.crear(investigador);
 		return investigador;
 	}
@@ -77,6 +114,8 @@ public class GestionUsuarios {
 		
 		AficionadosBeanRemote aficionadoBean = (AficionadosBeanRemote)
 					InitialContext.doLookup(ruta);
+		aficionado.setNombre(aficionado.getNombre().toUpperCase());
+		aficionado.setApellido(aficionado.getApellido().toUpperCase());
 		aficionado = aficionadoBean.crear(aficionado);
 		return aficionado;
 	}
@@ -98,4 +137,63 @@ public class GestionUsuarios {
 	return usuario;
 
 	}
+	
+	public Administrador obtieneAdministradorPorId (Long idAdministrador) throws NamingException, ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
+		UsuariosBeanRemote usuariosBean = (UsuariosBeanRemote)
+				InitialContext.doLookup(ruta);
+		Administrador administrador = (Administrador) usuariosBean.obtenerPorId(idAdministrador);
+		return administrador;
+		
+	}
+	
+	public Investigador obtieneInvestigadorPorId (Long idInvestigador) throws NamingException, ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
+		UsuariosBeanRemote usuariosBean = (UsuariosBeanRemote)
+				InitialContext.doLookup(ruta);
+		Investigador investigador = (Investigador) usuariosBean.obtenerPorId(idInvestigador);
+		return investigador;
+		
+	}
+	
+	public Aficionado obtieneAficionadoPorId (Long idAficionado) throws NamingException, ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
+		UsuariosBeanRemote usuariosBean = (UsuariosBeanRemote)
+				InitialContext.doLookup(ruta);
+		Aficionado aficionado = (Aficionado) usuariosBean.obtenerPorId(idAficionado);
+		return aficionado;
+		
+	}
+	
+	public void borraUsuario(Usuario usuarioABorrar) throws NamingException, ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
+		UsuariosBeanRemote usuariosBean = (UsuariosBeanRemote)
+				InitialContext.doLookup(ruta);
+		Long idABorrar = usuarioABorrar.getId();
+		usuariosBean.borrar(idABorrar);
+	}
+	public List<Usuario> obtieneUsuarios() throws NamingException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
+		UsuariosBeanRemote usuarioBean = (UsuariosBeanRemote)
+					InitialContext.doLookup(ruta);
+		List<Usuario> usuarios = usuarioBean.obtenerTodos();
+		return usuarios;
+	}
+	public List<Usuario> obtenerPorMail(String mail) throws NamingException, ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
+		UsuariosBeanRemote usuarioBean = (UsuariosBeanRemote)
+				InitialContext.doLookup(ruta);
+		List<Usuario> usuarios = usuarioBean.obtenerPorMail(mail);
+		return usuarios;
+	}
+	
+	public List<Usuario> obtenerPorNombreApellido(String nombre, String apellido) throws NamingException, ServiciosException {
+		String ruta = "PDT_CalidadDelAire_dosEJB/UsuariosBean!com.services.UsuariosBeanRemote";
+		UsuariosBeanRemote usuarioBean = (UsuariosBeanRemote)
+				InitialContext.doLookup(ruta);
+		List<Usuario> usuarios = usuarioBean.obtenerPorNomApe(nombre, apellido);
+		return usuarios;
+	}
+	
+	
 }

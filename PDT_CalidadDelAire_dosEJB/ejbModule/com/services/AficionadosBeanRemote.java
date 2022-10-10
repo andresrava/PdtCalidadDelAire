@@ -6,6 +6,7 @@ import javax.ejb.Remote;
 
 import com.entities.Administrador;
 import com.entities.Aficionado;
+import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 
 @Remote
@@ -19,4 +20,5 @@ public interface AficionadosBeanRemote {
 	Aficionado obtenerPorID(Long id);
 	List<Aficionado> obtenerPorFormulario(Long idFormulario);
 	void asignarFormulario(Long idAficionado, Long idFormulario) throws ServiciosException;
+	Aficionado actualizarAficionado(Aficionado aficionado) throws ServiciosException;
 }

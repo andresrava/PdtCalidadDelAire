@@ -5,6 +5,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.entities.Formulario;
+import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 import com.services.FormulariosBeanRemote;
 
@@ -13,13 +14,10 @@ public class GestionFormularios {
 	
 
 	public Formulario crearFormulario(Formulario formulario) throws NamingException, ServiciosException {
-		System.out.println("Formulario 1 GestionFormularios: " + formulario);
-		
 		FormulariosBeanRemote formularioBean = (FormulariosBeanRemote)
 				InitialContext.doLookup(ruta);
 		Formulario formularioPos = formularioBean.crear(formulario);
-		System.out.println("Formulario 1 GestionFormularios después: " + formularioPos);
-
+		
 		return formularioPos;
 	}
 	
@@ -51,6 +49,21 @@ public class GestionFormularios {
 		Formulario formulario = formularioBean.obtenerPorId(idFormulario);
 		return formulario;
 	}
+	public Formulario asignarUsuario(Long idFormulario, Long idUsuario) throws NamingException, ServiciosException {
+		FormulariosBeanRemote formularioBean = (FormulariosBeanRemote)
+				InitialContext.doLookup(ruta);
+		Formulario formulario = formularioBean.asignarUsuario(idFormulario, idUsuario);
+		return formulario;
+	}
+
+	public List<Formulario> listaFormularios(String nombreFormulario) throws NamingException {
+		FormulariosBeanRemote formularioBean = (FormulariosBeanRemote)
+				InitialContext.doLookup(ruta);
+		List<Formulario> formularios = formularioBean.obtenerPorNombre("%" + nombreFormulario + "%");
+		return formularios;
+	}
+
+	
 	
 	
 

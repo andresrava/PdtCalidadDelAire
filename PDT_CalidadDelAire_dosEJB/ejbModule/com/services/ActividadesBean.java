@@ -1,5 +1,6 @@
 package com.services;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -10,6 +11,7 @@ import javax.persistence.TypedQuery;
 
 import com.entities.Actividad;
 import com.entities.Registro;
+import com.enumerados.BorradoLogico.Estado;
 import com.exceptions.ServiciosException;
 
 
@@ -50,8 +52,11 @@ public class ActividadesBean implements ActividadesBeanRemote {
 	public void borrar(Long id) throws ServiciosException {
 		try {
 			Actividad actividad = em.find(Actividad.class, id);
-			em.remove(actividad);
-			em.flush();
+			actividad.setEstado(Estado.BORRADO);
+			List<Registro> registros = actividad.getRegistros();
+			for (Registro r : registros) {
+				r.setEstado(Estado.BORRADO);
+			}
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo borrar la actividad");
 		}
@@ -60,14 +65,24 @@ public class ActividadesBean implements ActividadesBeanRemote {
 	@Override
 	public List<Actividad> obtenerTodos() {
 		TypedQuery<Actividad>query = em.createNamedQuery("Actividad.obtenerTodos", Actividad.class);
-		return query.getResultList();
+		List<Actividad> actividadesFiltradas = new LinkedList<Actividad>();
+		for (Actividad a : query.getResultList()) {
+			if (a.getEstado() == Estado.HABILITADO)
+				actividadesFiltradas.add(a);
+		}
+		return actividadesFiltradas;
 	}
 
 	@Override
 	public List<Actividad> obtenerTodos(String filtro) {
 		TypedQuery<Actividad>query = em.createQuery("SELECT a FROM Actividad a WHERE a.nombre LIKE :nombre", Actividad.class)
 				.setParameter("nombre",filtro);
-		return query.getResultList();
+		List<Actividad> actividadesFiltradas = new LinkedList<Actividad>();
+		for (Actividad a : query.getResultList()) {
+			if (a.getEstado() == Estado.HABILITADO)
+				actividadesFiltradas.add(a);
+		}
+		return actividadesFiltradas;
 	}
 
 	@Override

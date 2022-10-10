@@ -31,12 +31,13 @@ public class Actividad implements Serializable {
 	private Formulario formulario;
 	
 	@OneToMany (
+			fetch = FetchType.EAGER,		//Acá 30 de julio
 			mappedBy = "actividad" ,
 			cascade = CascadeType.ALL ,
 			orphanRemoval = true)
 	private List<Registro> registros;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne (fetch = FetchType.EAGER)
 	private Usuario usuario;
 	
 	public List<Registro> getRegistros() {

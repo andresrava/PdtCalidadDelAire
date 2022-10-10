@@ -9,7 +9,6 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.Administrador;
-import com.entities.Ciudad;
 import com.entities.Formulario;
 import com.entities.Investigador;
 import com.exceptions.ServiciosException;
@@ -40,13 +39,14 @@ public class InvestigadoresBean implements InvestigadoresBeanRemote {
 	}
 
 	@Override
-	public void actualizar(Investigador investigador) throws ServiciosException {
+	public Investigador actualizarInvestigador(Investigador investigador) throws ServiciosException {
 		try {
 			em.merge(investigador);
 			em.flush();
 		}catch (PersistenceException e) {
 			throw new ServiciosException ("No se pudo actualizar el investigador: " + investigador.getNombre());
 		}
+		return investigador;
 		
 	}
 

@@ -30,19 +30,11 @@ public class LocalidadesBean implements LocalidadesBeanRemote {
     @Override
     public Set<String> obtenerDepartamentos() {
     	Set<String> listaDepartamentos = new HashSet<>();
-    	System.out.println("Entra a obtener Departamentos");
-    	try   
+     	try   
 	    	{
-    		System.out.println("Hasta acá");
-//    		File file = new File(this.getClass().getClassLoader().getResource("resources/DeptoLocalidad.xml").toURI());
-//    		File file = new File(this.getClass().getResource("resources/DeptoLocalidad.xml").toURI()); 
-//    		File file = new File(this.getClass().getResource("PDT_CalidadDelAire_dosEJB/resources/DeptoLocalidad.xml").toURI()); 
     		File file = new File(this.getClass().getClassLoader().getResource("Resources/DeptoLocalidad.xml").toURI());
-//    		File file = request().getServletContext().getRealPath("resources/DeptoLocalidad.xml");
-    		System.out.println("Llegó acá");
     		File absolute = file.getAbsoluteFile();   		
-    		System.out.println("Acá también");
-    		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();  
+     		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();  
 	    	Document document = documentBuilder.parse(absolute);  
 	    	document.getDocumentElement().normalize();
 	    	XPath xPath = XPathFactory.newInstance().newXPath();
@@ -51,7 +43,6 @@ public class LocalidadesBean implements LocalidadesBeanRemote {
 	    	
 	    	for (int i=0 ; i<nodeListDepartamentos.getLength() ; i++) 
 	    		{
-	    		System.out.println("Entró al for");
 	    		Node nodo = nodeListDepartamentos.item(i);
 	    		NamedNodeMap nodeMapNombre = nodo.getAttributes();
 	    		String nombreDelItem = nodeMapNombre.item(0).getTextContent();
@@ -62,11 +53,8 @@ public class LocalidadesBean implements LocalidadesBeanRemote {
 	    	}   
     	catch (Exception e)  
 	    	{  
-    			System.out.println("Entra al primer catch");
-	    		System.out.println(e.getMessage());  
+    			System.out.println(e.getMessage());  
 	    	} 
-    	System.out.println("Los departamentos son: ");
-    	System.out.println(listaDepartamentos);
     	return listaDepartamentos;  
     	}
     @Override
@@ -90,7 +78,6 @@ public class LocalidadesBean implements LocalidadesBeanRemote {
 		Node nodo = nodeListDepartamentos.item(i);
 		NamedNodeMap nodeMapNombre = nodo.getAttributes();
 		String nombreDelItem = nodeMapNombre.item(0).getTextContent();
-		System.out.println("El nombreDelItem es: " + nombreDelItem);
 		if (nombreDelItem.equals(depto))
 			{
 			NodeList localidades = nodo.getChildNodes();

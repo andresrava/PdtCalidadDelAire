@@ -2,9 +2,12 @@ package com.vista;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.util.Calendar;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,6 +45,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JInternalFrame;
 import javax.swing.JToggleButton;
+import java.awt.Font;
 
 public class VentanaLlenaFormulario extends JFrame {
 
@@ -66,7 +70,8 @@ public class VentanaLlenaFormulario extends JFrame {
 	private static Formulario formularioElegido;
 	private JButton btnVolver;
 	private JButton btnIngresar;
-	
+	private List<Casilla> casillas;
+	private Set<Casilla> conjuntoCasillas = new HashSet<Casilla>();;
 	private JTextField text4;
 	private JLabel lbl0;
 	private JTextField text0;
@@ -109,8 +114,9 @@ public class VentanaLlenaFormulario extends JFrame {
 		VentanaLlenaFormulario.usuarioLoged = usuarioLogedRef;
 		VentanaLlenaFormulario.formularioElegido = formularioElegidoRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 610, 630);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);	
+		//Agrego el fondo
+		contentPane = new PaneImage();		
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -153,84 +159,78 @@ public class VentanaLlenaFormulario extends JFrame {
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("default:grow"),}));
 		String nombreDelUsuario = usuarioLogedRef.getNombre();
-		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
-		contentPane.add(lblNewLabel, "4, 2, fill, top");
 		
 		String nombreFormulario = formularioElegido.getNombre();
-		JLabel lblNewLabel_1 = new JLabel("Formulario: " + nombreFormulario);
-		contentPane.add(lblNewLabel_1, "4, 4, fill, top");
+		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
+		contentPane.add(lblNewLabel, "3, 1, fill, top");
 		
-		List<Casilla> casillas = formularioElegido.getCasillas();
+		casillas = formularioElegido.getCasillas();
+		System.out.println("Las casillas del formularioElegido son: " + casillas);
+		for (Casilla c : casillas) {
+			conjuntoCasillas.add(c);
+		}
+		casillas.clear();
+		for (Casilla c : conjuntoCasillas)
+			casillas.add(c);
+		System.out.println("Las casillas del formularioElegido son ahora: " + casillas);
+		
 		
 		tglbtnNewToggleButton0 = new JToggleButton("Presionado para VERDADERO");
 		tglbtnNewToggleButton0.setVisible(false);
-		contentPane.add(tglbtnNewToggleButton0, "4, 8");
-				
-		tglbtnNewToggleButton1 = new JToggleButton("Presionado para VERDADERO");
-		tglbtnNewToggleButton1.setVisible(false);
-		contentPane.add(tglbtnNewToggleButton1, "4, 10");
-		
-		tglbtnNewToggleButton2 = new JToggleButton("Presionado para VERDADERO");
-		tglbtnNewToggleButton2.setVisible(false);
-		contentPane.add(tglbtnNewToggleButton2, "4, 12");
-		
-		tglbtnNewToggleButton3 = new JToggleButton("Presionado para VERDADERO");
-		tglbtnNewToggleButton3.setVisible(false);
-		contentPane.add(tglbtnNewToggleButton3, "4, 14");
-		
-		tglbtnNewToggleButton4 = new JToggleButton("Presionado para VERDADERO");
-		tglbtnNewToggleButton4.setVisible(false);
-		contentPane.add(tglbtnNewToggleButton4, "4, 16");
-		
-		tglbtnNewToggleButton5 = new JToggleButton("Presionado para VERDADERO");
-		tglbtnNewToggleButton5.setVisible(false);
-		contentPane.add(tglbtnNewToggleButton5, "4, 18");
-		
-		tglbtnNewToggleButton6 = new JToggleButton("Presionado para VERDADERO");
-		tglbtnNewToggleButton6.setVisible(false);
-		contentPane.add(tglbtnNewToggleButton6, "4, 20");
-		
-		tglbtnNewToggleButton7 = new JToggleButton("Presionado para VERDADERO");
-		tglbtnNewToggleButton7.setVisible(false);
-		contentPane.add(tglbtnNewToggleButton7, "4, 22");
+		JLabel lblNewLabel_1 = new JLabel("Formulario: " + nombreFormulario);
+		contentPane.add(lblNewLabel_1, "4, 1, center, top");
 		
 		
 		
 		lblLatitud = new JLabel("Latitud: (*)");
-		contentPane.add(lblLatitud, "3, 26, right, default");
+		lblLatitud.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		contentPane.add(lblLatitud, "3, 2, right, default");
 		
 		textLatitud = new JTextField();
-		contentPane.add(textLatitud, "4, 26, fill, default");
+		contentPane.add(textLatitud, "4, 2, left, default");
 		textLatitud.setColumns(10);
 		
 		lblLongitud = new JLabel("Longitud:(*)");
-		contentPane.add(lblLongitud, "3, 28, right, default");
+		lblLongitud.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		contentPane.add(lblLongitud, "3, 4, right, default");
 		
 		textLongitud = new JTextField();
-		contentPane.add(textLongitud, "4, 28, fill, default");
+		contentPane.add(textLongitud, "4, 4, left, default");
 		textLongitud.setColumns(10);
+		contentPane.add(tglbtnNewToggleButton0, "4, 8, left, default");
+				
+		tglbtnNewToggleButton1 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton1.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton1, "4, 10, left, default");
 		
-		//Implemantando el manejo de la fecha
-		lblFecha = new JLabel("Fecha: (*)");
-		contentPane.add(lblFecha, "3, 32, right, default");
-		internalFrame = new JInternalFrame("New JInternalFrame");
-		contentPane.add(internalFrame, "4, 32");
-		internalFrame.setVisible(true);
-		UtilDateModel model = new UtilDateModel();
-//		model.setDate(defaultCloseOperation, defaultCloseOperation, defaultCloseOperation);
-
-		Properties p = new Properties();
-		p.put("text.today", "Today");
-		p.put("text.month", "Month");
-		p.put("text.year", "Year");
-		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
-		 
-		internalFrame.getContentPane().add(datePicker);
+		tglbtnNewToggleButton2 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton2.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton2, "4, 12, left, default");
+		
+		tglbtnNewToggleButton3 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton3.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton3, "4, 14, left, default");
+		
+		tglbtnNewToggleButton4 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton4.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton4, "4, 16, left, default");
+		
+		tglbtnNewToggleButton5 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton5.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton5, "4, 18, left, default");
+		
+		tglbtnNewToggleButton6 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton6.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton6, "4, 20, left, default");
+		
+		tglbtnNewToggleButton7 = new JToggleButton("Presionado para VERDADERO");
+		tglbtnNewToggleButton7.setVisible(false);
+		contentPane.add(tglbtnNewToggleButton7, "4, 22, left, default");
 		
 		
 		
 		btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -246,6 +246,26 @@ public class VentanaLlenaFormulario extends JFrame {
 			}
 		});
 		
+				contentPane.add(btnVolver, "4, 24, center, default");
+		
+		//Implemantando el manejo de la fecha
+		lblFecha = new JLabel("Fecha: (hoy por defecto)");
+		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		contentPane.add(lblFecha, "3, 30, right, default");
+		internalFrame = new JInternalFrame("New JInternalFrame");
+		contentPane.add(internalFrame, "4, 32, left, default");
+		internalFrame.setVisible(true);
+		UtilDateModel model = new UtilDateModel();
+
+		Properties p = new Properties();
+		p.put("text.today", "Today");
+		p.put("text.month", "Month");
+		p.put("text.year", "Year");
+		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
+		 
+		internalFrame.getContentPane().add(datePicker);
+		
 		text0 = new JTextField();
 		text0.setVisible(false);
 		text0.setColumns(10);
@@ -256,13 +276,13 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl0 = new JLabel(etiqueta);
 			contentPane.add(lbl0, "3, 8, right, default");
-			if (casillas.get(0).getTipoDeDato() == TipoDatoEnum.BOOLEAN) //Si es booleano despliega un botÛn
+			if (casillas.get(0).getTipoDeDato() == TipoDatoEnum.VERDADEROÛFALSO) //Si es booleano despliega un botÛn
 				{
 				contentPane.add(tglbtnNewToggleButton0, "4, 8");
 				tglbtnNewToggleButton0.setVisible(true);
 				}
 			else {														//En otro caso despliega un cuadro de texto
-				contentPane.add(text0, "4, 8, fill, default");
+				contentPane.add(text0, "4, 8, left, default");
 				text0.setVisible(true);
 				}
 		}
@@ -276,17 +296,15 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl1 = new JLabel(etiqueta);
 			contentPane.add(lbl1, "3, 10, right, default");
-			if (casillas.get(1).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+			if (casillas.get(1).getTipoDeDato() == TipoDatoEnum.VERDADEROÛFALSO)
 			{
 				contentPane.add(tglbtnNewToggleButton1, "4, 10");
 				tglbtnNewToggleButton1.setVisible(true);
 			}
 			else {	
-				contentPane.add(text1, "4, 10, fill, default");
+				contentPane.add(text1, "4, 10, left, default");
 				text1.setVisible(true);
 				}
-//			contentPane.add(text1, "4, 10, fill, default");
-//			text1.setVisible(true);
 		}
 		
 		text2 = new JTextField();
@@ -298,17 +316,15 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl2 = new JLabel(etiqueta);
 			contentPane.add(lbl2, "3, 12, right, default");
-			if (casillas.get(2).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+			if (casillas.get(2).getTipoDeDato() == TipoDatoEnum.VERDADEROÛFALSO)
 				{
 				contentPane.add(tglbtnNewToggleButton2, "4, 12");
 				tglbtnNewToggleButton2.setVisible(true);
 				}
 			else {	
-				contentPane.add(text2, "4, 12, fill, default");
+				contentPane.add(text2, "4, 12, left, default");
 				text2.setVisible(true);
 				}
-//			contentPane.add(text2, "4, 12, fill, default");
-//			text2.setVisible(true);
 		}
 		
 		text3 = new JTextField();
@@ -320,17 +336,15 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl3 = new JLabel(etiqueta);
 			contentPane.add(lbl3, "3, 14, right, default");
-			if (casillas.get(3).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+			if (casillas.get(3).getTipoDeDato() == TipoDatoEnum.VERDADEROÛFALSO)
 				{
 				contentPane.add(tglbtnNewToggleButton3, "4, 14");
 				tglbtnNewToggleButton3.setVisible(true);
 				}
 			else {	
-				contentPane.add(text3, "4, 14, fill, default");
+				contentPane.add(text3, "4, 14, left, default");
 				text3.setVisible(true);
 				}
-//			contentPane.add(text3, "4, 14, fill, default");
-//			text3.setVisible(true);
 		}
 		
 		text4 = new JTextField();
@@ -342,17 +356,15 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl4 = new JLabel(etiqueta);
 			contentPane.add(lbl4, "3, 16, right, default");
-			if (casillas.get(4).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+			if (casillas.get(4).getTipoDeDato() == TipoDatoEnum.VERDADEROÛFALSO)
 				{
 				contentPane.add(tglbtnNewToggleButton4, "4, 16");
 				tglbtnNewToggleButton4.setVisible(true);
 				}
 			else {	
-				contentPane.add(text4, "4, 16, fill, default");
+				contentPane.add(text4, "4, 16, left, default");
 				text4.setVisible(true);
 				}
-//			contentPane.add(text4, "4, 16, fill, default");
-//			text4.setVisible(true);
 		}
 		
 		text5 = new JTextField();
@@ -364,17 +376,15 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl5 = new JLabel(etiqueta);
 			contentPane.add(lbl5, "3, 18, right, default");
-			if (casillas.get(5).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+			if (casillas.get(5).getTipoDeDato() == TipoDatoEnum.VERDADEROÛFALSO)
 				{
 				contentPane.add(tglbtnNewToggleButton5, "4, 18");
 				tglbtnNewToggleButton5.setVisible(true);
 				}
 			else {	
-				contentPane.add(text5, "4, 18, fill, default");
+				contentPane.add(text5, "4, 18, left, default");
 				text5.setVisible(true);
 				}
-//			contentPane.add(text5, "4, 18, fill, default");
-//			text5.setVisible(true);
 		}
 		
 		text6 = new JTextField();
@@ -386,17 +396,15 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl6 = new JLabel(etiqueta);
 			contentPane.add(lbl6, "3, 20, right, default");
-			if (casillas.get(6).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+			if (casillas.get(6).getTipoDeDato() == TipoDatoEnum.VERDADEROÛFALSO)
 				{
 				contentPane.add(tglbtnNewToggleButton6, "4, 20");
 				tglbtnNewToggleButton6.setVisible(true);
 				}
 			else {	
-				contentPane.add(text6, "4, 20, fill, default");
+				contentPane.add(text6, "4, 20, left, default");
 				text6.setVisible(true);
 				}
-//			contentPane.add(text6, "4, 20, fill, default");
-//			text6.setVisible(true);
 		}
 		
 		text7 = new JTextField();
@@ -408,17 +416,15 @@ public class VentanaLlenaFormulario extends JFrame {
 				etiqueta = etiqueta + "(*)";
 			lbl7 = new JLabel(etiqueta);
 			contentPane.add(lbl7, "3, 22, right, default");
-			if (casillas.get(7).getTipoDeDato() == TipoDatoEnum.BOOLEAN)
+			if (casillas.get(7).getTipoDeDato() == TipoDatoEnum.VERDADEROÛFALSO)
 				{
 				contentPane.add(tglbtnNewToggleButton7, "4, 22");
 				tglbtnNewToggleButton7.setVisible(true);
 				}
 			else {	
-				contentPane.add(text7, "4, 22, fill, default");
+				contentPane.add(text7, "4, 22, left, default");
 				text7.setVisible(true);
 				}
-//			contentPane.add(text7, "4, 22, fill, default");
-//			text7.setVisible(true);
 		}
 		
 		List<JToggleButton> booleanos = new LinkedList<>();
@@ -448,16 +454,14 @@ public class VentanaLlenaFormulario extends JFrame {
 		int largo = formularioElegido.getCasillas().size();
 		
 		System.out.println("Largo de las casillas: " + largo);
-
-		contentPane.add(btnVolver, "3, 30");
 		
 		
 		
 		btnIngresar = new JButton("Ingresar");
+		btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnIngresar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				JOptionPane.showMessageDialog(null, "No se ha implementado esta funcionalidad","Error", JOptionPane.WARNING_MESSAGE);
 				Actividad actividad = new Actividad();
 				actividad.setUsuario(usuarioLoged);
 				actividad.setFormulario(formularioElegido);
@@ -483,7 +487,6 @@ public class VentanaLlenaFormulario extends JFrame {
 								textLatitud.setText("");
 								cargo = false;
 						}
-					//*********************
 					float longitud = 0;
 					try {
 						longitud = Float.parseFloat(textLongitud.getText());
@@ -499,11 +502,11 @@ public class VentanaLlenaFormulario extends JFrame {
 							textLongitud.setText("");
 							cargo = false;
 						}
-					//*********************
-					//Float longitud = Float.parseFloat(textLongitud.getText());
 					
 					// Se obtiene la fecha
-					 java.sql.Date selectedDate = new java.sql.Date(((java.util.Date) datePicker.getModel().getValue()).getTime());
+					 java.sql.Date selectedDate = new java.sql.Date(Calendar.getInstance().getTime().getTime()); //Por defecto es la fecha actual
+					 if (datePicker.getModel().getValue() != null)
+						 selectedDate = new java.sql.Date(((java.util.Date) datePicker.getModel().getValue()).getTime());
 					 try {
 							actividad = gestionActividades.crearActividad(actividad);
 							
@@ -513,7 +516,7 @@ public class VentanaLlenaFormulario extends JFrame {
 						if (cargo)
 						{
 							
-							if (dato == TipoDatoEnum.STRING)
+							if (dato == TipoDatoEnum.TEXTO)
 								{
 								RegistroString registro = new RegistroString();
 								registro.setActividad(actividad);
@@ -528,7 +531,7 @@ public class VentanaLlenaFormulario extends JFrame {
 								gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
 								}
 							
-							if (dato == TipoDatoEnum.INTEGER)
+							if (dato == TipoDatoEnum.ENTERO)
 								{
 								RegistroInteger registro = new RegistroInteger();
 								registro.setActividad(actividad);
@@ -550,7 +553,7 @@ public class VentanaLlenaFormulario extends JFrame {
 									break;
 								}
 								}
-							if (dato == TipoDatoEnum.BOOLEAN)
+							if (dato == TipoDatoEnum.VERDADEROÛFALSO)
 								{
 								RegistroBoolean registro = new RegistroBoolean();
 								registro.setActividad(actividad);
@@ -567,7 +570,7 @@ public class VentanaLlenaFormulario extends JFrame {
 								registro = gestionRegistros.crearRegistroBoolean(registro);
 								gestionActividades.agregaRegistro(actividad.getId(), registro.getId());
 								}
-							if (dato == TipoDatoEnum.FLOAT)
+							if (dato == TipoDatoEnum.DECIMAL)
 								{
 								RegistroFloat registro = new RegistroFloat();
 								registro.setActividad(actividad);
@@ -615,7 +618,7 @@ public class VentanaLlenaFormulario extends JFrame {
 			
 		});
 		
-		contentPane.add(btnIngresar, "4, 30");
+		contentPane.add(btnIngresar, "4, 30, center, default");
 	}
 
 	private void borraCampos() {

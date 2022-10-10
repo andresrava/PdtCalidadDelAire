@@ -26,7 +26,10 @@ import com.entities.Investigador;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class Ingreso extends JFrame {
 
@@ -41,6 +44,15 @@ public class Ingreso extends JFrame {
 	public static void main(String[] args) throws NamingException {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				// Cargo elementos iniciales en la Base de Datos
+				CargaInicial cargaInicial = new CargaInicial();
+				try {
+					cargaInicial.cargaInicial();
+				} catch (NamingException | ServiciosException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				try {
 					Ingreso frame = new Ingreso();
 					frame.setVisible(true);
@@ -55,16 +67,20 @@ public class Ingreso extends JFrame {
 	 * Create the frame.
 	 */
 	public Ingreso() {
+		setTitle("Ingreso");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 351, 275);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);	
+		//Agrego el fondo
+		contentPane = new PaneImage();		
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Mail:");
+		JLabel lblNewLabel = new JLabel("Correo electr\u00F3nico:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblNewLabel_1 = new JLabel("Contrase\u00F1a:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textMail = new JTextField();
 		textMail.setColumns(10);
@@ -74,8 +90,30 @@ public class Ingreso extends JFrame {
 		textClave.setBounds(123, 110, 133, 20);
 		contentPane.add(textClave);
 		
+		textClave.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) 
+	               entra();
+			}
+
+			@Override
+			public void keyReleased (KeyEvent e)  {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
 		JButton btnIngresar = new JButton("Ingresar");
+		btnIngresar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -83,94 +121,96 @@ public class Ingreso extends JFrame {
 		btnIngresar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GestionUsuarios gestionUsuarios = new GestionUsuarios();
-				Usuario usuario = new Usuario();
-				try {
-					// Verificalas credenciales y devuelve un usuario si hay match
-					usuario = gestionUsuarios.validarLogin(textMail.getText(), textClave.getText());
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-					if (usuario instanceof Administrador) {
-						dispose();
-						System.out.println("Es una instancia de Administrador!!!");
-						VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuario);
-						ventanaAdministrador.ventanaAdministrador();
-					}
-					else if (usuario instanceof Investigador) {
-						dispose();
-						System.out.println("Es una instancia de Investigador!!!");
-						VentanaInvestigador ventanaInvestigador = new VentanaInvestigador((Investigador) usuario);
-						ventanaInvestigador.ventanaInvestigador();
-					}
-					else if (usuario instanceof Aficionado) {
-						dispose();
-						//mensaje de prueba
-						System.out.println("Es una instancia de Aficionado!!!");
-						VentanaAficionado ventanaAficionado = new VentanaAficionado((Aficionado) usuario);
-						ventanaAficionado.ventanaAficionado();
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Error - credenciales incorrectas.");
-						textClave.setText(null);
-						textMail.setText(null);
-					}
-				
+				entra();
+			
+			
 			}
 		});
+//		// Cargo elementos iniciales en la Base de Datos
+//		CargaInicial cargaInicial = new CargaInicial();
+//		try {
+//			cargaInicial.cargaInicial();
+//		} catch (NamingException | ServiciosException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+		JLabel lblNewLabel_2 = new JLabel("<html>Sistema de gesti\u00F3n de datos  de calidad de aire<html>");
+		lblNewLabel_2.setForeground(Color.PINK);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 33));
 		
-		JButton btnCargaInicial = new JButton("Carga Inicial");
-		btnCargaInicial.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				CargaInicial cargaInicial = new CargaInicial();
-				try {
-					cargaInicial.cargaInicial();
-				} catch (NamingException | ServiciosException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblNewLabel)
+						.addComponent(lblNewLabel_1))
+					.addGap(44)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(textMail, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblNewLabel)
-								.addComponent(lblNewLabel_1))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(textMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textClave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(55)
-							.addComponent(btnIngresar)))
-					.addPreferredGap(ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-					.addComponent(btnCargaInicial)
-					.addGap(66))
+								.addComponent(textClave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnIngresar, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 274, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addContainerGap(87, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
+					.addGap(76)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(textMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1)
-						.addComponent(textClave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(34)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCargaInicial)
-						.addComponent(btnIngresar))
-					.addContainerGap(125, Short.MAX_VALUE))
+						.addComponent(textMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textClave, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel_1))
+							.addGap(30)
+							.addComponent(btnIngresar, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(155, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+		void entra() {
+			GestionUsuarios gestionUsuarios = new GestionUsuarios();
+			Usuario usuario = new Usuario();
+			try {
+				// Verificalas credenciales y devuelve un usuario si hay match
+				usuario = gestionUsuarios.validarLogin(textMail.getText(), textClave.getText());
+			} catch (NamingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+				if (usuario instanceof Administrador) {
+					dispose();
+					VentanaAdministrador ventanaAdministrador = new VentanaAdministrador((Administrador) usuario);
+					ventanaAdministrador.ventanaAdministrador();
+				}
+				else if (usuario instanceof Investigador) {
+					dispose();
+					VentanaInvestigador ventanaInvestigador = new VentanaInvestigador((Investigador) usuario);
+					ventanaInvestigador.ventanaInvestigador();
+				}
+				else if (usuario instanceof Aficionado) {
+					dispose();
+					VentanaAficionado ventanaAficionado = new VentanaAficionado((Aficionado) usuario);
+					ventanaAficionado.ventanaAficionado();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Error - credenciales incorrectas.");
+					textClave.setText(null);
+					textMail.setText(null);
+				}
+		}
 }

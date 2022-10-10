@@ -21,6 +21,8 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class VentanaGestionRegistros extends JFrame {
 
@@ -50,8 +52,8 @@ public class VentanaGestionRegistros extends JFrame {
 		setTitle("Gesti\u00F3n de Registros");
 		VentanaGestionRegistros.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 292, 391);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);		//Cambié esto para el fondo
+		contentPane = new PaneImage();		//Cambié esto para el fondo decía "content = newJPanel()"
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -60,6 +62,7 @@ public class VentanaGestionRegistros extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreUsuario);
 		
 		JButton btnListaPorFormulario = new JButton("Lista por Formulario");
+		btnListaPorFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnListaPorFormulario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -77,6 +80,7 @@ public class VentanaGestionRegistros extends JFrame {
 		});
 		
 		JButton btnListaPorFechas = new JButton("Lista por fechas");
+		btnListaPorFechas.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnListaPorFechas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -87,6 +91,7 @@ public class VentanaGestionRegistros extends JFrame {
 		});
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -108,6 +113,7 @@ public class VentanaGestionRegistros extends JFrame {
 		});
 		
 		JButton btnListaPorCasilla = new JButton("Lista por par\u00E1metro");
+		btnListaPorCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnListaPorCasilla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -124,18 +130,21 @@ public class VentanaGestionRegistros extends JFrame {
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNewLabel, Alignment.LEADING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel)
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(37)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnListaPorFechas, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-								.addComponent(btnListaPorFormulario, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-								.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-								.addComponent(btnListaPorCasilla, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))))
+								.addComponent(btnListaPorFechas, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+								.addComponent(btnListaPorFormulario, GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+								.addComponent(btnListaPorCasilla, GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE))))
 					.addGap(52))
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGap(211)
+					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 342, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(221, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -147,9 +156,9 @@ public class VentanaGestionRegistros extends JFrame {
 					.addComponent(btnListaPorFechas, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 					.addGap(34)
 					.addComponent(btnListaPorCasilla, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+					.addGap(61)
 					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-					.addGap(19))
+					.addContainerGap(94, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

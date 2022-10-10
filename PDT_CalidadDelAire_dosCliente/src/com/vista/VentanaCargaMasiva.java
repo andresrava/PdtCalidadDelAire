@@ -29,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 
 public class VentanaCargaMasiva extends JFrame {
 
@@ -64,8 +65,8 @@ public class VentanaCargaMasiva extends JFrame {
 		VentanaCargaMasiva.f = fRef;
 		VentanaCargaMasiva.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 446, 300);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);		//Cambié esto para el fondo
+		contentPane = new PaneImage();		//Cambié esto para el fomdo
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -77,8 +78,10 @@ public class VentanaCargaMasiva extends JFrame {
 			comboFormularios.addItem(form);
 		
 		JLabel lblNewLabel_1 = new JLabel("Elija el formulario");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -100,6 +103,7 @@ public class VentanaCargaMasiva extends JFrame {
 		});
 		
 		JButton btnImportar = new JButton("Importar");
+		btnImportar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnImportar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -119,26 +123,22 @@ public class VentanaCargaMasiva extends JFrame {
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(498, Short.MAX_VALUE)
+					.addContainerGap(734, Short.MAX_VALUE)
 					.addComponent(comboFormularios, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(lblNewLabel)
+					.addPreferredGap(ComponentPlacement.RELATED, 428, Short.MAX_VALUE)
+					.addComponent(lblNewLabel_1)
+					.addGap(159))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(320)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addComponent(lblNewLabel, Alignment.LEADING))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
-							.addComponent(lblNewLabel_1)
-							.addGap(159))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(18)
-							.addComponent(btnImportar, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())))
+						.addComponent(btnVolver, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnImportar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+					.addContainerGap(317, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -151,11 +151,11 @@ public class VentanaCargaMasiva extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblNewLabel_1)))
-					.addPreferredGap(ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(btnImportar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-					.addContainerGap())
+					.addGap(214)
+					.addComponent(btnImportar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(39)
+					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+					.addGap(67))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

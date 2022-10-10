@@ -27,10 +27,7 @@ public class Investigador extends Usuario implements Serializable {
 	@Column(length=20)
 	private String telefono;
 	
-	/*
-	 * @ManyToOne (cascade = CascadeType.ALL , fetch = FetchType.LAZY) private
-	 * Ciudad ciudad;
-	 */
+
 	@Column
 	private String ciudad;
 	@Column

@@ -17,32 +17,12 @@ import org.w3c.dom.NodeList;
 
 
 public class GestionLocalidades {
-//	public Set<String> obtieneDepartamentos () throws NamingException 
-//	{
-//		String ruta = "PDT_CalidadDelAire_dosEJB/LocalidadesBean!com.services.LocalidadesBeanRemote";
-//		LocalidadesBeanRemote localidadBean = (LocalidadesBeanRemote)
-//				InitialContext.doLookup(ruta);
-//		System.out.println("En gestiónLocalidades: " + localidadBean.obtenerDepartamentos());
-//		return localidadBean.obtenerDepartamentos();
-//		
-//	}
-//	
-//	public Set<String> obtieneLocalidades (String depto) throws NamingException
-//	{
-//		String ruta = "PDT_CalidadDelAire_dosEJB/LocalidadesBean!com.services.LocalidadesBeanRemote";
-//		LocalidadesBeanRemote localidadBean = (LocalidadesBeanRemote)
-//				InitialContext.doLookup(ruta);
-//		//System.out.println("En gestiónLocalidades: " + localidadBean.obtenerDepartamentos());
-//		return localidadBean.listaLocalidades(depto);
-//	}
 
 	public Set<String> obtieneDepartamentos() {
     	Set<String> listaDepartamentos = new HashSet<>();
     	try   
 	    	{
-//    		File file = new File(this.getClass().getClassLoader().getResource("resources/DeptoLocalidad.xml").toURI());
     		File file = new File("Resources/DeptoLocalidad.xml");
-//    		File absolute = file.getAbsoluteFile();   		
     		DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();  
 	    	Document document = documentBuilder.parse(file);  
 	    	document.getDocumentElement().normalize();
@@ -73,7 +53,6 @@ public class GestionLocalidades {
 	
 	try   
 	{
-//	File file = new File(this.getClass().getResource("PDT_CalidadDelAire_dosEJB/resources/DeptoLocalidad.xml").toURI());
 	File file = new File("Resources/DeptoLocalidad.xml");
 	DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();  
 	Document document = documentBuilder.parse(file);  

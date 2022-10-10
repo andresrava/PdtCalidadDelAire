@@ -1,11 +1,13 @@
 package com.controlador;
 
+import java.util.LinkedList;
 import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.entities.Casilla;
 import com.entities.EstacionDeMedicion;
+import com.entities.Formulario;
 import com.exceptions.ServiciosException;
 import com.services.CasillasBeanRemote;
 import com.services.EstacionesDeMedicionBeanRemote;
@@ -46,7 +48,7 @@ public class GestionCasillas {
 		return casillas;	
 	}
 	
-	
+	//Busca casillas a partir de un String nombre
 	public List<Casilla> listaCasillas(String nombre) throws NamingException {
 		String ruta = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";
 		CasillasBeanRemote casillaBean = (CasillasBeanRemote)
@@ -64,8 +66,22 @@ public class GestionCasillas {
 		List<Casilla> casillas = estacion.getCasillas();
 		return casillas;
 	}
-
-	
+	//Revisa si la casilla está en algún formulario. Devuelve la lista con los formularios en que está la casilla
+	public List<Formulario> revisaCasilla(Long idCasilla) throws NamingException {
+		List<Formulario> formulariosConCasilla = new LinkedList<Formulario>();
+		GestionFormularios gestionFormularios = new GestionFormularios();
+		List<Formulario> formularios = gestionFormularios.listaFormularios();
+		for (Formulario form : formularios) {
+			List<Casilla> casillas = form.getCasillas();
+			for (Casilla casilla : casillas) {
+				if (casilla.getId() == idCasilla)
+					formulariosConCasilla.add(form);
+			}			
+		}
+		
+		return formulariosConCasilla;
+		
+	}
 
 	public void borrarCasilla(Casilla casillaAEliminar) throws NamingException, ServiciosException {
 		String ruta = "PDT_CalidadDelAire_dosEJB/CasillasBean!com.services.CasillasBeanRemote";

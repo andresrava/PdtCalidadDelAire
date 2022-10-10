@@ -45,8 +45,7 @@ public class EstacionDeMedicion implements Serializable {
 	
 	@Column
 	private String departamento;
-//	@ManyToOne (cascade = CascadeType.PERSIST , fetch = FetchType.LAZY)
-//	private Ciudad ciudad;
+
 	@Column
 	private String localidad;
 	
@@ -187,7 +186,8 @@ public class EstacionDeMedicion implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "EstacionDeMedicion [id=" + id + ", nombre=" + nombre + ", casillas=" + casillas + "]";
+		//return "EstacionDeMedicion [id=" + id + ", nombre=" + nombre + ", casillas=" + casillas + "]";
+		return  nombre;
 	}
 
 

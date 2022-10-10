@@ -9,7 +9,6 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import com.entities.Administrador;
-import com.entities.Ciudad;
 import com.entities.Formulario;
 import com.exceptions.ServiciosException;
 
@@ -43,7 +42,7 @@ public class AdministradoresBean implements AdministradoresBeanRemote {
 	}
 
 	@Override
-	public void actualizar(Administrador administrador) throws ServiciosException {
+	public Administrador actualizar(Administrador administrador) throws ServiciosException {
 		try {
 			em.merge(administrador);
 			em.flush();
@@ -51,6 +50,7 @@ public class AdministradoresBean implements AdministradoresBeanRemote {
 			System.out.println(e.getMessage());
 			throw new ServiciosException ("No se pudo actualizar el administrador: " + administrador.getNombre() + e.getMessage());
 		}
+		return administrador;
 		
 	}
 

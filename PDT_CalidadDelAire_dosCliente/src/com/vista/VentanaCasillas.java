@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class VentanaCasillas extends JFrame {
 
@@ -52,8 +53,8 @@ public class VentanaCasillas extends JFrame {
 		setTitle("Gesti\u00F3n de Casillas");
 		VentanaCasillas.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);		//Cambié esto para el fondo
+		contentPane = new PaneImage();		//Cambié esto para el fomdo
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -61,6 +62,7 @@ public class VentanaCasillas extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
 		
 		JButton btnCreaCasilla = new JButton("Crear");
+		btnCreaCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCreaCasilla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -71,6 +73,7 @@ public class VentanaCasillas extends JFrame {
 		});
 		
 		JButton btnListaCasillas_1_1 = new JButton("Lista");
+		btnListaCasillas_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnListaCasillas_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -91,6 +94,7 @@ public class VentanaCasillas extends JFrame {
 		});
 		
 		JButton btnVolver = new JButton("Volver");					// El botón volver abre una ventana acorde al usuario que está trabajando
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -124,28 +128,25 @@ public class VentanaCasillas extends JFrame {
 							.addGap(10)
 							.addComponent(lblNewLabel))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnCreaCasilla, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnListaCasillas_1_1, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(276, Short.MAX_VALUE))
+							.addGap(205)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnListaCasillas_1_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnCreaCasilla, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+								.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+					.addContainerGap(249, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(11)
 					.addComponent(lblNewLabel)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(39)
 					.addComponent(btnCreaCasilla, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-					.addGap(60)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnListaCasillas_1_1, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(221, Short.MAX_VALUE))
 		);
 		
 		

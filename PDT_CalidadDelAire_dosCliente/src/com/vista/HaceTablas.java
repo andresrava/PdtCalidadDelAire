@@ -1,32 +1,84 @@
 package com.vista;
 
-import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.util.List;
 
-import javax.naming.NamingException;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 
+import com.entities.Actividad;
+import com.entities.Casilla;
+import com.entities.EstacionDeMedicion;
+import com.entities.Formulario;
+import com.entities.Registro;
+import com.entities.RegistroBoolean;
+import com.entities.RegistroFloat;
+import com.entities.RegistroInteger;
+import com.entities.RegistroString;
 import com.entities.Usuario;
 import com.enumerados.BorradoLogico.Estado;
 
 public class HaceTablas {
-
-	public DefaultTableModel modelo (String[] nombresColumnas, String[][] renglones ) {
-		
-		DefaultTableModel modelo = new DefaultTableModel();
+	
+	// Tabla de EM
+	public DefaultTableModel haceTablaEM (List<EstacionDeMedicion> estaciones) {
+		DefaultTableModel modelo= new DefaultTableModel();
 		//crea un array que contiene los nombre de las columnas
-		final String[] columnNames = nombresColumnas;
+		final String[] columnNames = {"Nombre", "Departamento", "Localidad"};
+		// insertamos las columnas
+		for(int column = 0; column < columnNames.length; column++){
+			//agrega las columnas a la tabla
+			modelo.addColumn(columnNames[column]);
+		}
+		// Se crea un array que será una de las filas de la tabla. 
+				Object [] fila = new Object[columnNames.length]; 
+				// Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+				for (int i=0;i<estaciones.size();i++){
+					if (estaciones.get(i).getEstado() == Estado.HABILITADO) {
+						String nombre=estaciones.get(i).getNombre(); 
+						String departamento=estaciones.get(i).getDepartamento(); 
+						String localidad=estaciones.get(i).getLocalidad();
+						fila[0] = nombre; 
+						fila[1] = departamento; 
+						fila[2] = localidad;
+						modelo.addRow(fila); 
+					}
+				}
+		 return modelo;
+	}
+		//Tabla de Casillas
+	
+	public DefaultTableModel haceTablaCasillas (List<Casilla> casillas) {
+		DefaultTableModel modelo= new DefaultTableModel();
+		//crea un array que contiene los nombre de las columnas
+		final String[] columnNames = {"Nombre", "Parámetro", "Unidad"};
+		// insertamos las columnas
+		for(int column = 0; column < columnNames.length; column++){
+			//agrega las columnas a la tabla
+			modelo.addColumn(columnNames[column]);
+		}
+		// Se crea un array que será una de las filas de la tabla. 
+				Object [] fila = new Object[columnNames.length]; 
+				// Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+				for (int i=0;i<casillas.size();i++){
+					if (casillas.get(i).getEstado() == Estado.HABILITADO) {
+						String nombre=casillas.get(i).getNombre(); 
+						String parametro=casillas.get(i).getParametro(); 
+						String unidad=casillas.get(i).getUnidaDeMedida();
+						fila[0] = nombre; 
+						fila[1] = parametro; 
+						fila[2] = unidad;
+						modelo.addRow(fila); 
+					}
+				}
+		 return modelo;
+	}
+	
+	//Tabla de Registros
+	
+	public DefaultTableModel haceTablaRegistros (List<Registro> registros) {
+		DefaultTableModel modelo= new DefaultTableModel();
+		//crea un array que contiene los nombre de las columnas
+		final String[] columnNames = {"Parámetro", "Unidad", "Valor", "Autor"};
 		// insertamos las columnas
 		for(int column = 0; column < columnNames.length; column++){
 			//agrega las columnas a la tabla
@@ -35,114 +87,135 @@ public class HaceTablas {
 		// Se crea un array que será una de las filas de la tabla. 
 		Object [] fila = new Object[columnNames.length]; 
 		// Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
-		for (int i=0;i<renglones.length;i++){
-			fila[0] = id; 
-			fila[1] = nombre; 
-			fila[2] = apellido; 
-			fila[3] = mail;
-			modelo.addRow(fila); 
+		for (int i=0;i<registros.size();i++){
 			
+			if (registros.get(i).getEstado() == Estado.HABILITADO) {
+				String parametro = registros.get(i).getCasilla().getParametro(); 
+				String unidad = registros.get(i).getCasilla().getUnidaDeMedida();
+				Actividad actividad = registros.get(i).getActividad();
+				Usuario usuario = actividad.getUsuario();
+				String autor = usuario.getNombre();
+				String valor = "";
+				RegistroBoolean registroBoolean = new RegistroBoolean();
+				RegistroString registroString = new RegistroString();
+				RegistroFloat registroFloat = new RegistroFloat();
+				RegistroInteger registroInteger = new RegistroInteger();
+				if (registros.get(i) instanceof RegistroBoolean) {
+					registroBoolean = (RegistroBoolean)registros.get(i);
+					valor = registroBoolean.getValor().toString();
+				}
+				if (registros.get(i) instanceof RegistroString) {
+					registroString = (RegistroString) registros.get(i);
+					valor = registroString.getValor();
+				}
+				if (registros.get(i) instanceof RegistroFloat) {
+					registroFloat = (RegistroFloat) registros.get(i);
+					valor = registroFloat.getValor().toString();
+				}
+				if (registros.get(i) instanceof RegistroInteger) {
+					registroInteger = (RegistroInteger) registros.get(i);
+					valor = registroInteger.getValor().toString();
+				}
+									
+				fila[0] = parametro; 
+				fila[1] = unidad; 
+				fila[2] = valor;
+				fila[3] = autor;
+				modelo.addRow(fila); 
+			}
 		}
-		 
-		final JTable table = new JTable(modelo);
-		// Se añade al modelo la fila completa.
-
-		//se define el tamaño de la tabla
-		table.setPreferredScrollableViewportSize(new Dimension(600, 200));
-		//Creamos un JscrollPane y le agregamos la JTable
-		JScrollPane scrollPane = new JScrollPane(table);
-		//crea el panel
-		JPanel panel = new JPanel();
-				
-		JPanel panel_1 = new JPanel();
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 537, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(19, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
-		
-	
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					volver(usuarioLoged);
-				} catch (NamingException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				try {
-					Long id;
-					if (table.getSelectedRow() != -1) {
-						id = (Long) table.getValueAt(table.getSelectedRow(), 0);
-					}else {
-						id = null;
-					}
-					editar(usuarioLoged, id);
-				} catch (NamingException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnVolver)
-						.addComponent(btnEditar))
-					.addContainerGap(65, Short.MAX_VALUE))
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(btnVolver)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnEditar)
-					.addContainerGap(144, Short.MAX_VALUE))
-		);
-		panel_1.setLayout(gl_panel_1);
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(5)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(20, Short.MAX_VALUE))
-		);
-		panel.setLayout(gl_panel);
-		frame.getContentPane().setLayout(groupLayout);
-		frame.pack();
-
+		return modelo;
 	}
+
+	public DefaultTableModel haceTablaFormularios(List<Formulario> formularios) {
+		DefaultTableModel modelo= new DefaultTableModel();
+		//crea un array que contiene los nombre de las columnas
+		final String[] columnNames = {"Nombre", "Creador"};
+		// insertamos las columnas
+		for(int column = 0; column < columnNames.length; column++){
+			//agrega las columnas a la tabla
+			modelo.addColumn(columnNames[column]);
+		}
+		// Se crea un array que será una de las filas de la tabla. 
+		Object [] fila = new Object[columnNames.length]; 
+		// Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+		for (int i=0;i<formularios.size();i++){
+			String creadorAdmin = "";
+			String creadorInvest = "";
+			String creador = "";
+			if (formularios.get(i).getEstado() == Estado.HABILITADO) {
+				String nombre = formularios.get(i).getNombre();
+				if (formularios.get(i).getAdministrador() != null) {
+					creadorAdmin = formularios.get(i).getAdministrador().getNombre();
+				}
+				if (formularios.get(i).getInvestigador() != null) {
+					creadorInvest = formularios.get(i).getInvestigador().getNombre();							
+				}
+				creador = creadorInvest + creadorAdmin;
+				fila[0] = nombre; 
+				fila[1] = creador; 
+				modelo.addRow(fila); 
+			}
+		}
+		 return modelo;
+	}
+
+	public DefaultTableModel haceTablaUsuarios(List<Usuario> usuarios) {
+		DefaultTableModel modelo= new DefaultTableModel();
+		//crea un array que contiene los nombre de las columnas
+		final String[] columnNames = {"Nombre", "Apellido", "Id Usuario", "correo electrónico" };
+		// insertamos las columnas
+		for(int column = 0; column < columnNames.length; column++){
+			//agrega las columnas a la tabla
+			modelo.addColumn(columnNames[column]);
+		}
+		// Se crea un array que será una de las filas de la tabla. 
+		Object [] fila = new Object[columnNames.length]; 
+		// Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+		for (int i=0;i<usuarios.size();i++){
+			String nombre = usuarios.get(i).getNombre();
+			String apellido = usuarios.get(i).getApellido();
+			String id = usuarios.get(i).getId().toString();
+			String mail = usuarios.get(i).getMail();
+			if (usuarios.get(i).getEstado() == Estado.HABILITADO) {
+				fila[0] = nombre; 
+				fila[1] = apellido; 
+				fila[2] = id; 
+				fila[3] = mail; 
+				modelo.addRow(fila); 
+			}
+		}
+		 return modelo;
+	}
+
+	public DefaultTableModel haceTablaActividades(List<Actividad> actividades) {
+		DefaultTableModel modelo= new DefaultTableModel();
+		//crea un array que contiene los nombre de las columnas
+		final String[] columnNames = {"Id", "Formulario", "Usuario", "Fecha" };
+		// insertamos las columnas
+		for(int column = 0; column < columnNames.length; column++){
+			//agrega las columnas a la tabla
+			modelo.addColumn(columnNames[column]);
+		}
+		// Se crea un array que será una de las filas de la tabla. 
+		Object [] fila = new Object[columnNames.length]; 
+		// Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+		for (int i=0;i<actividades.size();i++){
+			Long id = actividades.get(i).getId();
+			String formulario = actividades.get(i).getFormulario().getNombre();
+			String idUsuario = actividades.get(i).getUsuario().getNombre().toString();
+			Date fecha = actividades.get(i).getRegistros().get(0).getFechaHora();
+			if (actividades.get(i).getEstado() == Estado.HABILITADO) {
+				fila[0] = id; 
+				fila[1] = formulario; 
+				fila[2] = idUsuario; 
+				fila[3] = fecha; 
+				modelo.addRow(fila); 
+			}
+		}
+		 return modelo;
+	}
+}
 	
 	
 	

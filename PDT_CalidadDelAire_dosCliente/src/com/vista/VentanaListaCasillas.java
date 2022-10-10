@@ -1,21 +1,21 @@
 package com.vista;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
 import com.controlador.GestionCasillas;
 import com.controlador.GestionEstaciones;
 import com.entities.Casilla;
-import com.entities.Ciudad;
-import com.entities.Ciudad.NombresEnum;
 import com.entities.EstacionDeMedicion;
+import com.entities.Formulario;
 import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 
@@ -23,7 +23,6 @@ import javax.naming.NamingException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
@@ -31,7 +30,9 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class VentanaListaCasillas extends JFrame {
 
@@ -54,6 +55,13 @@ public class VentanaListaCasillas extends JFrame {
 	}
 	private static Usuario usuarioLoged;
 	private JTextField textNombreCasilla;
+	DefaultTableModel modelo = new DefaultTableModel();
+	JTable table = new JTable(modelo);
+	JScrollPane scrollPane = new JScrollPane(table);
+	JPanel panel_1 = new JPanel();
+	
+	
+	
 	/**
 	 * Create the frame.
 	 * @throws NamingException 
@@ -62,29 +70,44 @@ public class VentanaListaCasillas extends JFrame {
 		setTitle("Lista Casillas");
 		VentanaListaCasillas.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 655, 367);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 228, 225));
+		setBounds(100, 100, 800, 500);	
+		//Agrego el fondo
+		contentPane = new PaneImage();		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		String nombreUsuario = usuarioLoged.getNombre();
+		JLabel lblNewLabel_3 = new JLabel("Usuario: " + nombreUsuario);
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
+		//Creo el modelo de tabla con todas las estaciones
+		GestionCasillas gestionCasillas = new GestionCasillas();
+		List<Casilla> casillas = gestionCasillas.listaCasillas();
+
+		HaceTablas haceTablas = new HaceTablas();
+		modelo = haceTablas.haceTablaCasillas(casillas);
+		
+		//Agrego el modelo a la tabla
+		table.setModel(modelo);
+		
+		panel_1.add(scrollPane);
+		
 		JLabel lblNewLabel = new JLabel("Filtros: ");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre: ");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textNombreCasilla = new JTextField();
 		textNombreCasilla.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Est. de Medici\u00F3n");
-				
-		JComboBox<Casilla> comboBoxCasillas = new JComboBox();
-		scrollPane.setColumnHeaderView(comboBoxCasillas);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
+		//Creo el combo con Estaciones de medición y lo lleno
 		JComboBox<EstacionDeMedicion> comboEM = new JComboBox();
 		comboEM.setSize( 350, 22 );
 		List<EstacionDeMedicion> estacionesDeMedicion = new LinkedList<EstacionDeMedicion>();
@@ -100,148 +123,108 @@ public class VentanaListaCasillas extends JFrame {
 			e.printStackTrace();
 		}
 		  
-		GestionCasillas gestionCasillas = new GestionCasillas();
-		List<Casilla> casillas = new LinkedList<Casilla>();
-		System.out.println(casillas);
-		try {
-			casillas = gestionCasillas.listaCasillas();  
-			System.out.println("size: " + casillas.size());
-			System.out.println(casillas.toString());
-			for (Casilla c: casillas) {
-				comboBoxCasillas.addItem(c);
-			}
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String nombreUsuario = usuarioLoged.getNombre();
-		
-		JLabel lblNewLabel_3 = new JLabel("Usuario: " + nombreUsuario);
 		
 		JButton btnAplicaFiltro = new JButton("Aplicar");
+		btnAplicaFiltro.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAplicaFiltro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "No se ha implementado esta funcionalidad","Error", JOptionPane.WARNING_MESSAGE);
+				String nombreCasilla = "";
+				if (textNombreCasilla != null)
+					nombreCasilla = textNombreCasilla.getText();
+				List<Casilla> listaCasillasNombre = new LinkedList<Casilla>();
+				List<Casilla> listaCasillas = new LinkedList<Casilla>();
+				try {
+					listaCasillasNombre = gestionCasillas.listaCasillas(nombreCasilla);
+				} catch (NamingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				EstacionDeMedicion estacionSeleccionada = new EstacionDeMedicion();
 				
+				if (comboEM.getSelectedIndex() != -1) {
+					estacionSeleccionada = (EstacionDeMedicion) comboEM.getSelectedItem();
+					List<Casilla> listaCasillasEM = estacionSeleccionada.getCasillas();
+					for (Casilla casilla : listaCasillasEM) {
+						Long id = casilla.getId();
+						for (Casilla casillaa : listaCasillasNombre) {
+							if (casillaa.getId() == id) {
+								listaCasillas.add(casillaa);							}
+						}
+					}
+				}
+				else {
+					listaCasillas = listaCasillasNombre;
+				}
 				
-//				List<Casilla> casillasFiltradasNombre = new LinkedList<Casilla>();
-//				List<Casilla> casillasFiltradas = new LinkedList<Casilla>();
-//				GestionCasillas gestionCasillas = new GestionCasillas();
-//				try {
-//					casillasFiltradasNombre = gestionCasillas.listaCasillas(textNombreCasilla.getText());
-//					comboBoxCasillas.removeAllItems();
-//					for (Casilla c: casillasFiltradasNombre) {
-//						comboBoxCasillas.addItem(c);
-//					}
-//					if (comboEM.getSelectedIndex() != -1  )
-//					{
-//						EstacionDeMedicion estacionSeleccionada = (EstacionDeMedicion) comboEM.getSelectedItem();
-//						List<Casilla> casillasEnEM = estacionSeleccionada.getCasillas();
-//						for (Casilla c : casillasFiltradasNombre)
-//						{
-//							if (casillasEnEM.contains(c))
-//							{
-//								casillasFiltradas.add(c);
-//							}
-//						}
-//						comboBoxCasillas.removeAllItems();
-//						for (Casilla c : casillasFiltradas)
-//						{
-//							comboBoxCasillas.addItem(c);
-//						}
-//						comboBoxCasillas.updateUI();
-//					}
-//				} catch (NamingException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				
+				//Creo el modelo de tabla con las estaciones filtradas
+				modelo= haceTablas.haceTablaCasillas(listaCasillas);
+				//Agrego el modelo a la tabla				
+				table.setModel(modelo);
+								
 			}
 		});
 		
-		
-		
-		
-		 
-		
-		
+		JButton btnLimpiaFiltros = new JButton("Limpia");
+		btnLimpiaFiltros.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnLimpiaFiltros.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				comboEM.setSelectedIndex(-1);
+				textNombreCasilla.setText(null);
+				//Creo el modelo de tabla con las estaciones filtradas
+				modelo= haceTablas.haceTablaCasillas(casillas);
+				//Agrego el modelo a la tabla				
+				table.setModel(modelo);
+				
+			}
+		});
+	
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(10)
+					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblNewLabel_2)
-							.addGap(65)
-							.addComponent(comboEM, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnAplicaFiltro, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnLimpiaFiltros, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblNewLabel_1)
-							.addPreferredGap(ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
-							.addComponent(textNombreCasilla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGap(29))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(89)
-					.addComponent(lblNewLabel))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(btnAplicaFiltro, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(262, Short.MAX_VALUE))
+							.addGap(34)
+							.addComponent(textNombreCasilla, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblNewLabel_2)
+						.addComponent(comboEM, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(5)
+					.addGap(8)
 					.addComponent(lblNewLabel)
-					.addGap(14)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1)
-						.addComponent(textNombreCasilla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textNombreCasilla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_1))
 					.addGap(18)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_2)
-						.addComponent(comboEM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(72)
-					.addComponent(btnAplicaFiltro, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-					.addGap(58))
+					.addComponent(lblNewLabel_2)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(comboEM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(52)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnLimpiaFiltros, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnAplicaFiltro, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+					.addGap(7))
 		);
 		panel.setLayout(gl_panel);
 		
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "Esa funcionalidad no está implementada");	
-			}
-		});
 		
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Casilla casillaAEliminar = (Casilla)comboBoxCasillas.getSelectedItem();
-				GestionCasillas gestionCasillas = new GestionCasillas();
-				String nombreCasillaAEliminar = casillaAEliminar.getNombre();	
-				int confirmacion =  JOptionPane.showConfirmDialog(null,"Realmente desea Eliminar la casilla: " + nombreCasillaAEliminar + "?", "Confirmar la eliminación", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-				if (confirmacion == 0)
-					{
-						try {
-							gestionCasillas.borrarCasilla(casillaAEliminar);
-							comboBoxCasillas.removeItem(casillaAEliminar);
-					        comboBoxCasillas.updateUI();
-					        JFrame jFrame = new JFrame();
-					        JOptionPane.showMessageDialog(jFrame, "Se eliminó la casilla: " + nombreCasillaAEliminar);
-					        
-						} catch (NamingException | ServiciosException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-			}
-		});
+
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -256,38 +239,97 @@ public class VentanaListaCasillas extends JFrame {
 			}
 			
 		});
+
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Casilla casilla = new Casilla();
+				int id = 0;
+				if (table.getSelectedRow() != -1) {
+					id = table.getSelectedRow();
+					casilla = casillas.get(id);
+					String nombreCasillaAEliminar = casilla.getNombre();
+					try {
+						List<Formulario> formularios = gestionCasillas.revisaCasilla(casilla.getId());
+						int cantForm = 	formularios.size();					
+							if (cantForm != 0) {
+								JOptionPane.showMessageDialog(null, "Esta Casilla está en: " + cantForm + " formulario(s). No se puede eliminar");	
+							}
+							else {
+								int confirmacion =  JOptionPane.showConfirmDialog(null,"Realmente desea Eliminar la Casilla: " + nombreCasillaAEliminar + "?", "Confirmar la eliminación", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+								if (confirmacion == 0)
+									{
+									
+										try {
+											gestionCasillas.borrarCasilla(casilla);
+											JFrame jFrame = new JFrame();
+									        JOptionPane.showMessageDialog(jFrame, "Se eliminó la Casilla: " + nombreCasillaAEliminar);
+									        dispose();
+											VentanaListaCasillas frame = new VentanaListaCasillas(usuarioLoged);
+											frame.setVisible(true);
+										} catch (NamingException | ServiciosException e1) {
+											// TODO Auto-generated catch block
+											e1.printStackTrace();
+										}
+									}
+							}
+						
+					} catch (NamingException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "Seleccione la Casilla a eliminar");
+					dispose();
+					VentanaListaEM frame = new VentanaListaEM(usuarioLoged);
+					frame.setVisible(true);
+				}
+			}
+		});
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(lblNewLabel_3)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(22)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 391, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 264, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(143)
-					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-					.addGap(101)
-					.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
-					.addGap(32)
-					.addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_3)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(22)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 265, GroupLayout.PREFERRED_SIZE))))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 456, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(52)
+							.addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(lblNewLabel_3)
 					.addGap(11)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))
-					.addGap(10)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(2)
-							.addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(67)
+					.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(104))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 382, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnEliminar, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+					.addGap(17))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

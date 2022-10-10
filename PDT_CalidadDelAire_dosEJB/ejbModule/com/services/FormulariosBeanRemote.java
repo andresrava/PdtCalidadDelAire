@@ -4,6 +4,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import com.entities.Formulario;
+import com.entities.Usuario;
 import com.exceptions.ServiciosException;
 
 @Remote
@@ -14,6 +15,8 @@ public interface FormulariosBeanRemote {
 	List<Formulario> obtenerTodos();
 	List<Formulario> obtenerTodos(String filtro);
 	void asignarCasilla (Long idFormulario, Long idCasilla) throws ServiciosException;
+	Formulario asignarUsuario (Long idFormulario, Long idUsuario) throws ServiciosException;
 	Formulario obtenerPorId(Long idForm) throws ServiciosException;
-//	Formulario crear(String nombre, Set<Casilla> lista, Investigador investigador) throws ServiciosException;
+	List<Formulario> obtenerPorNombre(String nombreFormulario);
+	
 }

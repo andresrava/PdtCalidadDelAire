@@ -17,9 +17,6 @@ public class Registro implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_REG" )
 	@SequenceGenerator(name = "SEQ_REG", initialValue = 1, allocationSize = 1)
 	private Long id;
-
-//	@Column 
-//	private String valor;
 	
 	@Column
 	private float latitud;
@@ -39,7 +36,7 @@ public class Registro implements Serializable {
 	@ManyToOne (fetch = FetchType.EAGER)
 	private Casilla casilla;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne (fetch = FetchType.EAGER)
 	private Actividad actividad;
 	
 	public Registro() {

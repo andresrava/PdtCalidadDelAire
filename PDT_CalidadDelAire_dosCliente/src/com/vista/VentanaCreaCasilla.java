@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JRadioButton;
+import java.awt.Font;
 
 public class VentanaCreaCasilla extends JFrame {
 
@@ -59,8 +60,8 @@ public class VentanaCreaCasilla extends JFrame {
 		setTitle("Crear Casilla");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		VentanaCreaCasilla.usuarioLoged = usuarioLogedRef;
-		setBounds(100, 100, 450, 328);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);		//Cambié esto para el fondo
+		contentPane = new PaneImage();		//Cambié esto para el fomdo
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -69,6 +70,7 @@ public class VentanaCreaCasilla extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre(*):");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textNombre = new JTextField();
 		textNombre.setColumns(10);
@@ -77,23 +79,30 @@ public class VentanaCreaCasilla extends JFrame {
 		textParametro.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Par\u00E1metro(*):");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textUnidad = new JTextField();
 		textUnidad.setColumns(10);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Unidad(*):");
+		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblNewLabel_1_3 = new JLabel("Tipo de dato(*):");
+		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textComentarios = new JTextField();
 		textComentarios.setColumns(10);
 		
 		JLabel lblNewLabel_1_4 = new JLabel("Descripci\u00F3n:");
+		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblNewLabel_2 = new JLabel("(*) obligatorios");
+		lblNewLabel_2.setForeground(Color.BLACK);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 
 		JLabel lblNewLabel_3 = new JLabel("Casilla obligatoria:");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		JRadioButton rdbtnObligatoria = new JRadioButton("");
 		
 		
@@ -103,6 +112,7 @@ public class VentanaCreaCasilla extends JFrame {
 		}
 		
 		JButton btnCrear = new JButton("Crear");
+		btnCrear.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCrear.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -134,6 +144,7 @@ public class VentanaCreaCasilla extends JFrame {
 	
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -153,45 +164,50 @@ public class VentanaCreaCasilla extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-							.addGap(56)
-							.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblNewLabel)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-							.addGap(56)
-							.addComponent(textParametro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel_1_2, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-							.addGap(56)
-							.addComponent(textUnidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblNewLabel_2)
-						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel_2)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblNewLabel_1_4, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblNewLabel_1_3, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGap(42)
-											.addComponent(comboBoxTipos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addGap(30))
-										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(lblNewLabel_3)
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(textComentarios)
-											.addPreferredGap(ComponentPlacement.UNRELATED))))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblNewLabel_3)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(rdbtnObligatoria)
-									.addGap(57)))
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(btnCrear, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))))
+											.addComponent(rdbtnObligatoria))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblNewLabel_1_3, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblNewLabel_1_4, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblNewLabel_1_2, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblNewLabel_1)
+														.addComponent(lblNewLabel)
+														.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))
+													.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+														.addGroup(gl_contentPane.createSequentialGroup()
+															.addGap(7)
+															.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+																.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addComponent(textUnidad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addComponent(comboBoxTipos, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+														.addGroup(gl_contentPane.createSequentialGroup()
+															.addPreferredGap(ComponentPlacement.UNRELATED)
+															.addComponent(textParametro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, 329, GroupLayout.PREFERRED_SIZE)
+													.addGap(30))
+												.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+													.addPreferredGap(ComponentPlacement.RELATED, 366, Short.MAX_VALUE)
+													.addComponent(btnCrear, GroupLayout.PREFERRED_SIZE, 131, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)))))
+									.addGap(560))))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(306)
+							.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -203,11 +219,9 @@ public class VentanaCreaCasilla extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1)
 						.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblNewLabel_1_1))
+					.addGap(21)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_1_1)
 						.addComponent(textParametro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -220,21 +234,19 @@ public class VentanaCreaCasilla extends JFrame {
 						.addComponent(lblNewLabel_1_3)
 						.addComponent(comboBoxTipos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnCrear, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
-					.addGap(21)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(3)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_1_4)
-								.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_3)
-								.addComponent(rdbtnObligatoria)))
-						.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
+					.addGap(24)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_1_4)
+						.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_3)
+						.addComponent(rdbtnObligatoria))
 					.addGap(24)
 					.addComponent(lblNewLabel_2)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+					.addGap(28))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

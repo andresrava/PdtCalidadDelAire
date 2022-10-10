@@ -31,6 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class VentanaEditaEM extends JFrame {
 
@@ -67,8 +68,9 @@ public class VentanaEditaEM extends JFrame {
 		VentanaEditaEM.estacionAEditar = estacionAEditarRef;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 702, 355);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);
+		//Le agrego el fondo
+		contentPane = new PaneImage();		
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -77,12 +79,16 @@ public class VentanaEditaEM extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre(*):");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblNewLabel_2 = new JLabel("Localidad (*):");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblNewLabel_3 = new JLabel("Departamento (*):");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblNewLabel_4 = new JLabel("Casillas:");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		
 				
@@ -118,18 +124,16 @@ public class VentanaEditaEM extends JFrame {
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JButton btnActualizar = new JButton("Actualizar");
+		btnActualizar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnActualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		//Actualiza con problemas
 		btnActualizar.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				 JFrame jFrame = new JFrame();
-//			        JOptionPane.showMessageDialog(jFrame, "No se actializó, esta funcionalidad no está implementada");
-//			}
+
 				if (textNombre.getText() == null) 
 					JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para el formulario","Error", JOptionPane.WARNING_MESSAGE);
 				else {
@@ -178,12 +182,14 @@ public class VentanaEditaEM extends JFrame {
 		}
 		
 		JLabel lblNewLabel_6 = new JLabel("Comentarios:");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textComentarios = new JTextField();
 		textComentarios.setColumns(10);
 		textComentarios.setText(estacionAEditar.getDescripcion());
 		
 		JLabel lblNewLabel_5 = new JLabel("Casillas disponibles");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 
 			
@@ -198,6 +204,7 @@ public class VentanaEditaEM extends JFrame {
 		
 		
 		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAgregar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -239,6 +246,7 @@ public class VentanaEditaEM extends JFrame {
 		panel.setLayout(gl_panel);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -249,6 +257,7 @@ public class VentanaEditaEM extends JFrame {
 		});
 		
 		JButton btnQuitar = new JButton("Quitar");
+		btnQuitar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnQuitar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -263,43 +272,45 @@ public class VentanaEditaEM extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(10)
-									.addComponent(lblNewLabel_1)
-									.addGap(34)
-									.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(10)
-									.addComponent(lblNewLabel_4)
-									.addGap(10)
-									.addComponent(comboBoxCasillasEnEM, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(10)
-									.addComponent(lblNewLabel_6)
-									.addGap(18)
-									.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(10)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblNewLabel_3)
-										.addComponent(lblNewLabel_2))
-									.addGap(132)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(comboBoxLocalidades, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-							.addGap(6)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+								.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+								.addGap(45)
+								.addComponent(btnActualizar, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
+							.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblNewLabel)
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addGap(10)
+										.addComponent(lblNewLabel_1)
+										.addGap(34)
+										.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addGap(10)
+										.addComponent(lblNewLabel_4)
+										.addGap(10)
+										.addComponent(comboBoxCasillasEnEM, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addGap(10)
+										.addComponent(lblNewLabel_6)
+										.addGap(18)
+										.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addGap(10)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+											.addComponent(lblNewLabel_3)
+											.addComponent(lblNewLabel_2))
+										.addGap(132)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+											.addComponent(comboBoxLocalidades, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+								.addGap(127)))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnQuitar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(126)
-							.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-							.addGap(45)
-							.addComponent(btnActualizar, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)))
+							.addGap(31)))
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -307,39 +318,36 @@ public class VentanaEditaEM extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblNewLabel)
+							.addGap(21)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblNewLabel)
-									.addGap(21)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGap(3)
-											.addComponent(lblNewLabel_1))
-										.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGap(21)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblNewLabel_3)
-										.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGap(19)
-											.addComponent(lblNewLabel_2))
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGap(18)
-											.addComponent(comboBoxLocalidades, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-									.addGap(11)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGap(4)
-											.addComponent(lblNewLabel_4))
-										.addComponent(comboBoxCasillasEnEM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGap(50)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblNewLabel_6)
-										.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+									.addGap(3)
+									.addComponent(lblNewLabel_1))
+								.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(21)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel_3)
+								.addComponent(comboBoxDepartamento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(149)
-									.addComponent(btnQuitar, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
+									.addGap(19)
+									.addComponent(lblNewLabel_2))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(18)
+									.addComponent(comboBoxLocalidades, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addGap(11)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(4)
+									.addComponent(lblNewLabel_4))
+								.addComponent(comboBoxCasillasEnEM, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnQuitar, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+							.addGap(9)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel_6)
+								.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(20)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
@@ -349,7 +357,7 @@ public class VentanaEditaEM extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(1, Short.MAX_VALUE))
+					.addContainerGap(140, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

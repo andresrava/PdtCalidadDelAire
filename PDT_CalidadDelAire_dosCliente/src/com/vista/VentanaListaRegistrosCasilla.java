@@ -1,6 +1,5 @@
 package com.vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +7,9 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import org.jdatepicker.impl.UtilDateModel;
 
 import com.controlador.GestionCasillas;
 import com.controlador.GestionIO;
@@ -25,10 +27,13 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import java.awt.Component;
 
 public class VentanaListaRegistrosCasilla extends JFrame {
 
@@ -50,7 +55,11 @@ public class VentanaListaRegistrosCasilla extends JFrame {
 		});
 	}
 	private static Usuario usuarioLoged;
-	List<Registro> listaLlena = new LinkedList<Registro>();
+	List<Registro> registros = new LinkedList<Registro>();
+	DefaultTableModel modelo = new DefaultTableModel();
+	JTable table = new JTable(modelo);
+	JScrollPane scrollPane = new JScrollPane(table);
+	JPanel panel = new JPanel();
 	
 	/**
 	 * Create the frame.
@@ -58,43 +67,56 @@ public class VentanaListaRegistrosCasilla extends JFrame {
 	 */
 	public VentanaListaRegistrosCasilla(Usuario usuarioLogedRef) throws NamingException {
 		setBackground(Color.WHITE);
-		setTitle("Lista Registros por Casilla");
+		setTitle("Lista Registros por Parámetro");
 		VentanaListaRegistrosCasilla.usuarioLoged = usuarioLogedRef;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 780, 310);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);	
+		//Agrego el fondo
+		contentPane = new PaneImage();		
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
 		String nombreUsuario = usuarioLoged.getNombre();
-		JLabel lblNewLabel = new JLabel("Usuario: " + nombreUsuario);
-		GestionRegistros gestionRegistros = new GestionRegistros();
+		
+				//****Servicios****
+		UtilDateModel model = new UtilDateModel();
+		HaceTablas haceTablas = new HaceTablas();
 		GestionIO gestionIO = new GestionIO();
 		GestionCasillas gestionCasillas = new GestionCasillas();
+		
+				//****Etiquetas****
+		JLabel lblNewLabel = new JLabel("Usuario: " + nombreUsuario);
+		JLabel lblNewLabel_1 = new JLabel("Seleccione la casilla:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+				//Creo el combo con las casillas(parámetros)
 		List<Casilla> casillasDisponibles = gestionCasillas.listaCasillas();
 		JComboBox<Casilla> comboCasillasDisponibles = new JComboBox();
 		for (Casilla c : casillasDisponibles)
 			comboCasillasDisponibles.addItem(c);
 		
-		JComboBox<Registro> comboRegistros = new JComboBox();
+				//****Botones****
 		JButton btnExportar = new JButton("Exportar");
+		btnExportar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnExportar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				 JFileChooser f = new JFileChooser();
 			    f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
 			    f.showSaveDialog(null);
-			    boolean confirma = gestionIO.descargaRegistros(listaLlena , f);
-			    if (confirma)
-					JOptionPane.showMessageDialog(null, "Se descargó el archivo", "Atención!" , JOptionPane.WARNING_MESSAGE);
-
+			    if (f.getSelectedFile() != null) {
+					boolean confirma = false;
+					confirma = gestionIO.descargaRegistros(registros , f);
+				    if (confirma)
+						JOptionPane.showMessageDialog(null, "Se descargó el archivo", "Atención!" , JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
-		btnExportar.setEnabled(false);
+		btnExportar.setVisible(false);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -105,82 +127,78 @@ public class VentanaListaRegistrosCasilla extends JFrame {
 		});
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Casilla casilla = (Casilla) comboCasillasDisponibles.getSelectedItem();
-				Long idCasilla = casilla.getId();
-				List<Registro> listaRegistros;
-				try {
-					listaRegistros = gestionRegistros.muestraRegistrosPorCasilla(idCasilla);
-					comboRegistros.removeAllItems();
-					for (Registro r : listaRegistros) {
-						comboRegistros.addItem(r);
-						}
-					listaLlena = listaRegistros;
-				} catch (NamingException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				if (comboRegistros.getItemCount()>0)
-					{btnExportar.setEnabled(true);}
-			
-				
+				System.out.println("La casilla elegida es: " + casilla);
+				registros = casilla.getRegistros();
+				System.out.println("Los registros son: " + registros);
+				if (registros.size() != 0)
+					btnExportar.setVisible(true);
+				else
+					btnExportar.setVisible(false);
+				modelo = haceTablas.haceTablaRegistros(registros);
+				//Agrego el modelo a la tabla
+				table.setModel(modelo);
+				panel.add(scrollPane);
 			}
 		});
-		
-		
-		JLabel lblNewLabel_1 = new JLabel("Seleccione la casilla:");
-		
+				
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addContainerGap()
+							.addContainerGap()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addComponent(btnBuscar, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
 									.addComponent(lblNewLabel_1))
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addGroup(gl_contentPane.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(btnExportar, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addContainerGap()
-											.addComponent(btnBuscar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addComponent(lblNewLabel)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGap(10)
-											.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)))))
-							.addPreferredGap(ComponentPlacement.RELATED, 366, Short.MAX_VALUE))
+								.addComponent(comboCasillasDisponibles, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(160)
-							.addComponent(comboCasillasDisponibles, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(275)
-							.addComponent(comboRegistros, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(219)))
-					.addGap(40))
+							.addGap(132)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(btnExportar, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+									.addGap(350))))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(29)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 466, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(lblNewLabel)
-					.addGap(26)
-					.addComponent(lblNewLabel_1)
-					.addGap(6)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboCasillasDisponibles, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboRegistros, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-					.addComponent(btnExportar, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(lblNewLabel)
+							.addGap(26)
+							.addComponent(lblNewLabel_1)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(comboCasillasDisponibles, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(11)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 262, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnBuscar, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnBuscar, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnExportar, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE))
+					.addGap(52)
 					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addContainerGap(26, Short.MAX_VALUE))
 		);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panel.add(scrollPane);
 		contentPane.setLayout(gl_contentPane);
 	}
 }

@@ -62,9 +62,10 @@ public class Casilla implements Serializable {
 	private List<EstacionDeMedicion> estaciones = new ArrayList<>();
 	
 	@OneToMany (
+			fetch = FetchType.EAGER ,  // cambié 10 de julio 2022
 			mappedBy = "casilla" ,
 			cascade = CascadeType.ALL ,
-			orphanRemoval = true
+			orphanRemoval = true 
 			)
 	private List<Registro> registros;
 	
@@ -244,7 +245,7 @@ public class Casilla implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Casilla [id=" + id + ", nombre=" + nombre + ", parametro=" + parametro + "]";
+		return  nombre + ", parametro=" + parametro;
 	}
 
 	

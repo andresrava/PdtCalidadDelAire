@@ -159,7 +159,10 @@ public CasillasBean() {
 	@Override
 	public Casilla ObtienePorId(Long id) {
 		Casilla casilla = em.find(Casilla.class, id);
-		return casilla;
+		if (casilla.getEstado() == Estado.HABILITADO)
+			return casilla;
+		else
+			return null;
 	}
 
 }

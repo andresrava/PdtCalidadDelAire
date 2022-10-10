@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 
 public class VentanaActividadDeCampo extends JFrame {
 
@@ -50,8 +51,9 @@ public class VentanaActividadDeCampo extends JFrame {
 		setTitle("Actividad de Campo");
 		VentanaActividadDeCampo.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		//Agrego el fondo
+		setBounds(100, 100, 800, 500);		
+		contentPane = new PaneImage();		
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -60,6 +62,7 @@ public class VentanaActividadDeCampo extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + usuarioNombre);
 		
 		JButton btnNoevaActividadDeCampo = new JButton("Nueva");
+		btnNoevaActividadDeCampo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNoevaActividadDeCampo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -77,15 +80,18 @@ public class VentanaActividadDeCampo extends JFrame {
 		});
 		
 		JButton btnListaActividadDeCampo = new JButton("Lista");
+		btnListaActividadDeCampo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnListaActividadDeCampo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "No se ha implementado esta funcionalidad","Error", JOptionPane.WARNING_MESSAGE);
-				
+				dispose();
+				VentanaListaActividades ventanaListaActividades = new VentanaListaActividades(usuarioLoged);
+				ventanaListaActividades.ventanaListaActividades();
 			}
 		});
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -110,18 +116,15 @@ public class VentanaActividadDeCampo extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(10)
-							.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnListaActividadDeCampo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addComponent(lblNewLabel, Alignment.LEADING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(10)
-							.addComponent(btnNoevaActividadDeCampo, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)))
-					.addContainerGap(275, Short.MAX_VALUE))
+							.addGap(149)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnListaActividadDeCampo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnNoevaActividadDeCampo, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 436, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap(328, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -133,7 +136,7 @@ public class VentanaActividadDeCampo extends JFrame {
 					.addComponent(btnListaActividadDeCampo, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(41, Short.MAX_VALUE))
+					.addContainerGap(241, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

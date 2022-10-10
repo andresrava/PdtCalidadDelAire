@@ -23,6 +23,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class VentanaEMedicion extends JFrame {
 
@@ -51,9 +52,9 @@ public class VentanaEMedicion extends JFrame {
 		setTitle("Estaciones de Medici\u00F3n");
 		VentanaEMedicion.usuarioLoged = usuarioLogedRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 228, 225));
+		setBounds(100, 100, 800, 500);	
+		// Agrego el fondo
+		contentPane = new PaneImage();		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
@@ -61,6 +62,7 @@ public class VentanaEMedicion extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
 		
 		JButton btnCrear = new JButton("Crear");
+		btnCrear.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCrear.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e)  {
@@ -77,6 +79,7 @@ public class VentanaEMedicion extends JFrame {
 		});
 		
 		JButton btnListaEM = new JButton("Lista");
+		btnListaEM.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnListaEM.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -93,6 +96,7 @@ public class VentanaEMedicion extends JFrame {
 		});
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -122,30 +126,29 @@ public class VentanaEMedicion extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnVolver, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addComponent(lblNewLabel, Alignment.LEADING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(10)
-							.addComponent(btnCrear, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(10)
-							.addComponent(btnListaEM, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)))
-					.addContainerGap(300, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(283)
+							.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(94)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnCrear, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnListaEM, GroupLayout.DEFAULT_SIZE, 514, Short.MAX_VALUE))))
+					.addContainerGap(166, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(lblNewLabel)
-					.addGap(18)
+					.addGap(56)
 					.addComponent(btnCrear, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
 					.addGap(11)
 					.addComponent(btnListaEM, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addPreferredGap(ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
 					.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(40, Short.MAX_VALUE))
+					.addGap(101))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

@@ -22,10 +22,6 @@
 		<table name="AFICIONADOS">
 		</table>
 	</entity>
-	<entity class="com.entities.Ciudad" access="FIELD">
-		<table name="CIUDADES">
-		</table>
-	</entity>
 	<entity class="com.entities.Casilla" access="FIELD">
 		<table name = "CASILLAS">
 		</table>

@@ -11,7 +11,6 @@ import com.exceptions.ServiciosException;
 @Remote
 public interface InvestigadoresBeanRemote {
 	Investigador crear(Investigador investigador) throws ServiciosException;
-	void actualizar(Investigador investigador) throws ServiciosException;
 	void borrar(Long id) throws ServiciosException;
 	List<Investigador> obtenerTodos();
 	List<Investigador> obtenerTodos(String filtro);
@@ -19,4 +18,5 @@ public interface InvestigadoresBeanRemote {
 	Investigador obtenerPorID(Long id) throws ServiciosException;
 	List<Investigador> obtenerPorFormulario(Long idFormulario);
 	void asignarFormulario(Long idInvestigador, Long idFormulario) throws ServiciosException;
+	Investigador actualizarInvestigador(Investigador investigador) throws ServiciosException;
 }

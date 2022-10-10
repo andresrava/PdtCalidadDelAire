@@ -130,7 +130,8 @@ public class EstacionesDeMedicionBean implements EstacionesDeMedicionBeanRemote 
 	public void asignarCasillaAEM(Long idEstacion, Long idCasilla) throws ServiciosException {
 		try {
 			EstacionDeMedicion estacion = em.find(EstacionDeMedicion.class, idEstacion);
-			Casilla casilla = em.find(Casilla.class, idCasilla);
+			Casilla casilla = new Casilla();
+			casilla = em.find(Casilla.class, idCasilla);
 			estacion.getCasillas().add(casilla);
 			em.flush();
 		} catch(PersistenceException e) {

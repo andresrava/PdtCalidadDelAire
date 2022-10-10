@@ -36,6 +36,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 
 public class VentanaEditaFormulario extends JFrame {
 
@@ -74,12 +75,11 @@ public class VentanaEditaFormulario extends JFrame {
 		VentanaEditaFormulario.usuarioLoged = usuarioLogedRef;
 		VentanaEditaFormulario.formularioAEditar = formularioAEditarRef;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1050, 412);
-		contentPane = new JPanel();
+		setBounds(100, 100, 800, 500);		//Cambié esto para el fondo
+		contentPane = new PaneImage();		//Cambié esto para el fondo decía "content = newJPanel()"
 		contentPane.setBackground(new Color(255, 228, 225));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
 		List<Casilla> lista = new LinkedList<>();
 		if (formularioAEditar.getCasillas() != null)
 			for (Casilla c : formularioAEditar.getCasillas())
@@ -91,12 +91,14 @@ public class VentanaEditaFormulario extends JFrame {
 		JLabel lblNewLabel = new JLabel("Usuario: " + nombreDelUsuario);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre(*):");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textNombre = new JTextField();
 		textNombre.setText(formularioAEditar.getNombre());
 		textNombre.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Casillas:");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JComboBox<Casilla> comboCasillasEnFormulario = new JComboBox();
 		for (Casilla c : lista)
@@ -106,6 +108,7 @@ public class VentanaEditaFormulario extends JFrame {
 		
 		
 		JButton btnQuitar = new JButton("Quitar");
+		btnQuitar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnQuitar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Casilla> listasa = lista;
@@ -119,6 +122,7 @@ public class VentanaEditaFormulario extends JFrame {
 		});
 		
 		JLabel lblResumen = new JLabel("Resumen:");
+		lblResumen.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		textComentarios = new JTextField();
 		textComentarios.setText(formularioAEditar.getResumen());
@@ -128,6 +132,7 @@ public class VentanaEditaFormulario extends JFrame {
 		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		
 		JLabel lblCasillasDisponibles = new JLabel("Casillas disponibles:");
+		lblCasillasDisponibles.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JComboBox<Casilla> comboCasillasDisponibles = new JComboBox();
 		List<Casilla> casillasDisponibles = new LinkedList<Casilla>();
@@ -138,6 +143,7 @@ public class VentanaEditaFormulario extends JFrame {
 		}
 		
 		JButton btnAgregarCasilla = new JButton("Agregar");
+		btnAgregarCasilla.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnAgregarCasilla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -184,12 +190,13 @@ public class VentanaEditaFormulario extends JFrame {
 		panel.setLayout(gl_panel);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				try {
-					VentanaListaFormularios ventanaListaFormularios = new VentanaListaFormularios(usuarioLoged);
+					VentanaListaFormularios ventanaListaFormularios = new VentanaListaFormularios(usuarioLoged, null);
 					ventanaListaFormularios.ventanaListaFormularios();
 				} catch (NamingException e1) {
 					// TODO Auto-generated catch block
@@ -199,6 +206,7 @@ public class VentanaEditaFormulario extends JFrame {
 		});
 		
 		JButton btnCrearFormulario = new JButton("Actualizar");
+		btnCrearFormulario.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnCrearFormulario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -248,23 +256,20 @@ public class VentanaEditaFormulario extends JFrame {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNewLabel)
+								.addComponent(lblNewLabel_4)
+								.addComponent(lblCreador)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(10)
-									.addComponent(lblNewLabel_1)
-									.addGap(84)
-									.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblResumen)
-									.addGap(40)
-									.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(55)
-									.addComponent(lblNewLabel_4)
-									.addGap(4)
-									.addComponent(comboCasillasEnFormulario, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblCreador))
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblResumen)
+										.addComponent(lblNewLabel_1))
+									.addGap(27)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+											.addComponent(comboCasillasEnFormulario, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE)
+											.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)))))
 							.addGap(18)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 390, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(282)
 							.addComponent(btnQuitar, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE))
@@ -273,7 +278,7 @@ public class VentanaEditaFormulario extends JFrame {
 							.addComponent(btnVolver, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
 							.addGap(190)
 							.addComponent(btnCrearFormulario, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))
-					.addGap(159))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -284,10 +289,8 @@ public class VentanaEditaFormulario extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblCreador)
 							.addGap(27)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(3)
-									.addComponent(lblNewLabel_1))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNewLabel_1)
 								.addComponent(textNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -296,10 +299,8 @@ public class VentanaEditaFormulario extends JFrame {
 									.addComponent(lblResumen))
 								.addComponent(textComentarios, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
 							.addGap(32)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(4)
-									.addComponent(lblNewLabel_4))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNewLabel_4)
 								.addComponent(comboCasillasEnFormulario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(11)
